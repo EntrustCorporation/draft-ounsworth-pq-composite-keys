@@ -240,9 +240,8 @@ Internet-Draft             PQ Composite Certs              February 2021
    and a private key.  Additional encoding information is provided below
    for each of these objects.
 
-   id-pk-composite OBJECT IDENTIFIER ::= {
-       iso(1)  identified-organization(3) dod(6) internet(1) private(4)
-       enterprise(1) OpenCA(18227) Algorithms(2) id-alg-composite(1) }
+id-composite-key OBJECT IDENTIFIER ::= {
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) CompositeKey(4) }
 
    EDNOTE 3: this is a temporary OID for the purposes of prototyping.
    We are requesting IANA to assign a permanent OID, see Section 4.
@@ -274,6 +273,7 @@ Internet-Draft             PQ Composite Certs              February 2021
    with the public key, any key usage may be used with Composite keys,
    with the requirement that the specified key usage MUST apply to all
    component keys.  For example if a Composite key is marked with a
+   KeyUsage of digitalSignature, then all component keys MUST be capable
 
 
 
@@ -282,7 +282,6 @@ Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 5]
 Internet-Draft             PQ Composite Certs              February 2021
 
 
-   KeyUsage of digitalSignature, then all component keys MUST be capable
    of producing digital signatures. id-alg-composite MUST NOT be used to
    implement mixed-usage keys, for example, where a digitalSignature and
    a keyEncipherment key are combined together into a single Composite
@@ -327,6 +326,7 @@ Internet-Draft             PQ Composite Certs              February 2021
    A CompositePrivateKey MUST contain at least one component private
    key, and they MUST be in the same order as in the corresponding
    CompositePublicKey.
+
 
 
 

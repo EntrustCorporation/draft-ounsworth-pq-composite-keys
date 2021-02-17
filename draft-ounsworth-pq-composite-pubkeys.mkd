@@ -159,9 +159,8 @@ EDNOTE1: need a a public key OID that's distinct from the composite sig alg OID.
 The same algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects.
 
 ~~~ asn.1
-id-pk-composite OBJECT IDENTIFIER ::= {
-    iso(1)  identified-organization(3) dod(6) internet(1) private(4)
-    enterprise(1) OpenCA(18227) Algorithms(2) id-alg-composite(1) }
+id-composite-key OBJECT IDENTIFIER ::= {
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) CompositeKey(4) }
 ~~~
 
 EDNOTE 3: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
