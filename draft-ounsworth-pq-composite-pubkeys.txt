@@ -241,7 +241,7 @@ Internet-Draft             PQ Composite Certs              February 2021
    for each of these objects.
 
 id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) CompositeKey(4) }
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) CompositeKey(1) }
 
    EDNOTE 3: this is a temporary OID for the purposes of prototyping.
    We are requesting IANA to assign a permanent OID, see Section 4.
