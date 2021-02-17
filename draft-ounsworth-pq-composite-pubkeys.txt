@@ -93,14 +93,14 @@ Table of Contents
      5.1.  Policy for Deprecated and Acceptable Algorithms . . . . .   9
      5.2.  Protection of Private Keys  . . . . . . . . . . . . . . .  10
      5.3.  Checking for Compromised Key Reuse  . . . . . . . . . . .  10
-     5.4.  Composite Encryption and KEMs . . . . . . . . . . . . . .  10
-   6.  Appendices  . . . . . . . . . . . . . . . . . . . . . . . . .  11
-     6.1.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . .  11
+   6.  Appendices  . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     6.1.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . .  10
      6.2.  Intellectual Property Considerations  . . . . . . . . . .  12
    7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  12
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  14
+     7.1.  Making contributions  . . . . . . . . . . . . . . . . . .  12
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  12
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  13
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
 
 
@@ -234,13 +234,13 @@ Internet-Draft             PQ Composite Certs              February 2021
 2.1.  Algorithm Identifier
 
    EDNOTE1: need a a public key OID that's distinct from the composite
-   sig alg OID.
+   sig alg OID.  Register an OID in the Entrust registry?
 
    The same algorithm identifier is used for identifying a public key
    and a private key.  Additional encoding information is provided below
    for each of these objects.
 
-   id-alg-composite OBJECT IDENTIFIER ::= {
+   id-pk-composite OBJECT IDENTIFIER ::= {
        iso(1)  identified-organization(3) dod(6) internet(1) private(4)
        enterprise(1) OpenCA(18227) Algorithms(2) id-alg-composite(1) }
 
@@ -543,25 +543,6 @@ Internet-Draft             PQ Composite Certs              February 2021
    when marking a key as revoked for key compromise, the individual
    component keys should be marked, not the composite key as a whole.
 
-5.4.  Composite Encryption and KEMs
-
-   This document deals only with signature keys.  While the
-   CompositePublicKey and CompositePrivateKey structures could equally
-   be used to hold encryption or KEM keys, the authors warn that there
-   are non-trivial design decisions to be made when constructing a
-   multi-key public key encryption or KEM algorithm.  Some of these
-   design and implementation decisions, if done incorrectly will result
-   in a catastrophic loss of security.  We leave it to the community to
-   standardize analogous composite encryption and KEM schemes.
-
-
-
-
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 10]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
 6.  Appendices
 
 6.1.  ASN.1 Module
@@ -572,6 +553,14 @@ Internet-Draft             PQ Composite Certs              February 2021
      { TBD }
 
    DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+
+
+
+Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 10]
+
+Internet-Draft             PQ Composite Certs              February 2021
+
 
    EXPORTS ALL;
 
@@ -608,16 +597,6 @@ Internet-Draft             PQ Composite Certs              February 2021
        IDENTIFIER id-alg-composite
        KEY CompositePublicKey
        PARAMS ARE absent
-       CERT-KEY-USAGE
-           { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
-
-
-
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 11]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
        PRIVATE-KEY CompositePrivateKey
    }
 
@@ -625,24 +604,18 @@ Internet-Draft             PQ Composite Certs              February 2021
 
    CompositePrivateKey ::= SEQUENCE SIZE (1..MAX) OF OneAsymmetricKey
 
-   --
-   -- Signature Algorithm
-   --
-
-   sa-CompositeSignature SIGNATURE-ALGORITHM ::= {
-       IDENTIFIER id-alg-composite
-       VALUE CompositeSignatureValue
-       PARAMS TYPE CompositeParams ARE required
-       PUBLIC-KEYS { pk-Composite }
-       SMIME-CAPS { IDENTIFIED BY id-alg-composite } }
-
-   CompositeParams ::= SEQUENCE SIZE (1..MAX) OF AlgorithmIdentifier
-
-   CompositeSignatureValue ::= SEQUENCE SIZE (1..MAX) OF BIT STRING
 
    END
 
    <CODE ENDS>
+
+
+
+
+
+Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 11]
+
+Internet-Draft             PQ Composite Certs              February 2021
 
 
 6.2.  Intellectual Property Considerations
@@ -667,17 +640,18 @@ Internet-Draft             PQ Composite Certs              February 2021
    We are grateful to all, including any contributors who may have been
    inadvertently omitted from this list.
 
-
-
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 12]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
    This document borrows text from similar documents, including those
    referenced below.  Thanks go to the authors of those documents.
    "Copying always makes things easier and less error prone" -
    [RFC8411].
+
+7.1.  Making contributions
+
+   Additional contributions to this draft are weclome.  Please see the
+   working copy of this draft at, as well as open issues at:
+
+   https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-
+   pubkeys
 
 8.  References
 
@@ -692,6 +666,13 @@ Internet-Draft             PQ Composite Certs              February 2021
               Request Syntax Specification Version 1.7", RFC 2986,
               DOI 10.17487/RFC2986, November 2000,
               <https://www.rfc-editor.org/info/rfc2986>.
+
+
+
+Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 12]
+
+Internet-Draft             PQ Composite Certs              February 2021
+
 
    [RFC4210]  Adams, C., Farrell, S., Kause, T., and T. Mononen,
               "Internet X.509 Public Key Infrastructure Certificate
@@ -721,15 +702,6 @@ Internet-Draft             PQ Composite Certs              February 2021
               PKCS, and CMS Structures", RFC 7468, DOI 10.17487/RFC7468,
               April 2015, <https://www.rfc-editor.org/info/rfc7468>.
 
-
-
-
-
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 13]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -751,6 +723,13 @@ Internet-Draft             PQ Composite Certs              February 2021
               pala-composite-crypto-00 (work in progress), February
               2019.
 
+
+
+Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 13]
+
+Internet-Draft             PQ Composite Certs              February 2021
+
+
 Authors' Addresses
 
    Mike Ounsworth
@@ -766,6 +745,27 @@ Authors' Addresses
    CableLabs
 
    Email: director@openca.org
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

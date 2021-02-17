@@ -154,12 +154,12 @@ EDNOTE 2: We have heard community feedback that the ASN.1 structures presented h
 ## Algorithm Identifier {#sec-alg-identifier}
 
 
-EDNOTE1: need a a public key OID that's distinct from the composite sig alg OID.
+EDNOTE1: need a a public key OID that's distinct from the composite sig alg OID. Register an OID in the Entrust registry?
 
 The same algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects.
 
 ~~~ asn.1
-id-alg-composite OBJECT IDENTIFIER ::= {
+id-pk-composite OBJECT IDENTIFIER ::= {
     iso(1)  identified-organization(3) dod(6) internet(1) private(4)
     enterprise(1) OpenCA(18227) Algorithms(2) id-alg-composite(1) }
 ~~~
@@ -335,10 +335,6 @@ Protection of the private keys is vital to public key cryptography. The conseque
 CA implementations need to be careful when checking for compromised key reuse, for example as required by WebTrust regulations; when checking for compromised keys, you MUST unpack the CompositePublicKey structure and compare individual component keys. In other words, when marking a key as revoked for key compromise, the individual component keys should be marked, not the composite key as a whole.
 
 
-## Composite Encryption and KEMs
-
-This document deals only with signature keys. While the CompositePublicKey and CompositePrivateKey structures could equally be used to hold encryption or KEM keys, the authors warn that there are non-trivial design decisions to be made when constructing a multi-key public key encryption or KEM algorithm. Some of these design and implementation decisions, if done incorrectly will result in a catastrophic loss of security. We leave it to the community to standardize analogous composite encryption and KEM schemes.
-
 
 
 <!-- End of Security Considerations section -->
@@ -391,8 +387,6 @@ pk-Composite PUBLIC-KEY ::= {
     IDENTIFIER id-alg-composite
     KEY CompositePublicKey
     PARAMS ARE absent
-    CERT-KEY-USAGE
-        { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
     PRIVATE-KEY CompositePrivateKey
 }
 
@@ -400,20 +394,6 @@ CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
 
 CompositePrivateKey ::= SEQUENCE SIZE (1..MAX) OF OneAsymmetricKey
 
---
--- Signature Algorithm
---
-
-sa-CompositeSignature SIGNATURE-ALGORITHM ::= {
-    IDENTIFIER id-alg-composite
-    VALUE CompositeSignatureValue
-    PARAMS TYPE CompositeParams ARE required
-    PUBLIC-KEYS { pk-Composite }
-    SMIME-CAPS { IDENTIFIED BY id-alg-composite } }
-
-CompositeParams ::= SEQUENCE SIZE (1..MAX) OF AlgorithmIdentifier
-
-CompositeSignatureValue ::= SEQUENCE SIZE (1..MAX) OF BIT STRING
 
 END
 
@@ -444,5 +424,12 @@ been inadvertently omitted from this list.
 
 This document borrows text from similar documents, including those referenced below. Thanks go to the authors of those
    documents.  "Copying always makes things easier and less error prone" - [RFC8411].
+
+## Making contributions
+
+Additional contributions to this draft are weclome. Please see the working copy of this draft at, as well as open issues at:
+
+https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-pubkeys
+
 
 <!-- End of Contributors section -->
