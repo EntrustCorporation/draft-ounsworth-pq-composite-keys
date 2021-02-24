@@ -177,6 +177,8 @@ pk-Composite PUBLIC-KEY ::= {
     KEY CompositePublicKey
     PARAMS ARE absent
     PRIVATE-KEY CompositePrivateKey
+    CERT-KEY-USAGE { digitalSignature, nonRepudiation, keyAgreement,
+                         keyCertSign, cRLSign }
 }
 ~~~
 {: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
@@ -184,7 +186,7 @@ pk-Composite PUBLIC-KEY ::= {
 
 EDNOTE 4: the authors are currently unsure whether the params should be absent (ie this structure simply says "I am a composite algorithm"), or used to duplicate some amount of information about what the component algoritms are. See {{sec-composite-pub-keys}} for a longer ENDOTE on this.
 
-### Key Usage Bits
+### Key Usage
 
 For protocols such as X.509 [RFC5280] that specify key usage along with the public key, any key usage may be used with Composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a Composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. id-alg-composite MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single Composite key object.
 

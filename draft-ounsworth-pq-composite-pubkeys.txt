@@ -5,8 +5,8 @@
 LAMPS                                              M. Ounsworth (Editor)
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                                 M. Pala
-Expires: August 21, 2021                                       CableLabs
-                                                       February 17, 2021
+Expires: August 28, 2021                                       CableLabs
+                                                       February 24, 2021
 
 
        Composite Public and Private Keys For Use In Internet PKI
@@ -48,12 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 21, 2021.
+   This Internet-Draft will expire on August 28, 2021.
 
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 1]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 1]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -80,7 +80,7 @@ Table of Contents
    2.  Composite Structures  . . . . . . . . . . . . . . . . . . . .   4
      2.1.  Algorithm Identifier  . . . . . . . . . . . . . . . . . .   5
      2.2.  Composite Keys  . . . . . . . . . . . . . . . . . . . . .   5
-       2.2.1.  Key Usage Bits  . . . . . . . . . . . . . . . . . . .   5
+       2.2.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   5
      2.3.  Composite Public Key  . . . . . . . . . . . . . . . . . .   6
      2.4.  Composite Private Key . . . . . . . . . . . . . . . . . .   6
      2.5.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .   7
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 2]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 2]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -165,7 +165,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 3]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 3]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -221,7 +221,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 4]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 4]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -259,6 +259,8 @@ id-composite-key OBJECT IDENTIFIER ::= {
        KEY CompositePublicKey
        PARAMS ARE absent
        PRIVATE-KEY CompositePrivateKey
+       CERT-KEY-USAGE { digitalSignature, nonRepudiation, keyAgreement,
+                            keyCertSign, cRLSign }
    }
 
    EDNOTE 4: the authors are currently unsure whether the params should
@@ -267,21 +269,21 @@ id-composite-key OBJECT IDENTIFIER ::= {
    what the component algoritms are.  See Section 2.3 for a longer
    ENDOTE on this.
 
-2.2.1.  Key Usage Bits
+2.2.1.  Key Usage
 
    For protocols such as X.509 [RFC5280] that specify key usage along
    with the public key, any key usage may be used with Composite keys,
    with the requirement that the specified key usage MUST apply to all
-   component keys.  For example if a Composite key is marked with a
-   KeyUsage of digitalSignature, then all component keys MUST be capable
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 5]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 5]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
 
+   component keys.  For example if a Composite key is marked with a
+   KeyUsage of digitalSignature, then all component keys MUST be capable
    of producing digital signatures. id-alg-composite MUST NOT be used to
    implement mixed-usage keys, for example, where a digitalSignature and
    a keyEncipherment key are combined together into a single Composite
@@ -331,9 +333,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-
-
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 6]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 6]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -389,7 +389,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 7]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 7]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -445,7 +445,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 8]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 8]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -501,7 +501,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021                [Page 9]
+Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 9]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -557,7 +557,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 10]
+Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 10]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -613,7 +613,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 11]
+Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 11]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -669,7 +669,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 12]
+Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 12]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -725,7 +725,7 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 13]
+Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 13]
 
 Internet-Draft             PQ Composite Certs              February 2021
 
@@ -781,4 +781,4 @@ Authors' Addresses
 
 
 
-Ounsworth (Editor) & PalaExpires August 21, 2021               [Page 14]
+Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 14]
