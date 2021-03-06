@@ -153,10 +153,13 @@ EDNOTE 2: We have heard community feedback that the ASN.1 structures presented h
 
 ## Algorithm Identifier {#sec-alg-identifier}
 
+### Composite Public Key
 
-EDNOTE1: need a a public key OID that's distinct from the composite sig alg OID. Register an OID in the Entrust registry?
+The same algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
 
-The same algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects.
+When using this algorithm identifier it is implied that all component keys MUST be used in an AND relation; any cryptographic operation using this composite public key MUST use the it as an atomic object and use all component keys. This mode has the strongest security properties and is RECOMMENDED. 
+
+There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used in isolation and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated.
 
 ~~~ asn.1
 id-composite-key OBJECT IDENTIFIER ::= {
@@ -164,6 +167,17 @@ id-composite-key OBJECT IDENTIFIER ::= {
 ~~~
 
 EDNOTE 3: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+### Composite-OR Public Key
+
+The same algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
+
+When using this algorithm identifier, component keys may be used in an OR relation meaning that any one of the component keys may be used by itself. Implementors may also define more complex processes and policies using this algorithm identifier, for expmple allowing some algorithms by themselves and others only in combination. This mode is provided for applications that need to issue long-lived composite keys in a way that allows for backwards compatibility or staged adoption of new algorithms.
+
+~~~ asn.1
+id-composite-or-key OBJECT IDENTIFIER ::= {
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) entrust-Algorithm-Composite-OR(3) }
+~~~
 
 ## Composite Keys
 
@@ -307,6 +321,10 @@ id-alg-composite OBJECT IDENTIFIER ::= {
 
 # Security Considerations
 
+## Reuse of keys in a Composite public key
+
+There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used in isolation and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated. Note that protocols allowing public keys using the Composite-OR algorithm identifier will have a more difficult time preventing downgrade and stripping attacks and therefore it is RECOMMENDED to use the default AND mode unless the application has a strong need for backwards compatability and migration.
+
 ## Policy for Deprecated and Acceptable Algorithms
 
 Traditionally, a public key, certificate, or signature contains a single cryptographic algorithm. If and when an algorithm becomes deprecated (for example, RSA-512, or SHA1), it is obvious that structures using that algorithm are implicitly revoked.
@@ -324,6 +342,8 @@ Specifying a modified verification algorithm to handle these situations is beyon
 ~~~
 
 While intentionally not specified in this document, implementors should put careful thought into implementing a meaningfull policy mechinism within the context of their signature verification engines, for example only algorithms that provide similar security levels should be combined together.
+
+EDNOTE 11: Max is working on a CRL mechanism to accomplish this.
 
 ## Protection of Private Keys
 

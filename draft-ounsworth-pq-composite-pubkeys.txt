@@ -5,8 +5,8 @@
 LAMPS                                              M. Ounsworth (Editor)
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                                 M. Pala
-Expires: August 28, 2021                                       CableLabs
-                                                       February 24, 2021
+Expires: September 7, 2021                                     CableLabs
+                                                          March 06, 2021
 
 
        Composite Public and Private Keys For Use In Internet PKI
@@ -48,14 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 28, 2021.
+   This Internet-Draft will expire on September 7, 2021.
 
 
 
 
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 1]
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 1]
 
-Internet-Draft             PQ Composite Certs              February 2021
+Internet-Draft             PQ Composite Certs                 March 2021
 
 
 Copyright Notice
@@ -79,39 +79,39 @@ Table of Contents
      1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Composite Structures  . . . . . . . . . . . . . . . . . . . .   4
      2.1.  Algorithm Identifier  . . . . . . . . . . . . . . . . . .   5
-     2.2.  Composite Keys  . . . . . . . . . . . . . . . . . . . . .   5
-       2.2.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   5
+       2.1.1.  Composite Public Key  . . . . . . . . . . . . . . . .   5
+       2.1.2.  Composite-OR Public Key . . . . . . . . . . . . . . .   5
+     2.2.  Composite Keys  . . . . . . . . . . . . . . . . . . . . .   6
+       2.2.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   6
      2.3.  Composite Public Key  . . . . . . . . . . . . . . . . . .   6
-     2.4.  Composite Private Key . . . . . . . . . . . . . . . . . .   6
+     2.4.  Composite Private Key . . . . . . . . . . . . . . . . . .   7
      2.5.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .   7
-   3.  In Practice . . . . . . . . . . . . . . . . . . . . . . . . .   7
+   3.  In Practice . . . . . . . . . . . . . . . . . . . . . . . . .   8
      3.1.  PEM Storage of Composite Private Keys . . . . . . . . . .   8
      3.2.  Asymmetric Key Packages (CMS) . . . . . . . . . . . . . .   8
-     3.3.  Cryptographic protocols . . . . . . . . . . . . . . . . .   8
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
-     5.1.  Policy for Deprecated and Acceptable Algorithms . . . . .   9
-     5.2.  Protection of Private Keys  . . . . . . . . . . . . . . .  10
-     5.3.  Checking for Compromised Key Reuse  . . . . . . . . . . .  10
-   6.  Appendices  . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     6.1.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . .  10
-     6.2.  Intellectual Property Considerations  . . . . . . . . . .  12
-   7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  12
-     7.1.  Making contributions  . . . . . . . . . . . . . . . . . .  12
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  12
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  13
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
+     3.3.  Cryptographic protocols . . . . . . . . . . . . . . . . .   9
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+     5.1.  Reuse of keys in a Composite public key . . . . . . . . .  10
+     5.2.  Policy for Deprecated and Acceptable Algorithms . . . . .  10
+     5.3.  Protection of Private Keys  . . . . . . . . . . . . . . .  11
+     5.4.  Checking for Compromised Key Reuse  . . . . . . . . . . .  11
+   6.  Appendices  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     6.1.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . .  11
+     6.2.  Intellectual Property Considerations  . . . . . . . . . .  13
+   7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  13
+     7.1.  Making contributions  . . . . . . . . . . . . . . . . . .  13
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  14
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 
 
 
-
-
-
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 2]
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 2]
 
-Internet-Draft             PQ Composite Certs              February 2021
+Internet-Draft             PQ Composite Certs                 March 2021
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 3]
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 3]
 
-Internet-Draft             PQ Composite Certs              February 2021
+Internet-Draft             PQ Composite Certs                 March 2021
 
 
    concerned with algorithms for producing digital signatures, though
@@ -221,9 +221,9 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 4]
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 4]
 
-Internet-Draft             PQ Composite Certs              February 2021
+Internet-Draft             PQ Composite Certs                 March 2021
 
 
    preferred.  See slide 30 of this presentation:
@@ -233,18 +233,54 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 2.1.  Algorithm Identifier
 
-   EDNOTE1: need a a public key OID that's distinct from the composite
-   sig alg OID.  Register an OID in the Entrust registry?
+2.1.1.  Composite Public Key
 
    The same algorithm identifier is used for identifying a public key
    and a private key.  Additional encoding information is provided below
    for each of these objects.
+
+   When using this algorithm identifier it is implied that all component
+   keys MUST be used in an AND relation; any cryptographic operation
+   using this composite public key MUST use the it as an atomic object
+   and use all component keys.  This mode has the strongest security
+   properties and is RECOMMENDED.
+
+   There is an additional security consideration that some use cases
+   such as signatures remain secure against downgrade attacks if and
+   only if component keys are never used in isolation and therefore it
+   is RECOMMENDED that component keys in a composite key are uniquely
+   generated.
 
 id-composite-key OBJECT IDENTIFIER ::= {
     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) CompositeKey(1) }
 
    EDNOTE 3: this is a temporary OID for the purposes of prototyping.
    We are requesting IANA to assign a permanent OID, see Section 4.
+
+2.1.2.  Composite-OR Public Key
+
+   The same algorithm identifier is used for identifying a public key
+   and a private key.  Additional encoding information is provided below
+   for each of these objects.
+
+   When using this algorithm identifier, component keys may be used in
+   an OR relation meaning that any one of the component keys may be used
+   by itself.  Implementors may also define more complex processes and
+   policies using this algorithm identifier, for expmple allowing some
+   algorithms by themselves and others only in combination.  This mode
+   is provided for applications that need to issue long-lived composite
+   keys in a way that allows for backwards compatibility or staged
+   adoption of new algorithms.
+
+id-composite-or-key OBJECT IDENTIFIER ::= {
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) entrust-Algorithm-Composite-OR(3) }
+
+
+
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 5]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
 
 2.2.  Composite Keys
 
@@ -274,14 +310,6 @@ id-composite-key OBJECT IDENTIFIER ::= {
    For protocols such as X.509 [RFC5280] that specify key usage along
    with the public key, any key usage may be used with Composite keys,
    with the requirement that the specified key usage MUST apply to all
-
-
-
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 5]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
    component keys.  For example if a Composite key is marked with a
    KeyUsage of digitalSignature, then all component keys MUST be capable
    of producing digital signatures. id-alg-composite MUST NOT be used to
@@ -301,6 +329,14 @@ Internet-Draft             PQ Composite Certs              February 2021
 
    A composite public key MUST contain at least one component public
    key.
+
+
+
+
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 6]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
 
    A CompositePublicKey MUST NOT contain a component public key which
    itself describes a composite key; ie recursive CompositePublicKeys
@@ -329,15 +365,6 @@ Internet-Draft             PQ Composite Certs              February 2021
    key, and they MUST be in the same order as in the corresponding
    CompositePublicKey.
 
-
-
-
-
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 6]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
 2.5.  Encoding Rules
 
    Many protocol specifications will require that the composite public
@@ -356,6 +383,16 @@ Internet-Draft             PQ Composite Certs              February 2021
    In the interests of simplicity and avoiding compatibility issues,
    implementations that parse these structures MAY accept both BER and
    DER.
+
+
+
+
+
+
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 7]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
 
 3.  In Practice
 
@@ -387,13 +424,6 @@ Internet-Draft             PQ Composite Certs              February 2021
 
    ~~~ END EDNOTE 10~~~
 
-
-
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 7]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
 3.1.  PEM Storage of Composite Private Keys
 
    CompositePrivateKeys can be encoded to the PEM format by placing a
@@ -410,6 +440,15 @@ Internet-Draft             PQ Composite Certs              February 2021
 
    When encoding composite private keys, the privateKeyAlgorithm in the
    OneAsymmetricKey SHALL be set to id-alg-composite.
+
+
+
+
+
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 8]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
 
    The parameters of the privateKeyAlgorithm SHALL be a sequence of
    AlgorithmIdentifier objects, each of which are encoded according to
@@ -441,15 +480,6 @@ Internet-Draft             PQ Composite Certs              February 2021
       TLS has hooks for declaring support for specific signature
       algorithms, however it would need to be extended, because the
       client would need to declare support for both the composite
-
-
-
-
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 8]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
       infrastructure, as well as for the various component signature
       algorithms.
 
@@ -466,6 +496,16 @@ Internet-Draft             PQ Composite Certs              February 2021
       encoding composite ciphertexts is less so - we decided to put that
       off to another draft.
 
+
+
+
+
+
+Ounsworth (Editor) & PalExpires September 7, 2021               [Page 9]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
+
 4.  IANA Considerations
 
    The ASN.1 module OID is TBD.  The id-alg-composite OID is to be
@@ -478,7 +518,19 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 5.  Security Considerations
 
-5.1.  Policy for Deprecated and Acceptable Algorithms
+5.1.  Reuse of keys in a Composite public key
+
+   There is an additional security consideration that some use cases
+   such as signatures remain secure against downgrade attacks if and
+   only if component keys are never used in isolation and therefore it
+   is RECOMMENDED that component keys in a composite key are uniquely
+   generated.  Note that protocols allowing public keys using the
+   Composite-OR algorithm identifier will have a more difficult time
+   preventing downgrade and stripping attacks and therefore it is
+   RECOMMENDED to use the default AND mode unless the application has a
+   strong need for backwards compatability and migration.
+
+5.2.  Policy for Deprecated and Acceptable Algorithms
 
    Traditionally, a public key, certificate, or signature contains a
    single cryptographic algorithm.  If and when an algorithm becomes
@@ -497,20 +549,18 @@ Internet-Draft             PQ Composite Certs              February 2021
    as the subject of an application profile document, or to be up to the
    discretion of implementers.
 
-
-
-
-
-Ounsworth (Editor) & PalaExpires August 28, 2021                [Page 9]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
    2. Check policy to see whether A1, A2, ..., An constitutes a valid
       combination of algorithms.
 
       if not checkPolicy(A1, A2, ..., An), then
         output "Invalid signature"
+
+
+
+Ounsworth (Editor) & PalExpires September 7, 2021              [Page 10]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
 
    While intentionally not specified in this document, implementors
    should put careful thought into implementing a meaningfull policy
@@ -518,7 +568,9 @@ Internet-Draft             PQ Composite Certs              February 2021
    for example only algorithms that provide similar security levels
    should be combined together.
 
-5.2.  Protection of Private Keys
+   EDNOTE 11: Max is working on a CRL mechanism to accomplish this.
+
+5.3.  Protection of Private Keys
 
    Structures described in this document do not protect private keys in
    any way unless combined with a security protocol or encryption
@@ -534,7 +586,7 @@ Internet-Draft             PQ Composite Certs              February 2021
    encryption process must be at least as 'strong' as the key it is
    protecting.
 
-5.3.  Checking for Compromised Key Reuse
+5.4.  Checking for Compromised Key Reuse
 
    CA implementations need to be careful when checking for compromised
    key reuse, for example as required by WebTrust regulations; when
@@ -554,18 +606,18 @@ Internet-Draft             PQ Composite Certs              February 2021
 
    DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
-
-
-
-Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 10]
-
-Internet-Draft             PQ Composite Certs              February 2021
-
-
    EXPORTS ALL;
 
    IMPORTS
      PUBLIC-KEY, SIGNATURE-ALGORITHM
+
+
+
+Ounsworth (Editor) & PalExpires September 7, 2021              [Page 11]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
+
        FROM AlgorithmInformation-2009  -- RFC 5912 [X509ASN1]
          { iso(1) identified-organization(3) dod(6) internet(1)
            security(5) mechanisms(5) pkix(7) id-mod(0)
@@ -613,9 +665,13 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 11]
+
+
+
+
+Ounsworth (Editor) & PalExpires September 7, 2021              [Page 12]
 
-Internet-Draft             PQ Composite Certs              February 2021
+Internet-Draft             PQ Composite Certs                 March 2021
 
 
 6.2.  Intellectual Property Considerations
@@ -669,9 +725,9 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 12]
+Ounsworth (Editor) & PalExpires September 7, 2021              [Page 13]
 
-Internet-Draft             PQ Composite Certs              February 2021
+Internet-Draft             PQ Composite Certs                 March 2021
 
 
    [RFC4210]  Adams, C., Farrell, S., Kause, T., and T. Mononen,
@@ -725,9 +781,9 @@ Internet-Draft             PQ Composite Certs              February 2021
 
 
 
-Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 13]
+Ounsworth (Editor) & PalExpires September 7, 2021              [Page 14]
 
-Internet-Draft             PQ Composite Certs              February 2021
+Internet-Draft             PQ Composite Certs                 March 2021
 
 
 Authors' Addresses
@@ -781,4 +837,4 @@ Authors' Addresses
 
 
 
-Ounsworth (Editor) & PalaExpires August 28, 2021               [Page 14]
+Ounsworth (Editor) & PalExpires September 7, 2021              [Page 15]
