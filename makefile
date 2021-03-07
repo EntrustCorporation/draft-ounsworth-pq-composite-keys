@@ -1,5 +1,5 @@
 
-docName = draft-ounsworth-pq-composite-pubkeys
+docName = draft-ounsworth-pq-composite-keys
 
 
 default: all
