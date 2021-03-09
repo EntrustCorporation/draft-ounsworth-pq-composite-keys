@@ -191,8 +191,6 @@ pk-Composite PUBLIC-KEY ::= {
     KEY CompositePublicKey
     PARAMS ARE absent
     PRIVATE-KEY CompositePrivateKey
-    CERT-KEY-USAGE { digitalSignature, nonRepudiation, keyAgreement,
-                         keyCertSign, cRLSign }
 }
 ~~~
 {: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
