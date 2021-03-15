@@ -93,7 +93,7 @@ The deployment of composite public keys and composite signatures using post-quan
 
 This document provides a mechanism to address algorithm strength uncertainty by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields.
 
-This document is intended for general applicability anywhere that public key structures or digital signatures are used within PKIX structures.
+This document is intended for general applicability anywhere that public keys are used within PKIX or CMS structures.
 
 
 <!-- End of Introduction section -->
@@ -136,7 +136,7 @@ PRIMITIVE PUBLIC KEY:
 
 
 # Composite Structures {#sec-composite-structs}
-In order for public keys and signatures to be composed of multiple algorithms, we define encodings consisting of a sequence of public key and signature primitives (aka "component algorithms") such that these structures can be used as a drop-in replacement for existing public key or signature fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652].
+In order for public keys to be composed of multiple algorithms, we define encodings consisting of a sequence of public key primitives (aka "component algorithms") such that these structures can be used as a drop-in replacement for existing public key fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652].
 
 This section defines the following structures:
 
@@ -155,7 +155,7 @@ EDNOTE 2: We have heard community feedback that the ASN.1 structures presented h
 
 ### Composite Public Key
 
-The same algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
+The Composite algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
 
 When using this algorithm identifier it is implied that all component keys MUST be used in an AND relation; any cryptographic operation using this composite public key MUST use the it as an atomic object and use all component keys. This mode has the strongest security properties and is RECOMMENDED. 
 
@@ -170,9 +170,9 @@ EDNOTE 3: this is a temporary OID for the purposes of prototyping. We are reques
 
 ### Composite-OR Public Key
 
-The same algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
+The Composite-OR algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
 
-When using this algorithm identifier, component keys may be used in an OR relation meaning that any one of the component keys may be used by itself. Implementors may also define more complex processes and policies using this algorithm identifier, for expmple allowing some algorithms by themselves and others only in combination. This mode is provided for applications that need to issue long-lived composite keys in a way that allows for backwards compatibility or staged adoption of new algorithms.
+When using this algorithm identifier, component keys MAY be used in an OR relation meaning that any one of the component keys may be used by itself. Implementors may also define more complex processes and policies using this algorithm identifier, for expmple allowing some algorithms by themselves and others only in combination. This mode is provided for applications that need to issue long-lived composite keys in a way that allows for backwards compatibility or staged adoption of new algorithms.
 
 ~~~ asn.1
 id-composite-or-key OBJECT IDENTIFIER ::= {
