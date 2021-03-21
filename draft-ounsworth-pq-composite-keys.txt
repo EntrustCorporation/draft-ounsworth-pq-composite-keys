@@ -55,7 +55,7 @@ Status of This Memo
 
 Ounsworth (Editor) & PaExpires September 22, 2021               [Page 1]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
 
 Copyright Notice
@@ -111,7 +111,7 @@ Table of Contents
 
 Ounsworth (Editor) & PaExpires September 22, 2021               [Page 2]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
 
 1.  Introduction
@@ -160,18 +160,15 @@ Internet-Draft             PQ Composite Certs                 March 2021
    The following terms are used in this document:
 
    ALGORITHM: An information object class for identifying the type of
-   cryptographic operation to be performed.  This document is primarily
+   cryptographic key being encapsulated.
 
 
 
 
 Ounsworth (Editor) & PaExpires September 22, 2021               [Page 3]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
-
-   concerned with algorithms for producing digital signatures, though
-   the public key structure could just as easily hold encryption keys.
 
    BER: Basic Encoding Rules (BER) as defined in [X.690].
 
@@ -185,9 +182,6 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
    PUBLIC / PRIVATE KEY: The public and private portion of an asymmetric
    cryptographic key, making no assumptions about which algorithm.
-
-   PRIMITIVE PUBLIC KEY: A public key or signature object of a non-
-   composite algorithm type.
 
 2.  Composite Structures
 
@@ -218,18 +212,19 @@ Internet-Draft             PQ Composite Certs                 March 2021
    are working on an alternative formulation using ASN.1 information
    object classes that allow for compiling explicit pairs of
    algorithmIDs.  We would love community feedback on which approach is
+   preferred.  See slide 30 of this presentation:
+   https://datatracker.ietf.org/meeting/interim-2021-lamps-01/materials/
+   slides-interim-2021-lamps-01-sessa-position-presentation-by-mike-
+   ounsworth-00.pdf
+
+
 
 
 
 Ounsworth (Editor) & PaExpires September 22, 2021               [Page 4]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
-
-   preferred.  See slide 30 of this presentation:
-   https://datatracker.ietf.org/meeting/interim-2021-lamps-01/materials/
-   slides-interim-2021-lamps-01-sessa-position-presentation-by-mike-
-   ounsworth-00.pdf
 
 2.1.  Algorithm Identifier
 
@@ -274,18 +269,18 @@ id-composite-key OBJECT IDENTIFIER ::= {
    an OR relation meaning that any one of the component keys may be used
    by itself.  Implementors may also define more complex processes and
    policies using this algorithm identifier, for expmple allowing some
+   algorithms by themselves and others only in combination.  This mode
+   is provided for applications that need to issue long-lived composite
+   keys in a way that allows for backwards compatibility or staged
+   adoption of new algorithms.
+
 
 
 
 Ounsworth (Editor) & PaExpires September 22, 2021               [Page 5]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
-
-   algorithms by themselves and others only in combination.  This mode
-   is provided for applications that need to issue long-lived composite
-   keys in a way that allows for backwards compatibility or staged
-   adoption of new algorithms.
 
 id-composite-or-key OBJECT IDENTIFIER ::= {
     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) entrust-Algorithm-Composite-OR(3) }
@@ -327,16 +322,7 @@ id-composite-or-key OBJECT IDENTIFIER ::= {
 
    Composite public key data is represented by the following structure:
 
-   CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
-
-
-
-
-
-Ounsworth (Editor) & PaExpires September 22, 2021               [Page 6]
-
-Internet-Draft             PQ Composite Certs                 March 2021
-
+   CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
    The corresponding AlgorithmIdentifier for a composite public key MUST
    use the id-alg-composite object identifier, defined in Section 2.1,
@@ -344,6 +330,13 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
    A composite public key MUST contain at least one component public
    key.
+
+
+
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 6]
+
+Internet-Draft              PQ Composite Keys                 March 2021
+
 
    A CompositePublicKey MUST NOT contain a component public key which
    itself describes a composite key; ie recursive CompositePublicKeys
@@ -359,7 +352,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
    The composite private key data is represented by the following
    structure:
 
-   CompositePrivateKey ::= SEQUENCE SIZE (1..MAX) OF OneAsymmetricKey
+   CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
    Each element is a OneAsymmetricKey [RFC5958] object for a component
    private key.
@@ -387,16 +380,19 @@ Internet-Draft             PQ Composite Certs                 March 2021
    bit, and so on, ending with the least significant bit of the last
    octet becoming the last bit of the bit string.
 
+   In the interests of simplicity and avoiding compatibility issues,
+   implementations that parse these structures MAY accept both BER and
+   DER.
+
+
+
+
 
 
 Ounsworth (Editor) & PaExpires September 22, 2021               [Page 7]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
-
-   In the interests of simplicity and avoiding compatibility issues,
-   implementations that parse these structures MAY accept both BER and
-   DER.
 
 3.  In Practice
 
@@ -442,16 +438,17 @@ Internet-Draft             PQ Composite Certs                 March 2021
    be used to digitally sign, digest, authenticate, or encrypt the
    asymmetric key format content type.
 
+   When encoding composite private keys, the privateKeyAlgorithm in the
+   OneAsymmetricKey SHALL be set to id-alg-composite.
+
+
 
 
 
 Ounsworth (Editor) & PaExpires September 22, 2021               [Page 8]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
-
-   When encoding composite private keys, the privateKeyAlgorithm in the
-   OneAsymmetricKey SHALL be set to id-alg-composite.
 
    The parameters of the privateKeyAlgorithm SHALL be a sequence of
    AlgorithmIdentifier objects, each of which are encoded according to
@@ -501,9 +498,12 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
+
+
+
 Ounsworth (Editor) & PaExpires September 22, 2021               [Page 9]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
 
 4.  IANA Considerations
@@ -559,7 +559,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 Ounsworth (Editor) & PaExpires September 22, 2021              [Page 10]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
 
    While intentionally not specified in this document, implementors
@@ -615,7 +615,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 Ounsworth (Editor) & PaExpires September 22, 2021              [Page 11]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
 
        FROM AlgorithmInformation-2009  -- RFC 5912 [X509ASN1]
@@ -652,9 +652,9 @@ Internet-Draft             PQ Composite Certs                 March 2021
        PRIVATE-KEY CompositePrivateKey
    }
 
-   CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
+   CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
-   CompositePrivateKey ::= SEQUENCE SIZE (1..MAX) OF OneAsymmetricKey
+   CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
 
    END
@@ -671,7 +671,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 Ounsworth (Editor) & PaExpires September 22, 2021              [Page 12]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
 
 6.2.  Intellectual Property Considerations
@@ -727,7 +727,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 Ounsworth (Editor) & PaExpires September 22, 2021              [Page 13]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
 
    [RFC4210]  Adams, C., Farrell, S., Kause, T., and T. Mononen,
@@ -735,10 +735,6 @@ Internet-Draft             PQ Composite Certs                 March 2021
               Management Protocol (CMP)", RFC 4210,
               DOI 10.17487/RFC4210, September 2005,
               <https://www.rfc-editor.org/info/rfc4210>.
-
-   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
-              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
-              <https://www.rfc-editor.org/info/rfc4648>.
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -781,9 +777,13 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
+
+
+
+
 Ounsworth (Editor) & PaExpires September 22, 2021              [Page 14]
 
-Internet-Draft             PQ Composite Certs                 March 2021
+Internet-Draft              PQ Composite Keys                 March 2021
 
 
 Authors' Addresses

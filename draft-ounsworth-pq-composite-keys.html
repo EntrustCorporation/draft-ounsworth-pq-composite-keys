@@ -549,13 +549,12 @@
 </h1>
 <p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <a href="#RFC2119" class="xref">[RFC2119]</a>  <a href="#RFC8174" class="xref">[RFC8174]</a> when, and only when, they appear in all capitals, as shown here.</p>
 <p id="rfc.section.1.1.p.2">The following terms are used in this document:</p>
-<p id="rfc.section.1.1.p.3">ALGORITHM: An information object class for identifying the type of cryptographic operation to be performed. This document is primarily concerned with algorithms for producing digital signatures, though the public key structure could just as easily hold encryption keys.</p>
+<p id="rfc.section.1.1.p.3">ALGORITHM: An information object class for identifying the type of cryptographic key being encapsulated.</p>
 <p id="rfc.section.1.1.p.4">BER: Basic Encoding Rules (BER) as defined in <a href="#X.690" class="xref">[X.690]</a>.</p>
 <p id="rfc.section.1.1.p.5">COMPONENT ALGORITHM: A single basic algorithm which is contained within a composite algorithm.</p>
 <p id="rfc.section.1.1.p.6">COMPOSITE ALGORITHM: An algorithm which is a sequence of one or more component algorithms, as defined in <a href="#sec-composite-structs" class="xref">Section 2</a>.</p>
 <p id="rfc.section.1.1.p.7">DER: Distinguished Encoding Rules as defined in <a href="#X.690" class="xref">[X.690]</a>.</p>
 <p id="rfc.section.1.1.p.8">PUBLIC / PRIVATE KEY: The public and private portion of an asymmetric cryptographic key, making no assumptions about which algorithm.</p>
-<p id="rfc.section.1.1.p.9">PRIMITIVE PUBLIC KEY: A public key or signature object of a non-composite algorithm type.</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#sec-composite-structs" id="sec-composite-structs">Composite Structures</a>
 </h1>
@@ -617,7 +616,7 @@ pk-Composite PUBLIC-KEY ::= {
 </h1>
 <p id="rfc.section.2.3.p.1">Composite public key data is represented by the following structure:</p>
 <pre>
-CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
+CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 </pre>
 <p id="rfc.section.2.3.p.2">The corresponding AlgorithmIdentifier for a composite public key MUST use the id-alg-composite object identifier, defined in <a href="#sec-alg-identifier" class="xref">Section 2.1</a>, and the parameters field MUST be absent.</p>
 <p id="rfc.section.2.3.p.3">A composite public key MUST contain at least one component public key.</p>
@@ -628,7 +627,7 @@ CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
 </h1>
 <p id="rfc.section.2.4.p.1">The composite private key data is represented by the following structure:</p>
 <pre>
-CompositePrivateKey ::= SEQUENCE SIZE (1..MAX) OF OneAsymmetricKey
+CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 </pre>
 <p id="rfc.section.2.4.p.2">Each element is a OneAsymmetricKey <a href="#RFC5958" class="xref">[RFC5958]</a> object for a component private key.</p>
 <p id="rfc.section.2.4.p.3">The corresponding AlgorithmIdentifier for a composite private key MUST use the id-alg-composite object identifier, and the parameters field MUST be absent.</p>
@@ -775,9 +774,9 @@ pk-Composite PUBLIC-KEY ::= {
     PRIVATE-KEY CompositePrivateKey
 }
 
-CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
+CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
-CompositePrivateKey ::= SEQUENCE SIZE (1..MAX) OF OneAsymmetricKey
+CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
 
 END
@@ -821,11 +820,6 @@ END
 <td class="reference"><b id="RFC4210">[RFC4210]</b></td>
 <td class="top">
 <a>Adams, C.</a>, <a>Farrell, S.</a>, <a>Kause, T.</a> and <a>T. Mononen</a>, "<a href="https://tools.ietf.org/html/rfc4210">Internet X.509 Public Key Infrastructure Certificate Management Protocol (CMP)</a>", RFC 4210, DOI 10.17487/RFC4210, September 2005.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC4648">[RFC4648]</b></td>
-<td class="top">
-<a>Josefsson, S.</a>, "<a href="https://tools.ietf.org/html/rfc4648">The Base16, Base32, and Base64 Data Encodings</a>", RFC 4648, DOI 10.17487/RFC4648, October 2006.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC5280">[RFC5280]</b></td>

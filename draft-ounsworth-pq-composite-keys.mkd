@@ -1,6 +1,6 @@
 ---
 title: Composite Public and Private Keys For Use In Internet PKI
-abbrev: PQ Composite Certs
+abbrev: PQ Composite Keys
 # <!-- EDNOTE: Edits the draft name -->
 docname: draft-ounsworth-pq-composite-pubkeys-00
 # <!-- date: 2012-01-13 -->
@@ -42,7 +42,6 @@ normative:
   RFC2119:
   RFC2986:
   RFC4210:
-  RFC4648:
   RFC5280:
   RFC5652:
   RFC5958:
@@ -106,10 +105,7 @@ The following terms are used in this document:
 
 ALGORITHM:
           An information object class for identifying the type of
-            cryptographic operation to be performed. This document is
-            primarily concerned with algorithms for producing digital
-            signatures, though the public key structure could just as
-            easily hold encryption keys.
+            cryptographic key being encapsulated.
 
 BER:
           Basic Encoding Rules (BER) as defined in [X.690].
@@ -129,9 +125,6 @@ PUBLIC / PRIVATE KEY:
           The public and private portion of an asymmetric cryptographic
             key, making no assumptions about which algorithm.
 
-PRIMITIVE PUBLIC KEY:
-          A public key or signature object of a non-composite algorithm
-            type.
 
 
 
@@ -211,7 +204,7 @@ For protocols such as X.509 [RFC5280] that specify key usage along with the publ
 Composite public key data is represented by the following structure:
 
 ~~~ asn.1
-CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
+CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 ~~~
 {: artwork-name="CompositePublicKey-asn.1-structures"}
 
@@ -230,7 +223,7 @@ Each element of a CompositePublicKey is a SubjectPublicKeyInfo object one of the
 The composite private key data is represented by the following structure:
 
 ~~~ asn.1
-CompositePrivateKey ::= SEQUENCE SIZE (1..MAX) OF OneAsymmetricKey
+CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 ~~~
 {: artwork-name="CompositePrivateKey-asn.1-structures"}
 
@@ -411,9 +404,9 @@ pk-Composite PUBLIC-KEY ::= {
     PRIVATE-KEY CompositePrivateKey
 }
 
-CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
+CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
-CompositePrivateKey ::= SEQUENCE SIZE (1..MAX) OF OneAsymmetricKey
+CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
 
 END
