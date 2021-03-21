@@ -170,6 +170,8 @@ EDNOTE 3: this is a temporary OID for the purposes of prototyping. We are reques
 
 ### Composite-OR Public Key
 
+EDNOTE: This section was written with the intention of keeping the primary Composite OID reserved for the simple and strict mode; if you want to do either a simple OR, or a custom policy then we have given a different OID. We are still debating whether this is useful to specify at issuing time, or whether this is adding needless complexity to the draft. 
+
 The Composite-OR algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
 
 When using this algorithm identifier, component keys MAY be used in an OR relation meaning that any one of the component keys may be used by itself. Implementors may also define more complex processes and policies using this algorithm identifier, for expmple allowing some algorithms by themselves and others only in combination. This mode is provided for applications that need to issue long-lived composite keys in a way that allows for backwards compatibility or staged adoption of new algorithms.

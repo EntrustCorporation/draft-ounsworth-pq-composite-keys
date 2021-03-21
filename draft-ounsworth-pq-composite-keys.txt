@@ -5,8 +5,8 @@
 LAMPS                                              M. Ounsworth (Editor)
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                                 M. Pala
-Expires: September 16, 2021                                    CableLabs
-                                                          March 15, 2021
+Expires: September 22, 2021                                    CableLabs
+                                                          March 21, 2021
 
 
        Composite Public and Private Keys For Use In Internet PKI
@@ -48,12 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 16, 2021.
+   This Internet-Draft will expire on September 22, 2021.
 
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 1]
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 1]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 2]
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 2]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -165,7 +165,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 3]
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 3]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -221,7 +221,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 4]
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 4]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -259,6 +259,13 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
 2.1.2.  Composite-OR Public Key
 
+   EDNOTE: This section was written with the intention of keeping the
+   primary Composite OID reserved for the simple and strict mode; if you
+   want to do either a simple OR, or a custom policy then we have given
+   a different OID.  We are still debating whether this is useful to
+   specify at issuing time, or whether this is adding needless
+   complexity to the draft.
+
    The Composite-OR algorithm identifier is used for identifying a
    public key and a private key.  Additional encoding information is
    provided below for each of these objects.
@@ -267,6 +274,14 @@ id-composite-key OBJECT IDENTIFIER ::= {
    an OR relation meaning that any one of the component keys may be used
    by itself.  Implementors may also define more complex processes and
    policies using this algorithm identifier, for expmple allowing some
+
+
+
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 5]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
+
    algorithms by themselves and others only in combination.  This mode
    is provided for applications that need to issue long-lived composite
    keys in a way that allows for backwards compatibility or staged
@@ -274,13 +289,6 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
 id-composite-or-key OBJECT IDENTIFIER ::= {
     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) entrust-Algorithm-Composite-OR(3) }
-
-
-
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 5]
-
-Internet-Draft             PQ Composite Certs                 March 2021
-
 
 2.2.  Composite Keys
 
@@ -321,22 +329,21 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
    CompositePublicKey ::= SEQUENCE SIZE (1..MAX) OF SubjectPublicKeyInfo
 
+
+
+
+
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 6]
+
+Internet-Draft             PQ Composite Certs                 March 2021
+
+
    The corresponding AlgorithmIdentifier for a composite public key MUST
    use the id-alg-composite object identifier, defined in Section 2.1,
    and the parameters field MUST be absent.
 
    A composite public key MUST contain at least one component public
    key.
-
-
-
-
-
-
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 6]
-
-Internet-Draft             PQ Composite Certs                 March 2021
-
 
    A CompositePublicKey MUST NOT contain a component public key which
    itself describes a composite key; ie recursive CompositePublicKeys
@@ -380,19 +387,16 @@ Internet-Draft             PQ Composite Certs                 March 2021
    bit, and so on, ending with the least significant bit of the last
    octet becoming the last bit of the bit string.
 
-   In the interests of simplicity and avoiding compatibility issues,
-   implementations that parse these structures MAY accept both BER and
-   DER.
 
 
-
-
-
-
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 7]
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 7]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
+
+   In the interests of simplicity and avoiding compatibility issues,
+   implementations that parse these structures MAY accept both BER and
+   DER.
 
 3.  In Practice
 
@@ -438,17 +442,16 @@ Internet-Draft             PQ Composite Certs                 March 2021
    be used to digitally sign, digest, authenticate, or encrypt the
    asymmetric key format content type.
 
-   When encoding composite private keys, the privateKeyAlgorithm in the
-   OneAsymmetricKey SHALL be set to id-alg-composite.
 
 
 
-
-
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 8]
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 8]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
+
+   When encoding composite private keys, the privateKeyAlgorithm in the
+   OneAsymmetricKey SHALL be set to id-alg-composite.
 
    The parameters of the privateKeyAlgorithm SHALL be a sequence of
    AlgorithmIdentifier objects, each of which are encoded according to
@@ -498,10 +501,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
-
-
-
-Ounsworth (Editor) & PaExpires September 16, 2021               [Page 9]
+Ounsworth (Editor) & PaExpires September 22, 2021               [Page 9]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -557,7 +557,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021              [Page 10]
+Ounsworth (Editor) & PaExpires September 22, 2021              [Page 10]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -613,7 +613,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021              [Page 11]
+Ounsworth (Editor) & PaExpires September 22, 2021              [Page 11]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -669,7 +669,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021              [Page 12]
+Ounsworth (Editor) & PaExpires September 22, 2021              [Page 12]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -725,7 +725,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021              [Page 13]
+Ounsworth (Editor) & PaExpires September 22, 2021              [Page 13]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -781,7 +781,7 @@ Internet-Draft             PQ Composite Certs                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021              [Page 14]
+Ounsworth (Editor) & PaExpires September 22, 2021              [Page 14]
 
 Internet-Draft             PQ Composite Certs                 March 2021
 
@@ -837,4 +837,4 @@ Authors' Addresses
 
 
 
-Ounsworth (Editor) & PaExpires September 16, 2021              [Page 15]
+Ounsworth (Editor) & PaExpires September 22, 2021              [Page 15]
