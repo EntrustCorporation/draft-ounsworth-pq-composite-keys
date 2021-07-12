@@ -24,6 +24,7 @@ author:
     -
       ins: M. Ounsworth (Editor)
       name: Mike Ounsworth
+      org: Entrust Limited
       abbrev: Entrust
       street: 2500 Solandt Road – Suite 100
       city: Ottawa, Ontario
