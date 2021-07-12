@@ -5,8 +5,8 @@
 LAMPS                                              M. Ounsworth (Editor)
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                                 M. Pala
-Expires: September 24, 2021                                    CableLabs
-                                                          March 23, 2021
+Expires: January 13, 2022                                      CableLabs
+                                                           July 12, 2021
 
 
        Composite Public and Private Keys For Use In Internet PKI
@@ -48,14 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 24, 2021.
+   This Internet-Draft will expire on January 13, 2022.
 
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 1]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 1]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 2]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 2]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 3]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 3]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
    BER: Basic Encoding Rules (BER) as defined in [X.690].
@@ -221,9 +221,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 4]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 4]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
 2.1.  Algorithm Identifier
@@ -277,9 +277,9 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 5]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 5]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
 id-composite-or-key OBJECT IDENTIFIER ::= {
@@ -333,9 +333,9 @@ id-composite-or-key OBJECT IDENTIFIER ::= {
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 6]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 6]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
    A CompositePublicKey MUST NOT contain a component public key which
@@ -389,9 +389,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 7]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 7]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
    In the interests of simplicity and avoiding compatibility issues,
@@ -445,9 +445,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 8]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 8]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
    When encoding composite private keys, the privateKeyAlgorithm in the
@@ -501,9 +501,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021               [Page 9]
+Ounsworth (Editor) & PalExpires January 13, 2022                [Page 9]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
 5.2.  Policy for Deprecated and Acceptable Algorithms
@@ -557,9 +557,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021              [Page 10]
+Ounsworth (Editor) & PalExpires January 13, 2022               [Page 10]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
 5.4.  Checking for Compromised Key Reuse
@@ -613,9 +613,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021              [Page 11]
+Ounsworth (Editor) & PalExpires January 13, 2022               [Page 11]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
    -- Object Identifiers
@@ -669,9 +669,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021              [Page 12]
+Ounsworth (Editor) & PalExpires January 13, 2022               [Page 12]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
    This document borrows text from similar documents, including those
@@ -725,9 +725,9 @@ Internet-Draft              PQ Composite Keys                 March 2021
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021              [Page 13]
+Ounsworth (Editor) & PalExpires January 13, 2022               [Page 13]
 
-Internet-Draft              PQ Composite Keys                 March 2021
+Internet-Draft              PQ Composite Keys                  July 2021
 
 
    [RFC5914]  Housley, R., Ashmore, S., and C. Wallace, "Trust Anchor
@@ -759,9 +759,8 @@ Internet-Draft              PQ Composite Keys                 March 2021
 Authors' Addresses
 
    Mike Ounsworth
-   Entrust Limited
-   1000 Innovation Drive
-   Ottawa, Ontario  K2K 1E3
+   2500 Solandt Road -- Suite 100
+   Ottawa, Ontario  K2K 3G5
    Canada
 
    Email: mike.ounsworth@entrust.com
@@ -781,4 +780,5 @@ Authors' Addresses
 
 
 
-Ounsworth (Editor) & PaExpires September 24, 2021              [Page 14]
+
+Ounsworth (Editor) & PalExpires January 13, 2022               [Page 14]
