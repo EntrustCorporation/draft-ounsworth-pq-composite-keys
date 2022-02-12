@@ -100,10 +100,10 @@ Table of Contents
      6.2.  Intellectual Property Considerations  . . . . . . . . . .  12
    7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  12
      7.1.  Making contributions  . . . . . . . . . . . . . . . . . .  13
-   8.  Normative References  . . . . . . . . . . . . . . . . . . . .  13
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  14
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
-
-
 
 
 
@@ -687,7 +687,9 @@ Internet-Draft              PQ Composite Keys              February 2022
    https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-
    keys
 
-8.  Normative References
+8.  References
+
+8.1.  Normative References
 
    [RFC1421]  Linn, J., "Privacy Enhancement for Internet Electronic
               Mail: Part I: Message Encryption and Authentication
@@ -723,8 +725,6 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-
-
 Ounsworth (Editor) & PalaExpires August 16, 2022               [Page 13]
 
 Internet-Draft              PQ Composite Keys              February 2022
@@ -756,6 +756,18 @@ Internet-Draft              PQ Composite Keys              February 2022
               Encoding Rules (CER) and Distinguished Encoding Rules
               (DER)", ISO/IEC 8825-1:2015, November 2015.
 
+8.2.  Informative References
+
+   [Bindel2017]
+              Bindel, N., Herath, U., McKague, M., and D. Stebila,
+              "Transitioning to a quantum-resistant public key
+              infrastructure", 2017.
+
+   [I-D.ounsworth-pq-composite-sigs]
+              Ounsworth, M. and M. Pala, "Composite Signatures For Use
+              In Internet PKI", draft-ounsworth-pq-composite-sigs-05
+              (work in progress), July 2021.
+
 Authors' Addresses
 
    Mike Ounsworth
@@ -765,6 +777,13 @@ Authors' Addresses
    Canada
 
    Email: mike.ounsworth@entrust.com
+
+
+
+
+Ounsworth (Editor) & PalaExpires August 16, 2022               [Page 14]
+
+Internet-Draft              PQ Composite Keys              February 2022
 
 
    Massimiliano Pala
@@ -781,4 +800,41 @@ Authors' Addresses
 
 
 
-Ounsworth (Editor) & PalaExpires August 16, 2022               [Page 14]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth (Editor) & PalaExpires August 16, 2022               [Page 15]
