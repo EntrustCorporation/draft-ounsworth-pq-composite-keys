@@ -2,13 +2,13 @@
 title: Composite Public and Private Keys For Use In Internet PKI
 abbrev: PQ Composite Keys
 # <!-- EDNOTE: Edits the draft name -->
-docname: draft-ounsworth-pq-composite-keys-00
+docname: draft-ounsworth-pq-composite-keys-01
 # <!-- date: 2012-01-13 -->
 # <!-- date: 2012-01 -->
 # <!-- date: 2012 -->
 
 # <!-- stand_alone: true -->
-<!-- ipr: trust200902 -->
+ipr: trust200902
 area: Security
 wg: LAMPS
 kw: Internet-Draft
@@ -169,7 +169,7 @@ The Composite-OR algorithm identifier is used for identifying a public key and a
 
 When using this algorithm identifier, component keys MAY be used in an OR relation meaning that any one of the component keys may be used by itself. Implementors may also define more complex processes and policies using this algorithm identifier, for expmple allowing some algorithms by themselves and others only in combination. This mode is provided for applications that need to issue long-lived composite keys in a way that allows for backwards compatibility or staged adoption of new algorithms.
 
-~~~ asn.1
+~~~ ASN.1
 id-composite-or-key OBJECT IDENTIFIER ::= {
     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) entrust-Algorithm-Composite-OR(3) }
 ~~~
@@ -180,7 +180,7 @@ A composite key is a single key object that performs an atomic signature or veri
 
 The ASN.1 algorithm object for composite public and private keys is:
 
-~~~ asn.1
+~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
     IDENTIFIER id-alg-composite
     KEY CompositePublicKey
@@ -203,7 +203,7 @@ For protocols such as X.509 [RFC5280] that specify key usage along with the publ
 
 Composite public key data is represented by the following structure:
 
-~~~ asn.1
+~~~ ASN.1
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 ~~~
 {: artwork-name="CompositePublicKey-asn.1-structures"}
@@ -224,7 +224,7 @@ Each element of a CompositePublicKey is a SubjectPublicKeyInfo object for a comp
 
 The composite private key data is represented by the following structure:
 
-~~~ asn.1
+~~~ ASN.1
 CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 ~~~
 {: artwork-name="CompositePrivateKey-asn.1-structures"}
@@ -294,7 +294,7 @@ The value of the attributes is encoded as usual.
 # IANA Considerations {#sec-iana}
 The ASN.1 module OID is TBD.  The id-composite-key and id-composite-or-key OIDs are to be assigned by IANA.  The authors suggest that IANA assign an OID on the id-pkix arc:
 
-~~~
+~~~ ASN.1
 id-composite-key OBJECT IDENTIFIER ::= {
     iso(1) identified-organization(3) dod(6) internet(1) security(5)
     mechanisms(5) pkix(7) algorithms(6) composite(??) }
@@ -347,7 +347,7 @@ Certificate Authority (CA) implementations need to be careful when checking for 
 
 ## ASN.1 Module
 
-~~~ asn.1
+~~~ ASN.1
 
 <CODE STARTS>
 
