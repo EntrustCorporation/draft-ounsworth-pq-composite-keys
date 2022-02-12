@@ -408,7 +408,7 @@
   <meta name="generator" content="xml2rfc version 2.40.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Ounsworth (Editor), M. and M. Pala" />
+  <meta name="dct.creator" content="Ounsworth (Editor), M., Pala, M., and K-D. Wirth" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-01" />
   <meta name="dct.issued" scheme="ISO8601" content="2022-02-12" />
   <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. This document makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
@@ -436,6 +436,14 @@
 <tr>
 <td class="left">Expires: August 16, 2022</td>
 <td class="right">CableLabs</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">K-D. Wirth</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">D-Trust</td>
 </tr>
 <tr>
 <td class="left"></td>
@@ -778,7 +786,7 @@ END
 <a href="#rfc.section.7">7.</a> <a href="#contributors-and-acknowledgements" id="contributors-and-acknowledgements">Contributors and Acknowledgements</a>
 </h1>
 <p id="rfc.section.7.p.1">This document incorporates contributions and comments from a large group of experts. The Editors would especially like to acknowledge the expertise and tireless dedication of the following people, who attended many long meetings and generated millions of bytes of electronic mail and VOIP traffic over the past year in pursuit of this document:</p>
-<p id="rfc.section.7.p.2">John Gray (Entrust), Serge Mister (Entrust), Scott Fluhrer (Cisco Systems), Panos Kampanakis (Cisco Systems), Daniel Van Geest (ISARA), Tim Hollebeek (Digicert), and Francois Rousseau.</p>
+<p id="rfc.section.7.p.2">John Gray (Entrust), Serge Mister (Entrust), Scott Fluhrer (Cisco Systems), Panos Kampanakis (Cisco Systems), Daniel Van Geest (ISARA), Tim Hollebeek (Digicert), Jan Klaussner, and Francois Rousseau.</p>
 <p id="rfc.section.7.p.3">We are grateful to all, including any contributors who may have been inadvertently omitted from this list.</p>
 <p id="rfc.section.7.p.4">This document borrows text from similar documents, including those referenced below. Thanks go to the authors of those documents.  "Copying always makes things easier and less error prone" - <a href="#RFC8411" class="xref">[RFC8411]</a>.</p>
 <h1 id="rfc.section.7.1">
@@ -858,7 +866,7 @@ END
 <tr>
 <td class="reference"><b id="Bindel2017">[Bindel2017]</b></td>
 <td class="top">
-<a>Bindel, N.</a>, <a>Herath, U.</a>, <a>McKague, M.</a> and <a>D. Stebila</a>, "<a>Transitioning to a quantum-resistant public key infrastructure</a>", 2017.</td>
+<a>Bindel, N.</a>, <a>Herath, U.</a>, <a>McKague, M.</a> and <a>D. Stebila</a>, "<a href="https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22">Transitioning to a quantum-resistant public key infrastructure</a>", 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="I-D.ounsworth-pq-composite-sigs">[I-D.ounsworth-pq-composite-sigs]</b></td>
@@ -908,6 +916,27 @@ END
 	  <span class="country-name vcardline"></span>
 	</span>
 	<span class="vcardline">EMail: <a href="mailto:director@openca.org">director@openca.org</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Klaus-Dieter Wirth</span> 
+	  <span class="n hidden">
+		<span class="family-name">Wirth</span>
+	  </span>
+	</span>
+	<span class="org vcardline">D-Trust</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:k.wirth@d-trust.net">k.wirth@d-trust.net</a></span>
 
   </address>
 </div>

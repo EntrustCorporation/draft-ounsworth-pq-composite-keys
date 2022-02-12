@@ -38,6 +38,12 @@ author:
       org: CableLabs
       email: director@openca.org
 
+    -
+      ins: K-D. Wirth
+      name: Klaus-Dieter Wirth
+      org: D-Trust
+      email: k.wirth@d-trust.net
+
 normative:
   RFC1421:
   RFC2119:
@@ -439,7 +445,8 @@ Serge Mister (Entrust),
 Scott Fluhrer (Cisco Systems),
 Panos Kampanakis (Cisco Systems),
 Daniel Van Geest (ISARA),
-Tim Hollebeek (Digicert), and
+Tim Hollebeek (Digicert),
+Jan Klaußner, and
 François Rousseau.
 
 We are grateful to all, including any contributors who may have
