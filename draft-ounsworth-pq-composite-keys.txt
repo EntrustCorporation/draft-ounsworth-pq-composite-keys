@@ -114,14 +114,14 @@ Ounsworth (Editor), et alExpires August 16, 2022                [Page 2]
 Internet-Draft              PQ Composite Keys              February 2022
 
 
-       6.3.2.  Explitic Composite Public Key Examples  . . . . . . .  16
-     6.4.  Intellectual Property Considerations  . . . . . . . . . .  17
-   7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  17
-     7.1.  Making contributions  . . . . . . . . . . . . . . . . . .  18
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+       6.3.2.  Explitic Composite Public Key Examples  . . . . . . .  17
+     6.4.  Intellectual Property Considerations  . . . . . . . . . .  18
+   7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  18
+     7.1.  Making contributions  . . . . . . . . . . . . . . . . . .  19
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 1.  Introduction
 
@@ -861,6 +861,76 @@ Internet-Draft              PQ Composite Keys              February 2022
          }
        }
 
+   The corresponding private key is:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth (Editor), et alExpires August 16, 2022               [Page 16]
+
+Internet-Draft              PQ Composite Keys              February 2022
+
+
+   -----BEGIN PRIVATE KEY-----
+   MIIFHgIBADAMBgorBgEEAYGOMwIBBIIFCTCCBQUwQQIBADATBgcqhkjOPQIBBggq
+   hkjOPQMBBwQnMCUCAQEEILIwxNkjkO+vcqxZrQWDvKrDcH7Johbi7wyHfttTDh8D
+   MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC/VLgwwBHdIqjz
+   bdX8ClBs9gPfRK1gb1EQRNz8VsYl/k5ePNjmRlXWP4yBeHfIzxhFWmKNR4t0DtyV
+   cHLQCDkx0q7HqM4f3QMwQ7ttziwVU+tQWmQDQOsddhNO8gJeN87kZ71VINohSyg7
+   sjH86IWN8lovm48mBXDGFuhZot7NDS6WuDJoV9SuUvSm5oAa8a9odFO55YJQRLPh
+   xJ6U2CLYlc3MsiVQYkPfYek3OmVc1dicE29H8IQGS/PRi3vBBZbSxa/26iLdL5vP
+   RwGnqzJBUd2MGZ/r8UorpzaYPYF6y6ZLJNlqcSLu2Xq9+DbxU3iY+eX6Mubue+tV
+   q0/Mq6JZAgMBAAECggEAFMdxJ448gm0otyNHGZPPLz46pm1RfQcp4R/xdhBAfdDU
+   FwT5s2yRFu8Y5di8/ZiMNL//swNBoG2axDoNpg02lPQiGjn5hNleZsf8W40IGZrf
+   E/91HCtZPX5c03aSDkR2WjTwCYZDWllMucr9BdAE7SkUZVY6IjF2EXVcb5uyIcer
+   9mG62UWvrt2vLgJP6nwkMGM9eSaYcKZ/f2g1gYhbqUbdvWWRqsY5g6oBHGS9VpGh
+   jgjxujTVmaWHWXikR/RnD7xb+f8cyaZt9eRSqbL9kx6qVoK2LOAviBGLnZ0h4k8P
+   AF1OcDyQcrGgLKw4q0WItFBdW//Hyf3SBoMb+jeEJwKBgQDxYTdyuaUUe/mdGN3q
+   CWgVA9vx6d+7tV4ehca+kDeOfsqwXNPx5hWq295+g7rfl6L/xzy0vWj7TebWtmX8
+   2xjl325Rn9R5v8fFxUNj29jkaoB/l01+FQ0PWUj7nTiQ6I8MKZNFclwHM0sjdbdw
+   xSjBPF1OcO+15jDZdQzdPOd/GwKBgQDK63TfApwOiExtj2HzW6WZAdSdbtXdE3d0
+   uNpS+uckIHEkJ0rEWkeNRjb5v5IXbaeFj2vSwowAQnPJ5RHCIuIZID/yJ5Fu5Ef2
+   +VU5oBjmFhzBvgROmRqiXRMfjKlZHQnAJthHknlA8y1pq0IAsTQ7BuXxGcHzA6re
+   gOwMVGbXmwKBgQCaiSkctCoyMSUgJNl+isMuIShheuAYpwc492DEhERtYFOYEfZH
+   eo0ItHd//ApaOBTNONtuw41AxyEw+dnVxtfr494XOAKqZ9QYlDCO8COuKVlXVqDw
+   Rb30w67sGD4s2BctLDjzT0IIAhjq/OSSuEddX65FGB0AEf3YWw3/Xoy/XQKBgGQ0
+   T7tMw5mdjvhPZNRS/nyHXeH8eJm6YjP+kLmHcxrw9k4fJRm/ZzQJZ15/TnpJSP94
+   aotiTNZX+mvJtbJDnZlAxrMi/PtguXTpfT9+oq0EYGEAH4pcqr1g7u+We44o+8aq
+   qAT3/O6o51UWH/rNhvhbGLOtv4vs1LUZvvb7uulfAoGBANn5QBWoCs+ka70lGzq2
+   GQqVB0MB3IY12HKm8RhKCdHctDOO2fWJIrDBIqYxmFIBR/w8gt10gAYAzqG1/ofY
+   p96mWqbV0dgPVS1/MvNgi1Y17XnqRlpgxdvDxh8W51j+aSUUbw9tRtOouhRwmSxv
+   njZssvGOfmVc2W3hY4I+t1w0
+   -----END PRIVATE KEY-----
+
+   TODO: decode the priv key.
+
 6.3.2.  Explitic Composite Public Key Examples
 
    -- Modify the Generic example as if it had a registered pairwise OID
@@ -877,6 +947,13 @@ Internet-Draft              PQ Composite Keys              February 2022
        pk-rsa,
    }
 
+
+
+Ounsworth (Editor), et alExpires August 16, 2022               [Page 17]
+
+Internet-Draft              PQ Composite Keys              February 2022
+
+
    Then the same key as above could be encoded as an explicit composite
    public key as:
 
@@ -885,18 +962,6 @@ Internet-Draft              PQ Composite Keys              February 2022
    id-composite-component-key.
 
    which decodes as:
-
-
-
-
-
-
-
-
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 16]
-
-Internet-Draft              PQ Composite Keys              February 2022
-
 
    algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
 
@@ -917,6 +982,11 @@ Internet-Draft              PQ Composite Keys              February 2022
          }
        }
 
+   The private key is identical for generic and explicit and so does not
+   need to be repeated.
+
+   ENDNOTE: should they be identical?
+
 6.4.  Intellectual Property Considerations
 
    The following IPR Disclosure relates to this draft:
@@ -932,6 +1002,14 @@ Internet-Draft              PQ Composite Keys              February 2022
    electronic mail and VOIP traffic over the past year in pursuit of
    this document:
 
+
+
+
+Ounsworth (Editor), et alExpires August 16, 2022               [Page 18]
+
+Internet-Draft              PQ Composite Keys              February 2022
+
+
    John Gray (Entrust), Serge Mister (Entrust), Scott Fluhrer (Cisco
    Systems), Panos Kampanakis (Cisco Systems), Daniel Van Geest (ISARA),
    Tim Hollebeek (Digicert), Jan Klaussner, and Francois Rousseau.
@@ -943,16 +1021,6 @@ Internet-Draft              PQ Composite Keys              February 2022
    referenced below.  Thanks go to the authors of those documents.
    "Copying always makes things easier and less error prone" -
    [RFC8411].
-
-
-
-
-
-
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 17]
-
-Internet-Draft              PQ Composite Keys              February 2022
-
 
 7.1.  Making contributions
 
@@ -987,6 +1055,17 @@ Internet-Draft              PQ Composite Keys              February 2022
               DOI 10.17487/RFC4210, September 2005,
               <https://www.rfc-editor.org/info/rfc4210>.
 
+
+
+
+
+
+
+Ounsworth (Editor), et alExpires August 16, 2022               [Page 19]
+
+Internet-Draft              PQ Composite Keys              February 2022
+
+
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
@@ -1000,15 +1079,6 @@ Internet-Draft              PQ Composite Keys              February 2022
    [RFC5914]  Housley, R., Ashmore, S., and C. Wallace, "Trust Anchor
               Format", RFC 5914, DOI 10.17487/RFC5914, June 2010,
               <https://www.rfc-editor.org/info/rfc5914>.
-
-
-
-
-
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 18]
-
-Internet-Draft              PQ Composite Keys              February 2022
-
 
    [RFC5958]  Turner, S., "Asymmetric Key Packages", RFC 5958,
               DOI 10.17487/RFC5958, August 2010,
@@ -1045,6 +1115,13 @@ Internet-Draft              PQ Composite Keys              February 2022
               In Internet PKI", draft-ounsworth-pq-composite-sigs-05
               (work in progress), July 2021.
 
+
+
+Ounsworth (Editor), et alExpires August 16, 2022               [Page 20]
+
+Internet-Draft              PQ Composite Keys              February 2022
+
+
 Authors' Addresses
 
    Mike Ounsworth
@@ -1054,16 +1131,6 @@ Authors' Addresses
    Canada
 
    Email: mike.ounsworth@entrust.com
-
-
-
-
-
-
-
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 19]
-
-Internet-Draft              PQ Composite Keys              February 2022
 
 
    Massimiliano Pala
@@ -1106,15 +1173,4 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 20]
+Ounsworth (Editor), et alExpires August 16, 2022               [Page 21]
