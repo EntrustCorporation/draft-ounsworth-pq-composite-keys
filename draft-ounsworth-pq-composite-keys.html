@@ -377,12 +377,13 @@
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
 <link href="#rfc.section.1.1" rel="Chapter" title="1.1 Terminology">
 <link href="#rfc.section.2" rel="Chapter" title="2 Composite Structures">
-<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Algorithm Identifier">
-<link href="#rfc.section.2.1.1" rel="Chapter" title="2.1.1 Composite Public Key">
-<link href="#rfc.section.2.1.2" rel="Chapter" title="2.1.2 Composite-OR Public Key">
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Algorithm Identifiers">
 <link href="#rfc.section.2.2" rel="Chapter" title="2.2 Composite Keys">
 <link href="#rfc.section.2.2.1" rel="Chapter" title="2.2.1 Key Usage">
+<link href="#rfc.section.2.2.2" rel="Chapter" title="2.2.2 AND, OR, and K-of-N modes">
 <link href="#rfc.section.2.3" rel="Chapter" title="2.3 Composite Public Key">
+<link href="#rfc.section.2.3.1" rel="Chapter" title="2.3.1 Generic Composite Public Key">
+<link href="#rfc.section.2.3.2" rel="Chapter" title="2.3.2 Explicit Composite Public Key">
 <link href="#rfc.section.2.4" rel="Chapter" title="2.4 Composite Private Key">
 <link href="#rfc.section.2.5" rel="Chapter" title="2.5 Encoding Rules">
 <link href="#rfc.section.3" rel="Chapter" title="3 In Practice">
@@ -395,8 +396,12 @@
 <link href="#rfc.section.5.3" rel="Chapter" title="5.3 Protection of Private Keys">
 <link href="#rfc.section.5.4" rel="Chapter" title="5.4 Checking for Compromised Key Reuse">
 <link href="#rfc.section.6" rel="Chapter" title="6 Appendices">
-<link href="#rfc.section.6.1" rel="Chapter" title="6.1 ASN.1 Module">
-<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Intellectual Property Considerations">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Creating explicit combinations">
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 ASN.1 Module">
+<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Examples">
+<link href="#rfc.section.6.3.1" rel="Chapter" title="6.3.1 Generic Composite Public Key Examples">
+<link href="#rfc.section.6.3.2" rel="Chapter" title="6.3.2 Explitic Composite Public Key Examples">
+<link href="#rfc.section.6.4" rel="Chapter" title="6.4 Intellectual Property Considerations">
 <link href="#rfc.section.7" rel="Chapter" title="7 Contributors and Acknowledgements">
 <link href="#rfc.section.7.1" rel="Chapter" title="7.1 Making contributions">
 <link href="#rfc.references" rel="Chapter" title="8 References">
@@ -411,8 +416,8 @@
   <meta name="dct.creator" content="Ounsworth (Editor), M., Pala, M., and K-D. Wirth" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-01" />
   <meta name="dct.issued" scheme="ISO8601" content="2022-02-12" />
-  <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. This document makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
-  <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. This document makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
+  <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite mode makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. This document also defines the explicit composite mode which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. " />
+  <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite mode makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. This document also defines the explicit composite mode which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. " />
 
 </head>
 
@@ -459,7 +464,7 @@
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data.</p>
-<p>This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. This document makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption.</p>
+<p>This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite mode makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. This document also defines the explicit composite mode which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
@@ -480,19 +485,21 @@
 </li>
 </ul><li>2.   <a href="#rfc.section.2">Composite Structures</a>
 </li>
-<ul><li>2.1.   <a href="#rfc.section.2.1">Algorithm Identifier</a>
+<ul><li>2.1.   <a href="#rfc.section.2.1">Algorithm Identifiers</a>
 </li>
-<ul><li>2.1.1.   <a href="#rfc.section.2.1.1">Composite Public Key</a>
-</li>
-<li>2.1.2.   <a href="#rfc.section.2.1.2">Composite-OR Public Key</a>
-</li>
-</ul><li>2.2.   <a href="#rfc.section.2.2">Composite Keys</a>
+<li>2.2.   <a href="#rfc.section.2.2">Composite Keys</a>
 </li>
 <ul><li>2.2.1.   <a href="#rfc.section.2.2.1">Key Usage</a>
 </li>
+<li>2.2.2.   <a href="#rfc.section.2.2.2">AND, OR, and K-of-N modes</a>
+</li>
 </ul><li>2.3.   <a href="#rfc.section.2.3">Composite Public Key</a>
 </li>
-<li>2.4.   <a href="#rfc.section.2.4">Composite Private Key</a>
+<ul><li>2.3.1.   <a href="#rfc.section.2.3.1">Generic Composite Public Key</a>
+</li>
+<li>2.3.2.   <a href="#rfc.section.2.3.2">Explicit Composite Public Key</a>
+</li>
+</ul><li>2.4.   <a href="#rfc.section.2.4">Composite Private Key</a>
 </li>
 <li>2.5.   <a href="#rfc.section.2.5">Encoding Rules</a>
 </li>
@@ -516,9 +523,17 @@
 </li>
 </ul><li>6.   <a href="#rfc.section.6">Appendices</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.section.6.1">ASN.1 Module</a>
+<ul><li>6.1.   <a href="#rfc.section.6.1">Creating explicit combinations</a>
 </li>
-<li>6.2.   <a href="#rfc.section.6.2">Intellectual Property Considerations</a>
+<li>6.2.   <a href="#rfc.section.6.2">ASN.1 Module</a>
+</li>
+<li>6.3.   <a href="#rfc.section.6.3">Examples</a>
+</li>
+<ul><li>6.3.1.   <a href="#rfc.section.6.3.1">Generic Composite Public Key Examples</a>
+</li>
+<li>6.3.2.   <a href="#rfc.section.6.3.2">Explitic Composite Public Key Examples</a>
+</li>
+</ul><li>6.4.   <a href="#rfc.section.6.4">Intellectual Property Considerations</a>
 </li>
 </ul><li>7.   <a href="#rfc.section.7">Contributors and Acknowledgements</a>
 </li>
@@ -545,10 +560,11 @@
 
 <ul>
 <li>Algorithm strength uncertainty: During the transition period, some post-quantum signature and encryption algorithms will not be fully trusted, while also the trust in legacy public key algorithms will start to erode.  A relying party may learn some time after deployment that a public key algorithm has become untrustworthy, but in the interim, they may not know which algorithm an adversary has compromised.</li>
-<li>Backwards compatibility: During the transition period, post-quantum algorithms will not be supported by all clients.</li>
+<li>Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully classical to fully post-quantum-aware cryptography.</li>
 </ul>
-<p id="rfc.section.1.p.4">This document provides a mechanism to address algorithm strength uncertainty by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields.</p>
+<p id="rfc.section.1.p.4">This document provides a mechanism to address both algorithm strength uncertainty as well as migration concerns by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields.</p>
 <p id="rfc.section.1.p.5">This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.</p>
+<p id="rfc.section.1.p.6">EDNOTE A previous version of this draft specified alternate algorithm identifiers for AND and OR modes. As well, a similar spec by D-Trust (now co-authors of this draft) also specified a "K of N" mode. While we still believe that these are valuable modes serving security and migration needs, we have removed them from this draft as they are really key usage policy and therefore do not belong in the public key object defined in this draft. They remain important parts of composite signature algorithms to prevent stripping attacks, and of composite encryption algorithms to tell a recipient how to decrypt the ciphertext. If the community decides that this usage information should accompany a composite public key, then it should be carried either as an X.509 Extended Key Usage or v3 Extension rather than in the public key itself.</p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#sec-terminology" id="sec-terminology">Terminology</a>
 </h1>
@@ -563,7 +579,7 @@
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#sec-composite-structs" id="sec-composite-structs">Composite Structures</a>
 </h1>
-<p id="rfc.section.2.p.1">In order for public keys and private keys to be composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "component algorithms") such that these structures can be used as a drop-in replacement for existing public key fields such as those found in PKCS#10 <a href="#RFC2986" class="xref">[RFC2986]</a>, CMP <a href="#RFC4210" class="xref">[RFC4210]</a>, X.509 <a href="#RFC5280" class="xref">[RFC5280]</a>, CMS <a href="#RFC5652" class="xref">[RFC5652]</a>, and the Trust Anchor Format <a href="#RFC5914" class="xref">[RFC5914]</a>.</p>
+<p id="rfc.section.2.p.1">In order for public keys and private keys to be composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "components") such that these structures can be used as a drop-in replacement for existing public key fields such as those found in PKCS#10 <a href="#RFC2986" class="xref">[RFC2986]</a>, CMP <a href="#RFC4210" class="xref">[RFC4210]</a>, X.509 <a href="#RFC5280" class="xref">[RFC5280]</a>, CMS <a href="#RFC5652" class="xref">[RFC5652]</a>, and the Trust Anchor Format <a href="#RFC5914" class="xref">[RFC5914]</a>.</p>
 <p id="rfc.section.2.p.2">This section defines the following structures:</p>
 <p></p>
 
@@ -572,31 +588,17 @@
 <li>The CompositePublicKey carries all the public keys associated with an identity within a single public key structure.</li>
 <li>The CompositePrivateKey carries all the private keys associated with an identity within a single private key structure.</li>
 </ul>
-<p id="rfc.section.2.p.4">EDNOTE 2: We have heard community feedback that the ASN.1 structures presented here are too flexible in that allow arbitrary combinations of an arbitrary number of signature algorithms. The feedback is that this is too much of a "footgun" for implementors and sysadmins. We are working on an alternative formulation using ASN.1 information object classes that allow for compiling explicit pairs of algorithmIDs. We would love community feedback on which approach is preferred. See slide 30 of this presentation: https://datatracker.ietf.org/meeting/interim-2021-lamps-01/materials/slides-interim-2021-lamps-01-sessa-position-presentation-by-mike-ounsworth-00.pdf</p>
 <h1 id="rfc.section.2.1">
-<a href="#rfc.section.2.1">2.1.</a> <a href="#sec-alg-identifier" id="sec-alg-identifier">Algorithm Identifier</a>
+<a href="#rfc.section.2.1">2.1.</a> <a href="#sec-alg-identifier" id="sec-alg-identifier">Algorithm Identifiers</a>
 </h1>
-<h1 id="rfc.section.2.1.1">
-<a href="#rfc.section.2.1.1">2.1.1.</a> <a href="#composite-public-key" id="composite-public-key">Composite Public Key</a>
-</h1>
-<p id="rfc.section.2.1.1.p.1">The Composite algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects.</p>
-<p id="rfc.section.2.1.1.p.2">When using this algorithm identifier it is implied that all component keys MUST be used in an AND relation; any cryptographic operation using this composite public key MUST use the it as an atomic object and use all component keys. This mode has the strongest security properties and is RECOMMENDED.</p>
-<p id="rfc.section.2.1.1.p.3">There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used in isolation and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated.</p>
+<p id="rfc.section.2.1.p.1">The Composite-Key algorithm identifier is used for identifying a generic public key and a private key.</p>
 <pre>
 id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) CompositeKey(1) }
+  iso(1) identified-organization(3) dod(6) internet(1) private(4) 
+  enterprise(1) OpenCA(18227) algorithms(2) id-pk-compositeCrypto(1) }
 </pre>
-<p id="rfc.section.2.1.1.p.4">EDNOTE 3: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 4</a>.</p>
-<h1 id="rfc.section.2.1.2">
-<a href="#rfc.section.2.1.2">2.1.2.</a> <a href="#composite-or-public-key" id="composite-or-public-key">Composite-OR Public Key</a>
-</h1>
-<p id="rfc.section.2.1.2.p.1">EDNOTE: This section was written with the intention of keeping the primary Composite OID reserved for the simple and strict mode; if you want to do either a simple OR, or a custom policy then we have given a different OID. We are still debating whether this is useful to specify at issuing time, or whether this is adding needless complexity to the draft.</p>
-<p id="rfc.section.2.1.2.p.2">The Composite-OR algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects.</p>
-<p id="rfc.section.2.1.2.p.3">When using this algorithm identifier, component keys MAY be used in an OR relation meaning that any one of the component keys may be used by itself. Implementors may also define more complex processes and policies using this algorithm identifier, for expmple allowing some algorithms by themselves and others only in combination. This mode is provided for applications that need to issue long-lived composite keys in a way that allows for backwards compatibility or staged adoption of new algorithms.</p>
-<pre>
-id-composite-or-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) entrust-Algorithm-Composite-OR(3) }
-</pre>
+<p id="rfc.section.2.1.p.2">The Composite-Component-Key algorithm identifier is user for idententifying a component within an explicit public key.  ~~~ asn.1 id-composite-component-key OBJECT IDENTIFIER ::= { TBD } ~~~</p>
+<p id="rfc.section.2.1.p.3">EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 4</a>.</p>
 <h1 id="rfc.section.2.2">
 <a href="#rfc.section.2.2">2.2.</a> <a href="#composite-keys" id="composite-keys">Composite Keys</a>
 </h1>
@@ -604,17 +606,20 @@ id-composite-or-key OBJECT IDENTIFIER ::= {
 <p id="rfc.section.2.2.p.2">The ASN.1 algorithm object for composite public and private keys is:</p>
 <pre>
 pk-Composite PUBLIC-KEY ::= {
-    IDENTIFIER id-alg-composite
     KEY CompositePublicKey
     PARAMS ARE absent
     PRIVATE-KEY CompositePrivateKey
 }
 </pre>
-<p id="rfc.section.2.2.p.3">EDNOTE 4: the authors are currently unsure whether the params should be absent (ie this structure simply says "I am a composite algorithm"), or used to duplicate some amount of information about what the component algoritms are. See <a href="#sec-composite-pub-keys" class="xref">Section 2.3</a> for a longer ENDOTE on this.</p>
 <h1 id="rfc.section.2.2.1">
 <a href="#rfc.section.2.2.1">2.2.1.</a> <a href="#key-usage" id="key-usage">Key Usage</a>
 </h1>
 <p id="rfc.section.2.2.1.p.1">For protocols such as X.509 <a href="#RFC5280" class="xref">[RFC5280]</a> that specify key usage along with the public key, any key usage may be used with Composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a Composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. id-alg-composite MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single Composite key object.</p>
+<h1 id="rfc.section.2.2.2">
+<a href="#rfc.section.2.2.2">2.2.2.</a> <a href="#and-or-and-k-of-n-modes" id="and-or-and-k-of-n-modes">AND, OR, and K-of-N modes</a>
+</h1>
+<p id="rfc.section.2.2.2.p.1">Once an end entity has been issued multiple public keys, it is easy to imagine different modes and policies for using these keys. For example a logical AND would provide the strictest security by requiring any usage of a composite key to always use all component keys. Meanwhile, a logical OR would provide the greatest migration flexibility by allowing any component key to be used by itself. There can also be modes in between the two extremes such as a "K of N" mode, or a policy explicitely listing acceptable combinations of algorithms.</p>
+<p id="rfc.section.2.2.2.p.2">While these modes are an important part of composite signature and encryption algorithms, they do not affect the structure of the composite public and private keys, and are therefore outside the scope of this draft. If the community desires, future versions of this draft may define X.509v3 Extensions to convey this key usage policy information in an X.509 certificate.</p>
 <h1 id="rfc.section.2.3">
 <a href="#rfc.section.2.3">2.3.</a> <a href="#sec-composite-pub-keys" id="sec-composite-pub-keys">Composite Public Key</a>
 </h1>
@@ -623,10 +628,22 @@ pk-Composite PUBLIC-KEY ::= {
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 </pre>
 <p id="rfc.section.2.3.p.2">The corresponding AlgorithmIdentifier for a composite public key MUST use the id-alg-composite object identifier, defined in <a href="#sec-alg-identifier" class="xref">Section 2.1</a>, and the parameters field MUST be absent.</p>
-<p id="rfc.section.2.3.p.3">A composite public key MUST contain at least one component public key.</p>
-<p id="rfc.section.2.3.p.4">A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed</p>
-<p id="rfc.section.2.3.p.5">EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity. In particular, with the addition of Composite (AND mode) and Composite-OR (OR mode), recursion actually allows full boolean expression. Is this valuable?</p>
-<p id="rfc.section.2.3.p.6">Each element of a CompositePublicKey is a SubjectPublicKeyInfo object for a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in <a href="#sec-encoding-rules" class="xref">Section 2.5</a>.</p>
+<p id="rfc.section.2.3.p.3">A composite public key MUST contain at least two component public keys.</p>
+<p id="rfc.section.2.3.p.4">A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed.</p>
+<p id="rfc.section.2.3.p.5">EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity and therefore reduction in attack surface. In particular, with the addition of Composite (AND mode) and Composite-OR (OR mode), recursion actually allows full boolean expression. Is this valuable?</p>
+<p id="rfc.section.2.3.p.6">Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in <a href="#sec-encoding-rules" class="xref">Section 2.5</a>.</p>
+<h1 id="rfc.section.2.3.1">
+<a href="#rfc.section.2.3.1">2.3.1.</a> <a href="#generic-composite-public-key" id="generic-composite-public-key">Generic Composite Public Key</a>
+</h1>
+<p id="rfc.section.2.3.1.p.1">In this mode the PUBLIC-KEY IDENTIFIER SHALL be id-composite-key. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and params for the public key contained within it. See <a href="#appdx-genComposite-examples" class="xref">Section 6.3.1</a> for examples.</p>
+<p id="rfc.section.2.3.1.p.2">This mode provides a completely generic structure where key types can be combined into arbitrary combinations by runtime agents; ie no OIDs need to be assigned beyond id-composite-key and the OIDs for the individual component algorithms.</p>
+<p id="rfc.section.2.3.1.p.3">The motivation for this mode is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this mode will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadtuples, etc of algorithms.</p>
+<h1 id="rfc.section.2.3.2">
+<a href="#rfc.section.2.3.2">2.3.2.</a> <a href="#explicit-composite-public-key" id="explicit-composite-public-key">Explicit Composite Public Key</a>
+</h1>
+<p id="rfc.section.2.3.2.p.1">In this mode, he PUBLIC-KEY IDENTIFIER SHALL be and OID which is registered to represent a specific combination of component public key types. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID of id-composite-component-key, which is only a placeholder to indicate that the type of key needs to be infered by the client from the top-level PUBLIC-KEY IDENTIFIER and the order of this key within the SEQUENCE. See <a href="#appdx-expComposite-examples" class="xref">Section 6.3.2</a> for examples. Also see <a href="#appdx-creatingExplicitCombinations" class="xref">Section 6.1</a> for guidance on creating and registering OIDs for specific explicit combinations.</p>
+<p id="rfc.section.2.3.2.p.2">This mode provides a rigid way of specifying supported combinations of algorithms.</p>
+<p id="rfc.section.2.3.2.p.3">The motivation for this mode is make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.</p>
 <h1 id="rfc.section.2.4">
 <a href="#rfc.section.2.4">2.4.</a> <a href="#composite-private-key" id="composite-private-key">Composite Private Key</a>
 </h1>
@@ -636,7 +653,8 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 </pre>
 <p id="rfc.section.2.4.p.2">Each element is a OneAsymmetricKey <a href="#RFC5958" class="xref">[RFC5958]</a> object for a component private key.</p>
 <p id="rfc.section.2.4.p.3">The corresponding AlgorithmIdentifier for a composite private key MUST use the id-alg-composite object identifier, and the parameters field MUST be absent.</p>
-<p id="rfc.section.2.4.p.4">A CompositePrivateKey MUST contain at least one component private key, and they MUST be in the same order as in the corresponding CompositePublicKey.</p>
+<p id="rfc.section.2.4.p.4">A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.</p>
+<p id="rfc.section.2.4.p.5">EDNOTE: does this also need an explicit version?</p>
 <h1 id="rfc.section.2.5">
 <a href="#rfc.section.2.5">2.5.</a> <a href="#sec-encoding-rules" id="sec-encoding-rules">Encoding Rules</a>
 </h1>
@@ -648,8 +666,7 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 <a href="#rfc.section.3">3.</a> <a href="#sec-in-pract" id="sec-in-pract">In Practice</a>
 </h1>
 <p id="rfc.section.3.p.1">This section addresses practical issues of how this draft affects other protocols and standards.</p>
-<p id="rfc.section.3.p.2">~~~ BEGIN EDNOTE 10~~~</p>
-<p id="rfc.section.3.p.3">EDNOTE 10: Possible topics to address:</p>
+<p id="rfc.section.3.p.2">EDNOTE 10: Possible topics to address:</p>
 <p></p>
 
 <ul>
@@ -661,7 +678,6 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 <li>We could also discuss backwards compatibility.</li>
 <li>We could include a subsection about implementation considerations.</li>
 </ul>
-<p id="rfc.section.3.p.5">~~~ END EDNOTE 10~~~</p>
 <h1 id="rfc.section.3.1">
 <a href="#rfc.section.3.1">3.1.</a> <a href="#textual-encoding-of-composite-private-keys" id="textual-encoding-of-composite-private-keys">Textual encoding of Composite Private Keys</a>
 </h1>
@@ -683,14 +699,16 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 id-composite-key OBJECT IDENTIFIER ::= {
     iso(1) identified-organization(3) dod(6) internet(1) security(5)
     mechanisms(5) pkix(7) algorithms(6) composite(??) }
+
+id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 </pre>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
 <h1 id="rfc.section.5.1">
-<a href="#rfc.section.5.1">5.1.</a> <a href="#reuse-of-keys-in-a-composite-public-key" id="reuse-of-keys-in-a-composite-public-key">Reuse of keys in a Composite public key</a>
+<a href="#rfc.section.5.1">5.1.</a> <a href="#sec-secCons-keyReuse" id="sec-secCons-keyReuse">Reuse of keys in a Composite public key</a>
 </h1>
-<p id="rfc.section.5.1.p.1">There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used in isolation and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated. Note that protocols allowing public keys using the Composite-OR algorithm identifier will have a more difficult time preventing downgrade and stripping attacks and therefore it is RECOMMENDED to use the default AND mode unless the application has a strong need for backwards compatability and migration.</p>
+<p id="rfc.section.5.1.p.1">There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used outside of their composite context and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated. In particular, the components of a composite key SHOULD NOT also appear in single-key certificates. This is particularly relevant for protocols that use composite keys in a logical AND mode since the appearance of the same component keys in single-key contexts undermines the binding of the component keys into a single composite key.</p>
 <h1 id="rfc.section.5.2">
 <a href="#rfc.section.5.2">5.2.</a> <a href="#policy-for-deprecated-and-acceptable-algorithms" id="policy-for-deprecated-and-acceptable-algorithms">Policy for Deprecated and Acceptable Algorithms</a>
 </h1>
@@ -719,12 +737,54 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <a href="#rfc.section.6">6.</a> <a href="#appendices" id="appendices">Appendices</a>
 </h1>
 <h1 id="rfc.section.6.1">
-<a href="#rfc.section.6.1">6.1.</a> <a href="#asn1-module" id="asn1-module">ASN.1 Module</a>
+<a href="#rfc.section.6.1">6.1.</a> <a href="#appdx-creatingExplicitCombinations" id="appdx-creatingExplicitCombinations">Creating explicit combinations</a>
+</h1>
+<p id="rfc.section.6.1.p.1">The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementors to perform this check explicitely.</p>
+<pre>
+-- pk-explicitComposite - Composite public key information object
+
+pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
+ FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} 
+ PUBLIC-KEY ::= {
+    IDENTIFIER id
+    KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
+     secondPublicKey, SecondPublicKeyType}
+    PARAMS ARE absent
+    CERT-KEY-USAGE {digitalSignature, nonRepudiation, keyCertSign,
+      cRLSign}
+}
+</pre>
+<p id="rfc.section.6.1.p.2">The following ASN.1 object class then automatically generates the public key structure from the types defined in pk-explicitComposite.</p>
+<pre>
+-- ExplicitCompositePublicKey - The data structure for a composite 
+-- public key sec-alg-identifier and SecondPublicKeyType are needed
+-- because PUBLIC-KEY contains a set of public key types, not a single
+-- type.
+-- TODO The parameters should be optional only if they are marked 
+-- optional in the PUBLIC-KEY.
+
+
+ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType, 
+  PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} ::= SEQUENCE {
+    firstPublicKey SEQUENCE {
+        params firstPublicKey.&amp;Params OPTIONAL,
+        publicKey FirstPublicKeyType
+    },
+    secondPublicKey SEQUENCE {
+        params secondPublicKey.&amp;Params OPTIONAL,
+        publicKey SecondPublicKeyType
+    }
+}
+</pre>
+<p id="rfc.section.6.1.p.3">Using this module, it becomes trivial to define explicit pairs. For an example, see <a href="#appdx-expComposite-examples" class="xref">Section 6.3.2</a>.</p>
+<p id="rfc.section.6.1.p.4">To define explicit triples, quadtuples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.</p>
+<h1 id="rfc.section.6.2">
+<a href="#rfc.section.6.2">6.2.</a> <a href="#asn1-module" id="asn1-module">ASN.1 Module</a>
 </h1>
 <pre>
 &lt;CODE STARTS&gt;
 
-Composite-Signatures-2019
+Composite-Keys-2022
   { TBD }
 
 DEFINITIONS IMPLICIT TAGS ::= BEGIN
@@ -754,14 +814,19 @@ IMPORTS
 -- Object Identifiers
 --
 
-id-alg-composite OBJECT IDENTIFIER ::= { TBD }
+-- To be replaced by IANA
+id-composite-key OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) dod(6) internet(1) private(4) 
+  enterprise(1) OpenCA(18227) algorithms(2) id-pk-compositeCrypto(1) }
+
+id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 
 --
 -- Public Key
 --
 
 pk-Composite PUBLIC-KEY ::= {
-    IDENTIFIER id-alg-composite
+    IDENTIFIER id-composite-key
     KEY CompositePublicKey
     PARAMS ARE absent
     PRIVATE-KEY CompositePrivateKey
@@ -772,16 +837,134 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
 
+-- pk-explicitComposite - Composite public key information object
+
+pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
+  FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} 
+  PUBLIC-KEY ::= {
+    IDENTIFIER id
+    KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
+      secondPublicKey, SecondPublicKeyType}
+    PARAMS ARE absent
+}
+
+   The following ASN.1 object class then automatically generates the
+   public key structure from the types defined in pk-explicitComposite.
+
+-- ExplicitCompositePublicKey - The data structure for a composite 
+-- public key sec-alg-identifier and SecondPublicKeyType are needed 
+-- because PUBLIC-KEY contains a set of public key types, not a single
+-- type.
+-- TODO The parameters should be optional only if they are marked 
+-- optional in the PUBLIC-KEY
+
+
+ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
+  PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} ::= SEQUENCE {
+    firstPublicKey SEQUENCE {
+        params firstPublicKey.&amp;Params OPTIONAL,
+        publicKey FirstPublicKeyType
+    },
+    secondPublicKey SEQUENCE {
+        params secondPublicKey.&amp;Params OPTIONAL,
+        publicKey SecondPublicKeyType
+    }
+}
+
 END
 
 &lt;CODE ENDS&gt;
 
 </pre>
-<h1 id="rfc.section.6.2">
-<a href="#rfc.section.6.2">6.2.</a> <a href="#intellectual-property-considerations" id="intellectual-property-considerations">Intellectual Property Considerations</a>
+<h1 id="rfc.section.6.3">
+<a href="#rfc.section.6.3">6.3.</a> <a href="#examples" id="examples">Examples</a>
 </h1>
-<p id="rfc.section.6.2.p.1">The following IPR Disclosure relates to this draft:</p>
-<p id="rfc.section.6.2.p.2">https://datatracker.ietf.org/ipr/3588/</p>
+<h1 id="rfc.section.6.3.1">
+<a href="#rfc.section.6.3.1">6.3.1.</a> <a href="#appdx-genComposite-examples" id="appdx-genComposite-examples">Generic Composite Public Key Examples</a>
+</h1>
+<p id="rfc.section.6.3.1.p.1">This is an example generic composite public key</p>
+<pre>
+-----BEGIN PUBLIC KEY-----
+MIIBmDAMBgorBgEEAYGOMwIBA4IBhgAwggGBMFkwEwYHKoZIzj0CAQYIKoZIzj0D
+AQcDQgAELGrFpFFDsF3WazCa6npSX5ItleWicfFiDBkSumENPA0KSx+kntAIDxXl
+TYMAcoMdEYSUJW3DyXhe42CVFiHXkzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAL9UuDDAEd0iqPNt1fwKUGz2A99ErWBvURBE3PxWxiX+Tl482OZGVdY/
+jIF4d8jPGEVaYo1Hi3QO3JVwctAIOTHSrseozh/dAzBDu23OLBVT61BaZANA6x12
+E07yAl43zuRnvVUg2iFLKDuyMfzohY3yWi+bjyYFcMYW6Fmi3s0NLpa4MmhX1K5S
+9KbmgBrxr2h0U7nlglBEs+HEnpTYItiVzcyyJVBiQ99h6Tc6ZVzV2JwTb0fwhAZL
+89GLe8EFltLFr/bqIt0vm89HAaerMkFR3YwZn+vxSiunNpg9gXrLpksk2WpxIu7Z
+er34NvFTeJj55foy5u5761WrT8yrolkCAwEAAQ==
+-----END PUBLIC KEY-----
+</pre>
+<p id="rfc.section.6.3.1.p.2">which decodes as:</p>
+<pre>
+algorithm: AlgorithmIdentifier{id-composite-key}
+
+subjectPublicKey: CompositePublicKey {
+    SubjectPublicKeyInfo {
+      algorithm: AlgorithmIdentifier {
+        algorithm: ecPublicKey
+        parameters: prime256v1
+        }
+      subjectPublicKey: &lt;ec key octet string&gt;
+      },
+      SubjectPublicKeyInfo {
+      algorithm: AlgorithmIdentifier {
+        algorithm: rsaEncryption
+        parameters: NULL
+        }
+      subjectPublicKey: &lt;rsa key octet string&gt;
+      }
+    }
+</pre>
+<h1 id="rfc.section.6.3.2">
+<a href="#rfc.section.6.3.2">6.3.2.</a> <a href="#appdx-expComposite-examples" id="appdx-expComposite-examples">Explitic Composite Public Key Examples</a>
+</h1>
+<p id="rfc.section.6.3.2.p.1">-- Modify the Generic example as if it had a registered pairwise OID</p>
+<p id="rfc.section.6.3.2.p.2">Assume that the following is a defined explicit pair:</p>
+<pre>
+id-pk-example-ECandRSA OBJECT IDENTIFIER ::= { 1 2 3 4 }
+
+pk-example-ECandRSA PUBLIC-KEY ::= pk-explicitComposite{
+    id-pk-example-ECandRSA,
+    ecPublicKey,
+    pk-ec,
+    rsaEncryption,
+    pk-rsa,
+}
+</pre>
+<p id="rfc.section.6.3.2.p.3">Then the same key as above could be encoded as an explicit composite public key as:</p>
+<pre>
+TODO: PEM
+  Can't actually encode this because we haven't listed an OID value for
+  id-composite-component-key.
+</pre>
+<p id="rfc.section.6.3.2.p.4">which decodes as:</p>
+<pre>
+algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
+
+subjectPublicKey: CompositePublicKey {
+    SubjectPublicKeyInfo {
+      algorithm: AlgorithmIdentifier {
+        algorithm: id-composite-component-key
+        parameters: prime256v1
+        }
+      subjectPublicKey: &lt;ec key octet string&gt;
+      },
+      SubjectPublicKeyInfo {
+      algorithm: AlgorithmIdentifier {
+        algorithm: id-composite-component-key
+        parameters: NULL
+        }
+      subjectPublicKey: &lt;rsa key octet string&gt;
+      }
+    }
+</pre>
+<h1 id="rfc.section.6.4">
+<a href="#rfc.section.6.4">6.4.</a> <a href="#intellectual-property-considerations" id="intellectual-property-considerations">Intellectual Property Considerations</a>
+</h1>
+<p id="rfc.section.6.4.p.1">The following IPR Disclosure relates to this draft:</p>
+<p id="rfc.section.6.4.p.2">https://datatracker.ietf.org/ipr/3588/</p>
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#contributors-and-acknowledgements" id="contributors-and-acknowledgements">Contributors and Acknowledgements</a>
 </h1>

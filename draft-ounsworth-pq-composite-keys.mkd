@@ -99,7 +99,7 @@ informative:
 --- abstract
 With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data.
 
-This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. This document makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption.
+This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite mode makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. This document also defines the explicit composite mode which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms.
 
 <!-- End of Abstract -->
 
@@ -114,11 +114,15 @@ The deployment of composite public keys, and composite signatures and composite 
 
 
 - Algorithm strength uncertainty: During the transition period, some post-quantum signature and encryption algorithms will not be fully trusted, while also the trust in legacy public key algorithms will start to erode.  A relying party may learn some time after deployment that a public key algorithm has become untrustworthy, but in the interim, they may not know which algorithm an adversary has compromised.
-- Backwards compatibility: During the transition period, post-quantum algorithms will not be supported by all clients.
+- Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully classical to fully post-quantum-aware cryptography.
 
-This document provides a mechanism to address algorithm strength uncertainty by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields.
+This document provides a mechanism to address both algorithm strength uncertainty as well as migration concerns by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields.
 
 This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.
+
+
+EDNOTE
+A previous version of this draft specified alternate algorithm identifiers for AND and OR modes. As well, a similar spec by D-Trust (now co-authors of this draft) also specified a "K of N" mode. While we still believe that these are valuable modes serving security and migration needs, we have removed them from this draft as they are really key usage policy and therefore do not belong in the public key object defined in this draft. They remain important parts of composite signature algorithms to prevent stripping attacks, and of composite encryption algorithms to tell a recipient how to decrypt the ciphertext. If the community decides that this usage information should accompany a composite public key, then it should be carried either as an X.509 Extended Key Usage or v3 Extension rather than in the public key itself.
 
 
 <!-- End of Introduction section -->
@@ -155,7 +159,7 @@ PUBLIC / PRIVATE KEY:
 
 
 # Composite Structures {#sec-composite-structs}
-In order for public keys and private keys to be composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "component algorithms") such that these structures can be used as a drop-in replacement for existing public key fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652], and the Trust Anchor Format [RFC5914].
+In order for public keys and private keys to be composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "components") such that these structures can be used as a drop-in replacement for existing public key fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652], and the Trust Anchor Format [RFC5914].
 
 This section defines the following structures:
 
@@ -166,37 +170,23 @@ This section defines the following structures:
   - The CompositePrivateKey carries all the private keys associated with an identity within a single private key structure.
 
 
-EDNOTE 2: We have heard community feedback that the ASN.1 structures presented here are too flexible in that allow arbitrary combinations of an arbitrary number of signature algorithms. The feedback is that this is too much of a "footgun" for implementors and sysadmins. We are working on an alternative formulation using ASN.1 information object classes that allow for compiling explicit pairs of algorithmIDs. We would love community feedback on which approach is preferred. See slide 30 of this presentation: https://datatracker.ietf.org/meeting/interim-2021-lamps-01/materials/slides-interim-2021-lamps-01-sessa-position-presentation-by-mike-ounsworth-00.pdf
+## Algorithm Identifiers {#sec-alg-identifier}
 
-## Algorithm Identifier {#sec-alg-identifier}
-
-### Composite Public Key
-
-The Composite algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
-
-When using this algorithm identifier it is implied that all component keys MUST be used in an AND relation; any cryptographic operation using this composite public key MUST use the it as an atomic object and use all component keys. This mode has the strongest security properties and is RECOMMENDED. 
-
-There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used in isolation and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated.
+The Composite-Key algorithm identifier is used for identifying a generic public key and a private key.
 
 ~~~ asn.1
 id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) CompositeKey(1) }
+  iso(1) identified-organization(3) dod(6) internet(1) private(4) 
+  enterprise(1) OpenCA(18227) algorithms(2) id-pk-compositeCrypto(1) }
 ~~~
 
-EDNOTE 3: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
-
-### Composite-OR Public Key
-
-EDNOTE: This section was written with the intention of keeping the primary Composite OID reserved for the simple and strict mode; if you want to do either a simple OR, or a custom policy then we have given a different OID. We are still debating whether this is useful to specify at issuing time, or whether this is adding needless complexity to the draft. 
-
-The Composite-OR algorithm identifier is used for identifying a public key and a private key.  Additional encoding information is provided below for each of these objects. 
-
-When using this algorithm identifier, component keys MAY be used in an OR relation meaning that any one of the component keys may be used by itself. Implementors may also define more complex processes and policies using this algorithm identifier, for expmple allowing some algorithms by themselves and others only in combination. This mode is provided for applications that need to issue long-lived composite keys in a way that allows for backwards compatibility or staged adoption of new algorithms.
-
-~~~ ASN.1
-id-composite-or-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) entrust-Algorithm-Composite-OR(3) }
+The Composite-Component-Key algorithm identifier is user for idententifying a component within an explicit public key.
+~~~ asn.1
+id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 ~~~
+
+EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
 
 ## Composite Keys
 
@@ -206,7 +196,6 @@ The ASN.1 algorithm object for composite public and private keys is:
 
 ~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
-    IDENTIFIER id-alg-composite
     KEY CompositePublicKey
     PARAMS ARE absent
     PRIVATE-KEY CompositePrivateKey
@@ -215,13 +204,15 @@ pk-Composite PUBLIC-KEY ::= {
 {: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
 
 
-EDNOTE 4: the authors are currently unsure whether the params should be absent (ie this structure simply says "I am a composite algorithm"), or used to duplicate some amount of information about what the component algoritms are. See {{sec-composite-pub-keys}} for a longer ENDOTE on this.
-
 ### Key Usage
 
 For protocols such as X.509 [RFC5280] that specify key usage along with the public key, any key usage may be used with Composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a Composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. id-alg-composite MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single Composite key object.
 
+### AND, OR, and K-of-N modes
 
+Once an end entity has been issued multiple public keys, it is easy to imagine different modes and policies for using these keys. For example a logical AND would provide the strictest security by requiring any usage of a composite key to always use all component keys. Meanwhile, a logical OR would provide the greatest migration flexibility by allowing any component key to be used by itself. There can also be modes in between the two extremes such as a "K of N" mode, or a policy explicitely listing acceptable combinations of algorithms.
+
+While these modes are an important part of composite signature and encryption algorithms, they do not affect the structure of the composite public and private keys, and are therefore outside the scope of this draft. If the community desires, future versions of this draft may define X.509v3 Extensions to convey this key usage policy information in an X.509 certificate.
 
 ## Composite Public Key {#sec-composite-pub-keys}
 
@@ -235,13 +226,30 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
 The corresponding AlgorithmIdentifier for a composite public key MUST use the id-alg-composite object identifier, defined in {{sec-alg-identifier}}, and the parameters field MUST be absent.
 
-A composite public key MUST contain at least one component public key.
+A composite public key MUST contain at least two component public keys.
 
-A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed
+A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed.
 
-EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity. In particular, with the addition of Composite (AND mode) and Composite-OR (OR mode), recursion actually allows full boolean expression. Is this valuable?
+EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity and therefore reduction in attack surface. In particular, with the addition of Composite (AND mode) and Composite-OR (OR mode), recursion actually allows full boolean expression. Is this valuable?
 
-Each element of a CompositePublicKey is a SubjectPublicKeyInfo object for a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in {{sec-encoding-rules}}.
+Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in {{sec-encoding-rules}}.
+
+
+### Generic Composite Public Key
+
+In this mode the PUBLIC-KEY IDENTIFIER SHALL be id-composite-key. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and params for the public key contained within it. See {{appdx-genComposite-examples}} for examples.
+
+This mode provides a completely generic structure where key types can be combined into arbitrary combinations by runtime agents; ie no OIDs need to be assigned beyond id-composite-key and the OIDs for the individual component algorithms.
+
+The motivation for this mode is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this mode will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadtuples, etc of algorithms.
+
+### Explicit Composite Public Key
+
+In this mode, he PUBLIC-KEY IDENTIFIER SHALL be and OID which is registered to represent a specific combination of component public key types. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID of id-composite-component-key, which is only a placeholder to indicate that the type of key needs to be infered by the client from the top-level PUBLIC-KEY IDENTIFIER and the order of this key within the SEQUENCE. See {{appdx-expComposite-examples}} for examples. Also see {{appdx-creatingExplicitCombinations}} for guidance on creating and registering OIDs for specific explicit combinations.
+
+This mode provides a rigid way of specifying supported combinations of algorithms.
+
+The motivation for this mode is make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
 
 
 ## Composite Private Key
@@ -257,9 +265,9 @@ Each element is a OneAsymmetricKey [RFC5958] object for a component private key.
 
 The corresponding AlgorithmIdentifier for a composite private key MUST use the id-alg-composite object identifier, and the parameters field MUST be absent.
 
-A CompositePrivateKey MUST contain at least one component private key, and they MUST be in the same order as in the corresponding CompositePublicKey.
+A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.
 
-
+EDNOTE: does this also need an explicit version?
 
 ## Encoding Rules {#sec-encoding-rules}
 <!-- EDNOTE 7: Examples of how other specifications specify how a data structure is converted to a bit string can be found in RFC 2313, section 10.1.4, 3279 section 2.3.5, and RFC 4055, section 3.2. -->
@@ -279,8 +287,6 @@ In the interests of simplicity and avoiding compatibility issues, implementation
 This section addresses practical issues of how this draft affects other protocols and standards.
 
 
-~~~ BEGIN EDNOTE 10~~~
-
 EDNOTE 10: Possible topics to address:
 
   - The size of these certs and cert chains.
@@ -291,7 +297,6 @@ EDNOTE 10: Possible topics to address:
   - We could also discuss backwards compatibility.
   - We could include a subsection about implementation considerations.
 
-~~~ END EDNOTE 10~~~
 
 ## Textual encoding of Composite Private Keys
 
@@ -322,6 +327,8 @@ The ASN.1 module OID is TBD.  The id-composite-key and id-composite-or-key OIDs 
 id-composite-key OBJECT IDENTIFIER ::= {
     iso(1) identified-organization(3) dod(6) internet(1) security(5)
     mechanisms(5) pkix(7) algorithms(6) composite(??) }
+
+id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 ~~~
 
 <!-- End of IANA Considerations section -->
@@ -329,9 +336,9 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
 # Security Considerations
 
-## Reuse of keys in a Composite public key
+## Reuse of keys in a Composite public key {#sec-secCons-keyReuse}
 
-There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used in isolation and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated. Note that protocols allowing public keys using the Composite-OR algorithm identifier will have a more difficult time preventing downgrade and stripping attacks and therefore it is RECOMMENDED to use the default AND mode unless the application has a strong need for backwards compatability and migration.
+There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used outside of their composite context and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated. In particular, the components of a composite key SHOULD NOT also appear in single-key certificates. This is particularly relevant for protocols that use composite keys in a logical AND mode since the appearance of the same component keys in single-key contexts undermines the binding of the component keys into a single composite key.
 
 ## Policy for Deprecated and Acceptable Algorithms
 
@@ -369,13 +376,62 @@ Certificate Authority (CA) implementations need to be careful when checking for 
 
 # Appendices
 
+## Creating explicit combinations {#appdx-creatingExplicitCombinations}
+
+The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementors to perform this check explicitely.
+
+~~~ ASN.1
+-- pk-explicitComposite - Composite public key information object
+
+pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
+ FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} 
+ PUBLIC-KEY ::= {
+    IDENTIFIER id
+    KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
+     secondPublicKey, SecondPublicKeyType}
+    PARAMS ARE absent
+    CERT-KEY-USAGE {digitalSignature, nonRepudiation, keyCertSign,
+      cRLSign}
+}
+~~~
+
+The following ASN.1 object class then automatically generates the
+public key structure from the types defined in pk-explicitComposite.
+
+~~~ ASN.1
+-- ExplicitCompositePublicKey - The data structure for a composite 
+-- public key sec-alg-identifier and SecondPublicKeyType are needed
+-- because PUBLIC-KEY contains a set of public key types, not a single
+-- type.
+-- TODO The parameters should be optional only if they are marked 
+-- optional in the PUBLIC-KEY.
+
+
+ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType, 
+  PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} ::= SEQUENCE {
+    firstPublicKey SEQUENCE {
+        params firstPublicKey.&Params OPTIONAL,
+        publicKey FirstPublicKeyType
+    },
+    secondPublicKey SEQUENCE {
+        params secondPublicKey.&Params OPTIONAL,
+        publicKey SecondPublicKeyType
+    }
+}
+~~~
+
+Using this module, it becomes trivial to define explicit pairs. For an example, see {{appdx-expComposite-examples}}.
+
+To define explicit triples, quadtuples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.
+
+
 ## ASN.1 Module
 
 ~~~ ASN.1
 
 <CODE STARTS>
 
-Composite-Signatures-2019
+Composite-Keys-2022
   { TBD }
 
 DEFINITIONS IMPLICIT TAGS ::= BEGIN
@@ -405,14 +461,19 @@ IMPORTS
 -- Object Identifiers
 --
 
-id-alg-composite OBJECT IDENTIFIER ::= { TBD }
+-- To be replaced by IANA
+id-composite-key OBJECT IDENTIFIER ::= {
+  iso(1) identified-organization(3) dod(6) internet(1) private(4) 
+  enterprise(1) OpenCA(18227) algorithms(2) id-pk-compositeCrypto(1) }
+
+id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 
 --
 -- Public Key
 --
 
 pk-Composite PUBLIC-KEY ::= {
-    IDENTIFIER id-alg-composite
+    IDENTIFIER id-composite-key
     KEY CompositePublicKey
     PARAMS ARE absent
     PRIVATE-KEY CompositePrivateKey
@@ -423,11 +484,139 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
 
+-- pk-explicitComposite - Composite public key information object
+
+pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
+  FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} 
+  PUBLIC-KEY ::= {
+    IDENTIFIER id
+    KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
+      secondPublicKey, SecondPublicKeyType}
+    PARAMS ARE absent
+}
+
+   The following ASN.1 object class then automatically generates the
+   public key structure from the types defined in pk-explicitComposite.
+
+-- ExplicitCompositePublicKey - The data structure for a composite 
+-- public key sec-alg-identifier and SecondPublicKeyType are needed 
+-- because PUBLIC-KEY contains a set of public key types, not a single
+-- type.
+-- TODO The parameters should be optional only if they are marked 
+-- optional in the PUBLIC-KEY
+
+
+ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
+  PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} ::= SEQUENCE {
+    firstPublicKey SEQUENCE {
+        params firstPublicKey.&Params OPTIONAL,
+        publicKey FirstPublicKeyType
+    },
+    secondPublicKey SEQUENCE {
+        params secondPublicKey.&Params OPTIONAL,
+        publicKey SecondPublicKeyType
+    }
+}
+
 END
 
 <CODE ENDS>
 
 ~~~
+
+## Examples
+
+### Generic Composite Public Key Examples {#appdx-genComposite-examples}
+
+This is an example generic composite public key
+
+~~~
+-----BEGIN PUBLIC KEY-----
+MIIBmDAMBgorBgEEAYGOMwIBA4IBhgAwggGBMFkwEwYHKoZIzj0CAQYIKoZIzj0D
+AQcDQgAELGrFpFFDsF3WazCa6npSX5ItleWicfFiDBkSumENPA0KSx+kntAIDxXl
+TYMAcoMdEYSUJW3DyXhe42CVFiHXkzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAL9UuDDAEd0iqPNt1fwKUGz2A99ErWBvURBE3PxWxiX+Tl482OZGVdY/
+jIF4d8jPGEVaYo1Hi3QO3JVwctAIOTHSrseozh/dAzBDu23OLBVT61BaZANA6x12
+E07yAl43zuRnvVUg2iFLKDuyMfzohY3yWi+bjyYFcMYW6Fmi3s0NLpa4MmhX1K5S
+9KbmgBrxr2h0U7nlglBEs+HEnpTYItiVzcyyJVBiQ99h6Tc6ZVzV2JwTb0fwhAZL
+89GLe8EFltLFr/bqIt0vm89HAaerMkFR3YwZn+vxSiunNpg9gXrLpksk2WpxIu7Z
+er34NvFTeJj55foy5u5761WrT8yrolkCAwEAAQ==
+-----END PUBLIC KEY-----
+~~~
+
+which decodes as:
+
+~~~
+algorithm: AlgorithmIdentifier{id-composite-key}
+
+subjectPublicKey: CompositePublicKey {
+    SubjectPublicKeyInfo {
+      algorithm: AlgorithmIdentifier {
+        algorithm: ecPublicKey
+        parameters: prime256v1
+        }
+      subjectPublicKey: <ec key octet string>
+      },
+      SubjectPublicKeyInfo {
+      algorithm: AlgorithmIdentifier {
+        algorithm: rsaEncryption
+        parameters: NULL
+        }
+      subjectPublicKey: <rsa key octet string>
+      }
+    }
+~~~
+
+### Explitic Composite Public Key Examples {#appdx-expComposite-examples}
+
+-- Modify the Generic example as if it had a registered pairwise OID
+
+Assume that the following is a defined explicit pair:
+
+~~~ asn.1
+id-pk-example-ECandRSA OBJECT IDENTIFIER ::= { 1 2 3 4 }
+
+pk-example-ECandRSA PUBLIC-KEY ::= pk-explicitComposite{
+    id-pk-example-ECandRSA,
+    ecPublicKey,
+    pk-ec,
+    rsaEncryption,
+    pk-rsa,
+}
+~~~
+
+
+Then the same key as above could be encoded as an explicit composite public key as:
+
+~~~
+TODO: PEM
+  Can't actually encode this because we haven't listed an OID value for
+  id-composite-component-key.
+~~~
+
+which decodes as:
+
+~~~
+algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
+
+subjectPublicKey: CompositePublicKey {
+    SubjectPublicKeyInfo {
+      algorithm: AlgorithmIdentifier {
+        algorithm: id-composite-component-key
+        parameters: prime256v1
+        }
+      subjectPublicKey: <ec key octet string>
+      },
+      SubjectPublicKeyInfo {
+      algorithm: AlgorithmIdentifier {
+        algorithm: id-composite-component-key
+        parameters: NULL
+        }
+      subjectPublicKey: <rsa key octet string>
+      }
+    }
+~~~
+
 
 ## Intellectual Property Considerations
 
