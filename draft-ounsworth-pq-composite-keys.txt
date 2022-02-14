@@ -5,10 +5,10 @@
 LAMPS                                              M. Ounsworth (Editor)
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                                 M. Pala
-Expires: August 16, 2022                                       CableLabs
+Expires: August 18, 2022                                       CableLabs
                                                               K-D. Wirth
                                                                  D-Trust
-                                                       February 12, 2022
+                                                       February 14, 2022
 
 
        Composite Public and Private Keys For Use In Internet PKI
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 1]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 1]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -61,7 +61,7 @@ Internet-Draft              PQ Composite Keys              February 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 16, 2022.
+   This Internet-Draft will expire on August 18, 2022.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 2]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 2]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -165,7 +165,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 3]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 3]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -221,7 +221,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 4]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 4]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -277,7 +277,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 5]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 5]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -302,8 +302,8 @@ Internet-Draft              PQ Composite Keys              February 2022
    encryption algorithms, they do not affect the structure of the
    composite public and private keys, and are therefore outside the
    scope of this draft.  If the community desires, future versions of
-   this draft may define X.509v3 Extensions to convey this key usage
-   policy information in an X.509 certificate.
+   this draft may define and X.509 extended key usage or v3 extension to
+   convey this key usage policy information in an X.509 certificate.
 
 2.3.  Composite Public Key
 
@@ -333,7 +333,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 6]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 6]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -389,7 +389,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 7]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 7]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -445,7 +445,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 8]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 8]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -501,7 +501,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022                [Page 9]
+Ounsworth (Editor), et alExpires August 18, 2022                [Page 9]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -557,7 +557,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 10]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 10]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -613,7 +613,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 11]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 11]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -669,7 +669,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 12]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 12]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -725,7 +725,7 @@ IMPORTS
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 13]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 13]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -781,7 +781,7 @@ pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 14]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 14]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -837,7 +837,7 @@ END
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 15]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 15]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -893,7 +893,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 16]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 16]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -949,7 +949,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 17]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 17]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -1005,7 +1005,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 18]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 18]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -1061,7 +1061,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 19]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 19]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 20]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 20]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -1173,4 +1173,4 @@ Authors' Addresses
 
 
 
-Ounsworth (Editor), et alExpires August 16, 2022               [Page 21]
+Ounsworth (Editor), et alExpires August 18, 2022               [Page 21]

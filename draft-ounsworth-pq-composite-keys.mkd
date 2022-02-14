@@ -212,7 +212,7 @@ For protocols such as X.509 [RFC5280] that specify key usage along with the publ
 
 Once an end entity has been issued multiple public keys, it is easy to imagine different modes and policies for using these keys. For example a logical AND would provide the strictest security by requiring any usage of a composite key to always use all component keys. Meanwhile, a logical OR would provide the greatest migration flexibility by allowing any component key to be used by itself. There can also be modes in between the two extremes such as a "K of N" mode, or a policy explicitely listing acceptable combinations of algorithms.
 
-While these modes are an important part of composite signature and encryption algorithms, they do not affect the structure of the composite public and private keys, and are therefore outside the scope of this draft. If the community desires, future versions of this draft may define X.509v3 Extensions to convey this key usage policy information in an X.509 certificate.
+While these modes are an important part of composite signature and encryption algorithms, they do not affect the structure of the composite public and private keys, and are therefore outside the scope of this draft. If the community desires, future versions of this draft may define and X.509 extended key usage or v3 extension to convey this key usage policy information in an X.509 certificate.
 
 ## Composite Public Key {#sec-composite-pub-keys}
 
