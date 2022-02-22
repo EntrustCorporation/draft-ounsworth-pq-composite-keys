@@ -2,7 +2,7 @@
 
 
 
-LAMPS                                              M. Ounsworth (Editor)
+LAMPS                                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                                 M. Pala
 Expires: August 26, 2022                                       CableLabs
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 1]
+Ounsworth, et al.        Expires August 26, 2022                [Page 1]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 2]
+Ounsworth, et al.        Expires August 26, 2022                [Page 2]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -165,7 +165,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 3]
+Ounsworth, et al.        Expires August 26, 2022                [Page 3]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -221,7 +221,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 4]
+Ounsworth, et al.        Expires August 26, 2022                [Page 4]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -277,7 +277,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 5]
+Ounsworth, et al.        Expires August 26, 2022                [Page 5]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -333,7 +333,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 6]
+Ounsworth, et al.        Expires August 26, 2022                [Page 6]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -389,7 +389,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 7]
+Ounsworth, et al.        Expires August 26, 2022                [Page 7]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -445,7 +445,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 8]
+Ounsworth, et al.        Expires August 26, 2022                [Page 8]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -501,7 +501,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022                [Page 9]
+Ounsworth, et al.        Expires August 26, 2022                [Page 9]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -557,7 +557,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 10]
+Ounsworth, et al.        Expires August 26, 2022               [Page 10]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -613,7 +613,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 11]
+Ounsworth, et al.        Expires August 26, 2022               [Page 11]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -669,7 +669,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 12]
+Ounsworth, et al.        Expires August 26, 2022               [Page 12]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -725,7 +725,7 @@ IMPORTS
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 13]
+Ounsworth, et al.        Expires August 26, 2022               [Page 13]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -781,7 +781,7 @@ pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 14]
+Ounsworth, et al.        Expires August 26, 2022               [Page 14]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -837,7 +837,7 @@ END
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 15]
+Ounsworth, et al.        Expires August 26, 2022               [Page 15]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -893,7 +893,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 16]
+Ounsworth, et al.        Expires August 26, 2022               [Page 16]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -949,7 +949,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 17]
+Ounsworth, et al.        Expires August 26, 2022               [Page 17]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -1005,7 +1005,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 18]
+Ounsworth, et al.        Expires August 26, 2022               [Page 18]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -1061,7 +1061,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 19]
+Ounsworth, et al.        Expires August 26, 2022               [Page 19]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft              PQ Composite Keys              February 2022
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 20]
+Ounsworth, et al.        Expires August 26, 2022               [Page 20]
 
 Internet-Draft              PQ Composite Keys              February 2022
 
@@ -1173,4 +1173,4 @@ Authors' Addresses
 
 
 
-Ounsworth (Editor), et alExpires August 26, 2022               [Page 21]
+Ounsworth, et al.        Expires August 26, 2022               [Page 21]

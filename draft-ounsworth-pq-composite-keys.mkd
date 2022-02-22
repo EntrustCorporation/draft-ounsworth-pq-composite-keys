@@ -22,7 +22,7 @@ pi:    # can use array (if all yes) or hash here
 
 author:
     -
-      ins: M. Ounsworth (Editor)
+      ins: M. Ounsworth
       name: Mike Ounsworth
       org: Entrust Limited
       abbrev: Entrust
