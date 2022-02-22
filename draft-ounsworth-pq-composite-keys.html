@@ -413,9 +413,9 @@
   <meta name="generator" content="xml2rfc version 2.40.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
-  <meta name="dct.creator" content="Ounsworth (Editor), M., Pala, M., and K-D. Wirth" />
+  <meta name="dct.creator" content="Ounsworth (Editor), M., Pala, M., and J. Klaussner" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2022-02-14" />
+  <meta name="dct.issued" scheme="ISO8601" content="2022-02-22" />
   <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite mode makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. This document also defines the explicit composite mode which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. " />
   <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite mode makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. This document also defines the explicit composite mode which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. " />
 
@@ -439,20 +439,20 @@
 <td class="right">M. Pala</td>
 </tr>
 <tr>
-<td class="left">Expires: August 18, 2022</td>
+<td class="left">Expires: August 26, 2022</td>
 <td class="right">CableLabs</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">K-D. Wirth</td>
+<td class="right">J. Klaussner</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">D-Trust</td>
+<td class="right">D-Trust GmbH</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">February 14, 2022</td>
+<td class="right">February 22, 2022</td>
 </tr>
 
     	
@@ -469,7 +469,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on August 18, 2022.</p>
+<p>This Internet-Draft will expire on August 26, 2022.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2022 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -1005,7 +1005,7 @@ subjectPublicKey: CompositePublicKey {
 <a href="#rfc.section.7">7.</a> <a href="#contributors-and-acknowledgements" id="contributors-and-acknowledgements">Contributors and Acknowledgements</a>
 </h1>
 <p id="rfc.section.7.p.1">This document incorporates contributions and comments from a large group of experts. The Editors would especially like to acknowledge the expertise and tireless dedication of the following people, who attended many long meetings and generated millions of bytes of electronic mail and VOIP traffic over the past year in pursuit of this document:</p>
-<p id="rfc.section.7.p.2">John Gray (Entrust), Serge Mister (Entrust), Scott Fluhrer (Cisco Systems), Panos Kampanakis (Cisco Systems), Daniel Van Geest (ISARA), Tim Hollebeek (Digicert), Jan Klaussner, and Francois Rousseau.</p>
+<p id="rfc.section.7.p.2">John Gray (Entrust), Serge Mister (Entrust), Scott Fluhrer (Cisco Systems), Panos Kampanakis (Cisco Systems), Daniel Van Geest (ISARA), Tim Hollebeek (Digicert), Klaus-Dieter Wirth (D-Trust), and Francois Rousseau.</p>
 <p id="rfc.section.7.p.3">We are grateful to all, including any contributors who may have been inadvertently omitted from this list.</p>
 <p id="rfc.section.7.p.4">This document borrows text from similar documents, including those referenced below. Thanks go to the authors of those documents.  "Copying always makes things easier and less error prone" - <a href="#RFC8411" class="xref">[RFC8411]</a>.</p>
 <h1 id="rfc.section.7.1">
@@ -1140,22 +1140,23 @@ subjectPublicKey: CompositePublicKey {
 </div><div class="avoidbreak">
   <address class="vcard">
 	<span class="vcardline">
-	  <span class="fn">Klaus-Dieter Wirth</span> 
+	  <span class="fn">Jan Klaussner</span> 
 	  <span class="n hidden">
-		<span class="family-name">Wirth</span>
+		<span class="family-name">Klaussner</span>
 	  </span>
 	</span>
-	<span class="org vcardline">D-Trust</span>
+	<span class="org vcardline">D-Trust GmbH</span>
 	<span class="adr">
-	  
+	  <span class="vcardline">Kommandantenstr. 15</span>
+
 	  <span class="vcardline">
-		<span class="locality"></span> 
+		<span class="locality">Berlin</span>,  
 		<span class="region"></span>
-		<span class="code"></span>
+		<span class="code">10969</span>
 	  </span>
-	  <span class="country-name vcardline"></span>
+	  <span class="country-name vcardline">Germany</span>
 	</span>
-	<span class="vcardline">EMail: <a href="mailto:k.wirth@d-trust.net">k.wirth@d-trust.net</a></span>
+	<span class="vcardline">EMail: <a href="mailto:jan.klaussner@d-trust.net">jan.klaussner@d-trust.net</a></span>
 
   </address>
 </div>

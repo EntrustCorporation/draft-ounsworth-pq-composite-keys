@@ -39,10 +39,14 @@ author:
       email: director@openca.org
 
     -
-      ins: K-D. Wirth
-      name: Klaus-Dieter Wirth
-      org: D-Trust
-      email: k.wirth@d-trust.net
+      ins: J. Klaussner
+      name: Jan Klaussner
+      org: D-Trust GmbH
+      email: jan.klaussner@d-trust.net
+      street: Kommandantenstr. 15
+      code: 10969
+      city: Berlin
+      country: Germany
 
 normative:
   RFC1421:
@@ -675,7 +679,7 @@ Scott Fluhrer (Cisco Systems),
 Panos Kampanakis (Cisco Systems),
 Daniel Van Geest (ISARA),
 Tim Hollebeek (Digicert),
-Jan Klaußner, and
+Klaus-Dieter Wirth (D-Trust), and
 François Rousseau.
 
 We are grateful to all, including any contributors who may have
