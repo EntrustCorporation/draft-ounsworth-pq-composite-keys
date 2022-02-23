@@ -218,6 +218,45 @@ Once an end entity has been issued multiple public keys, it is easy to imagine d
 
 While these modes are an important part of composite signature and encryption algorithms, they do not affect the structure of the composite public and private keys, and are therefore outside the scope of this draft. If the community desires, future versions of this draft may define and X.509 extended key usage or v3 extension to convey this key usage policy information in an X.509 certificate.
 
+
+
+~~~~~
+2022-02-23: meeting with Klaus, Jan, Frank (D-Trust), Mike, John (Entrust):
+We should add back different OIDs for AND, OR, K-of-N, and leave this open for others to be defined.
+
+Option 1:
+  - Default "id-composite-key" implies AND
+  - Define "id-composite-or"
+  - Define "id-composite-k-of-n"
+  - Other OIDs may be defined.
+
+Question: can id-composite-or be used with with stricter signature algs? I assume the answer must be Yes.
+
+
+Option 2:
+  - Default "id-composite-key" implies OR
+  - Define "id-composite-and"
+  - Define "id-composite-k-of-n"
+  - Other OIDs may be defined.
+
+Question: can id-composite-or be used with with stricter signature algs? I assume the answer must be Yes.
+
+
+Option 3:
+
+  - Default "id-composite-key" carries no policy (ie "policy defined by client")
+      - Signatures: Allows NULL signature values
+      - Encryption: Encryptor chooses a subset of keys to use, other keys produce NULL, all keys used by encryptor need to be used in decryption.
+  - Define "id-composite-and"
+  - Define "id-composite-or"
+      - Signatures: All keys MUST be used, but only one may be verified.
+      - Question: is this forced to one single key used at a time? Or does it allow a Shamir's secret sharing as in "id-composite-k-of-n" below?
+  - Define "id-composite-k-of-n"
+        - Signatures: All keys MUST be used, client can choose any k to verify.
+        - Encryption: All keys MUST be used with a Shamir's secret sharing style scheme so that only a subset of the keys need to be used in decryption.
+  - Other OIDs may be defined.
+~~~~~
+
 ## Composite Public Key {#sec-composite-pub-keys}
 
 Composite public key data is represented by the following structure:
