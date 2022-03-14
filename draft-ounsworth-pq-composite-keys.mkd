@@ -176,7 +176,7 @@ PUBLIC / PRIVATE KEY:
 
 In order for public keys and private keys to be composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "components") such that these structures can be used as a drop-in replacement for existing public key fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652], and the Trust Anchor Format [RFC5914].
 
-A composite key is a single key object that performs an atomic signature or verification operation, using its encapsulated sequence of component keys.
+A composite key is a single key object that performs an atomic cryptographic operation -- such a signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key.
 
 
 The ASN.1 algorithm object for composite public and private keys is:
@@ -184,17 +184,17 @@ The ASN.1 algorithm object for composite public and private keys is:
 ~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
     KEY CompositePublicKey
-    PARAMS ARE OPTIONAL CompositeParams
+    PARAMS CompositeParams ARE OPTIONAL
     PRIVATE-KEY CompositePrivateKey
 }
 ~~~
 {: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
 
-Algorithm parameters are used to convey the mode for combining multiple keys into a single cryptographic operation. If algorithm parameters are absent, then clients MUST interpret this as AND, as defined in section {{sec-and-mode}}. If the algorithm parameters do not conform to {{sec-composite-params}} or they contain a combiner mode OID that is not recognized by the client, then the client MUST fail to parse the composite key.
+Algorithm parameters are used to convey the mode for combining multiple keys into a single cryptographic operation. If algorithm parameters are absent, then clients MUST interpret this as AND, as defined in {{sec-and-mode}}. If the algorithm parameters do not conform to {{sec-composite-params}} or they contain a combiner mode OID that is not recognized by the client, then the client MUST fail to parse the composite key.
 
 EDNOTE: The authors debated whether an unrecognized mode MAY be treated as AND, but in the interest of simplicity we have left it as MUST fail. If there are use-cases that require this, we could consider changing it.
 
-Some basic modes are defined in section {{sec-combiner-modes}} with extensibility for additional or custom modes to be defined in the future to suit specific use-cases.
+Some basic modes are defined in {{sec-combiner-modes}} with extensibility for additional or custom modes to be defined in the future to suit specific use-cases.
 
 A composite key MUST contain at least two component public keys.
 
@@ -212,15 +212,11 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 ~~~
 {: artwork-name="CompositePublicKey-asn.1-structures"}
 
-
-The corresponding AlgorithmIdentifier for a composite public key MUST use the id-alg-composite object identifier.
-
-
 A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed.
 
 EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity and therefore reduction in attack surface. In particular, with the addition of Composite (AND mode) and Composite-OR (OR mode), recursion actually allows full boolean expression. Is this valuable?
 
-Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. diWhen the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in {{sec-encoding-rules}}.
+Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in {{sec-encoding-rules}}.
 
 
 
@@ -230,11 +226,11 @@ Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a
 CompositeParams ::= AlgorithmIdentifier
 ~~~
 
-where the algorithm and parameters represent a combiner mode as defined in section {{sec-combiner-modes}}.
+where the algorithm and parameters represent a combiner mode as defined in {{sec-combiner-modes}}.
 
 
 
-## Composite Private Key
+## Composite Private Key {#sec-priv-key}
 
 The composite private key data is represented by the following structure:
 
@@ -245,7 +241,7 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
 Each element is a OneAsymmetricKey [RFC5958] object for a component private key.
 
-The corresponding AlgorithmIdentifier for a composite private key MUST use the id-alg-composite object identifier, and the parameters field MUST be absent.
+The parameters field MUST be absent.
 
 A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.
 
@@ -261,8 +257,6 @@ When an octet string is required, the DER encoding of the composite data structu
 
 When a bit string is required, the octets of the DER encoded composite data structure SHALL be used as the bits of the bit string, with the most significant bit of the first octet becoming the first bit, and so on, ending with the least significant bit of the last octet becoming the last bit of the bit string.
 
-In the interests of simplicity and avoiding compatibility issues, implementations that parse these structures MAY accept both BER and DER.
-
 
 
 ## Generic vs Explicit Variants
@@ -275,7 +269,8 @@ The Composite-Key algorithm identifier is used for identifying a generic public 
 
 ~~~ asn.1
 id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) CompositeKey(1) }
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+    Algorithm(80) Composite(4) CompositeKey(1) }
 ~~~
 
 EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -291,7 +286,7 @@ The motivation for this mode is primarily for prototyping work prior to the stan
 ### Explicit Composite Public Key
 
 
-The Composite-Component-Key algorithm identifier is user for idententifying a component within an explicit public key.
+The Composite-Component-Key algorithm identifier is used for idententifying a component within an explicit public key.
 
 ~~~ asn.1
 id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
@@ -309,9 +304,9 @@ The motivation for this mode is make it easier to reference and enforce specific
 
 ## Combiner Modes {#sec-combiner-modes}
 
-Once an end entity has been issued multiple public keys, it is easy to imagine different modes and policies for using these keys. For example a logical AND would provide the strictest security by requiring any usage of a composite key to always use all component keys. Meanwhile, a logical OR would provide the greatest migration flexibility by allowing any component key to be used by itself. There can also be modes in between the two extremes such as a "K of N" mode, or a policy explicitely listing acceptable combinations of algorithms.
+Once an end entity has been issued multiple public keys, it is easy to imagine different modes and policies for using these keys. For example a logical AND would provide the strictest security by requiring any usage of a composite key to always use all component keys. Meanwhile, a logical OR would provide the greatest migration flexibility by allowing any component key to be used by itself. There can also be modes in between the two extremes such as a "K of N" mode, or a policy explicitly listing acceptable combinations of algorithms.
 
-A combiner mode is repsented in a composite public key by an OPTIONAL AlgorithmIdetifier where the semantics are defined in the following sections. Any signature or encryption processes that make use of these modes need to define the precise behaviour under each mode.
+A combiner mode is represented in a composite public key by an OPTIONAL AlgorithmIdentifier where the semantics are defined in the following sections. Any signature or encryption processes that make use of these modes need to define the precise behaviour under each mode.
 
 
 ### AND Mode {#sec-and-mode}
@@ -326,12 +321,14 @@ The intention of this mode is that any cryptographic operation involving this co
 Indicated by CompositeParams with and algorithm equal to:
 
 ~~~ asn.1
-id-composite-or OBJECT IDENTIFIER ::= { TBD }
+id-composite-or OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  Algorithm(80) Composite(4) id-composite-or(3) }
 ~~~
 
 The parameters of the CompositeParams MUST be ABSENT.
 
-The intention of this mode is that any one component MAY be used by itself; senders MAY use more than one component key but recievers only need to use one to verify or recover the plaintext message. This mode is intended to provide the greatest migration and transition flexibility.
+The intention of this mode is that any one component MAY be used by itself; senders MAY use more than one component key but receivers only need to use one to verify or recover the plaintext message. This mode is intended to provide the greatest migration and transition flexibility.
 
 
 ### ANY Mode
@@ -339,7 +336,9 @@ The intention of this mode is that any one component MAY be used by itself; send
 Indicated by CompositeParams with and algorithm equal to:
 
 ~~~ asn.1
-id-composite-any OBJECT IDENTIFIER ::= { TBD }
+id-composite-any OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  Algorithm(80) Composite(4) id-composite-any(7) }
 ~~~
 
 The parameters of the CompositeParams MUST be ABSENT.
@@ -352,7 +351,9 @@ The intention of this mode is for use-cases where the combiner mode is explicitl
 Indicated by CompositeParams with and algorithm equal to:
 
 ~~~ asn.1
-id-composite-k-of-n OBJECT IDENTIFIER ::= { TBD }
+id-composite-k-of-n OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  Algorithm(80) Composite(4) id-composite-k-of-n(2)  }
 ~~~
 
 The parameters of the CompositeParams MUST be CompositeKofNParams:
@@ -362,13 +363,14 @@ CompositeKofNParams ::= INTEGER
 ~~~
 
 
-The intention of this mode is for use-cases where a subset or threshold scheme is desired. The value in CompasiteKofNParams is K, the number of component keys to be used in a single cryptographic operation. The total number of component keys, N, is not carried in the CompositeKofNParams and can be infered either by parsing the CompositePublicKey structure as defined in section {{sec-composite-pub-keys}}, or in the case of the explicit composite variant, N may be known based on the PUBLIC-KEY IDENTIFIER.
+The intention of this mode is for use-cases where a subset or threshold scheme is desired. The value in CompositeKofNParams is K, the number of component keys to be used in a single cryptographic operation. The total number of component keys, N, is not carried in the CompositeKofNParams and can be infered either by parsing the CompositePublicKey structure as defined in {{sec-composite-pub-keys}}, or in the case of the explicit composite variant, N may be known based on the PUBLIC-KEY IDENTIFIER.
 
 
-K of N mode with K = N is semantically equivalent to the AND mode defined in section {{sec-and-mode}}.
+Clients SHOULD NOT use K of N mode with K = N as it is semantically equivalent to the AND mode defined in {{sec-and-mode}}.
 
-K of N mode with K = 1 is semantically equivanent to the OR mode defined in section {{sec-or-mode}}.
+Clients SHOULD NOT use K of N mode with K = 1 as it is semantically equivanent to the OR mode defined in {{sec-or-mode}}.
 
+The intention is to improve interoperability between clients that support K of N mode and those that only support AND or OR mode. The signature and encryption processes for K of N mode are more complex to implement than the respective AND and OR modes, and in most cases they would be a superset of the respective AND and OR modes, so it is assumed that any client that supports K of N mode will also support AND and OR modes. The converse is not true; for example a simple client may only support AND mode and would reject a K of N mode with K = N even though it is semantically equivalent to a mode that it supports. Therefore clients that support K of N mode SHOULD use AND mode ({{sec-and-mode}}) and OR mode ({{sec-or-mode}}) in place of K of N mode with K = N and K = 1 respectively.
 
 ### Custom Modes
 
@@ -410,6 +412,8 @@ The value of the publicKey (if present) SHALL be set to the DER encoding of the 
 
 The value of the attributes is encoded as usual.
 
+EDNOTE: I wonder whether this has value as its own section, or if we should take what's relevant and merge it into {{sec-priv-key}}?
+
 
 <!-- End of In Practice section -->
 
@@ -431,25 +435,15 @@ id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 
 ## Reuse of keys in a Composite public key {#sec-secCons-keyReuse}
 
-There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used outside of their composite context and therefore it is RECOMMENDED that component keys in a composite key are uniquely generated. In particular, the components of a composite key SHOULD NOT also appear in single-key certificates. This is particularly relevant for protocols that use composite keys in a logical AND mode since the appearance of the same component keys in single-key contexts undermines the binding of the component keys into a single composite key.
+There is an additional security consideration that some use cases such as signatures remain secure against downgrade attacks if and only if component keys are never used outside of their composite context and therefore it is RECOMMENDED that component keys in a composite key are not to be re-used in other contexts. In particular, the components of a composite key SHOULD NOT also appear in single-key certificates. This is particularly relevant for protocols that use composite keys in a logical AND mode since the appearance of the same component keys in single-key contexts undermines the binding of the component keys into a single composite key by allowing messages signed in a multi-key AND mode to be presented as if they were signed in a single key mode in what is known as a "stripping attack".
 
 ## Policy for Deprecated and Acceptable Algorithms
 
 Traditionally, a public key, certificate, or signature contains a single cryptographic algorithm. If and when an algorithm becomes deprecated (for example, RSA-512, or SHA1), it is obvious that structures using that algorithm are implicitly revoked.
 
-In the composite model this is less obvious since a single public key, certificate, or signature may contain a mixture of deprecated and non-deprecated algorithms. Moreover, implementers may decide that certain cryptographic algorithms have complementary security properties and are acceptable in combination even though neither algorithm is acceptable by itself.
+In the composite model this is less obvious since implementers may decide that certain cryptographic algorithms have complementary security properties and are acceptable in combination even though one or both algorithms are deprecated for individual use. As such, a single composite public key, certificate, signature, or ciphertext may contain a mixture of deprecated and non-deprecated algorithms. 
 
-Specifying a modified verification process to handle these situations is beyond the scope of this draft, but could be desirable as the subject of an application profile document, or to be up to the discretion of implementers.
-
-~~~
-2. Check policy to see whether A1, A2, ..., An constitutes a valid
-   combination of algorithms.
-
-   if not checkPolicy(A1, A2, ..., An), then
-     output "Invalid signature"
-~~~
-
-While intentionally not specified in this document, implementors should put careful thought into implementing a meaningful policy mechanism within the context of their signature verification engines, for example only algorithms that provide similar security levels should be combined together.
+Specifying behaviour in these cases is beyond the scope of this document, but should be considered by implementors and potentially in addiniotal standards.
 
 EDNOTE 11: Max is working on a CRL mechanism to accomplish this.
 
@@ -566,9 +560,8 @@ id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 --
 
 pk-Composite PUBLIC-KEY ::= {
-    IDENTIFIER id-composite-key
     KEY CompositePublicKey
-    PARAMS ARE absent
+    PARAMS CompositeParams ARE OPTIONAL
     PRIVATE-KEY CompositePrivateKey
 }
 
