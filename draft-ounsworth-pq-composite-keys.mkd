@@ -275,8 +275,7 @@ The Composite-Key algorithm identifier is used for identifying a generic public 
 
 ~~~ asn.1
 id-composite-key OBJECT IDENTIFIER ::= {
-  iso(1) identified-organization(3) dod(6) internet(1) private(4) 
-  enterprise(1) OpenCA(18227) algorithms(2) id-pk-compositeCrypto(1) }
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) Algorithm(80) Composite(4) CompositeKey(1) }
 ~~~
 
 EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
