@@ -255,9 +255,15 @@ Many protocol specifications will require that the composite public key and comp
 
 When an octet string is required, the DER encoding of the composite data structure SHALL be used directly.
 
+~~~ ASN.1
+CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
+~~~
+
 When a bit string is required, the octets of the DER encoded composite data structure SHALL be used as the bits of the bit string, with the most significant bit of the first octet becoming the first bit, and so on, ending with the least significant bit of the last octet becoming the last bit of the bit string.
 
-
+~~~ ASN.1
+CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
+~~~
 
 ## Generic vs Explicit Variants
 
@@ -566,6 +572,10 @@ pk-Composite PUBLIC-KEY ::= {
 }
 
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
+
+CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
+
+CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
 
 CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
