@@ -146,6 +146,11 @@ ALGORITHM:
 BER:
           Basic Encoding Rules (BER) as defined in [X.690].
 
+CLIENT:
+          Any software that is making use of a key at runtime.
+          This includes a signer, verifyir, encryptor, decryptor.
+
+
 COMBINER MODE:
           A combiner mode specifies how keys are to be combined
           together into a single cryptographic operation. 
@@ -329,6 +334,9 @@ id-composite-or OBJECT IDENTIFIER ::= {
 The parameters of the CompositeParams MUST be ABSENT.
 
 The intention of this mode is that any one component MAY be used by itself; senders MAY use more than one component key but receivers only need to use one to verify or recover the plaintext message. This mode is intended to provide the greatest migration and transition flexibility.
+
+EDNOTE: Potential problem with this mode: logically, as long as the client understands at least one of the component OIDs, but with the structure SEQUENCE OF SubjectPublicKeyInfo it is likely that most ASN.1 parsers will fail on an unrecognized OID.
+For more discussion on this point, see: https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-keys/issues/4
 
 
 ### ANY Mode
