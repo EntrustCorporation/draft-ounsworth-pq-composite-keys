@@ -296,6 +296,9 @@ The motivation for this mode is primarily for prototyping work prior to the stan
 
 ### Explicit Composite Public Key
 
+This mode provides a rigid way of specifying supported combinations of algorithms.
+
+The motivation for this mode is make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
 
 The Composite-Component-Key algorithm identifier is used for idententifying a component within an explicit public key.
 
@@ -308,9 +311,7 @@ EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are reque
 
 In this mode, the PUBLIC-KEY IDENTIFIER SHALL be and OID which is registered to represent a specific combination of component public key types. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID of id-composite-component-key, which is only a placeholder to indicate that the type of key needs to be infered by the client from the top-level PUBLIC-KEY IDENTIFIER and the order of this key within the SEQUENCE. See {{appdx-expComposite-examples}} for examples. Also see {{appdx-creatingExplicitCombinations}} for guidance on creating and registering OIDs for specific explicit combinations.
 
-This mode provides a rigid way of specifying supported combinations of algorithms.
 
-The motivation for this mode is make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
 
 
 ## Combiner Modes {#sec-combiner-modes}

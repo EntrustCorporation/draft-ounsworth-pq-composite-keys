@@ -420,7 +420,7 @@
 
   <meta name="dct.creator" content="Ounsworth, M., Pala, M., and J. Klaussner" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-02" />
-  <meta name="dct.issued" scheme="ISO8601" content="2022-03-20" />
+  <meta name="dct.issued" scheme="ISO8601" content="2022-03-21" />
   <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
   <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
 
@@ -444,7 +444,7 @@
 <td class="right">M. Pala</td>
 </tr>
 <tr>
-<td class="left">Expires: September 21, 2022</td>
+<td class="left">Expires: September 22, 2022</td>
 <td class="right">CableLabs</td>
 </tr>
 <tr>
@@ -457,7 +457,7 @@
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">March 20, 2022</td>
+<td class="right">March 21, 2022</td>
 </tr>
 
     	
@@ -475,7 +475,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 21, 2022.</p>
+<p>This Internet-Draft will expire on September 22, 2022.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2022 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -648,7 +648,13 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 </h1>
 <p id="rfc.section.2.4.p.1">Many protocol specifications will require that the composite public key and composite private key data structures be represented by an octet string or bit string.</p>
 <p id="rfc.section.2.4.p.2">When an octet string is required, the DER encoding of the composite data structure SHALL be used directly.</p>
+<pre>
+CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
+</pre>
 <p id="rfc.section.2.4.p.3">When a bit string is required, the octets of the DER encoded composite data structure SHALL be used as the bits of the bit string, with the most significant bit of the first octet becoming the first bit, and so on, ending with the least significant bit of the last octet becoming the last bit of the bit string.</p>
+<pre>
+CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
+</pre>
 <h1 id="rfc.section.2.5">
 <a href="#rfc.section.2.5">2.5.</a> <a href="#generic-vs-explicit-variants" id="generic-vs-explicit-variants">Generic vs Explicit Variants</a>
 </h1>
@@ -669,14 +675,14 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <h1 id="rfc.section.2.5.2">
 <a href="#rfc.section.2.5.2">2.5.2.</a> <a href="#explicit-composite-public-key" id="explicit-composite-public-key">Explicit Composite Public Key</a>
 </h1>
-<p id="rfc.section.2.5.2.p.1">The Composite-Component-Key algorithm identifier is used for idententifying a component within an explicit public key.</p>
+<p id="rfc.section.2.5.2.p.1">This mode provides a rigid way of specifying supported combinations of algorithms.</p>
+<p id="rfc.section.2.5.2.p.2">The motivation for this mode is make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.</p>
+<p id="rfc.section.2.5.2.p.3">The Composite-Component-Key algorithm identifier is used for idententifying a component within an explicit public key.</p>
 <pre>
 id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 </pre>
-<p id="rfc.section.2.5.2.p.2">EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 4</a>.</p>
-<p id="rfc.section.2.5.2.p.3">In this mode, the PUBLIC-KEY IDENTIFIER SHALL be and OID which is registered to represent a specific combination of component public key types. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID of id-composite-component-key, which is only a placeholder to indicate that the type of key needs to be infered by the client from the top-level PUBLIC-KEY IDENTIFIER and the order of this key within the SEQUENCE. See <a href="#appdx-expComposite-examples" class="xref">Section 6.3.2</a> for examples. Also see <a href="#appdx-creatingExplicitCombinations" class="xref">Section 6.1</a> for guidance on creating and registering OIDs for specific explicit combinations.</p>
-<p id="rfc.section.2.5.2.p.4">This mode provides a rigid way of specifying supported combinations of algorithms.</p>
-<p id="rfc.section.2.5.2.p.5">The motivation for this mode is make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.</p>
+<p id="rfc.section.2.5.2.p.4">EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 4</a>.</p>
+<p id="rfc.section.2.5.2.p.5">In this mode, the PUBLIC-KEY IDENTIFIER SHALL be and OID which is registered to represent a specific combination of component public key types. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID of id-composite-component-key, which is only a placeholder to indicate that the type of key needs to be infered by the client from the top-level PUBLIC-KEY IDENTIFIER and the order of this key within the SEQUENCE. See <a href="#appdx-expComposite-examples" class="xref">Section 6.3.2</a> for examples. Also see <a href="#appdx-creatingExplicitCombinations" class="xref">Section 6.1</a> for guidance on creating and registering OIDs for specific explicit combinations.</p>
 <h1 id="rfc.section.2.6">
 <a href="#rfc.section.2.6">2.6.</a> <a href="#sec-combiner-modes" id="sec-combiner-modes">Combiner Modes</a>
 </h1>
@@ -894,6 +900,10 @@ pk-Composite PUBLIC-KEY ::= {
 }
 
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
+
+CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
+
+CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
 
 CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
