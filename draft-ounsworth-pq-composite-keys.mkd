@@ -662,7 +662,7 @@ SEQUENCE {
   }
 ~~~
 
-### Explitic Composite Public Key Examples {#appdx-expComposite-examples}
+### Explicit Composite Public Key Examples {#appdx-expComposite-examples}
 
 Assume that the following is a defined explicit pair:
 

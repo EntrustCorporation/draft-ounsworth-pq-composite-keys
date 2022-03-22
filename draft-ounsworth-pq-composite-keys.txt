@@ -124,7 +124,7 @@ Internet-Draft              PQ Composite Keys                 March 2022
      6.1.  Creating explicit combinations  . . . . . . . . . . . . .  15
      6.2.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .  17
        6.2.1.  Generic Composite Public Key Examples . . . . . . . .  17
-       6.2.2.  Explitic Composite Public Key Examples  . . . . . . .  19
+       6.2.2.  Explicit Composite Public Key Examples  . . . . . . .  19
      6.3.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . .  22
      6.4.  Intellectual Property Considerations  . . . . . . . . . .  24
    7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  24
@@ -1031,7 +1031,7 @@ Internet-Draft              PQ Composite Keys                 March 2022
        }
      }
 
-6.2.2.  Explitic Composite Public Key Examples
+6.2.2.  Explicit Composite Public Key Examples
 
    Assume that the following is a defined explicit pair:
 
