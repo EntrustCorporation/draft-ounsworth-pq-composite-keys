@@ -240,6 +240,8 @@ where the algorithm and parameters represent a combiner mode as defined in {{sec
 
 ## Composite Private Key {#sec-priv-key}
 
+EDNOTE: we need to put a bit more effort into private keys, specificially defining what OIDs to use in the generic and explicit cases.
+
 The composite private key data is represented by the following structure:
 
 ~~~ ASN.1
@@ -301,9 +303,9 @@ The motivation for this mode is primarily for prototyping work prior to the stan
 
 This mode provides a rigid way of specifying supported combinations of algorithms.
 
-The motivation for this mode is make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
+The motivation for this mode is to make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
 
-The Composite-Component-Key algorithm identifier is used for idententifying a component within an explicit public key.
+The Composite-Component-Key algorithm identifier is used for identifying a component within an explicit public key.
 
 ~~~ asn.1pk-Composite PUBLIC-KEY ::= {
     KEY CompositePublicKey
@@ -490,6 +492,8 @@ Certificate Authority (CA) implementations need to be careful when checking for 
 ## Creating explicit combinations {#appdx-creatingExplicitCombinations}
 
 The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementors to perform this check explicitely.
+
+EDNOTE  this ASN.1 needs to change.  The current definition doesn’t put an AlgorithmIdentifier of id-composite-component key with each component key.  Once we agree as a group that the text accurately describes what we want, we can spend a bit of time figuring out if the ASN.1 machinery lets us express it in a readable way and/or a way that will actually help people creating explicit pairs.
 
 ~~~ ASN.1
 -- pk-explicitComposite - Composite public key information object

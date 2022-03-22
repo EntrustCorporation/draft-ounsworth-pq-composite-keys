@@ -637,14 +637,15 @@ CompositeParams ::= AlgorithmIdentifier
 <h1 id="rfc.section.2.3">
 <a href="#rfc.section.2.3">2.3.</a> <a href="#sec-priv-key" id="sec-priv-key">Composite Private Key</a>
 </h1>
-<p id="rfc.section.2.3.p.1">The composite private key data is represented by the following structure:</p>
+<p id="rfc.section.2.3.p.1">EDNOTE: we need to put a bit more effort into private keys, specificially defining what OIDs to use in the generic and explicit cases.</p>
+<p id="rfc.section.2.3.p.2">The composite private key data is represented by the following structure:</p>
 <pre>
 CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 </pre>
-<p id="rfc.section.2.3.p.2">Each element is a OneAsymmetricKey <a href="#RFC5958" class="xref">[RFC5958]</a> object for a component private key.</p>
-<p id="rfc.section.2.3.p.3">The parameters field MUST be absent.</p>
-<p id="rfc.section.2.3.p.4">A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.</p>
-<p id="rfc.section.2.3.p.5">EDNOTE: does this also need an explicit version?</p>
+<p id="rfc.section.2.3.p.3">Each element is a OneAsymmetricKey <a href="#RFC5958" class="xref">[RFC5958]</a> object for a component private key.</p>
+<p id="rfc.section.2.3.p.4">The parameters field MUST be absent.</p>
+<p id="rfc.section.2.3.p.5">A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.</p>
+<p id="rfc.section.2.3.p.6">EDNOTE: does this also need an explicit version?</p>
 <h1 id="rfc.section.2.4">
 <a href="#rfc.section.2.4">2.4.</a> <a href="#sec-encoding-rules" id="sec-encoding-rules">Encoding Rules</a>
 </h1>
@@ -678,8 +679,8 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <a href="#rfc.section.2.5.2">2.5.2.</a> <a href="#sec-explicit" id="sec-explicit">Explicit Composite Public Key</a>
 </h1>
 <p id="rfc.section.2.5.2.p.1">This mode provides a rigid way of specifying supported combinations of algorithms.</p>
-<p id="rfc.section.2.5.2.p.2">The motivation for this mode is make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.</p>
-<p id="rfc.section.2.5.2.p.3">The Composite-Component-Key algorithm identifier is used for idententifying a component within an explicit public key.</p>
+<p id="rfc.section.2.5.2.p.2">The motivation for this mode is to make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.</p>
+<p id="rfc.section.2.5.2.p.3">The Composite-Component-Key algorithm identifier is used for identifying a component within an explicit public key.</p>
 <p id="rfc.section.2.5.2.p.4">~~~ asn.1pk-Composite PUBLIC-KEY ::= { KEY CompositePublicKey PARAMS CompositeParams ARE OPTIONAL PRIVATE-KEY CompositePrivateKey } id-composite-component-key OBJECT IDENTIFIER ::= { TBD } ~~~</p>
 <p id="rfc.section.2.5.2.p.5">EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 4</a>.</p>
 <p id="rfc.section.2.5.2.p.6">In this mode, the data carries the same pk-Composite structure as defined in <a href="#sec-composite-keys" class="xref">Section 2</a>, however the PUBLIC-KEY.id SHALL be an OID which is registered to represent a specific combination of component public key types. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID of id-composite-component-key, which is only a placeholder to indicate that the type of key needs to be infered by the client from the top-level PUBLIC-KEY.id and the order of this key within the SEQUENCE. See <a href="#appdx-expComposite-examples" class="xref">Section 6.3.2</a> for examples. Also see <a href="#appdx-creatingExplicitCombinations" class="xref">Section 6.1</a> for guidance on creating and registering OIDs for specific explicit combinations.</p>
@@ -810,6 +811,7 @@ id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 <a href="#rfc.section.6.1">6.1.</a> <a href="#appdx-creatingExplicitCombinations" id="appdx-creatingExplicitCombinations">Creating explicit combinations</a>
 </h1>
 <p id="rfc.section.6.1.p.1">The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementors to perform this check explicitely.</p>
+<p id="rfc.section.6.1.p.2">EDNOTE  this ASN.1 needs to change.  The current definition doesn't put an AlgorithmIdentifier of id-composite-component key with each component key.  Once we agree as a group that the text accurately describes what we want, we can spend a bit of time figuring out if the ASN.1 machinery lets us express it in a readable way and/or a way that will actually help people creating explicit pairs.</p>
 <pre>
 -- pk-explicitComposite - Composite public key information object
 
@@ -824,7 +826,7 @@ pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
       cRLSign}
 }
 </pre>
-<p id="rfc.section.6.1.p.2">The following ASN.1 object class then automatically generates the public key structure from the types defined in pk-explicitComposite.</p>
+<p id="rfc.section.6.1.p.3">The following ASN.1 object class then automatically generates the public key structure from the types defined in pk-explicitComposite.</p>
 <pre>
 -- ExplicitCompositePublicKey - The data structure for a composite 
 -- public key sec-composite-pub-keys and SecondPublicKeyType are needed
@@ -846,8 +848,8 @@ ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
     }
 }
 </pre>
-<p id="rfc.section.6.1.p.3">Using this module, it becomes trivial to define explicit pairs. For an example, see <a href="#appdx-expComposite-examples" class="xref">Section 6.3.2</a>.</p>
-<p id="rfc.section.6.1.p.4">To define explicit triples, quadtuples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.</p>
+<p id="rfc.section.6.1.p.4">Using this module, it becomes trivial to define explicit pairs. For an example, see <a href="#appdx-expComposite-examples" class="xref">Section 6.3.2</a>.</p>
+<p id="rfc.section.6.1.p.5">To define explicit triples, quadtuples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.</p>
 <h1 id="rfc.section.6.2">
 <a href="#rfc.section.6.2">6.2.</a> <a href="#asn1-module" id="asn1-module">ASN.1 Module</a>
 </h1>
