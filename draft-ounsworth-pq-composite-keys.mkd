@@ -55,6 +55,7 @@ normative:
   RFC4210:
   RFC5280:
   RFC5652:
+  RFC5912:
   RFC5914:
   RFC5958:
   RFC7468:
@@ -183,17 +184,19 @@ In order for public keys and private keys to be composed of multiple algorithms,
 
 A composite key is a single key object that performs an atomic cryptographic operation -- such a signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key.
 
-
-The ASN.1 algorithm object for composite public and private keys is:
+The PUBLIC-KEY ASN.1 Class is defined in [RFC5912]. The profile of a PUBLIC-KEY for for composite public and private keys is:
 
 ~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
-    KEY CompositePublicKey
-    PARAMS CompositeParams ARE OPTIONAL
-    PRIVATE-KEY CompositePrivateKey
+    id id-composite-key,
+    KeyValue CompositePublicKey,
+    Params CompositeParams ARE OPTIONAL,
+    PrivateKey CompositePrivateKey,
 }
 ~~~
 {: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
+
+The identifier id-composite-key indicates that this is a Generic Composite key as defined in {{sec-generic}}. Profiles which define Explicit combinations MUST use the same structure, but replace the ID with an explicitely-defined OID for that combination of algorithms as described in {{sec-explicit}}.
 
 Algorithm parameters are used to convey the mode for combining multiple keys into a single cryptographic operation. If algorithm parameters are absent, then clients MUST interpret this as AND, as defined in {{sec-and-mode}}. If the algorithm parameters do not conform to {{sec-composite-params}} or they contain a combiner mode OID that is not recognized by the client, then the client MUST fail to parse the composite key.
 
@@ -274,7 +277,7 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
 
 Some use-cases desire the flexibility of choosing any combination of supported algorithms at runtime, while others desire the rigidity 
 
-### Generic Composite Public Key
+### Generic Composite Public Key {#sec-generic}
 
 The Composite-Key algorithm identifier is used for identifying a generic public key and a private key.
 
@@ -294,7 +297,7 @@ This mode provides a completely generic structure where key types can be combine
 
 The motivation for this mode is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this mode will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadtuples, etc of algorithms.
 
-### Explicit Composite Public Key
+### Explicit Composite Public Key {#sec-explicit}
 
 This mode provides a rigid way of specifying supported combinations of algorithms.
 
@@ -302,16 +305,22 @@ The motivation for this mode is make it easier to reference and enforce specific
 
 The Composite-Component-Key algorithm identifier is used for idententifying a component within an explicit public key.
 
-~~~ asn.1
+~~~ asn.1pk-Composite PUBLIC-KEY ::= {
+    KEY CompositePublicKey
+    PARAMS CompositeParams ARE OPTIONAL
+    PRIVATE-KEY CompositePrivateKey
+}
 id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 ~~~
 
 EDNOTE: these are a temporary OIDs for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 
-In this mode, the PUBLIC-KEY IDENTIFIER SHALL be and OID which is registered to represent a specific combination of component public key types. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID of id-composite-component-key, which is only a placeholder to indicate that the type of key needs to be infered by the client from the top-level PUBLIC-KEY IDENTIFIER and the order of this key within the SEQUENCE. See {{appdx-expComposite-examples}} for examples. Also see {{appdx-creatingExplicitCombinations}} for guidance on creating and registering OIDs for specific explicit combinations.
+In this mode, the data carries the same pk-Composite structure as defined in {{sec-composite-keys}}, however the PUBLIC-KEY.id SHALL be an OID which is registered to represent a specific combination of component public key types. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID of id-composite-component-key, which is only a placeholder to indicate that the type of key needs to be infered by the client from the top-level PUBLIC-KEY.id and the order of this key within the SEQUENCE. See {{appdx-expComposite-examples}} for examples. Also see {{appdx-creatingExplicitCombinations}} for guidance on creating and registering OIDs for specific explicit combinations.
 
+Implementations or profiles that define explicit algorithms may wish to include the original algorithm identifier inside the component SubjectPublicKeyInfo. Doing so opens multiple attack surfaces via mismatches if implementations do not perform the checks well enough, for example using the Explicit AlgorithmIdentifier for RSA and a strong post-quantum algorithm but actually including two RSA keys. 
 
+EDNOTE: Though maybe it’s more natural for parsers to include it, and the check isn’t so hard. More discussion needed.
 
 
 ## Combiner Modes {#sec-combiner-modes}
@@ -487,7 +496,7 @@ The following ASN.1 Information Objects may be useful in defining and parsing ex
 
 pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
  FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} 
- PUBLIC-KEY ::= {
+ PUBLIC-KEY ::= {PUBLIC-KEYPUBLIC-KEY
     IDENTIFIER id
     KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
      secondPublicKey, SecondPublicKeyType}
@@ -575,9 +584,10 @@ id-composite-component-key OBJECT IDENTIFIER ::= { TBD }
 --
 
 pk-Composite PUBLIC-KEY ::= {
-    KEY CompositePublicKey
-    PARAMS CompositeParams ARE OPTIONAL
-    PRIVATE-KEY CompositePrivateKey
+    id id-composite-key,
+    KeyValue CompositePublicKey,
+    Params CompositeParams ARE OPTIONAL,
+    PrivateKey CompositePrivateKey,
 }
 
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
