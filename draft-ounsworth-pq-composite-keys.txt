@@ -125,14 +125,14 @@ Internet-Draft              PQ Composite Keys                 March 2022
      6.2.  Examples  . . . . . . . . . . . . . . . . . . . . . . . .  17
        6.2.1.  Generic Composite Public Key Examples . . . . . . . .  17
        6.2.2.  Explitic Composite Public Key Examples  . . . . . . .  19
-     6.3.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . .  20
-     6.4.  Intellectual Property Considerations  . . . . . . . . . .  22
-   7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  22
-     7.1.  Making contributions  . . . . . . . . . . . . . . . . . .  23
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  23
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  24
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
+     6.3.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . .  22
+     6.4.  Intellectual Property Considerations  . . . . . . . . . .  24
+   7.  Contributors and Acknowledgements . . . . . . . . . . . . . .  24
+     7.1.  Making contributions  . . . . . . . . . . . . . . . . . .  25
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  25
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  26
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  27
 
 1.  Introduction
 
@@ -937,7 +937,7 @@ Internet-Draft              PQ Composite Keys                 March 2022
        }
      }
 
-   The corresponding private key is:
+   The corresponding generic private key is:
 
 
 
@@ -1033,8 +1033,6 @@ Internet-Draft              PQ Composite Keys                 March 2022
 
 6.2.2.  Explitic Composite Public Key Examples
 
-   -- Modify the Generic example as if it had a registered pairwise OID
-
    Assume that the following is a defined explicit pair:
 
    id-pk-example-ECandRSA OBJECT IDENTIFIER ::= { 1 2 3 4 }
@@ -1050,10 +1048,12 @@ Internet-Draft              PQ Composite Keys                 March 2022
    Then the same key as above could be encoded as an explicit composite
    public key as:
 
-   TODO: PEM Can't actually encode this because we haven't listed an OID
-   value for id-composite-component-key.
 
-   which decodes as:
+
+
+
+
+
 
 
 
@@ -1066,29 +1066,138 @@ Ounsworth, et al.      Expires September 23, 2022              [Page 19]
 Internet-Draft              PQ Composite Keys                 March 2022
 
 
+   -----BEGIN PUBLIC KEY-----
+   MIIBkTAFBgMqAwQDggGGADCCAYEwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATE
+   Y+Gue5Ib98bLDUU36XmHingAZFAJLQsFecE752OFwjqqcXZO+tARohgYalBPnAdL
+   7vLmIkn50TmqPFy/yWhEMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+   2xVArV9wtA5svhli1zNZs5sQIAVKyeDQ4ulFM+v1UZXdKxL9WgxFmpcX6yzPPojZ
+   RwVNowX0LA1FtYu4gFzPO6FsdKOfrk66g346bbCw+j6iTDjpFN6QHhp31BC9hFXM
+   +UgtRDw29nhbQEou+JdNdYiCCO2n9jWkpEcrPyffkno6YVbPhMoY22GfzsPbySZ3
+   BBgfk0uwN48dt93DcDIus+9AuVDD+FE/P/1PF/vKL0OOD0e0nzwRLr5lt8TVkfEt
+   gtIO3bm1IvwDaky4YwPc/zWdhY76AnS9hXZZxGlcdGSOaWIaqIKDh4GYLj/+2bQn
+   iv0uXxv+mnrHI4wjuOmlVQIDAQAB
+   -----END PUBLIC KEY-----
+
+   which decodes as:
+
    algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
 
    subjectPublicKey: CompositePublicKey {
-       SubjectPublicKeyInfo {
-         algorithm: AlgorithmIdentifier {
-           algorithm: id-composite-component-key
-           parameters: prime256v1
-           }
-         subjectPublicKey: <ec key octet string>
-         },
-         SubjectPublicKeyInfo {
-         algorithm: AlgorithmIdentifier {
-           algorithm: id-composite-component-key
-           parameters: NULL
-           }
-         subjectPublicKey: <rsa key octet string>
+     SubjectPublicKeyInfo {
+       algorithm: AlgorithmIdentifier {
+         algorithm: ecPublicKey
+         parameters: prime256v1
          }
+       subjectPublicKey: <ec key octet string>
+       },
+       SubjectPublicKeyInfo {
+       algorithm: AlgorithmIdentifier {
+         algorithm: rsaEncryption
+         parameters: NULL
+         }
+       subjectPublicKey: <rsa key octet string>
        }
+     }
 
-   The private key is identical for generic and explicit and so does not
-   need to be repeated.
+   The corresponding explicit private key is:
 
-   ENDNOTE: should they be identical?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.      Expires September 23, 2022              [Page 20]
+
+Internet-Draft              PQ Composite Keys                 March 2022
+
+
+   -----BEGIN PRIVATE KEY-----
+   MIIFFwIBADAFBgMqAwQEggUJMIIFBTBBAgEAMBMGByqGSM49AgEGCCqGSM49AwEH
+   BCcwJQIBAQQgI3SKEJyCDmfwAu2T22RBmqD9YsSbk158yL+R03Tpn24wggS+AgEA
+   MA0GCSqGSIb3DQEBAQUABIIEqDCCBKQCAQACggEBANsVQK1fcLQObL4ZYtczWbOb
+   ECAFSsng0OLpRTPr9VGV3SsS/VoMRZqXF+sszz6I2UcFTaMF9CwNRbWLuIBczzuh
+   bHSjn65OuoN+Om2wsPo+okw46RTekB4ad9QQvYRVzPlILUQ8NvZ4W0BKLviXTXWI
+   ggjtp/Y1pKRHKz8n35J6OmFWz4TKGNthn87D28kmdwQYH5NLsDePHbfdw3AyLrPv
+   QLlQw/hRPz/9Txf7yi9Djg9HtJ88ES6+ZbfE1ZHxLYLSDt25tSL8A2pMuGMD3P81
+   nYWO+gJ0vYV2WcRpXHRkjmliGqiCg4eBmC4//tm0J4r9Ll8b/pp6xyOMI7jppVUC
+   AwEAAQKCAQAW1Poul1m5ih9PGHoyj0lz7F8b1zFaJLHgVAtARAEHBaVNDeeVcN34
+   JHL7sWnPzJdITYcvzDkMNj3jk7IgvotiXYpeBYdotQ+/EHKqZ9Wp3skvRGcWI7PF
+   T2DZmv0FQ6Pe/uSozdW0jgqEgraudaY+74ENySbOA/0qmbgqFs+4Bg+KpRlKTGlJ
+   Sx3kAsuyT1vTGNHtQRiQSlXb+85HCJ4SE6Y8vO5eH4/HTJq+RrNP+9T6H+sNKgtC
+   fu/h9WxCA105po4b+Ad6Ya66Is8kmVfllnqaawhoSPP4w2TRokMfamgpsCvgHvT1
+   1OydiC/ti2QR9LI54wR2EyKzAjVz0WnBAoGBAPqR0eYcKh5Y02+WrFS/nt7tkMBc
+   MDpZx+vKlywXSXvasjcnyg4+YVo1oKbAgf8hzP5nLt+vYhjFWPIOMJrOLypOePZk
+   12zvWFRg5yrrS7RNxJWu2hwDgdbs2hYmorm2E2U1prUzfnxxgGikag2hxL3J/XSr
+   YwFm2kXR9zk9sV/5AoGBAN/Uvhx7Oh5ts1No3gqhqnJwdfEqjM/YbAivXlhFiO3R
+   mkey11Q8AFC7CUv0K4v7lDXtVGIzzVxRU18WwHMohdhv88ELlQP4OZGoaVPq/q5R
+   ZjqOJ9SASN/I/E7SgnczpwKEdH9O+mRPlLJoTAekgfsh5dswVxLmbgaZI0EQI789
+   AoGAIPQKgdPUajdOX0+WjHLDBxiBP/sf0Jy8ITN8nCzX2jUR2RUfiq4DiaSh4yxQ
+   LGiamB6j2IEtSoqxvuvE0qcpJsw5NlZeypHTsQ0peciGJUlRAEqFnseLTOPLbrxY
+   DEp41IewzAXgracTty9gTzimMjudXLmphKatMB+D/wAxEqkCgYEA38bA3pawT1Wb
+   kEtqmjRwxQL8V0UUDIQx1ikF6Lh0IleIqB/7uaJXKl8j90TA+K1nytZgo+FoceB4
+   urtzYm5kCjQ6/YhHzfUwERjPXO+2+a41x1ryJTiwItO8tE0v1F7WnOSx18ms+fa6
+   EffF82ob7WhBdncIxsOLwpr9rQGmy30CgYEA9HinpY3RqhmWizJPo0jiarM28sTg
+   oFqyZ+gyZMmKHuoI/dfimp2CIjRKOxBAb/660cugkBHDOFYc5l/UkqQPyVIkfTZy
+   n9meuOfnA+l9goumEkGIpI/DIiO4XBxHVyTzg415irjbU0Op/uVdu/GgyqNM9qBd
+   SnMe/CW4OO1KLz4=
+   -----END PRIVATE KEY-----
+
+   which decodes as:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.      Expires September 23, 2022              [Page 21]
+
+Internet-Draft              PQ Composite Keys                 March 2022
+
+
+   algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
+
+   SEQUENCE {
+     OneAsymmetricKey {
+         version: 0,
+         privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
+           algorithm: ecPublicKey
+           parameters: prime256v1
+         }
+         privateKey: <ec key octet string>
+       },
+     OneAsymmetricKey {
+         version: 0,
+         privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
+           algorithm: rseEncryption
+           parameters: NULL
+         }
+         privateKey: <rsa key octet string>
+       }
+     }
 
 6.3.  ASN.1 Module
 
@@ -1114,17 +1223,17 @@ IMPORTS
         security(5) mechanisms(5) pkix(7) id-mod(0)
         id-mod-pkix1-explicit-02(51) }
 
+  OneAsymmetricKey
+    FROM AsymmetricKeyPackageModuleV1
+      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
 
 
 
-Ounsworth, et al.      Expires September 23, 2022              [Page 20]
+Ounsworth, et al.      Expires September 23, 2022              [Page 22]
 
 Internet-Draft              PQ Composite Keys                 March 2022
 
 
-  OneAsymmetricKey
-    FROM AsymmetricKeyPackageModuleV1
-      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
         pkcs-9(9) smime(16) modules(0)
         id-mod-asymmetricKeyPkgV1(50) } ;
 
@@ -1171,15 +1280,16 @@ pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
    The following ASN.1 object class then automatically generates the
    public key structure from the types defined in pk-explicitComposite.
 
+-- ExplicitCompositePublicKey - The data structure for a composite
+-- public key sec-composite-pub-keys and SecondPublicKeyType are needed
 
 
-Ounsworth, et al.      Expires September 23, 2022              [Page 21]
+
+Ounsworth, et al.      Expires September 23, 2022              [Page 23]
 
 Internet-Draft              PQ Composite Keys                 March 2022
 
 
--- ExplicitCompositePublicKey - The data structure for a composite
--- public key sec-composite-pub-keys and SecondPublicKeyType are needed
 -- because PUBLIC-KEY contains a set of public key types, not a single
 -- type.
 -- TODO The parameters should be optional only if they are marked
@@ -1226,16 +1336,16 @@ END
    We are grateful to all, including any contributors who may have been
    inadvertently omitted from this list.
 
+   This document borrows text from similar documents, including those
+   referenced below.  Thanks go to the authors of those documents.
 
 
 
-Ounsworth, et al.      Expires September 23, 2022              [Page 22]
+Ounsworth, et al.      Expires September 23, 2022              [Page 24]
 
 Internet-Draft              PQ Composite Keys                 March 2022
 
 
-   This document borrows text from similar documents, including those
-   referenced below.  Thanks go to the authors of those documents.
    "Copying always makes things easier and less error prone" -
    [RFC8411].
 
@@ -1285,7 +1395,9 @@ Internet-Draft              PQ Composite Keys                 March 2022
 
 
 
-Ounsworth, et al.      Expires September 23, 2022              [Page 23]
+
+
+Ounsworth, et al.      Expires September 23, 2022              [Page 25]
 
 Internet-Draft              PQ Composite Keys                 March 2022
 
@@ -1341,7 +1453,7 @@ Internet-Draft              PQ Composite Keys                 March 2022
 
 
 
-Ounsworth, et al.      Expires September 23, 2022              [Page 24]
+Ounsworth, et al.      Expires September 23, 2022              [Page 26]
 
 Internet-Draft              PQ Composite Keys                 March 2022
 
@@ -1397,4 +1509,4 @@ Authors' Addresses
 
 
 
-Ounsworth, et al.      Expires September 23, 2022              [Page 25]
+Ounsworth, et al.      Expires September 23, 2022              [Page 27]

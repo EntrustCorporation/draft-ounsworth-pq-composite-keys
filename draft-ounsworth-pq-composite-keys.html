@@ -920,7 +920,7 @@ subjectPublicKey: CompositePublicKey {
     }
   }
 </pre>
-<p id="rfc.section.6.2.1.p.3">The corresponding private key is:</p>
+<p id="rfc.section.6.2.1.p.3">The corresponding generic private key is:</p>
 <pre>
 -----BEGIN PRIVATE KEY-----
 MIIFHgIBADAMBgpghkgBhvprUAQBBIIFCTCCBQUwQQIBADATBgcqhkjOPQIBBggq
@@ -979,8 +979,7 @@ SEQUENCE {
 <h1 id="rfc.section.6.2.2">
 <a href="#rfc.section.6.2.2">6.2.2.</a> <a href="#appdx-expComposite-examples" id="appdx-expComposite-examples">Explitic Composite Public Key Examples</a>
 </h1>
-<p id="rfc.section.6.2.2.p.1">-- Modify the Generic example as if it had a registered pairwise OID</p>
-<p id="rfc.section.6.2.2.p.2">Assume that the following is a defined explicit pair:</p>
+<p id="rfc.section.6.2.2.p.1">Assume that the following is a defined explicit pair:</p>
 <pre>
 id-pk-example-ECandRSA OBJECT IDENTIFIER ::= { 1 2 3 4 }
 
@@ -992,31 +991,97 @@ pk-example-ECandRSA PUBLIC-KEY ::= pk-explicitComposite{
     pk-rsa,
 }
 </pre>
-<p id="rfc.section.6.2.2.p.3">Then the same key as above could be encoded as an explicit composite public key as:</p>
-<p id="rfc.section.6.2.2.p.4">TODO: PEM Can't actually encode this because we haven't listed an OID value for id-composite-component-key.</p>
-<p id="rfc.section.6.2.2.p.5">which decodes as:</p>
+<p id="rfc.section.6.2.2.p.2">Then the same key as above could be encoded as an explicit composite public key as:</p>
+<pre>
+-----BEGIN PUBLIC KEY-----
+MIIBkTAFBgMqAwQDggGGADCCAYEwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATE
+Y+Gue5Ib98bLDUU36XmHingAZFAJLQsFecE752OFwjqqcXZO+tARohgYalBPnAdL
+7vLmIkn50TmqPFy/yWhEMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+2xVArV9wtA5svhli1zNZs5sQIAVKyeDQ4ulFM+v1UZXdKxL9WgxFmpcX6yzPPojZ
+RwVNowX0LA1FtYu4gFzPO6FsdKOfrk66g346bbCw+j6iTDjpFN6QHhp31BC9hFXM
++UgtRDw29nhbQEou+JdNdYiCCO2n9jWkpEcrPyffkno6YVbPhMoY22GfzsPbySZ3
+BBgfk0uwN48dt93DcDIus+9AuVDD+FE/P/1PF/vKL0OOD0e0nzwRLr5lt8TVkfEt
+gtIO3bm1IvwDaky4YwPc/zWdhY76AnS9hXZZxGlcdGSOaWIaqIKDh4GYLj/+2bQn
+iv0uXxv+mnrHI4wjuOmlVQIDAQAB
+-----END PUBLIC KEY-----
+</pre>
+<p id="rfc.section.6.2.2.p.3">which decodes as:</p>
 <pre>
 algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
 
 subjectPublicKey: CompositePublicKey {
-    SubjectPublicKeyInfo {
-      algorithm: AlgorithmIdentifier {
-        algorithm: id-composite-component-key
-        parameters: prime256v1
-        }
-      subjectPublicKey: &lt;ec key octet string&gt;
-      },
-      SubjectPublicKeyInfo {
-      algorithm: AlgorithmIdentifier {
-        algorithm: id-composite-component-key
-        parameters: NULL
-        }
-      subjectPublicKey: &lt;rsa key octet string&gt;
+  SubjectPublicKeyInfo {
+    algorithm: AlgorithmIdentifier {
+      algorithm: ecPublicKey
+      parameters: prime256v1
       }
+    subjectPublicKey: &lt;ec key octet string&gt;
+    },
+    SubjectPublicKeyInfo {
+    algorithm: AlgorithmIdentifier {
+      algorithm: rsaEncryption
+      parameters: NULL
+      }
+    subjectPublicKey: &lt;rsa key octet string&gt;
     }
+  }
 </pre>
-<p id="rfc.section.6.2.2.p.6">The private key is identical for generic and explicit and so does not need to be repeated.</p>
-<p id="rfc.section.6.2.2.p.7">ENDNOTE: should they be identical?</p>
+<p id="rfc.section.6.2.2.p.4">The corresponding explicit private key is:</p>
+<pre>
+-----BEGIN PRIVATE KEY-----
+MIIFFwIBADAFBgMqAwQEggUJMIIFBTBBAgEAMBMGByqGSM49AgEGCCqGSM49AwEH
+BCcwJQIBAQQgI3SKEJyCDmfwAu2T22RBmqD9YsSbk158yL+R03Tpn24wggS+AgEA
+MA0GCSqGSIb3DQEBAQUABIIEqDCCBKQCAQACggEBANsVQK1fcLQObL4ZYtczWbOb
+ECAFSsng0OLpRTPr9VGV3SsS/VoMRZqXF+sszz6I2UcFTaMF9CwNRbWLuIBczzuh
+bHSjn65OuoN+Om2wsPo+okw46RTekB4ad9QQvYRVzPlILUQ8NvZ4W0BKLviXTXWI
+ggjtp/Y1pKRHKz8n35J6OmFWz4TKGNthn87D28kmdwQYH5NLsDePHbfdw3AyLrPv
+QLlQw/hRPz/9Txf7yi9Djg9HtJ88ES6+ZbfE1ZHxLYLSDt25tSL8A2pMuGMD3P81
+nYWO+gJ0vYV2WcRpXHRkjmliGqiCg4eBmC4//tm0J4r9Ll8b/pp6xyOMI7jppVUC
+AwEAAQKCAQAW1Poul1m5ih9PGHoyj0lz7F8b1zFaJLHgVAtARAEHBaVNDeeVcN34
+JHL7sWnPzJdITYcvzDkMNj3jk7IgvotiXYpeBYdotQ+/EHKqZ9Wp3skvRGcWI7PF
+T2DZmv0FQ6Pe/uSozdW0jgqEgraudaY+74ENySbOA/0qmbgqFs+4Bg+KpRlKTGlJ
+Sx3kAsuyT1vTGNHtQRiQSlXb+85HCJ4SE6Y8vO5eH4/HTJq+RrNP+9T6H+sNKgtC
+fu/h9WxCA105po4b+Ad6Ya66Is8kmVfllnqaawhoSPP4w2TRokMfamgpsCvgHvT1
+1OydiC/ti2QR9LI54wR2EyKzAjVz0WnBAoGBAPqR0eYcKh5Y02+WrFS/nt7tkMBc
+MDpZx+vKlywXSXvasjcnyg4+YVo1oKbAgf8hzP5nLt+vYhjFWPIOMJrOLypOePZk
+12zvWFRg5yrrS7RNxJWu2hwDgdbs2hYmorm2E2U1prUzfnxxgGikag2hxL3J/XSr
+YwFm2kXR9zk9sV/5AoGBAN/Uvhx7Oh5ts1No3gqhqnJwdfEqjM/YbAivXlhFiO3R
+mkey11Q8AFC7CUv0K4v7lDXtVGIzzVxRU18WwHMohdhv88ELlQP4OZGoaVPq/q5R
+ZjqOJ9SASN/I/E7SgnczpwKEdH9O+mRPlLJoTAekgfsh5dswVxLmbgaZI0EQI789
+AoGAIPQKgdPUajdOX0+WjHLDBxiBP/sf0Jy8ITN8nCzX2jUR2RUfiq4DiaSh4yxQ
+LGiamB6j2IEtSoqxvuvE0qcpJsw5NlZeypHTsQ0peciGJUlRAEqFnseLTOPLbrxY
+DEp41IewzAXgracTty9gTzimMjudXLmphKatMB+D/wAxEqkCgYEA38bA3pawT1Wb
+kEtqmjRwxQL8V0UUDIQx1ikF6Lh0IleIqB/7uaJXKl8j90TA+K1nytZgo+FoceB4
+urtzYm5kCjQ6/YhHzfUwERjPXO+2+a41x1ryJTiwItO8tE0v1F7WnOSx18ms+fa6
+EffF82ob7WhBdncIxsOLwpr9rQGmy30CgYEA9HinpY3RqhmWizJPo0jiarM28sTg
+oFqyZ+gyZMmKHuoI/dfimp2CIjRKOxBAb/660cugkBHDOFYc5l/UkqQPyVIkfTZy
+n9meuOfnA+l9goumEkGIpI/DIiO4XBxHVyTzg415irjbU0Op/uVdu/GgyqNM9qBd
+SnMe/CW4OO1KLz4=
+-----END PRIVATE KEY-----
+</pre>
+<p id="rfc.section.6.2.2.p.5">which decodes as:</p>
+<pre>
+algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
+
+SEQUENCE {
+  OneAsymmetricKey {
+      version: 0,
+      privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
+        algorithm: ecPublicKey 
+        parameters: prime256v1
+      }
+      privateKey: &lt;ec key octet string&gt;
+    },
+  OneAsymmetricKey {
+      version: 0,
+      privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
+        algorithm: rseEncryption 
+        parameters: NULL
+      }
+      privateKey: &lt;rsa key octet string&gt;
+    }
+  }
+</pre>
 <h1 id="rfc.section.6.3">
 <a href="#rfc.section.6.3">6.3.</a> <a href="#asn1-module" id="asn1-module">ASN.1 Module</a>
 </h1>
