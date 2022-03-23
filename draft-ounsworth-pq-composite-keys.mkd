@@ -790,7 +790,7 @@ DEFINITIONS IMPLICIT TAGS ::= BEGIN
 EXPORTS ALL;
 
 IMPORTS
-  PUBLIC-KEY, SIGNATURE-ALGORITHM, ParamOptions
+  PUBLIC-KEY, SIGNATURE-ALGORITHM, ParamOptions, AlgorithmIdentifier{}
     FROM AlgorithmInformation-2009  -- RFC 5912 [X509ASN1]
       { iso(1) identified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) id-mod(0)
@@ -820,6 +820,70 @@ id-composite-key OBJECT IDENTIFIER ::= {
   iso(1) identified-organization(3) dod(6) internet(1) private(4)
   enterprise(1) openCA(18227) algorithms(2) id-pk-compositeCrypto(1) }
 
+
+
+--  COMPOSITE-KEY-ALGORITHM
+--
+--  Describes the basic properties of a composite key algorithm
+--
+--  &id - contains the OID identifying the composite algorithm
+--  &Params - if present, contains the type for the algorithm
+--               parameters; if absent, implies no parameters
+--  &paramPresence - parameter presence requirement
+--
+--  Example:
+--  composite-OR COMPOSITE-KEY-ALGORITHM ::= {
+--     IDENTIFIER id-Composite-OR
+--     PARAMS ARE absent
+-- }
+
+COMPOSITE-KEY-ALGORITHM ::= CLASS {
+    &id             OBJECT IDENTIFIER UNIQUE,
+    &Params         OPTIONAL,
+    &paramPresence  ParamOptions DEFAULT absent
+} WITH SYNTAX {
+    IDENTIFIER &id
+    [PARAMS [TYPE &Params] ARE &paramPresence ]
+}
+
+id-composite-or OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) composite(4) id-composite-or(3) }
+
+id-composite-k-of-n OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) composite(4) id-composite-k-of-n(2) }
+
+id-composite-any OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) composite(4) id-composite-any(7) }
+
+CompositeKofNParams ::= INTEGER
+
+composite-or COMPOSITE-KEY-ALGORITHM ::= {
+  IDENTIFIER id-composite-or
+  PARAMS ARE absent }
+  
+composite-k-of-n COMPOSITE-KEY-ALGORITHM ::= {
+  IDENTIFIER id-composite-k-of-n
+  PARAMS TYPE CompositeKofNParams ARE required }
+  
+composite-any COMPOSITE-KEY-ALGORITHM ::= {
+  IDENTIFIER id-composite-any
+  PARAMS ARE absent }
+  
+CompositeAlgorithms COMPOSITE-KEY-ALGORITHM ::= {
+  composite-or		|
+  composite-k-of-n  |
+  composite-any
+}
+
+CompositeAlgorithmIdentifier ::= AlgorithmIdentifier{COMPOSITE-KEY-ALGORITHM, {CompositeAlgorithmSet}}
+
+CompositeAlgorithmSet COMPOSITE-KEY-ALGORITHM ::= {
+  CompositeAlgorithms, ...
+}
+
 --
 -- Public Key
 --
@@ -827,7 +891,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
 pk-Composite PUBLIC-KEY ::= {
     IDENTIFIER id-composite-key
     KEY CompositePublicKey
-    PARAMS TYPE CompositeParams ARE optional
+    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional
     PRIVATE-KEY CompositePrivateKey
 }
 
