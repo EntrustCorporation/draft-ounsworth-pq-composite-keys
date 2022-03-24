@@ -401,18 +401,17 @@
 <link href="#rfc.section.5.3" rel="Chapter" title="5.3 Policy for Deprecated and Acceptable Algorithms">
 <link href="#rfc.section.5.4" rel="Chapter" title="5.4 Protection of Private Keys">
 <link href="#rfc.section.5.5" rel="Chapter" title="5.5 Checking for Compromised Key Reuse">
-<link href="#rfc.section.6" rel="Chapter" title="6 Appendices">
-<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Creating explicit combinations">
-<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Examples">
-<link href="#rfc.section.6.2.1" rel="Chapter" title="6.2.1 Generic Composite Public Key Examples">
-<link href="#rfc.section.6.2.2" rel="Chapter" title="6.2.2 Explicit Composite Public Key Examples">
-<link href="#rfc.section.6.3" rel="Chapter" title="6.3 ASN.1 Module">
-<link href="#rfc.section.6.4" rel="Chapter" title="6.4 Intellectual Property Considerations">
-<link href="#rfc.section.7" rel="Chapter" title="7 Contributors and Acknowledgements">
-<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Making contributions">
-<link href="#rfc.references" rel="Chapter" title="8 References">
-<link href="#rfc.references.1" rel="Chapter" title="8.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="8.2 Informative References">
+<link href="#rfc.references" rel="Chapter" title="6 References">
+<link href="#rfc.references.1" rel="Chapter" title="6.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="6.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Creating explicit combinations">
+<link href="#rfc.appendix.B" rel="Chapter" title="B Examples">
+<link href="#rfc.appendix.B.1" rel="Chapter" title="B.1 Generic Composite Public Key Examples">
+<link href="#rfc.appendix.B.2" rel="Chapter" title="B.2 Explicit Composite Public Key Examples">
+<link href="#rfc.appendix.C" rel="Chapter" title="C ASN.1 Module">
+<link href="#rfc.appendix.D" rel="Chapter" title="D Intellectual Property Considerations">
+<link href="#rfc.appendix.E" rel="Chapter" title="E Contributors and Acknowledgements">
+<link href="#rfc.appendix.E.1" rel="Chapter" title="E.1 Making contributions">
 <link href="#rfc.authors" rel="Chapter">
 
 
@@ -421,7 +420,7 @@
 
   <meta name="dct.creator" content="Ounsworth, M., Pala, M., and J. Klaussner" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-02" />
-  <meta name="dct.issued" scheme="ISO8601" content="2022-03-22" />
+  <meta name="dct.issued" scheme="ISO8601" content="2022-03-24" />
   <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
   <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
 
@@ -445,7 +444,7 @@
 <td class="right">M. Pala</td>
 </tr>
 <tr>
-<td class="left">Expires: September 23, 2022</td>
+<td class="left">Expires: September 25, 2022</td>
 <td class="right">CableLabs</td>
 </tr>
 <tr>
@@ -458,7 +457,7 @@
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">March 22, 2022</td>
+<td class="right">March 24, 2022</td>
 </tr>
 
     	
@@ -476,7 +475,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 23, 2022.</p>
+<p>This Internet-Draft will expire on September 25, 2022.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2022 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -540,29 +539,27 @@
 </li>
 <li>5.5.   <a href="#rfc.section.5.5">Checking for Compromised Key Reuse</a>
 </li>
-</ul><li>6.   <a href="#rfc.section.6">Appendices</a>
+</ul><li>6.   <a href="#rfc.references">References</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.section.6.1">Creating explicit combinations</a>
+<ul><li>6.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
-<li>6.2.   <a href="#rfc.section.6.2">Examples</a>
+<li>6.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
-<ul><li>6.2.1.   <a href="#rfc.section.6.2.1">Generic Composite Public Key Examples</a>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Creating explicit combinations</a>
 </li>
-<li>6.2.2.   <a href="#rfc.section.6.2.2">Explicit Composite Public Key Examples</a>
+<li>Appendix B.   <a href="#rfc.appendix.B">Examples</a>
 </li>
-</ul><li>6.3.   <a href="#rfc.section.6.3">ASN.1 Module</a>
+<ul><li>B.1.   <a href="#rfc.appendix.B.1">Generic Composite Public Key Examples</a>
 </li>
-<li>6.4.   <a href="#rfc.section.6.4">Intellectual Property Considerations</a>
+<li>B.2.   <a href="#rfc.appendix.B.2">Explicit Composite Public Key Examples</a>
 </li>
-</ul><li>7.   <a href="#rfc.section.7">Contributors and Acknowledgements</a>
+</ul><li>Appendix C.   <a href="#rfc.appendix.C">ASN.1 Module</a>
 </li>
-<ul><li>7.1.   <a href="#rfc.section.7.1">Making contributions</a>
+<li>Appendix D.   <a href="#rfc.appendix.D">Intellectual Property Considerations</a>
 </li>
-</ul><li>8.   <a href="#rfc.references">References</a>
+<li>Appendix E.   <a href="#rfc.appendix.E">Contributors and Acknowledgements</a>
 </li>
-<ul><li>8.1.   <a href="#rfc.references.1">Normative References</a>
-</li>
-<li>8.2.   <a href="#rfc.references.2">Informative References</a>
+<ul><li>E.1.   <a href="#rfc.appendix.E.1">Making contributions</a>
 </li>
 </ul><li><a href="#rfc.authors">Authors' Addresses</a>
 </li>
@@ -628,7 +625,7 @@ pk-Composite PUBLIC-KEY ::= {
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 </pre>
 <p id="rfc.section.2.2.p.2">A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed.</p>
-<p id="rfc.section.2.2.p.3">Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and params for the public key contained within it. See <a href="#appdx-examples" class="xref">Section 6.2</a> for examples.</p>
+<p id="rfc.section.2.2.p.3">Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and params for the public key contained within it. See <a href="#appdx-examples" class="xref">Appendix B</a> for examples.</p>
 <p id="rfc.section.2.2.p.4">EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity and therefore reduction in attack surface. In particular, with the addition of Composite (AND mode) and Composite-OR (OR mode), recursion actually allows full boolean expression. Is this valuable?</p>
 <p id="rfc.section.2.2.p.5">Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in <a href="#sec-encoding-rules" class="xref">Section 2.4</a>.</p>
 <h1 id="rfc.section.2.2.1">
@@ -690,8 +687,8 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <li>A new algorithm identifier OID for the explicit algorithm.</li>
 <li>The algorithm identifier OID and PUBLIC-KEY type of each component algorithm.</li>
 </ul>
-<p id="rfc.section.2.5.2.p.5">See <a href="#appdx-creatingExplicitCombinations" class="xref">Section 6.1</a> for guidance on creating and registering OIDs for specific explicit combinations.</p>
-<p id="rfc.section.2.5.2.p.6">In this variant, the public key is encoded as defined in <a href="#sec-composite-keys" class="xref">Section 2</a> and <a href="#sec-composite-pub-keys" class="xref">Section 2.2</a>, however the PUBLIC-KEY.id SHALL be an OID which is registered to represent a specific combination of component public key types. See <a href="#appdx-examples" class="xref">Section 6.2</a> for examples.</p>
+<p id="rfc.section.2.5.2.p.5">See <a href="#appdx-creatingExplicitCombinations" class="xref">Appendix A</a> for guidance on creating and registering OIDs for specific explicit combinations.</p>
+<p id="rfc.section.2.5.2.p.6">In this variant, the public key is encoded as defined in <a href="#sec-composite-keys" class="xref">Section 2</a> and <a href="#sec-composite-pub-keys" class="xref">Section 2.2</a>, however the PUBLIC-KEY.id SHALL be an OID which is registered to represent a specific combination of component public key types. See <a href="#appdx-examples" class="xref">Appendix B</a> for examples.</p>
 <p id="rfc.section.2.5.2.p.7">The SubjectPublicKey.algorithm for each component key is redundant information which MUST match -- and can be infered at runtime from -- the specification of the explicit algorithm. It has been left here for ease of implementation as the component SubjectPublicKeyInfo structures are the same between genaric and explicit, as well as with single-algorithm keys. However, it introduces the risk of mismatch and leads to the following security consideration:</p>
 <p id="rfc.section.2.5.2.p.8">Security consideration: implementations MUST check that that the component AlgorithmIdentifier OIDs match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.</p>
 <h1 id="rfc.section.2.6">
@@ -833,14 +830,96 @@ id-composite-k-of-n OBJECT IDENTIFIER ::= {
 <a href="#rfc.section.5.5">5.5.</a> <a href="#checking-for-compromised-key-reuse" id="checking-for-compromised-key-reuse">Checking for Compromised Key Reuse</a>
 </h1>
 <p id="rfc.section.5.5.p.1">Certificate Authority (CA) implementations need to be careful when checking for compromised key reuse, for example as required by WebTrust regulations; when checking for compromised keys, you MUST unpack the CompositePublicKey structure and compare individual component keys. In other words, for the purposes of key reuse checks, the composite public key structures need to be un-packed so that primitive keys are being compared. For example if the composite key {RSA1, PQ1} is revoked for key compromise, then the keys RSA1 and PQ1 need to be indivitually considered revoked. If the composite key {RSA1, PQ2} is submitted for certification, it SHOULD be rejected because the key RSA1 was previously declared compromised even though the key PQ2 is unique.</p>
-<h1 id="rfc.section.6">
-<a href="#rfc.section.6">6.</a> <a href="#appendices" id="appendices">Appendices</a>
+<h1 id="rfc.references">
+<a href="#rfc.references">6.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">6.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="RFC1421">[RFC1421]</b></td>
+<td class="top">
+<a>Linn, J.</a>, "<a href="https://tools.ietf.org/html/rfc1421">Privacy Enhancement for Internet Electronic Mail: Part I: Message Encryption and Authentication Procedures</a>", RFC 1421, DOI 10.17487/RFC1421, February 1993.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2986">[RFC2986]</b></td>
+<td class="top">
+<a>Nystrom, M.</a> and <a>B. Kaliski</a>, "<a href="https://tools.ietf.org/html/rfc2986">PKCS #10: Certification Request Syntax Specification Version 1.7</a>", RFC 2986, DOI 10.17487/RFC2986, November 2000.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4210">[RFC4210]</b></td>
+<td class="top">
+<a>Adams, C.</a>, <a>Farrell, S.</a>, <a>Kause, T.</a> and <a>T. Mononen</a>, "<a href="https://tools.ietf.org/html/rfc4210">Internet X.509 Public Key Infrastructure Certificate Management Protocol (CMP)</a>", RFC 4210, DOI 10.17487/RFC4210, September 2005.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5280">[RFC5280]</b></td>
+<td class="top">
+<a>Cooper, D.</a>, <a>Santesson, S.</a>, <a>Farrell, S.</a>, <a>Boeyen, S.</a>, <a>Housley, R.</a> and <a>W. Polk</a>, "<a href="https://tools.ietf.org/html/rfc5280">Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</a>", RFC 5280, DOI 10.17487/RFC5280, May 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5652">[RFC5652]</b></td>
+<td class="top">
+<a>Housley, R.</a>, "<a href="https://tools.ietf.org/html/rfc5652">Cryptographic Message Syntax (CMS)</a>", STD 70, RFC 5652, DOI 10.17487/RFC5652, September 2009.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5912">[RFC5912]</b></td>
+<td class="top">
+<a>Hoffman, P.</a> and <a>J. Schaad</a>, "<a href="https://tools.ietf.org/html/rfc5912">New ASN.1 Modules for the Public Key Infrastructure Using X.509 (PKIX)</a>", RFC 5912, DOI 10.17487/RFC5912, June 2010.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5914">[RFC5914]</b></td>
+<td class="top">
+<a>Housley, R.</a>, <a>Ashmore, S.</a> and <a>C. Wallace</a>, "<a href="https://tools.ietf.org/html/rfc5914">Trust Anchor Format</a>", RFC 5914, DOI 10.17487/RFC5914, June 2010.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5958">[RFC5958]</b></td>
+<td class="top">
+<a>Turner, S.</a>, "<a href="https://tools.ietf.org/html/rfc5958">Asymmetric Key Packages</a>", RFC 5958, DOI 10.17487/RFC5958, August 2010.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7468">[RFC7468]</b></td>
+<td class="top">
+<a>Josefsson, S.</a> and <a>S. Leonard</a>, "<a href="https://tools.ietf.org/html/rfc7468">Textual Encodings of PKIX, PKCS, and CMS Structures</a>", RFC 7468, DOI 10.17487/RFC7468, April 2015.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
+<td class="top">
+<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8411">[RFC8411]</b></td>
+<td class="top">
+<a>Schaad, J.</a> and <a>R. Andrews</a>, "<a href="https://tools.ietf.org/html/rfc8411">IANA Registration for the Cryptographic Algorithm Object Identifier Range</a>", RFC 8411, DOI 10.17487/RFC8411, August 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="X.690">[X.690]</b></td>
+<td class="top">
+<a>ITU-T</a>, "<a>Information technology - ASN.1 encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)</a>", ISO/IEC 8825-1:2015, November 2015.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">6.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="Bindel2017">[Bindel2017]</b></td>
+<td class="top">
+<a>Bindel, N.</a>, <a>Herath, U.</a>, <a>McKague, M.</a> and <a>D. Stebila</a>, "<a href="https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22">Transitioning to a quantum-resistant public key infrastructure</a>", 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ounsworth-pq-composite-sigs">[I-D.ounsworth-pq-composite-sigs]</b></td>
+<td class="top">
+<a title="Entrust Limited">Ounsworth, M.</a> and <a title="CableLabs">M. Pala</a>, "<a href="https://tools.ietf.org/html/draft-ounsworth-pq-composite-sigs-05">Composite Signatures For Use In Internet PKI</a>", Internet-Draft draft-ounsworth-pq-composite-sigs-05, July 2021.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#appdx-creatingExplicitCombinations" id="appdx-creatingExplicitCombinations">Creating explicit combinations</a>
 </h1>
-<h1 id="rfc.section.6.1">
-<a href="#rfc.section.6.1">6.1.</a> <a href="#appdx-creatingExplicitCombinations" id="appdx-creatingExplicitCombinations">Creating explicit combinations</a>
-</h1>
-<p id="rfc.section.6.1.p.1">The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementors to perform this check explicitely.</p>
-<p id="rfc.section.6.1.p.2">EDNOTE  this ASN.1 needs to change.  The current definition doesn't put a component AlgorithmIdentifier with each component key. Once we agree as a group that the text accurately describes what we want, we can spend a bit of time figuring out if the ASN.1 machinery lets us express it in a readable way and/or a way that will actually help people creating explicit pairs.</p>
+<p id="rfc.section.A.p.1">The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementors to perform this check explicitely.</p>
+<p id="rfc.section.A.p.2">EDNOTE  this ASN.1 needs to change.  The current definition doesn't put a component AlgorithmIdentifier with each component key. Once we agree as a group that the text accurately describes what we want, we can spend a bit of time figuring out if the ASN.1 machinery lets us express it in a readable way and/or a way that will actually help people creating explicit pairs.</p>
 <pre>
 -- pk-explicitComposite - Composite public key information object
 
@@ -855,7 +934,7 @@ pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
       cRLSign}
 }
 </pre>
-<p id="rfc.section.6.1.p.3">The following ASN.1 object class then automatically generates the public key structure from the types defined in pk-explicitComposite.</p>
+<p id="rfc.section.A.p.3">The following ASN.1 object class then automatically generates the public key structure from the types defined in pk-explicitComposite.</p>
 <pre>
 -- ExplicitCompositePublicKey - The data structure for a composite 
 -- public key sec-composite-pub-keys and SecondPublicKeyType are needed
@@ -877,15 +956,15 @@ ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
     }
 }
 </pre>
-<p id="rfc.section.6.1.p.4">Using this module, it becomes trivial to define explicit pairs. For an example, see <a href="#appdx-expComposite-examples" class="xref">Section 6.2.2</a>.</p>
-<p id="rfc.section.6.1.p.5">To define explicit triples, quadtuples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.</p>
-<h1 id="rfc.section.6.2">
-<a href="#rfc.section.6.2">6.2.</a> <a href="#appdx-examples" id="appdx-examples">Examples</a>
+<p id="rfc.section.A.p.4">Using this module, it becomes trivial to define explicit pairs. For an example, see <a href="#appdx-expComposite-examples" class="xref">Appendix B.2</a>.</p>
+<p id="rfc.section.A.p.5">To define explicit triples, quadtuples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.</p>
+<h1 id="rfc.appendix.B">
+<a href="#rfc.appendix.B">Appendix B.</a> <a href="#appdx-examples" id="appdx-examples">Examples</a>
 </h1>
-<h1 id="rfc.section.6.2.1">
-<a href="#rfc.section.6.2.1">6.2.1.</a> <a href="#appdx-genComposite-examples" id="appdx-genComposite-examples">Generic Composite Public Key Examples</a>
+<h1 id="rfc.appendix.B.1">
+<a href="#rfc.appendix.B.1">B.1.</a> <a href="#appdx-genComposite-examples" id="appdx-genComposite-examples">Generic Composite Public Key Examples</a>
 </h1>
-<p id="rfc.section.6.2.1.p.1">This is an example generic composite public key</p>
+<p id="rfc.section.B.1.p.1">This is an example generic composite public key</p>
 <pre>
 -----BEGIN PUBLIC KEY-----
 MIIBmDAMBgpghkgBhvprUAQBA4IBhgAwggGBMFkwEwYHKoZIzj0CAQYIKoZIzj0D
@@ -899,7 +978,7 @@ ZbfE1ZHxLYLSDt25tSL8A2pMuGMD3P81nYWO+gJ0vYV2WcRpXHRkjmliGqiCg4eB
 mC4//tm0J4r9Ll8b/pp6xyOMI7jppVUCAwEAAQ==
 -----END PUBLIC KEY-----
 </pre>
-<p id="rfc.section.6.2.1.p.2">which decodes as:</p>
+<p id="rfc.section.B.1.p.2">which decodes as:</p>
 <pre>
 algorithm: AlgorithmIdentifier{id-composite-key}
 
@@ -920,7 +999,7 @@ subjectPublicKey: CompositePublicKey {
     }
   }
 </pre>
-<p id="rfc.section.6.2.1.p.3">The corresponding generic private key is:</p>
+<p id="rfc.section.B.1.p.3">The corresponding generic private key is:</p>
 <pre>
 -----BEGIN PRIVATE KEY-----
 MIIFHgIBADAMBgpghkgBhvprUAQBBIIFCTCCBQUwQQIBADATBgcqhkjOPQIBBggq
@@ -953,7 +1032,7 @@ D8lSJH02cp/Znrjn5wPpfYKLphJBiKSPwyIjuFwcR1ck84ONeYq421NDqf7lXbvx
 oMqjTPagXUpzHvwluDjtSi8+
 -----END PRIVATE KEY-----
 </pre>
-<p id="rfc.section.6.2.1.p.4">which decodes as:</p>
+<p id="rfc.section.B.1.p.4">which decodes as:</p>
 <pre>
 algorithm: AlgorithmIdentifier{id-composite-key}
 
@@ -976,10 +1055,10 @@ SEQUENCE {
     }
   }
 </pre>
-<h1 id="rfc.section.6.2.2">
-<a href="#rfc.section.6.2.2">6.2.2.</a> <a href="#appdx-expComposite-examples" id="appdx-expComposite-examples">Explicit Composite Public Key Examples</a>
+<h1 id="rfc.appendix.B.2">
+<a href="#rfc.appendix.B.2">B.2.</a> <a href="#appdx-expComposite-examples" id="appdx-expComposite-examples">Explicit Composite Public Key Examples</a>
 </h1>
-<p id="rfc.section.6.2.2.p.1">Assume that the following is a defined explicit pair:</p>
+<p id="rfc.section.B.2.p.1">Assume that the following is a defined explicit pair:</p>
 <pre>
 id-pk-example-ECandRSA OBJECT IDENTIFIER ::= { 1 2 3 4 }
 
@@ -991,7 +1070,7 @@ pk-example-ECandRSA PUBLIC-KEY ::= pk-explicitComposite{
     pk-rsa,
 }
 </pre>
-<p id="rfc.section.6.2.2.p.2">Then the same key as above could be encoded as an explicit composite public key as:</p>
+<p id="rfc.section.B.2.p.2">Then the same key as above could be encoded as an explicit composite public key as:</p>
 <pre>
 -----BEGIN PUBLIC KEY-----
 MIIBkTAFBgMqAwQDggGGADCCAYEwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATE
@@ -1005,7 +1084,7 @@ gtIO3bm1IvwDaky4YwPc/zWdhY76AnS9hXZZxGlcdGSOaWIaqIKDh4GYLj/+2bQn
 iv0uXxv+mnrHI4wjuOmlVQIDAQAB
 -----END PUBLIC KEY-----
 </pre>
-<p id="rfc.section.6.2.2.p.3">which decodes as:</p>
+<p id="rfc.section.B.2.p.3">which decodes as:</p>
 <pre>
 algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
 
@@ -1026,7 +1105,7 @@ subjectPublicKey: CompositePublicKey {
     }
   }
 </pre>
-<p id="rfc.section.6.2.2.p.4">The corresponding explicit private key is:</p>
+<p id="rfc.section.B.2.p.4">The corresponding explicit private key is:</p>
 <pre>
 -----BEGIN PRIVATE KEY-----
 MIIFFwIBADAFBgMqAwQEggUJMIIFBTBBAgEAMBMGByqGSM49AgEGCCqGSM49AwEH
@@ -1059,7 +1138,7 @@ n9meuOfnA+l9goumEkGIpI/DIiO4XBxHVyTzg415irjbU0Op/uVdu/GgyqNM9qBd
 SnMe/CW4OO1KLz4=
 -----END PRIVATE KEY-----
 </pre>
-<p id="rfc.section.6.2.2.p.5">which decodes as:</p>
+<p id="rfc.section.B.2.p.5">which decodes as:</p>
 <pre>
 algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
 
@@ -1082,8 +1161,8 @@ SEQUENCE {
     }
   }
 </pre>
-<h1 id="rfc.section.6.3">
-<a href="#rfc.section.6.3">6.3.</a> <a href="#asn1-module" id="asn1-module">ASN.1 Module</a>
+<h1 id="rfc.appendix.C">
+<a href="#rfc.appendix.C">Appendix C.</a> <a href="#asn1-module" id="asn1-module">ASN.1 Module</a>
 </h1>
 <pre>
 &lt;CODE STARTS&gt;
@@ -1182,108 +1261,23 @@ END
 &lt;CODE ENDS&gt;
 
 </pre>
-<h1 id="rfc.section.6.4">
-<a href="#rfc.section.6.4">6.4.</a> <a href="#intellectual-property-considerations" id="intellectual-property-considerations">Intellectual Property Considerations</a>
+<h1 id="rfc.appendix.D">
+<a href="#rfc.appendix.D">Appendix D.</a> <a href="#intellectual-property-considerations" id="intellectual-property-considerations">Intellectual Property Considerations</a>
 </h1>
-<p id="rfc.section.6.4.p.1">The following IPR Disclosure relates to this draft:</p>
-<p id="rfc.section.6.4.p.2">https://datatracker.ietf.org/ipr/3588/</p>
-<h1 id="rfc.section.7">
-<a href="#rfc.section.7">7.</a> <a href="#contributors-and-acknowledgements" id="contributors-and-acknowledgements">Contributors and Acknowledgements</a>
+<p id="rfc.section.D.p.1">The following IPR Disclosure relates to this draft:</p>
+<p id="rfc.section.D.p.2">https://datatracker.ietf.org/ipr/3588/</p>
+<h1 id="rfc.appendix.E">
+<a href="#rfc.appendix.E">Appendix E.</a> <a href="#contributors-and-acknowledgements" id="contributors-and-acknowledgements">Contributors and Acknowledgements</a>
 </h1>
-<p id="rfc.section.7.p.1">This document incorporates contributions and comments from a large group of experts. The Editors would especially like to acknowledge the expertise and tireless dedication of the following people, who attended many long meetings and generated millions of bytes of electronic mail and VOIP traffic over the past year in pursuit of this document:</p>
-<p id="rfc.section.7.p.2">John Gray (Entrust), Serge Mister (Entrust), Scott Fluhrer (Cisco Systems), Panos Kampanakis (Cisco Systems), Daniel Van Geest (ISARA), Tim Hollebeek (Digicert), Klaus-Dieter Wirth (D-Trust), and Francois Rousseau.</p>
-<p id="rfc.section.7.p.3">We are grateful to all, including any contributors who may have been inadvertently omitted from this list.</p>
-<p id="rfc.section.7.p.4">This document borrows text from similar documents, including those referenced below. Thanks go to the authors of those documents.  "Copying always makes things easier and less error prone" - <a href="#RFC8411" class="xref">[RFC8411]</a>.</p>
-<h1 id="rfc.section.7.1">
-<a href="#rfc.section.7.1">7.1.</a> <a href="#making-contributions" id="making-contributions">Making contributions</a>
+<p id="rfc.section.E.p.1">This document incorporates contributions and comments from a large group of experts. The Editors would especially like to acknowledge the expertise and tireless dedication of the following people, who attended many long meetings and generated millions of bytes of electronic mail and VOIP traffic over the past year in pursuit of this document:</p>
+<p id="rfc.section.E.p.2">John Gray (Entrust), Serge Mister (Entrust), Scott Fluhrer (Cisco Systems), Panos Kampanakis (Cisco Systems), Daniel Van Geest (ISARA), Tim Hollebeek (Digicert), Klaus-Dieter Wirth (D-Trust), and Francois Rousseau.</p>
+<p id="rfc.section.E.p.3">We are grateful to all, including any contributors who may have been inadvertently omitted from this list.</p>
+<p id="rfc.section.E.p.4">This document borrows text from similar documents, including those referenced below. Thanks go to the authors of those documents.  "Copying always makes things easier and less error prone" - <a href="#RFC8411" class="xref">[RFC8411]</a>.</p>
+<h1 id="rfc.appendix.E.1">
+<a href="#rfc.appendix.E.1">E.1.</a> <a href="#making-contributions" id="making-contributions">Making contributions</a>
 </h1>
-<p id="rfc.section.7.1.p.1">Additional contributions to this draft are weclome. Please see the working copy of this draft at, as well as open issues at:</p>
-<p id="rfc.section.7.1.p.2">https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-keys</p>
-<h1 id="rfc.references">
-<a href="#rfc.references">8.</a> References</h1>
-<h1 id="rfc.references.1">
-<a href="#rfc.references.1">8.1.</a> Normative References</h1>
-<table><tbody>
-<tr>
-<td class="reference"><b id="RFC1421">[RFC1421]</b></td>
-<td class="top">
-<a>Linn, J.</a>, "<a href="https://tools.ietf.org/html/rfc1421">Privacy Enhancement for Internet Electronic Mail: Part I: Message Encryption and Authentication Procedures</a>", RFC 1421, DOI 10.17487/RFC1421, February 1993.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
-<td class="top">
-<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC2986">[RFC2986]</b></td>
-<td class="top">
-<a>Nystrom, M.</a> and <a>B. Kaliski</a>, "<a href="https://tools.ietf.org/html/rfc2986">PKCS #10: Certification Request Syntax Specification Version 1.7</a>", RFC 2986, DOI 10.17487/RFC2986, November 2000.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC4210">[RFC4210]</b></td>
-<td class="top">
-<a>Adams, C.</a>, <a>Farrell, S.</a>, <a>Kause, T.</a> and <a>T. Mononen</a>, "<a href="https://tools.ietf.org/html/rfc4210">Internet X.509 Public Key Infrastructure Certificate Management Protocol (CMP)</a>", RFC 4210, DOI 10.17487/RFC4210, September 2005.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC5280">[RFC5280]</b></td>
-<td class="top">
-<a>Cooper, D.</a>, <a>Santesson, S.</a>, <a>Farrell, S.</a>, <a>Boeyen, S.</a>, <a>Housley, R.</a> and <a>W. Polk</a>, "<a href="https://tools.ietf.org/html/rfc5280">Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</a>", RFC 5280, DOI 10.17487/RFC5280, May 2008.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC5652">[RFC5652]</b></td>
-<td class="top">
-<a>Housley, R.</a>, "<a href="https://tools.ietf.org/html/rfc5652">Cryptographic Message Syntax (CMS)</a>", STD 70, RFC 5652, DOI 10.17487/RFC5652, September 2009.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC5912">[RFC5912]</b></td>
-<td class="top">
-<a>Hoffman, P.</a> and <a>J. Schaad</a>, "<a href="https://tools.ietf.org/html/rfc5912">New ASN.1 Modules for the Public Key Infrastructure Using X.509 (PKIX)</a>", RFC 5912, DOI 10.17487/RFC5912, June 2010.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC5914">[RFC5914]</b></td>
-<td class="top">
-<a>Housley, R.</a>, <a>Ashmore, S.</a> and <a>C. Wallace</a>, "<a href="https://tools.ietf.org/html/rfc5914">Trust Anchor Format</a>", RFC 5914, DOI 10.17487/RFC5914, June 2010.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC5958">[RFC5958]</b></td>
-<td class="top">
-<a>Turner, S.</a>, "<a href="https://tools.ietf.org/html/rfc5958">Asymmetric Key Packages</a>", RFC 5958, DOI 10.17487/RFC5958, August 2010.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC7468">[RFC7468]</b></td>
-<td class="top">
-<a>Josefsson, S.</a> and <a>S. Leonard</a>, "<a href="https://tools.ietf.org/html/rfc7468">Textual Encodings of PKIX, PKCS, and CMS Structures</a>", RFC 7468, DOI 10.17487/RFC7468, April 2015.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC8174">[RFC8174]</b></td>
-<td class="top">
-<a>Leiba, B.</a>, "<a href="https://tools.ietf.org/html/rfc8174">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</a>", BCP 14, RFC 8174, DOI 10.17487/RFC8174, May 2017.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC8411">[RFC8411]</b></td>
-<td class="top">
-<a>Schaad, J.</a> and <a>R. Andrews</a>, "<a href="https://tools.ietf.org/html/rfc8411">IANA Registration for the Cryptographic Algorithm Object Identifier Range</a>", RFC 8411, DOI 10.17487/RFC8411, August 2018.</td>
-</tr>
-<tr>
-<td class="reference"><b id="X.690">[X.690]</b></td>
-<td class="top">
-<a>ITU-T</a>, "<a>Information technology - ASN.1 encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)</a>", ISO/IEC 8825-1:2015, November 2015.</td>
-</tr>
-</tbody></table>
-<h1 id="rfc.references.2">
-<a href="#rfc.references.2">8.2.</a> Informative References</h1>
-<table><tbody>
-<tr>
-<td class="reference"><b id="Bindel2017">[Bindel2017]</b></td>
-<td class="top">
-<a>Bindel, N.</a>, <a>Herath, U.</a>, <a>McKague, M.</a> and <a>D. Stebila</a>, "<a href="https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22">Transitioning to a quantum-resistant public key infrastructure</a>", 2017.</td>
-</tr>
-<tr>
-<td class="reference"><b id="I-D.ounsworth-pq-composite-sigs">[I-D.ounsworth-pq-composite-sigs]</b></td>
-<td class="top">
-<a title="Entrust Limited">Ounsworth, M.</a> and <a title="CableLabs">M. Pala</a>, "<a href="https://tools.ietf.org/html/draft-ounsworth-pq-composite-sigs-05">Composite Signatures For Use In Internet PKI</a>", Internet-Draft draft-ounsworth-pq-composite-sigs-05, July 2021.</td>
-</tr>
-</tbody></table>
+<p id="rfc.section.E.1.p.1">Additional contributions to this draft are weclome. Please see the working copy of this draft at, as well as open issues at:</p>
+<p id="rfc.section.E.1.p.2">https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-keys</p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">

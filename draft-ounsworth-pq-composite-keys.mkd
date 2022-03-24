@@ -101,6 +101,7 @@ informative:
 
 # <!-- EDNOTE: Add RFC 3279? -->
 
+
 --- abstract
 With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data.
 
@@ -110,8 +111,8 @@ This document is intended to be coupled with corresponding documents that define
 
 <!-- End of Abstract -->
 
-
 --- middle
+
 
 # Introduction {#sec-intro}
 
@@ -506,9 +507,9 @@ Certificate Authority (CA) implementations need to be careful when checking for 
 
 <!-- End of Security Considerations section -->
 
-# Appendices
+--- back
 
-## Creating explicit combinations {#appdx-creatingExplicitCombinations}
+# Creating explicit combinations {#appdx-creatingExplicitCombinations}
 
 The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementors to perform this check explicitely.
 
@@ -559,9 +560,9 @@ Using this module, it becomes trivial to define explicit pairs. For an example, 
 To define explicit triples, quadtuples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.
 
 
-## Examples {#appdx-examples}
+# Examples {#appdx-examples}
 
-### Generic Composite Public Key Examples {#appdx-genComposite-examples}
+## Generic Composite Public Key Examples {#appdx-genComposite-examples}
 
 This is an example generic composite public key
 
@@ -662,7 +663,7 @@ SEQUENCE {
   }
 ~~~
 
-### Explicit Composite Public Key Examples {#appdx-expComposite-examples}
+## Explicit Composite Public Key Examples {#appdx-expComposite-examples}
 
 Assume that the following is a defined explicit pair:
 
@@ -777,7 +778,7 @@ SEQUENCE {
   }
 ~~~
 
-## ASN.1 Module
+# ASN.1 Module
 
 ~~~ ASN.1
 
@@ -879,7 +880,7 @@ END
 ~~~
 
 
-## Intellectual Property Considerations
+# Intellectual Property Considerations
 
 The following IPR Disclosure relates to this draft:
 
