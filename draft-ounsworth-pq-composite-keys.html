@@ -420,7 +420,7 @@
 
   <meta name="dct.creator" content="Ounsworth, M., Pala, M., and J. Klaussner" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-02" />
-  <meta name="dct.issued" scheme="ISO8601" content="2022-03-24" />
+  <meta name="dct.issued" scheme="ISO8601" content="2022-03-28" />
   <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
   <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
 
@@ -444,7 +444,7 @@
 <td class="right">M. Pala</td>
 </tr>
 <tr>
-<td class="left">Expires: September 25, 2022</td>
+<td class="left">Expires: September 29, 2022</td>
 <td class="right">CableLabs</td>
 </tr>
 <tr>
@@ -457,7 +457,7 @@
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">March 24, 2022</td>
+<td class="right">March 28, 2022</td>
 </tr>
 
     	
@@ -475,7 +475,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 25, 2022.</p>
+<p>This Internet-Draft will expire on September 29, 2022.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2022 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -616,7 +616,7 @@ pk-Composite PUBLIC-KEY ::= {
 <h1 id="rfc.section.2.1">
 <a href="#rfc.section.2.1">2.1.</a> <a href="#key-usage" id="key-usage">Key Usage</a>
 </h1>
-<p id="rfc.section.2.1.p.1">For protocols such as X.509 <a href="#RFC5280" class="xref">[RFC5280]</a> that specify key usage along with the public key, any key usage may be used with Composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a Composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. id-alg-composite MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single Composite key object.</p>
+<p id="rfc.section.2.1.p.1">For protocols such as X.509 <a href="#RFC5280" class="xref">[RFC5280]</a> that specify key usage along with the public key, any key usage may be used with Composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a Composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. id-composite-key MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single Composite key object.</p>
 <h1 id="rfc.section.2.2">
 <a href="#rfc.section.2.2">2.2.</a> <a href="#sec-composite-pub-keys" id="sec-composite-pub-keys">Composite Public Key</a>
 </h1>
@@ -772,7 +772,7 @@ CompositeKofNParams ::= INTEGER
 <a href="#rfc.section.3.2">3.2.</a> <a href="#asymmetric-key-packages-cms" id="asymmetric-key-packages-cms">Asymmetric Key Packages (CMS)</a>
 </h1>
 <p id="rfc.section.3.2.p.1">The Cryptographic Message Syntax (CMS), as defined in <a href="#RFC5652" class="xref">[RFC5652]</a>, can be used to digitally sign, digest, authenticate, or encrypt the asymmetric key format content type.</p>
-<p id="rfc.section.3.2.p.2">When encoding composite private keys, the privateKeyAlgorithm in the OneAsymmetricKey SHALL be set to id-alg-composite.</p>
+<p id="rfc.section.3.2.p.2">When encoding composite private keys, the privateKeyAlgorithm in the OneAsymmetricKey SHALL be set to id-composite-key.</p>
 <p id="rfc.section.3.2.p.3">The parameters of the privateKeyAlgorithm SHALL be a sequence of AlgorithmIdentifier objects, each of which are encoded according to the rules defined for each of the different keys in the composite private key.</p>
 <p id="rfc.section.3.2.p.4">The value of the privateKey field in the OneAsymmetricKey SHALL be set to the DER encoding of the SEQUENCE of private key values that make up the composite key. The number and order of elements in the sequence SHALL be the same as identified in the sequence of parameters in the privateKeyAlgorithm.</p>
 <p id="rfc.section.3.2.p.5">The value of the publicKey (if present) SHALL be set to the DER encoding of the corresponding CompositePublicKey. If this field is present, the number and order of component keys MUST be the same as identified in the sequence of parameters in the privateKeyAlgorithm.</p>
