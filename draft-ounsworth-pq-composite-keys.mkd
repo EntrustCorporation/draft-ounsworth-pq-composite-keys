@@ -785,14 +785,13 @@ SEQUENCE {
 <CODE STARTS>
 
 Composite-Keys-2022
-  { TBD }
 
 DEFINITIONS IMPLICIT TAGS ::= BEGIN
 
 EXPORTS ALL;
 
 IMPORTS
-  PUBLIC-KEY, SIGNATURE-ALGORITHM
+  PUBLIC-KEY, SIGNATURE-ALGORITHM, ParamOptions, AlgorithmIdentifier{}
     FROM AlgorithmInformation-2009  -- RFC 5912 [X509ASN1]
       { iso(1) identified-organization(3) dod(6) internet(1)
         security(5) mechanisms(5) pkix(7) id-mod(0)
@@ -813,21 +812,88 @@ IMPORTS
 --
 -- Object Identifiers
 --
+ 
+der OBJECT IDENTIFIER ::=
+  {joint-iso-itu-t asn1(1) ber-derived(2) distinguished-encoding(1)}
 
 -- To be replaced by IANA
 id-composite-key OBJECT IDENTIFIER ::= {
-  iso(1) identified-organization(3) dod(6) internet(1) private(4) 
-  enterprise(1) OpenCA(18227) algorithms(2) id-pk-compositeCrypto(1) }
+  iso(1) identified-organization(3) dod(6) internet(1) private(4)
+  enterprise(1) openCA(18227) algorithms(2) id-pk-compositeCrypto(1) }
+
+
+
+--  COMPOSITE-KEY-ALGORITHM
+--
+--  Describes the basic properties of a composite key algorithm
+--
+--  &id - contains the OID identifying the composite algorithm
+--  &Params - if present, contains the type for the algorithm
+--               parameters; if absent, implies no parameters
+--  &paramPresence - parameter presence requirement
+--
+--  Example:
+--  composite-OR COMPOSITE-KEY-ALGORITHM ::= {
+--     IDENTIFIER id-Composite-OR
+--     PARAMS ARE absent
+-- }
+
+COMPOSITE-KEY-ALGORITHM ::= CLASS {
+    &id             OBJECT IDENTIFIER UNIQUE,
+    &Params         OPTIONAL,
+    &paramPresence  ParamOptions DEFAULT absent
+} WITH SYNTAX {
+    IDENTIFIER &id
+    [PARAMS [TYPE &Params] ARE &paramPresence ]
+}
+
+id-composite-or OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) composite(4) id-composite-or(3) }
+
+id-composite-k-of-n OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) composite(4) id-composite-k-of-n(2) }
+
+id-composite-any OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) composite(4) id-composite-any(7) }
+
+CompositeKofNParams ::= INTEGER
+
+composite-or COMPOSITE-KEY-ALGORITHM ::= {
+  IDENTIFIER id-composite-or
+  PARAMS ARE absent }
+  
+composite-k-of-n COMPOSITE-KEY-ALGORITHM ::= {
+  IDENTIFIER id-composite-k-of-n
+  PARAMS TYPE CompositeKofNParams ARE required }
+  
+composite-any COMPOSITE-KEY-ALGORITHM ::= {
+  IDENTIFIER id-composite-any
+  PARAMS ARE absent }
+  
+CompositeAlgorithms COMPOSITE-KEY-ALGORITHM ::= {
+  composite-or		|
+  composite-k-of-n  |
+  composite-any
+}
+
+CompositeAlgorithmIdentifier ::= AlgorithmIdentifier{COMPOSITE-KEY-ALGORITHM, {CompositeAlgorithmSet}}
+
+CompositeAlgorithmSet COMPOSITE-KEY-ALGORITHM ::= {
+  CompositeAlgorithms, ...
+}
 
 --
 -- Public Key
 --
 
 pk-Composite PUBLIC-KEY ::= {
-    id id-composite-key,
-    KeyValue CompositePublicKey,
-    Params CompositeParams ARE OPTIONAL,
-    PrivateKey CompositePrivateKey,
+    IDENTIFIER id-composite-key
+    KEY CompositePublicKey
+    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional
+    PRIVATE-KEY CompositePrivateKey
 }
 
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
@@ -842,7 +908,7 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 -- pk-explicitComposite - Composite public key information object
 
 pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
-  FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} 
+  FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType}
   PUBLIC-KEY ::= {
     IDENTIFIER id
     KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
@@ -850,14 +916,14 @@ pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
     PARAMS ARE absent
 }
 
-   The following ASN.1 object class then automatically generates the
-   public key structure from the types defined in pk-explicitComposite.
+-- The following ASN.1 object class then automatically generates the
+-- public key structure from the types defined in pk-explicitComposite.
 
--- ExplicitCompositePublicKey - The data structure for a composite 
--- public key sec-composite-pub-keys and SecondPublicKeyType are needed 
+-- ExplicitCompositePublicKey - The data structure for a composite
+-- public key sec-composite-pub-keys and SecondPublicKeyType are needed
 -- because PUBLIC-KEY contains a set of public key types, not a single
 -- type.
--- TODO The parameters should be optional only if they are marked 
+-- TODO The parameters should be optional only if they are marked
 -- optional in the PUBLIC-KEY
 
 
