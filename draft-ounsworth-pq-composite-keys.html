@@ -414,7 +414,7 @@
 
   <meta name="dct.creator" content="Ounsworth, M., Pala, M., and J. Klaussner" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-02" />
-  <meta name="dct.issued" scheme="ISO8601" content="2022-05-07" />
+  <meta name="dct.issued" scheme="ISO8601" content="2022-05-18" />
   <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
   <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
 
@@ -438,7 +438,7 @@
 <td class="right">M. Pala</td>
 </tr>
 <tr>
-<td class="left">Expires: November 8, 2022</td>
+<td class="left">Expires: November 19, 2022</td>
 <td class="right">CableLabs</td>
 </tr>
 <tr>
@@ -451,7 +451,7 @@
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">May 07, 2022</td>
+<td class="right">May 18, 2022</td>
 </tr>
 
     	
@@ -469,7 +469,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 8, 2022.</p>
+<p>This Internet-Draft will expire on November 19, 2022.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2022 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -552,7 +552,7 @@
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#sec-intro" id="sec-intro">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">During the transition to post-quantum cryptography, there will be uncertainty as to the strength of cryptographic algorithms; we will no longer fully trust traditional cryptography such as RSA, Diffie-Hellman, DSA and their elliptic curve variants, but we will also not fully trust their post-quantum replacements until they have had sufficient scrutiny. Unlike previous cryptographic algorithm migrations, the choice of when to migrate and which algorithms to migrate to, is not so clear. Even after the migration period, it may be advantageous for an entity's cryptographic identity to be composed of multiple public-key algorithms.</p>
+<p id="rfc.section.1.p.1">During the transition to post-quantum cryptography, there will be uncertainty as to the strength of cryptographic algorithms; we will no longer fully trust traditional cryptography such as RSA, Diffie-Hellman, DSA and their elliptic curve variants, but we will also not fully trust their post-quantum replacements until they have had sufficient scrutiny and time to discover and fix implementation bugs. Unlike previous cryptographic algorithm migrations, the choice of when to migrate and which algorithms to migrate to, is not so clear. Even after the migration period, it may be advantageous for an entity's cryptographic identity to be composed of multiple public-key algorithms.</p>
 <p id="rfc.section.1.p.2">The deployment of composite public keys, and composite signatures and composite encryption using post-quantum algorithms will face two challenges</p>
 <p></p>
 
@@ -560,7 +560,7 @@
 <li>Algorithm strength uncertainty: During the transition period, some post-quantum signature and encryption algorithms will not be fully trusted, while also the trust in legacy public key algorithms will start to erode.  A relying party may learn some time after deployment that a public key algorithm has become untrustworthy, but in the interim, they may not know which algorithm an adversary has compromised.</li>
 <li>Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully classical to fully post-quantum-aware cryptography.</li>
 </ul>
-<p id="rfc.section.1.p.4">This document provides a mechanism to address both algorithm strength uncertainty as well as migration concerns by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields. Backwards compatibility is addressed via using composite in conjunction with a non-composite hybrid mode such as that described in [draft-becker-guthrie-noncomposite-hybrid-auth-00] (NOTE: need kramdown formatting help with this ref).</p>
+<p id="rfc.section.1.p.4">This document provides a mechanism to address algorithm strength uncertainty concerns by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields. Backwards compatibility is addressed via using composite in conjunction with a non-composite hybrid mode such as that described in [draft-becker-guthrie-noncomposite-hybrid-auth-00] (NOTE: need kramdown formatting help with this ref).</p>
 <p id="rfc.section.1.p.5">This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.</p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#sec-terminology" id="sec-terminology">Terminology</a>
@@ -575,6 +575,7 @@
 <p id="rfc.section.1.1.p.8">DER: Distinguished Encoding Rules as defined in <a href="#X.690" class="xref">[X.690]</a>.</p>
 <p id="rfc.section.1.1.p.9">LEGACY:   For the purposes of this document, a legacy key or signature is a non-composite key or signature.</p>
 <p id="rfc.section.1.1.p.10">PUBLIC / PRIVATE KEY: The public and private portion of an asymmetric cryptographic key, making no assumptions about which algorithm.</p>
+<p id="rfc.section.1.1.p.11">STRIPPING ATTACK: An attack in which the attacker is able to downgrade the cryptographic object to an attacker-chosen subset of original set of component algorithms in such a way that it is not detectable by the receiver. For example, substituting a composite public key or signature for a version with fewer components.</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#sec-composite-keys" id="sec-composite-keys">Composite Key Structures</a>
 </h1>
