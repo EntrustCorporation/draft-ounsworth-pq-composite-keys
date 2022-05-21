@@ -182,6 +182,8 @@ STRIPPING ATTACK:
 - Removed combiner modes (AND, OR, etc)
 - Syched document structure with -sigs
 
+TODO diff this against the public version and see if there are any more changes.
+
 
 # Composite Key Structures {#sec-composite-keys}
 

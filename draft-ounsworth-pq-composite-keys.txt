@@ -232,6 +232,9 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
    o  Syched document structure with -sigs
 
+   TODO diff this against the public version and see if there are any
+   more changes.
+
 2.  Composite Key Structures
 
    In order for public keys and private keys to be composed of multiple
@@ -271,9 +274,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
    with the public key, any key usage may be used with Composite keys,
    with the requirement that the specified key usage MUST apply to all
    component keys.  For example if a Composite key is marked with a
-   KeyUsage of digitalSignature, then all component keys MUST be capable
-   of producing digital signatures. id-composite-key MUST NOT be used to
-   implement mixed-usage keys, for example, where a digitalSignature and
 
 
 
@@ -282,6 +282,9 @@ Ounsworth, et al.       Expires November 22, 2022               [Page 5]
 Internet-Draft              PQ Composite Keys                   May 2022
 
 
+   KeyUsage of digitalSignature, then all component keys MUST be capable
+   of producing digital signatures. id-composite-key MUST NOT be used to
+   implement mixed-usage keys, for example, where a digitalSignature and
    a keyEncipherment key are combined together into a single Composite
    key object.
 
@@ -327,9 +330,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
    The parameters field MUST be absent.
 
-   A CompositePrivateKey MUST contain at least two component private
-   keys, and they MUST be in the same order as in the corresponding
-   CompositePublicKey.
 
 
 
@@ -337,6 +337,10 @@ Ounsworth, et al.       Expires November 22, 2022               [Page 6]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
+
+   A CompositePrivateKey MUST contain at least two component private
+   keys, and they MUST be in the same order as in the corresponding
+   CompositePublicKey.
 
    EDNOTE: does this also need an explicit version?
 
@@ -382,10 +386,6 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
    The motivation for this variant is primarily for prototyping work
    prior to the standardization of algorithm identifiers for explicit
-   combinations of algorithms.  However, the authors envision that this
-   variant will remain relevant beyond full standardization for example
-   in environments requiring very high levels of crypto agility, for
-   example where clients support a large number of algorithms or where a
 
 
 
@@ -394,6 +394,10 @@ Ounsworth, et al.       Expires November 22, 2022               [Page 7]
 Internet-Draft              PQ Composite Keys                   May 2022
 
 
+   combinations of algorithms.  However, the authors envision that this
+   variant will remain relevant beyond full standardization for example
+   in environments requiring very high levels of crypto agility, for
+   example where clients support a large number of algorithms or where a
    large number of keys will be used at a time and it is therefore
    prohibitive to define algorithm identifiers for every combination of
    pairs, triples, quadtuples, etc of algorithms.
@@ -438,10 +442,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
    component AlgorithmIdentifier OIDs match those expected by the
    definition of the explicit algorithm.  Implementations SHOULD first
    parse a component's SubjectPublicKeyInfo.algorithm, and ensure that
-   it matches what is expected for that position in the explicit key,
-   and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey.
-   This is to reduce the attack surface associated with parsing the
-   public key data of an unexpected key type, or worse; to parse and use
 
 
 
@@ -450,6 +450,10 @@ Ounsworth, et al.       Expires November 22, 2022               [Page 8]
 Internet-Draft              PQ Composite Keys                   May 2022
 
 
+   it matches what is expected for that position in the explicit key,
+   and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey.
+   This is to reduce the attack surface associated with parsing the
+   public key data of an unexpected key type, or worse; to parse and use
    a key which does not match the explicit algorithm definition.
    Similar checks MUST be done when handling the corresponding private
    key.
@@ -494,10 +498,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
    be used to digitally sign, digest, authenticate, or encrypt the
    asymmetric key format content type.
 
-   When encoding composite private keys, the privateKeyAlgorithm in the
-   OneAsymmetricKey SHALL be set to id-composite-key.
-
-
 
 
 
@@ -505,6 +505,9 @@ Ounsworth, et al.       Expires November 22, 2022               [Page 9]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
+
+   When encoding composite private keys, the privateKeyAlgorithm in the
+   OneAsymmetricKey SHALL be set to id-composite-key.
 
    The parameters of the privateKeyAlgorithm SHALL be a sequence of
    AlgorithmIdentifier objects, each of which are encoded according to
@@ -551,9 +554,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
      iso(1) identified-organization(3) dod(6) internet(1) security(5)
      mechanisms(5) pkix(7) algorithms(6) composite(??)
      id-composite-k-of-n(??)  }
-
-
-
 
 
 
