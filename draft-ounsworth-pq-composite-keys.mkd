@@ -177,6 +177,12 @@ STRIPPING ATTACK:
           version with fewer components.
 
 
+## Changes in version -02
+
+- Removed combiner modes (AND, OR, etc)
+- Syched document structure with -sigs
+
+
 # Composite Key Structures {#sec-composite-keys}
 
 In order for public keys and private keys to be composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "components") such that these structures can be used as a drop-in replacement for existing public key fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652], and the Trust Anchor Format [RFC5914].
