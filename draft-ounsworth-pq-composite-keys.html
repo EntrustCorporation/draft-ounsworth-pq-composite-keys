@@ -386,9 +386,12 @@
 <link href="#rfc.section.3" rel="Chapter" title="3 Algorithm Identifiers">
 <link href="#rfc.section.3.1" rel="Chapter" title="3.1 id-composite-key">
 <link href="#rfc.section.3.2" rel="Chapter" title="3.2 Other Explicit Algorithms">
-<link href="#rfc.section.4" rel="Chapter" title="4 In Practice">
+<link href="#rfc.section.4" rel="Chapter" title="4 Implementation Considerations">
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 Textual encoding of Composite Private Keys">
 <link href="#rfc.section.4.2" rel="Chapter" title="4.2 Asymmetric Key Packages (CMS)">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Backwards Compabilitity">
+<link href="#rfc.section.4.3.1" rel="Chapter" title="4.3.1 OR modes">
+<link href="#rfc.section.4.3.2" rel="Chapter" title="4.3.2 Parallel PKIs">
 <link href="#rfc.section.5" rel="Chapter" title="5 IANA Considerations">
 <link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
 <link href="#rfc.section.6.1" rel="Chapter" title="6.1 Reuse of keys in a Composite public key">
@@ -504,13 +507,19 @@
 </li>
 <li>3.2.   <a href="#rfc.section.3.2">Other Explicit Algorithms</a>
 </li>
-</ul><li>4.   <a href="#rfc.section.4">In Practice</a>
+</ul><li>4.   <a href="#rfc.section.4">Implementation Considerations</a>
 </li>
 <ul><li>4.1.   <a href="#rfc.section.4.1">Textual encoding of Composite Private Keys</a>
 </li>
 <li>4.2.   <a href="#rfc.section.4.2">Asymmetric Key Packages (CMS)</a>
 </li>
-</ul><li>5.   <a href="#rfc.section.5">IANA Considerations</a>
+<li>4.3.   <a href="#rfc.section.4.3">Backwards Compabilitity</a>
+</li>
+<ul><li>4.3.1.   <a href="#rfc.section.4.3.1">OR modes</a>
+</li>
+<li>4.3.2.   <a href="#rfc.section.4.3.2">Parallel PKIs</a>
+</li>
+</ul></ul><li>5.   <a href="#rfc.section.5">IANA Considerations</a>
 </li>
 <li>6.   <a href="#rfc.section.6">Security Considerations</a>
 </li>
@@ -563,7 +572,7 @@
 <li>Algorithm strength uncertainty: During the transition period, some post-quantum signature and encryption algorithms will not be fully trusted, while also the trust in legacy public key algorithms will start to erode.  A relying party may learn some time after deployment that a public key algorithm has become untrustworthy, but in the interim, they may not know which algorithm an adversary has compromised.</li>
 <li>Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully classical to fully post-quantum-aware cryptography.</li>
 </ul>
-<p id="rfc.section.1.p.4">This document provides a mechanism to address algorithm strength uncertainty concerns by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields. Backwards compatibility is addressed via using composite in conjunction with a non-composite hybrid mode such as that described in [draft-becker-guthrie-noncomposite-hybrid-auth-00] (NOTE: need kramdown formatting help with this ref).</p>
+<p id="rfc.section.1.p.4">This document provides a mechanism to address algorithm strength uncertainty concerns by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechinasms defined in the document, but some notes on how it can be obtained can be found in <a href="#sec-backwards-compat" class="xref">Section 4.3</a>.</p>
 <p id="rfc.section.1.p.5">This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.</p>
 <h1 id="rfc.section.1.1">
 <a href="#rfc.section.1.1">1.1.</a> <a href="#sec-terminology" id="sec-terminology">Terminology</a>
@@ -577,8 +586,9 @@
 <p id="rfc.section.1.1.p.7">COMPOSITE ALGORITHM: An algorithm which is a sequence of two or more component algorithms.</p>
 <p id="rfc.section.1.1.p.8">DER: Distinguished Encoding Rules as defined in <a href="#X.690" class="xref">[X.690]</a>.</p>
 <p id="rfc.section.1.1.p.9">LEGACY:   For the purposes of this document, a legacy key or signature is a non-composite key or signature.</p>
-<p id="rfc.section.1.1.p.10">PUBLIC / PRIVATE KEY: The public and private portion of an asymmetric cryptographic key, making no assumptions about which algorithm.</p>
-<p id="rfc.section.1.1.p.11">STRIPPING ATTACK: An attack in which the attacker is able to downgrade the cryptographic object to an attacker-chosen subset of original set of component algorithms in such a way that it is not detectable by the receiver. For example, substituting a composite public key or signature for a version with fewer components.</p>
+<p id="rfc.section.1.1.p.10">PKI: Public Key Infrastructure, as defined in <a href="#RFC5280" class="xref">[RFC5280]</a>.</p>
+<p id="rfc.section.1.1.p.11">PUBLIC / PRIVATE KEY: The public and private portion of an asymmetric cryptographic key, making no assumptions about which algorithm.</p>
+<p id="rfc.section.1.1.p.12">STRIPPING ATTACK: An attack in which the attacker is able to downgrade the cryptographic object to an attacker-chosen subset of original set of component algorithms in such a way that it is not detectable by the receiver. For example, substituting a composite public key or signature for a version with fewer components.</p>
 <h1 id="rfc.section.1.2">
 <a href="#rfc.section.1.2">1.2.</a> <a href="#changes-in-version-02" id="changes-in-version-02">Changes in version -02</a>
 </h1>
@@ -587,6 +597,7 @@
 <ul>
 <li>Removed combiner modes (AND, OR, etc)</li>
 <li>Syched document structure with -sigs</li>
+<li>Added <a href="#sec-backwards-compat" class="xref">Section 4.3</a> addressing backwards compatibility and ease of migration concerns.</li>
 </ul>
 <p id="rfc.section.1.2.p.2">TODO diff this against the public version and see if there are any more changes.</p>
 <h1 id="rfc.section.2">
@@ -679,7 +690,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <p id="rfc.section.3.2.p.7">The SubjectPublicKey.algorithm for each component key is redundant information which MUST match -- and can be infered at runtime from -- the specification of the explicit algorithm. It has been left here for ease of implementation as the component SubjectPublicKeyInfo structures are the same between genaric and explicit, as well as with single-algorithm keys. However, it introduces the risk of mismatch and leads to the following security consideration:</p>
 <p id="rfc.section.3.2.p.8">Security consideration: implementations MUST check that that the component AlgorithmIdentifier OIDs match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.</p>
 <h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#sec-in-pract" id="sec-in-pract">In Practice</a>
+<a href="#rfc.section.4">4.</a> <a href="#sec-imp-considers" id="sec-imp-considers">Implementation Considerations</a>
 </h1>
 <p id="rfc.section.4.p.1">This section addresses practical issues of how this draft affects other protocols and standards.</p>
 <p id="rfc.section.4.p.2">EDNOTE 10: Possible topics to address:</p>
@@ -690,9 +701,6 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <li>In particular, implications for (large) composite keys / signatures / certs on the handshake stages of TLS and IKEv2.</li>
 <li>If a cert in the chain is a composite cert then does the whole chain need to be of composite Certs?</li>
 <li>We could also explain that the root CA cert does not have to be of the same algorithms. The root cert SHOULD NOT be transferred in the authentication exchange to save transport overhead and thus it can be different than the intermediate and leaf certs.</li>
-<li>We could talk about overhead (size and processing).</li>
-<li>We could also discuss backwards compatibility.</li>
-<li>We could include a subsection about implementation considerations.</li>
 </ul>
 <h1 id="rfc.section.4.1">
 <a href="#rfc.section.4.1">4.1.</a> <a href="#textual-encoding-of-composite-private-keys" id="textual-encoding-of-composite-private-keys">Textual encoding of Composite Private Keys</a>
@@ -708,6 +716,23 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <p id="rfc.section.4.2.p.5">The value of the publicKey (if present) SHALL be set to the DER encoding of the corresponding CompositePublicKey. If this field is present, the number and order of component keys MUST be the same as identified in the sequence of parameters in the privateKeyAlgorithm.</p>
 <p id="rfc.section.4.2.p.6">The value of the attributes is encoded as usual.</p>
 <p id="rfc.section.4.2.p.7">EDNOTE: I wonder whether this has value as its own section, or if we should take what's relevant and merge it into <a href="#sec-priv-key" class="xref">Section 2.3</a>?</p>
+<h1 id="rfc.section.4.3">
+<a href="#rfc.section.4.3">4.3.</a> <a href="#sec-backwards-compat" id="sec-backwards-compat">Backwards Compabilitity</a>
+</h1>
+<p id="rfc.section.4.3.p.1">As noted in the introduction, the post-quantum cryptographic migration will face challenges in both guaraneeing cryptographic stength against adversaries of unknown capabilities, as well as providing ease of magritation. The composite mechanisms defined in this document primarily address cryptographic strength, however this secion contains notes on how backwards compatibility may be obtained.</p>
+<p id="rfc.section.4.3.p.2">The term "ease of migration" is used here to mean that existing systems can be gracefully transitioned to the new technology without requiring large service disruptions or expensive upgrades. The term "backwards compatibility" is used here to mean something more specific; that existing systems as they are deployed today can interoperate with the upgraded systems of the future.</p>
+<p id="rfc.section.4.3.p.3">These migration and interoperability concerns need to be thought about in the context of various types of protocols that make use of X.509 and PKIX with relation to public key objects, from online negotiated protocols such as TLS 1.3 <a href="#RFC8446" class="xref">[RFC8446]</a> and IKEv2 <a href="#RFC7296" class="xref">[RFC7296]</a>, to non-negotiated asyncronous protocols such as S&#8288;/&#8288;MIME signed and encrypted email <a href="#RFC8551" class="xref">[RFC8551]</a>, document signing such as in the context of the European eIDAS regulations <a href="#eIDAS2014" class="xref">[eIDAS2014]</a>, and publicly trusted code signing <a href="#codeSigningBRsv2.8" class="xref">[codeSigningBRsv2.8]</a>, as well as myriad other standardized and proprietary protocols and applications that leverage CMS <a href="#RFC5652" class="xref">[RFC5652]</a> signed or encrypted structures.</p>
+<h1 id="rfc.section.4.3.1">
+<a href="#rfc.section.4.3.1">4.3.1.</a> <a href="#or-modes" id="or-modes">OR modes</a>
+</h1>
+<p id="rfc.section.4.3.1.p.1">This document purposefully does not specify how runtime clients are to combine compoent keys together to form a single cryptographic operation; this is left up to the specifications of signature and encryption algorithms that make use of the composite key type. One possible way to combine component keys is through an OR relation, or OR-like client policies for acceptable algorithm combinations, where senders and / or receivers are permitted to ignore some component keys. Some envisioned uses of this include environments where the client encounters a component key for which it does not posess a compatible algorithm implementation but wishes to proceed with the cryptographic operation using the subset of component keys for which it does have compatible implementations. Such a mechanism could be designed to provide ease of migration by allowing for composite keys to be distributed and used before all clients in the environment are fully upgraded, but it does not allow for full backwards compatibility since clients would at least need to be upgraded from their current state to be able to parse the composite structures.</p>
+<h1 id="rfc.section.4.3.2">
+<a href="#rfc.section.4.3.2">4.3.2.</a> <a href="#parallel-pkis" id="parallel-pkis">Parallel PKIs</a>
+</h1>
+<p id="rfc.section.4.3.2.p.1">We present the term "Parallel PKI" to refer to the setup where a PKI end entity posesses two or more distinct public keys or certificates for the same identity (name), but containing keys for different cryptographic algorithms. One could imagine a set of parallel PKIs where an existing PKI using legacy algorithms (RSA, ECC) is left operational during the post-quantum migration but is shadowed by one or more paralel PKIs using pure post quantum algorithms or composite algorithms (legacy and post-quantum).</p>
+<p id="rfc.section.4.3.2.p.2">Equipped with a set of parallel public keys in this way, a runtime client would have the flexibility to choose which public key(s) or certificate(s) to use in a given cryptographic operation.</p>
+<p id="rfc.section.4.3.2.p.3">For negotiated protocols, the runtime client could choose which public key(s) or certificate(s) to use based on the negotiated algorithms, or could combine two of the public keys for example in a non-composite hybrid method such as [draft-becker-guthrie-noncomposite-hybrid-auth-00] (NOTE: need kramdown formatting help with this ref) or [draft-guthrie-ipsecme-ikev2-hybrid-auth-00]. Note that it is possible to use the signature algorithm defined in [draft-ounsworth-pq-composite-sigs-06] as a way to carry the multiple signature values generated by a non-composite public mechanism in protocols where it is easier to support the composite signature algorithms than to implement such a mechanism in the protocol itself. There is also nothing precluding a composite public key from being one of the components used within a non-composite authentication operation; this may lead to greater convenience in setting up parallel PKI hierarchies that need to service a range of clients implementing different styles of post-quantum migration strategies.</p>
+<p id="rfc.section.4.3.2.p.4">For non-negotiated protocols, the details for obtaining backwards compatibility will vary by protocol, but for example in CMS <a href="#RFC5652" class="xref">[RFC5652]</a>, the inclusion of multiple SignerInfo or RecipientInfo objects is often already treated as an OR relationship, so including one for each of the end entity's parallel PKI public keys would, in many cases, have the desired effect of allowing the reciever to choose one they are compatible with and ignore the others, thus achieving full backwards compatibility.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#sec-iana" id="sec-iana">IANA Considerations</a>
 </h1>
@@ -840,9 +865,43 @@ id-composite-k-of-n OBJECT IDENTIFIER ::= {
 <a>Bindel, N.</a>, <a>Herath, U.</a>, <a>McKague, M.</a> and <a>D. Stebila</a>, "<a href="https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22">Transitioning to a quantum-resistant public key infrastructure</a>", 2017.</td>
 </tr>
 <tr>
+<td class="reference"><b id="codeSigningBRsv2.8">[codeSigningBRsv2.8]</b></td>
+<td class="top">
+<a>CAB Forum, .</a>, "<a href="https://cabforum.org/wp-content/uploads/Baseline-Requirements-for-the-Issuance-and-Management-of-Code-Signing.v2.8.pdf">Baseline Requirements for the Issuance and Management of Publicly-Trusted Code Signing Certificates v2.8</a>", May 2022.</td>
+</tr>
+<tr>
+<td class="reference"><b id="eIDAS2014">[eIDAS2014]</b></td>
+<td class="top">"<a href="https://ec.europa.eu/futurium/en/system/files/ged/eidas_regulation.pdf">REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL of 23 July 2014 on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</a>", July 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.becker-guthrie-noncomposite-hybrid-auth">[I-D.becker-guthrie-noncomposite-hybrid-auth]</b></td>
+<td class="top">
+<a title="National Security Agency">Becker, A.</a>, <a title="National Security Agency">Guthrie, R.</a> and <a title="National Security Agency">M. Jenkins</a>, "<a href="https://tools.ietf.org/html/draft-becker-guthrie-noncomposite-hybrid-auth-00">Non-Composite Hybrid Authentication in PKIX and Applications to Internet Protocols</a>", Internet-Draft draft-becker-guthrie-noncomposite-hybrid-auth-00, March 2022.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.guthrie-ipsecme-ikev2-hybrid-auth">[I-D.guthrie-ipsecme-ikev2-hybrid-auth]</b></td>
+<td class="top">
+<a title="National Security Agency">Guthrie, R.</a>, "<a href="https://tools.ietf.org/html/draft-guthrie-ipsecme-ikev2-hybrid-auth-00">Hybrid Non-Composite Authentication in IKEv2</a>", Internet-Draft draft-guthrie-ipsecme-ikev2-hybrid-auth-00, March 2022.</td>
+</tr>
+<tr>
 <td class="reference"><b id="I-D.ounsworth-pq-composite-sigs">[I-D.ounsworth-pq-composite-sigs]</b></td>
 <td class="top">
 <a title="Entrust Limited">Ounsworth, M.</a> and <a title="CableLabs">M. Pala</a>, "<a href="https://tools.ietf.org/html/draft-ounsworth-pq-composite-sigs-05">Composite Signatures For Use In Internet PKI</a>", Internet-Draft draft-ounsworth-pq-composite-sigs-05, July 2021.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7296">[RFC7296]</b></td>
+<td class="top">
+<a>Kaufman, C.</a>, <a>Hoffman, P.</a>, <a>Nir, Y.</a>, <a>Eronen, P.</a> and <a>T. Kivinen</a>, "<a href="https://tools.ietf.org/html/rfc7296">Internet Key Exchange Protocol Version 2 (IKEv2)</a>", STD 79, RFC 7296, DOI 10.17487/RFC7296, October 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8446">[RFC8446]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, "<a href="https://tools.ietf.org/html/rfc8446">The Transport Layer Security (TLS) Protocol Version 1.3</a>", RFC 8446, DOI 10.17487/RFC8446, August 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8551">[RFC8551]</b></td>
+<td class="top">
+<a>Schaad, J.</a>, <a>Ramsdell, B.</a> and <a>S. Turner</a>, "<a href="https://tools.ietf.org/html/rfc8551">Secure/Multipurpose Internet Mail Extensions (S&#8288;/&#8288;MIME) Version 4.0 Message Specification</a>", RFC 8551, DOI 10.17487/RFC8551, April 2019.</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.appendix.A">
