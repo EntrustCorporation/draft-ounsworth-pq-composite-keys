@@ -52,7 +52,6 @@ normative:
   RFC1421:
   RFC2119:
   RFC2986:
-  RFC4210:
   RFC5280:
   RFC5652:
   RFC5912:
@@ -73,6 +72,9 @@ normative:
 # <!-- EDNOTE: full syntax for this defined here: https://github.com/cabo/kramdown-rfc2629 -->
 
 informative:
+  RFC4210:
+  RFC4211:
+  RFC7292:
   RFC7296:
   RFC8446:
   RFC8551:
@@ -258,6 +260,9 @@ Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a
 
 EDNOTE: we need to put a bit more effort into private keys, specificially defining what OIDs to use in the generic and explicit cases.
 
+
+This section provides an encoding for composite private keys intended for applications that require an interoperable format for transmitting private keys, such as PKCS #12 [RFC7292] or CMP / CRMF [RFC4210], [RFC4211].
+
 The composite private key data is represented by the following structure:
 
 ~~~ ASN.1
@@ -437,9 +442,9 @@ Implementations MUST check that that the component AlgorithmIdentifier OIDs matc
 
 ## Policy for Deprecated and Acceptable Algorithms
 
-Traditionally, a public key, certificate, or signature contains a single cryptographic algorithm. If and when an algorithm becomes deprecated (for example, RSA-512, or SHA1), it is obvious that structures using that algorithm are implicitly revoked.
+Traditionally, a public key, certificate, or signature contains a single cryptographic algorithm. If and when an algorithm becomes deprecated (for example, RSA-512, or SHA1), it is obvious that clients performing signature verifications or encryption operations should be updated to fail to validate or refuse to encrypt for these algorithms.
 
-In the composite model this is less obvious since implementers may decide that certain cryptographic algorithms have complementary security properties and are acceptable in combination even though one or both algorithms are deprecated for individual use. As such, a single composite public key, certificate, signature, or ciphertext may contain a mixture of deprecated and non-deprecated algorithms. 
+In the composite model this is less obvious since implementers may decide that certain cryptographic algorithms have complementary security properties and are acceptable in combination even though one or both algorithms are deprecated for individual use. As such, a single composite public key, certificate, signature, or ciphertext MAY contain a mixture of deprecated and non-deprecated algorithms. 
 
 Specifying behaviour in these cases is beyond the scope of this document, but should be considered by implementors and potentially in addiniotal standards.
 

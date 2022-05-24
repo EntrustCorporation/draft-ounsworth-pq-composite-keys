@@ -5,10 +5,10 @@
 LAMPS                                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Intended status: Standards Track                                 M. Pala
-Expires: November 22, 2022                                     CableLabs
+Expires: November 25, 2022                                     CableLabs
                                                             J. Klaussner
                                                             D-Trust GmbH
-                                                            May 21, 2022
+                                                            May 24, 2022
 
 
        Composite Public and Private Keys For Use In Internet PKI
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Ounsworth, et al.       Expires November 22, 2022               [Page 1]
+Ounsworth, et al.       Expires November 25, 2022               [Page 1]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -66,7 +66,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 22, 2022.
+   This Internet-Draft will expire on November 25, 2022.
 
 Copyright Notice
 
@@ -99,17 +99,17 @@ Table of Contents
      3.2.  Other Explicit Algorithms . . . . . . . . . . . . . . . .   8
    4.  Implementation Considerations . . . . . . . . . . . . . . . .   9
      4.1.  Textual encoding of Composite Private Keys  . . . . . . .   9
-     4.2.  Asymmetric Key Packages (CMS) . . . . . . . . . . . . . .   9
+     4.2.  Asymmetric Key Packages (CMS) . . . . . . . . . . . . . .  10
      4.3.  Backwards Compabilitity . . . . . . . . . . . . . . . . .  10
        4.3.1.  OR modes  . . . . . . . . . . . . . . . . . . . . . .  11
        4.3.2.  Parallel PKIs . . . . . . . . . . . . . . . . . . . .  11
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
-     6.1.  Reuse of keys in a Composite public key . . . . . . . . .  12
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
+     6.1.  Reuse of keys in a Composite public key . . . . . . . . .  13
 
 
 
-Ounsworth, et al.       Expires November 22, 2022               [Page 2]
+Ounsworth, et al.       Expires November 25, 2022               [Page 2]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -122,8 +122,8 @@ Internet-Draft              PQ Composite Keys                   May 2022
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  14
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  16
    Appendix A.  Creating explicit combinations . . . . . . . . . . .  17
-   Appendix B.  Examples . . . . . . . . . . . . . . . . . . . . . .  18
-     B.1.  Generic Composite Public Key Examples . . . . . . . . . .  18
+   Appendix B.  Examples . . . . . . . . . . . . . . . . . . . . . .  19
+     B.1.  Generic Composite Public Key Examples . . . . . . . . . .  19
      B.2.  Explicit Composite Public Key Examples  . . . . . . . . .  21
    Appendix C.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  24
    Appendix D.  Intellectual Property Considerations . . . . . . . .  27
@@ -165,7 +165,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022               [Page 3]
+Ounsworth, et al.       Expires November 25, 2022               [Page 3]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -221,7 +221,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022               [Page 4]
+Ounsworth, et al.       Expires November 25, 2022               [Page 4]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -277,7 +277,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022               [Page 5]
+Ounsworth, et al.       Expires November 25, 2022               [Page 5]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -326,17 +326,22 @@ Internet-Draft              PQ Composite Keys                   May 2022
    specificially defining what OIDs to use in the generic and explicit
    cases.
 
+   This section provides an encoding for composite private keys intended
+   for applications that require an interoperable format for
+   transmitting private keys, such as PKCS #12 [RFC7292] or CMP / CRMF
+   [RFC4210], [RFC4211].
+
+
+
+Ounsworth, et al.       Expires November 25, 2022               [Page 6]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
    The composite private key data is represented by the following
    structure:
 
    CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
-
-
-
-Ounsworth, et al.       Expires November 22, 2022               [Page 6]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
 
    Each element is a OneAsymmetricKey [RFC5958] object for a component
    private key.
@@ -382,17 +387,16 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
    does not need pre-defined OIDs for specific combinations.  This
    identifier MUST be used in sa-CompositeSignature.identifier.
 
-id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-    Algorithm(80) Composite(4) CompositeKey(1) }
 
 
-
-
-Ounsworth, et al.       Expires November 22, 2022               [Page 7]
+Ounsworth, et al.       Expires November 25, 2022               [Page 7]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
+
+id-composite-key OBJECT IDENTIFIER ::= {
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+    Algorithm(80) Composite(4) CompositeKey(1) }
 
    EDNOTE: this is a temporary OID for the purposes of prototyping.  We
    are requesting IANA to assign a permanent OID, see Section 5.
@@ -438,17 +442,18 @@ Internet-Draft              PQ Composite Keys                   May 2022
    The SubjectPublicKey.algorithm for each component key is redundant
    information which MUST match -- and can be infered at runtime from --
    the specification of the explicit algorithm.  It has been left here
+
+
+
+Ounsworth, et al.       Expires November 25, 2022               [Page 8]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
    for ease of implementation as the component SubjectPublicKeyInfo
    structures are the same between genaric and explicit, as well as with
    single-algorithm keys.  However, it introduces the risk of mismatch
    and leads to the following security consideration:
-
-
-
-Ounsworth, et al.       Expires November 22, 2022               [Page 8]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
 
    Security consideration: implementations MUST check that that the
    component AlgorithmIdentifier OIDs match those expected by the
@@ -490,6 +495,17 @@ Internet-Draft              PQ Composite Keys                   May 2022
    then applying the PEM encoding rules as defined in [RFC7468] section
    10 and 11 for plaintext and encrypted private keys, respectively.
 
+
+
+
+
+
+
+Ounsworth, et al.       Expires November 25, 2022               [Page 9]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
 4.2.  Asymmetric Key Packages (CMS)
 
    The Cryptographic Message Syntax (CMS), as defined in [RFC5652], can
@@ -498,13 +514,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
    When encoding composite private keys, the privateKeyAlgorithm in the
    OneAsymmetricKey SHALL be set to id-composite-key.
-
-
-
-Ounsworth, et al.       Expires November 22, 2022               [Page 9]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
 
    The parameters of the privateKeyAlgorithm SHALL be a sequence of
    AlgorithmIdentifier objects, each of which are encoded according to
@@ -545,6 +554,14 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
    These migration and interoperability concerns need to be thought
    about in the context of various types of protocols that make use of
+
+
+
+Ounsworth, et al.       Expires November 25, 2022              [Page 10]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
    X.509 and PKIX with relation to public key objects, from online
    negotiated protocols such as TLS 1.3 [RFC8446] and IKEv2 [RFC7296],
    to non-negotiated asyncronous protocols such as S/MIME signed and
@@ -553,14 +570,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
    signing [codeSigningBRsv2.8], as well as myriad other standardized
    and proprietary protocols and applications that leverage CMS
    [RFC5652] signed or encrypted structures.
-
-
-
-
-Ounsworth, et al.       Expires November 22, 2022              [Page 10]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
 
 4.3.1.  OR modes
 
@@ -601,6 +610,14 @@ Internet-Draft              PQ Composite Keys                   May 2022
    public key(s) or certificate(s) to use based on the negotiated
    algorithms, or could combine two of the public keys for example in a
    non-composite hybrid method such as [draft-becker-guthrie-
+
+
+
+Ounsworth, et al.       Expires November 25, 2022              [Page 11]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
    noncomposite-hybrid-auth-00] (NOTE: need kramdown formatting help
    with this ref) or [draft-guthrie-ipsecme-ikev2-hybrid-auth-00].  Note
    that it is possible to use the signature algorithm defined in [draft-
@@ -610,14 +627,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
    algorithms than to implement such a mechanism in the protocol itself.
    There is also nothing precluding a composite public key from being
    one of the components used within a non-composite authentication
-
-
-
-Ounsworth, et al.       Expires November 22, 2022              [Page 11]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
-
    operation; this may lead to greater convenience in setting up
    parallel PKI hierarchies that need to service a range of clients
    implementing different styles of post-quantum migration strategies.
@@ -656,6 +665,15 @@ Internet-Draft              PQ Composite Keys                   May 2022
      mechanisms(5) pkix(7) algorithms(6) composite(??)
      id-composite-k-of-n(??)  }
 
+
+
+
+
+Ounsworth, et al.       Expires November 25, 2022              [Page 12]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
 6.  Security Considerations
 
 6.1.  Reuse of keys in a Composite public key
@@ -666,14 +684,6 @@ Internet-Draft              PQ Composite Keys                   May 2022
    context and therefore it is RECOMMENDED that component keys in a
    composite key are not to be re-used in other contexts.  In
    particular, the components of a composite key SHOULD NOT also appear
-
-
-
-Ounsworth, et al.       Expires November 22, 2022              [Page 12]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
-
    in single-key certificates.  This is particularly relevant for
    protocols that use composite keys in a logical AND mode since the
    appearance of the same component keys in single-key contexts
@@ -703,32 +713,31 @@ Internet-Draft              PQ Composite Keys                   May 2022
    Traditionally, a public key, certificate, or signature contains a
    single cryptographic algorithm.  If and when an algorithm becomes
    deprecated (for example, RSA-512, or SHA1), it is obvious that
-   structures using that algorithm are implicitly revoked.
+   clients performing signature verifications or encryption operations
+   should be updated to fail to validate or refuse to encrypt for these
+   algorithms.
 
    In the composite model this is less obvious since implementers may
    decide that certain cryptographic algorithms have complementary
    security properties and are acceptable in combination even though one
    or both algorithms are deprecated for individual use.  As such, a
+
+
+
+
+Ounsworth, et al.       Expires November 25, 2022              [Page 13]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
    single composite public key, certificate, signature, or ciphertext
-   may contain a mixture of deprecated and non-deprecated algorithms.
+   MAY contain a mixture of deprecated and non-deprecated algorithms.
 
    Specifying behaviour in these cases is beyond the scope of this
    document, but should be considered by implementors and potentially in
    addiniotal standards.
 
    EDNOTE: Max is working on a CRL mechanism to accomplish this.
-
-
-
-
-
-
-
-
-Ounsworth, et al.       Expires November 22, 2022              [Page 13]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
 
 6.4.  Protection of Private Keys
 
@@ -770,32 +779,22 @@ Internet-Draft              PQ Composite Keys                   May 2022
               Procedures", RFC 1421, DOI 10.17487/RFC1421, February
               1993, <https://www.rfc-editor.org/info/rfc1421>.
 
+
+
+Ounsworth, et al.       Expires November 25, 2022              [Page 14]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-
-
-
-Ounsworth, et al.       Expires November 22, 2022              [Page 14]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
-
    [RFC2986]  Nystrom, M. and B. Kaliski, "PKCS #10: Certification
               Request Syntax Specification Version 1.7", RFC 2986,
               DOI 10.17487/RFC2986, November 2000,
               <https://www.rfc-editor.org/info/rfc2986>.
-
-   [RFC4210]  Adams, C., Farrell, S., Kause, T., and T. Mononen,
-              "Internet X.509 Public Key Infrastructure Certificate
-              Management Protocol (CMP)", RFC 4210,
-              DOI 10.17487/RFC4210, September 2005,
-              <https://www.rfc-editor.org/info/rfc4210>.
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -837,7 +836,8 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 15]
+
+Ounsworth, et al.       Expires November 25, 2022              [Page 15]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -893,10 +893,26 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 16]
+Ounsworth, et al.       Expires November 25, 2022              [Page 16]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
+
+   [RFC4210]  Adams, C., Farrell, S., Kause, T., and T. Mononen,
+              "Internet X.509 Public Key Infrastructure Certificate
+              Management Protocol (CMP)", RFC 4210,
+              DOI 10.17487/RFC4210, September 2005,
+              <https://www.rfc-editor.org/info/rfc4210>.
+
+   [RFC4211]  Schaad, J., "Internet X.509 Public Key Infrastructure
+              Certificate Request Message Format (CRMF)", RFC 4211,
+              DOI 10.17487/RFC4211, September 2005,
+              <https://www.rfc-editor.org/info/rfc4211>.
+
+   [RFC7292]  Moriarty, K., Ed., Nystrom, M., Parkinson, S., Rusch, A.,
+              and M. Scott, "PKCS #12: Personal Information Exchange
+              Syntax v1.1", RFC 7292, DOI 10.17487/RFC7292, July 2014,
+              <https://www.rfc-editor.org/info/rfc7292>.
 
    [RFC7296]  Kaufman, C., Hoffman, P., Nir, Y., Eronen, P., and T.
               Kivinen, "Internet Key Exchange Protocol Version 2
@@ -929,6 +945,15 @@ Appendix A.  Creating explicit combinations
    put a component AlgorithmIdentifier with each component key.  Once we
    agree as a group that the text accurately describes what we want, we
    can spend a bit of time figuring out if the ASN.1 machinery lets us
+
+
+
+
+Ounsworth, et al.       Expires November 25, 2022              [Page 17]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
    express it in a readable way and/or a way that will actually help
    people creating explicit pairs.
 
@@ -944,15 +969,6 @@ Appendix A.  Creating explicit combinations
       CERT-KEY-USAGE {digitalSignature, nonRepudiation, keyCertSign,
         cRLSign}
   }
-
-
-
-
-
-Ounsworth, et al.       Expires November 22, 2022              [Page 17]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
 
    The following ASN.1 object class then automatically generates the
    public key structure from the types defined in pk-explicitComposite.
@@ -984,6 +1000,16 @@ ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
    Objects can be extended to have thirdPublicKey, fourthPublicKey, etc
    throughout.
 
+
+
+
+
+
+Ounsworth, et al.       Expires November 25, 2022              [Page 18]
+
+Internet-Draft              PQ Composite Keys                   May 2022
+
+
 Appendix B.  Examples
 
 B.1.  Generic Composite Public Key Examples
@@ -1001,14 +1027,6 @@ B.1.  Generic Composite Public Key Examples
    ZbfE1ZHxLYLSDt25tSL8A2pMuGMD3P81nYWO+gJ0vYV2WcRpXHRkjmliGqiCg4eB
    mC4//tm0J4r9Ll8b/pp6xyOMI7jppVUCAwEAAQ==
    -----END PUBLIC KEY-----
-
-
-
-
-Ounsworth, et al.       Expires November 22, 2022              [Page 18]
-
-Internet-Draft              PQ Composite Keys                   May 2022
-
 
    which decodes as:
 
@@ -1043,25 +1061,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Ounsworth, et al.       Expires November 22, 2022              [Page 19]
+Ounsworth, et al.       Expires November 25, 2022              [Page 19]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 20]
+Ounsworth, et al.       Expires November 25, 2022              [Page 20]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1173,7 +1173,7 @@ B.2.  Explicit Composite Public Key Examples
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 21]
+Ounsworth, et al.       Expires November 25, 2022              [Page 21]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1229,7 +1229,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 22]
+Ounsworth, et al.       Expires November 25, 2022              [Page 22]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1285,7 +1285,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 23]
+Ounsworth, et al.       Expires November 25, 2022              [Page 23]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1341,7 +1341,7 @@ IMPORTS
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 24]
+Ounsworth, et al.       Expires November 25, 2022              [Page 24]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1397,7 +1397,7 @@ id-composite-k-of-n OBJECT IDENTIFIER ::= {
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 25]
+Ounsworth, et al.       Expires November 25, 2022              [Page 25]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1453,7 +1453,7 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 26]
+Ounsworth, et al.       Expires November 25, 2022              [Page 26]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1509,7 +1509,7 @@ Appendix D.  Intellectual Property Considerations
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 27]
+Ounsworth, et al.       Expires November 25, 2022              [Page 27]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1565,7 +1565,7 @@ Authors' Addresses
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 28]
+Ounsworth, et al.       Expires November 25, 2022              [Page 28]
 
 Internet-Draft              PQ Composite Keys                   May 2022
 
@@ -1621,4 +1621,4 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
 
 
-Ounsworth, et al.       Expires November 22, 2022              [Page 29]
+Ounsworth, et al.       Expires November 25, 2022              [Page 29]
