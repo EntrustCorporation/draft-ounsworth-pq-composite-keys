@@ -235,7 +235,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
       (Section 3.2) into one document and made them share a wire
       encoding (only differing by the OIDs used).
 
-   o  Removed combiner modes (AND, OR, etc)
+   o  Removed Composite-OR Public Key.
 
    o  Syched document structure with -sigs
 
@@ -604,7 +604,7 @@ Internet-Draft              PQ Composite Keys                   May 2022
 
    We present the term "Parallel PKI" to refer to the setup where a PKI
    end entity posesses two or more distinct public keys or certificates
-   for the same identity (name), but containing keys for different
+   for the same identity (name, SAN), but containing keys for different
    cryptographic algorithms.  One could imagine a set of parallel PKIs
    where an existing PKI using legacy algorithms (RSA, ECC) is left
    operational during the post-quantum migration but is shadowed by one

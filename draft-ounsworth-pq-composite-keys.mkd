@@ -201,7 +201,7 @@ STRIPPING ATTACK:
 ## Changes in version -02
 
 - Merged Generic Composite ({{sec-generic-composite}}) and Explicit Composite ({{sec-explicit}}) into one document and made them share a wire encoding (only differing by the OIDs used).
-- Removed combiner modes (AND, OR, etc)
+- Removed Composite-OR Public Key.
 - Syched document structure with -sigs
 - Added {{sec-backwards-compat}} addressing backwards compatibility and ease of migration concerns.
 
@@ -390,7 +390,7 @@ This document purposefully does not specify how runtime clients are to combine c
 
 ### Parallel PKIs
 
-We present the term "Parallel PKI" to refer to the setup where a PKI end entity posesses two or more distinct public keys or certificates for the same identity (name), but containing keys for different cryptographic algorithms. One could imagine a set of parallel PKIs where an existing PKI using legacy algorithms (RSA, ECC) is left operational during the post-quantum migration but is shadowed by one or more paralel PKIs using pure post quantum algorithms or composite algorithms (legacy and post-quantum).
+We present the term "Parallel PKI" to refer to the setup where a PKI end entity posesses two or more distinct public keys or certificates for the same identity (name, SAN), but containing keys for different cryptographic algorithms. One could imagine a set of parallel PKIs where an existing PKI using legacy algorithms (RSA, ECC) is left operational during the post-quantum migration but is shadowed by one or more paralel PKIs using pure post quantum algorithms or composite algorithms (legacy and post-quantum).
 
 Equipped with a set of parallel public keys in this way, a runtime client would have the flexibility to choose which public key(s) or certificate(s) to use in a given cryptographic operation. 
 
