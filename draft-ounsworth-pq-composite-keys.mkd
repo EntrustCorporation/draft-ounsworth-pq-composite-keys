@@ -200,6 +200,7 @@ STRIPPING ATTACK:
 
 ## Changes in version -02
 
+- Merged Generic Composite ({{sec-generic-composite}}) and Explicit Composite ({{sec-explicit}}) into one document and made them share a wire encoding (only differing by the OIDs used).
 - Removed combiner modes (AND, OR, etc)
 - Syched document structure with -sigs
 - Added {{sec-backwards-compat}} addressing backwards compatibility and ease of migration concerns.
