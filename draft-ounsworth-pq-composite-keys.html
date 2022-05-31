@@ -418,7 +418,7 @@
 
   <meta name="dct.creator" content="Ounsworth, M., Pala, M., and J. Klaussner" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-02" />
-  <meta name="dct.issued" scheme="ISO8601" content="2022-05-25" />
+  <meta name="dct.issued" scheme="ISO8601" content="2022-05-31" />
   <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
   <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
 
@@ -442,7 +442,7 @@
 <td class="right">M. Pala</td>
 </tr>
 <tr>
-<td class="left">Expires: November 26, 2022</td>
+<td class="left">Expires: December 2, 2022</td>
 <td class="right">CableLabs</td>
 </tr>
 <tr>
@@ -455,7 +455,7 @@
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">May 25, 2022</td>
+<td class="right">May 31, 2022</td>
 </tr>
 
     	
@@ -473,7 +473,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 26, 2022.</p>
+<p>This Internet-Draft will expire on December 2, 2022.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2022 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -639,15 +639,16 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 <a href="#rfc.section.2.3">2.3.</a> <a href="#sec-priv-key" id="sec-priv-key">CompositePrivateKey</a>
 </h1>
 <p id="rfc.section.2.3.p.1">EDNOTE: we need to put a bit more effort into private keys, specificially defining what OIDs to use in the generic and explicit cases.</p>
-<p id="rfc.section.2.3.p.2">This section provides an encoding for composite private keys intended for applications that require an interoperable format for transmitting private keys, such as PKCS #12 <a href="#RFC7292" class="xref">[RFC7292]</a> or CMP / CRMF <a href="#RFC4210" class="xref">[RFC4210]</a>, <a href="#RFC4211" class="xref">[RFC4211]</a>.</p>
-<p id="rfc.section.2.3.p.3">The composite private key data is represented by the following structure:</p>
+<p id="rfc.section.2.3.p.2">This section provides an encoding for composite private keys intended for PKIX protocols and other applications that require an interoperable format for transmitting private keys, such as PKCS #12 <a href="#RFC7292" class="xref">[RFC7292]</a> or CMP / CRMF <a href="#RFC4210" class="xref">[RFC4210]</a>, <a href="#RFC4211" class="xref">[RFC4211]</a>.</p>
+<p id="rfc.section.2.3.p.3">In some cases the private keys that comprise a composite key may not be represented in a single structure or even be contained in a single cryptographic module. The establishment of correspondence between public keys in a CompositePublicKey and private keys not represented in a single composite structure is beyond the scope of this document.</p>
+<p id="rfc.section.2.3.p.4">The composite private key data is represented by the following structure:</p>
 <pre>
 CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 </pre>
-<p id="rfc.section.2.3.p.4">Each element is a OneAsymmetricKey <a href="#RFC5958" class="xref">[RFC5958]</a> object for a component private key.</p>
-<p id="rfc.section.2.3.p.5">The parameters field MUST be absent.</p>
-<p id="rfc.section.2.3.p.6">A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.</p>
-<p id="rfc.section.2.3.p.7">EDNOTE: does this also need an explicit version?</p>
+<p id="rfc.section.2.3.p.5">Each element is a OneAsymmetricKey <a href="#RFC5958" class="xref">[RFC5958]</a> object for a component private key.</p>
+<p id="rfc.section.2.3.p.6">The parameters field MUST be absent.</p>
+<p id="rfc.section.2.3.p.7">A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.</p>
+<p id="rfc.section.2.3.p.8">EDNOTE: does this also need an explicit version?</p>
 <h1 id="rfc.section.2.4">
 <a href="#rfc.section.2.4">2.4.</a> <a href="#sec-encoding-rules" id="sec-encoding-rules">Encoding Rules</a>
 </h1>
