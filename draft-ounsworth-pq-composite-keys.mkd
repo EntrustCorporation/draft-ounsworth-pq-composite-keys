@@ -121,11 +121,14 @@ informative:
 
 
 --- abstract
-With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data.
+
+The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, because of quantum cryptalanysis, and the incoming post-quantum algorithms because the underlying mathematics and well as hardware and software implementations have not had sufficient maturing time and so new cryptanalytic and bug-based attacks are expected.
+
+Cautious implementors will wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data. For digital signatures, this is referred to as "dual", and for encryption key establishment this as reffered to as "hybrid". This document, and its companions defines a specific instantiation of the dual and hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as an integral object at the protocol level.
 
 This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms.
 
-This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. 
+This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-ounsworth-pq-composite-kem (yet to be published).
 
 <!-- End of Abstract -->
 
@@ -377,7 +380,7 @@ The value of the attributes is encoded as usual.
 EDNOTE: I wonder whether this has value as its own section, or if we should take what's relevant and merge it into {{sec-priv-key}}?
 
 
-## Backwards Compabilitity {#sec-backwards-compat}
+## Backwards Compatibility {#sec-backwards-compat}
 
 As noted in the introduction, the post-quantum cryptographic migration will face challenges in both guaraneeing cryptographic stength against adversaries of unknown capabilities, as well as providing ease of magritation. The composite mechanisms defined in this document primarily address cryptographic strength, however this secion contains notes on how backwards compatibility may be obtained.
 

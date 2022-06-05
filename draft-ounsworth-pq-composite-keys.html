@@ -389,7 +389,7 @@
 <link href="#rfc.section.4" rel="Chapter" title="4 Implementation Considerations">
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 Textual encoding of Composite Private Keys">
 <link href="#rfc.section.4.2" rel="Chapter" title="4.2 Asymmetric Key Packages (CMS)">
-<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Backwards Compabilitity">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Backwards Compatibility">
 <link href="#rfc.section.4.3.1" rel="Chapter" title="4.3.1 OR modes">
 <link href="#rfc.section.4.3.2" rel="Chapter" title="4.3.2 Parallel PKIs">
 <link href="#rfc.section.5" rel="Chapter" title="5 IANA Considerations">
@@ -418,9 +418,9 @@
 
   <meta name="dct.creator" content="Ounsworth, M., Pala, M., and J. Klaussner" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-02" />
-  <meta name="dct.issued" scheme="ISO8601" content="2022-05-31" />
-  <meta name="dct.abstract" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
-  <meta name="description" content="With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption. " />
+  <meta name="dct.issued" scheme="ISO8601" content="2022-06-05" />
+  <meta name="dct.abstract" content="The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, because of quantum cryptalanysis, and the incoming post-quantum algorithms because the underlying mathematics and well as hardware and software implementations have not had sufficient maturing time and so new cryptanalytic and bug-based attacks are expected. Cautious implementors will wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data. For digital signatures, this is referred to as &quot;dual&quot;, and for encryption key establishment this as reffered to as &quot;hybrid&quot;. This document, and its companions defines a specific instantiation of the dual and hybrid paradigm called &quot;composite&quot; where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as an integral object at the protocol level. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-ounsworth-pq-composite-kem (yet to be published). " />
+  <meta name="description" content="The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, because of quantum cryptalanysis, and the incoming post-quantum algorithms because the underlying mathematics and well as hardware and software implementations have not had sufficient maturing time and so new cryptanalytic and bug-based attacks are expected. Cautious implementors will wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data. For digital signatures, this is referred to as &quot;dual&quot;, and for encryption key establishment this as reffered to as &quot;hybrid&quot;. This document, and its companions defines a specific instantiation of the dual and hybrid paradigm called &quot;composite&quot; where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as an integral object at the protocol level. This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-ounsworth-pq-composite-kem (yet to be published). " />
 
 </head>
 
@@ -442,7 +442,7 @@
 <td class="right">M. Pala</td>
 </tr>
 <tr>
-<td class="left">Expires: December 2, 2022</td>
+<td class="left">Expires: December 7, 2022</td>
 <td class="right">CableLabs</td>
 </tr>
 <tr>
@@ -455,7 +455,7 @@
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">May 31, 2022</td>
+<td class="right">June 05, 2022</td>
 </tr>
 
     	
@@ -466,14 +466,15 @@
   <span class="filename">draft-ounsworth-pq-composite-keys-02</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>With the widespread adoption of post-quantum cryptography will come the need for an entity to possess multiple public keys on different cryptographic algorithms. Since the trustworthiness of individual post-quantum algorithms is at question, a multi-key cryptographic operation will need to be performed in such a way that breaking it requires breaking each of the component algorithms individually. This requires defining new structures for holding composite keys, for use with composite signature and encryption data.</p>
+<p>The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, because of quantum cryptalanysis, and the incoming post-quantum algorithms because the underlying mathematics and well as hardware and software implementations have not had sufficient maturing time and so new cryptanalytic and bug-based attacks are expected.</p>
+<p>Cautious implementors will wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data. For digital signatures, this is referred to as "dual", and for encryption key establishment this as reffered to as "hybrid". This document, and its companions defines a specific instantiation of the dual and hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as an integral object at the protocol level.</p>
 <p>This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers. The only requirement imposed by this document is that all algorithms be of the same key usage; i.e. all signature or all encryption. Some use-cases require defining valid combinations is policy, or to know the key types before parsing the key data, so this document also defines the explicit composite variant which allows for AlgorithmIdentifier.algorithm OIDs to be registered which specify an explicit combination of algorithms.</p>
-<p>This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption.</p>
+<p>This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-ounsworth-pq-composite-kem (yet to be published).</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 2, 2022.</p>
+<p>This Internet-Draft will expire on December 7, 2022.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2022 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -513,7 +514,7 @@
 </li>
 <li>4.2.   <a href="#rfc.section.4.2">Asymmetric Key Packages (CMS)</a>
 </li>
-<li>4.3.   <a href="#rfc.section.4.3">Backwards Compabilitity</a>
+<li>4.3.   <a href="#rfc.section.4.3">Backwards Compatibility</a>
 </li>
 <ul><li>4.3.1.   <a href="#rfc.section.4.3.1">OR modes</a>
 </li>
@@ -720,7 +721,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <p id="rfc.section.4.2.p.6">The value of the attributes is encoded as usual.</p>
 <p id="rfc.section.4.2.p.7">EDNOTE: I wonder whether this has value as its own section, or if we should take what's relevant and merge it into <a href="#sec-priv-key" class="xref">Section 2.3</a>?</p>
 <h1 id="rfc.section.4.3">
-<a href="#rfc.section.4.3">4.3.</a> <a href="#sec-backwards-compat" id="sec-backwards-compat">Backwards Compabilitity</a>
+<a href="#rfc.section.4.3">4.3.</a> <a href="#sec-backwards-compat" id="sec-backwards-compat">Backwards Compatibility</a>
 </h1>
 <p id="rfc.section.4.3.p.1">As noted in the introduction, the post-quantum cryptographic migration will face challenges in both guaraneeing cryptographic stength against adversaries of unknown capabilities, as well as providing ease of magritation. The composite mechanisms defined in this document primarily address cryptographic strength, however this secion contains notes on how backwards compatibility may be obtained.</p>
 <p id="rfc.section.4.3.p.2">The term "ease of migration" is used here to mean that existing systems can be gracefully transitioned to the new technology without requiring large service disruptions or expensive upgrades. The term "backwards compatibility" is used here to mean something more specific; that existing systems as they are deployed today can interoperate with the upgraded systems of the future.</p>
