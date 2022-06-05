@@ -20,35 +20,35 @@ Abstract
    of modern digital cryptography in that neither the old outgoing nor
    the new incoming algorithms are fully trusted to protect data for the
    required data lifetimes.  The outgoing algorithms, such as RSA and
-   elliptic curve, because of quantum cryptalanysis, and the incoming
-   post-quantum algorithms because the underlying mathematics and well
-   as hardware and software implementations have not had sufficient
-   maturing time and so new cryptanalytic and bug-based attacks are
-   expected.
+   elliptic curve, due to quantum cryptalanysis, and the incoming post-
+   quantum algorithms since the underlying mathematics as well as
+   hardware and software implementations have not had sufficient
+   maturing time to gain confidence against cryptanalytic attacks and
+   implementation bugs in the short to medium term future.
 
    Cautious implementors will wish to layer cryptographic algorithms
    such that an attacker would need to break all of them in order to
-   compromise the data.  For digital signatures, this is referred to as
-   "dual", and for encryption key establishment this as reffered to as
-   "hybrid".  This document, and its companions defines a specific
-   instantiation of the dual and hybrid paradigm called "composite"
-   where multiple cryptographic algorithms are combined to form a single
-   key, signature, or key encapsulation mechanism (KEM) such that they
-   can be treated as an integral object at the protocol level.
+   compromise the data being protected.  For digital signatures, this is
+   referred to as "dual", and for encryption key establishment this as
+   reffered to as "hybrid".  This document, and its companions, defines
+   a specific instantiation of the dual and hybrid paradigm called
+   "composite" where multiple cryptographic algorithms are combined to
+   form a single key, signature, or key encapsulation mechanism (KEM)
+   such that they can be treated as a single atomic object at the
+   protocol level.
 
    This document defines the structures CompositePublicKey,
    CompositePrivateKey, which are sequences of the respective structure
-   for each component algorithm.  The generic composite variant makes no
-   assumptions about what the component algorithms are, provided that
-   they have defined algorithm identifiers.  The only requirement
-   imposed by this document is that all algorithms be of the same key
-   usage; i.e. all signature or all encryption.  Some use-cases require
-   defining valid combinations is policy, or to know the key types
-   before parsing the key data, so this document also defines the
-   explicit composite variant which allows for
-   AlgorithmIdentifier.algorithm OIDs to be registered which specify an
-   explicit combination of algorithms.
+   for each component algorithm.  The generic composite variant is
+   defined which makes no assumptions about what the component
+   algorithms are, provided that they have defined algorithm identifiers
+   and are all of the same key usage.  The explicit variant is also
+   defined which allows for a set of algorithm identifier OIDs to be
+   registered together as an explicit composite algorithm and assigned
+   an OID.
 
+   This document is intended to be coupled with corresponding documents
+   that define the structure and semantics of composite signatures and
 
 
 
@@ -58,8 +58,6 @@ Ounsworth, et al.       Expires December 7, 2022                [Page 1]
 Internet-Draft              PQ Composite Keys                  June 2022
 
 
-   This document is intended to be coupled with corresponding documents
-   that define the structure and semantics of composite signatures and
    encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-
    ounsworth-pq-composite-kem (yet to be published).
 
@@ -97,15 +95,17 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   4
-     1.2.  Changes in version -02  . . . . . . . . . . . . . . . . .   5
-   2.  Composite Key Structures  . . . . . . . . . . . . . . . . . .   5
-     2.1.  pk-Composite  . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   6
-     2.2.  CompositePublicKey  . . . . . . . . . . . . . . . . . . .   6
-     2.3.  CompositePrivateKey . . . . . . . . . . . . . . . . . . .   7
-     2.4.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .   7
+   1.  Changes in version -02  . . . . . . . . . . . . . . . . . . .   3
+   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  Composite Key Structures  . . . . . . . . . . . . . . . . . .   5
+     3.1.  pk-Composite  . . . . . . . . . . . . . . . . . . . . . .   6
+       3.1.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   6
+     3.2.  CompositePublicKey  . . . . . . . . . . . . . . . . . . .   6
+     3.3.  CompositePrivateKey . . . . . . . . . . . . . . . . . . .   7
+     3.4.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .   8
+   4.  Algorithm Identifiers . . . . . . . . . . . . . . . . . . . .   8
+     4.1.  id-composite-key (Generic Composite)  . . . . . . . . . .   8
 
 
 
@@ -114,28 +114,26 @@ Ounsworth, et al.       Expires December 7, 2022                [Page 2]
 Internet-Draft              PQ Composite Keys                  June 2022
 
 
-   3.  Algorithm Identifiers . . . . . . . . . . . . . . . . . . . .   8
-     3.1.  id-composite-key  . . . . . . . . . . . . . . . . . . . .   8
-     3.2.  Other Explicit Algorithms . . . . . . . . . . . . . . . .   9
-   4.  Implementation Considerations . . . . . . . . . . . . . . . .  10
-     4.1.  Textual encoding of Composite Private Keys  . . . . . . .  10
-     4.2.  Asymmetric Key Packages (CMS) . . . . . . . . . . . . . .  10
-     4.3.  Backwards Compatibility . . . . . . . . . . . . . . . . .  11
-       4.3.1.  OR modes  . . . . . . . . . . . . . . . . . . . . . .  11
-       4.3.2.  Parallel PKIs . . . . . . . . . . . . . . . . . . . .  12
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
-     6.1.  Reuse of keys in a Composite public key . . . . . . . . .  13
-     6.2.  Key mismatch in explicit composite  . . . . . . . . . . .  14
-     6.3.  Policy for Deprecated and Acceptable Algorithms . . . . .  14
-     6.4.  Protection of Private Keys  . . . . . . . . . . . . . . .  14
-     6.5.  Checking for Compromised Key Reuse  . . . . . . . . . . .  15
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  16
+     4.2.  Explicit Composite Algorithms . . . . . . . . . . . . . .   9
+   5.  Implementation Considerations . . . . . . . . . . . . . . . .  10
+     5.1.  Textual encoding of Composite Private Keys  . . . . . . .  10
+     5.2.  Asymmetric Key Packages (CMS) . . . . . . . . . . . . . .  11
+     5.3.  Backwards Compatibility . . . . . . . . . . . . . . . . .  11
+       5.3.1.  OR modes  . . . . . . . . . . . . . . . . . . . . . .  12
+       5.3.2.  Parallel PKIs . . . . . . . . . . . . . . . . . . . .  12
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
+     7.1.  Reuse of keys in a Composite public key . . . . . . . . .  14
+     7.2.  Key mismatch in explicit composite  . . . . . . . . . . .  14
+     7.3.  Policy for Deprecated and Acceptable Algorithms . . . . .  14
+     7.4.  Protection of Private Keys  . . . . . . . . . . . . . . .  15
+     7.5.  Checking for Compromised Key Reuse  . . . . . . . . . . .  15
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  17
    Appendix A.  Creating explicit combinations . . . . . . . . . . .  18
-   Appendix B.  Examples . . . . . . . . . . . . . . . . . . . . . .  19
-     B.1.  Generic Composite Public Key Examples . . . . . . . . . .  19
+   Appendix B.  Examples . . . . . . . . . . . . . . . . . . . . . .  20
+     B.1.  Generic Composite Public Key Examples . . . . . . . . . .  20
      B.2.  Explicit Composite Public Key Examples  . . . . . . . . .  22
    Appendix C.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  25
    Appendix D.  Intellectual Property Considerations . . . . . . . .  28
@@ -143,11 +141,35 @@ Internet-Draft              PQ Composite Keys                  June 2022
      E.1.  Making contributions  . . . . . . . . . . . . . . . . . .  29
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
 
-1.  Introduction
+1.  Changes in version -02
+
+   o  Merged Generic Composite (Section 4.1) and Explicit Composite
+      (Section 4.2) into one document and made them share a wire
+      encoding (only differing by the OIDs used).
+
+   o  Removed Composite-OR Public Key.
+
+   o  Syched document structure with -sigs
+
+   o  Added Section 5.3 addressing backwards compatibility and ease of
+      migration concerns.
+
+   TODO diff this against the public version and see if there are any
+   more changes.
+
+2.  Introduction
 
    During the transition to post-quantum cryptography, there will be
    uncertainty as to the strength of cryptographic algorithms; we will
    no longer fully trust traditional cryptography such as RSA, Diffie-
+
+
+
+Ounsworth, et al.       Expires December 7, 2022                [Page 3]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
    Hellman, DSA and their elliptic curve variants, but we will also not
    fully trust their post-quantum replacements until they have had
    sufficient scrutiny and time to discover and fix implementation bugs.
@@ -160,15 +182,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
    The deployment of composite public keys, and composite signatures and
    composite encryption using post-quantum algorithms will face two
    challenges
-
-
-
-
-
-Ounsworth, et al.       Expires December 7, 2022                [Page 3]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
 
    o  Algorithm strength uncertainty: During the transition period, some
       post-quantum signature and encryption algorithms will not be fully
@@ -187,12 +200,12 @@ Internet-Draft              PQ Composite Keys                  June 2022
    public keys and private keys values into existing public key and
    private key fields.  Backwards compatibility is not directly
    addressed via the composite mechinasms defined in the document, but
-   some notes on how it can be obtained can be found in Section 4.3.
+   some notes on how it can be obtained can be found in Section 5.3.
 
    This document is intended for general applicability anywhere that
    keys are used within PKIX or CMS structures.
 
-1.1.  Terminology
+2.1.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -202,8 +215,19 @@ Internet-Draft              PQ Composite Keys                  June 2022
 
    The following terms are used in this document:
 
-   ALGORITHM: An information object class for identifying the type of
-   cryptographic key being encapsulated.
+   ALGORITHM: A standardized cryptographic primitive, as well as any
+   ASN.1 structures needed for encoding data and metadata needed to use
+   the algorithm.  This document is concerned with algorithms for
+
+
+
+Ounsworth, et al.       Expires December 7, 2022                [Page 4]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
+   producing either digital signatures or ciphertexts for the purpose of
+   key exchange.
 
    BER: Basic Encoding Rules (BER) as defined in [X.690].
 
@@ -218,18 +242,15 @@ Internet-Draft              PQ Composite Keys                  June 2022
 
    DER: Distinguished Encoding Rules as defined in [X.690].
 
-
-
-
-Ounsworth, et al.       Expires December 7, 2022                [Page 4]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
-
-   LEGACY: For the purposes of this document, a legacy key or signature
-   is a non-composite key or signature.
+   LEGACY: For the purposes of this document, a legacy algorithm is any
+   cryptographic algorithm currently is use which is not believe to be
+   resistant to quantum cryptanalysis.
 
    PKI: Public Key Infrastructure, as defined in [RFC5280].
+
+   POST-QUANTUM: Any cryptographic algorithm which is believed to be
+   resistant to quantum cryptanalysis, such as those being considered by
+   NIST.
 
    PUBLIC / PRIVATE KEY: The public and private portion of an asymmetric
    cryptographic key, making no assumptions about which algorithm.
@@ -240,23 +261,7 @@ Internet-Draft              PQ Composite Keys                  June 2022
    detectable by the receiver.  For example, substituting a composite
    public key or signature for a version with fewer components.
 
-1.2.  Changes in version -02
-
-   o  Merged Generic Composite (Section 3.1) and Explicit Composite
-      (Section 3.2) into one document and made them share a wire
-      encoding (only differing by the OIDs used).
-
-   o  Removed Composite-OR Public Key.
-
-   o  Syched document structure with -sigs
-
-   o  Added Section 4.3 addressing backwards compatibility and ease of
-      migration concerns.
-
-   TODO diff this against the public version and see if there are any
-   more changes.
-
-2.  Composite Key Structures
+3.  Composite Key Structures
 
    In order for public keys and private keys to be composed of multiple
    algorithms, we define encodings consisting of a sequence of public
@@ -269,11 +274,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
    A composite key is a single key object that performs an atomic
    cryptographic operation -- such a signing, verifying, encapsulating,
    or decapsulating -- using its encapsulated sequence of component keys
-   as if it was a single key.
-
-
-
-
 
 
 
@@ -282,7 +282,11 @@ Ounsworth, et al.       Expires December 7, 2022                [Page 5]
 Internet-Draft              PQ Composite Keys                  June 2022
 
 
-2.1.  pk-Composite
+   as if it was a single key.  This general means that the the
+   complexity of combining algorithms can be deferred from the protocol
+   layer to the cryptographic library layer.
+
+3.1.  pk-Composite
 
    The PUBLIC-KEY ASN.1 Class is defined in [RFC5912].  The profile of a
    PUBLIC-KEY for for composite public and private keys is:
@@ -294,40 +298,36 @@ Internet-Draft              PQ Composite Keys                  June 2022
        PrivateKey CompositePrivateKey,
    }
 
-   The identifier id-composite-key indicates that this is a Generic
-   Composite key as defined in Section 3.1.  Profiles which define
-   Explicit combinations MUST use the same structure, but replace the ID
-   with an explicitely-defined OID for that combination of algorithms as
-   described in Section 3.2.
+   The identifier may be any type which represents a composite key type.
+   Section 4.1 defines id-composite-key which indicates that this is a
+   "generic composite key" allowing runtime-flexibility about the choice
+   of component algorithms.  Section 4.2 defines a framework for
+   "explicit" combinations that use the same wire encoding structures
+   and generic, but which allows for OIDs which refer to a specific
+   combination of component algoritms.  Other profiles may also be
+   defined so long as they are compatible with the sctructures and
+   processes defined in this and companion signature and encryption
+   documents.
 
-2.1.1.  Key Usage
+3.1.1.  Key Usage
 
    For protocols such as X.509 [RFC5280] that specify key usage along
-   with the public key, any key usage may be used with Composite keys,
+   with the public key, any key usage may be used with composite keys,
    with the requirement that the specified key usage MUST apply to all
-   component keys.  For example if a Composite key is marked with a
+   component keys.  For example if a composite key is marked with a
    KeyUsage of digitalSignature, then all component keys MUST be capable
-   of producing digital signatures. id-composite-key MUST NOT be used to
-   implement mixed-usage keys, for example, where a digitalSignature and
-   a keyEncipherment key are combined together into a single Composite
-   key object.
+   of producing digital signatures.  The composite mechanism MUST NOT be
+   used to implement mixed-usage keys, for example, where a
+   digitalSignature and a keyEncipherment key are combined together into
+   a single composite key.
 
-2.2.  CompositePublicKey
+3.2.  CompositePublicKey
 
    Composite public key data is represented by the following structure:
 
    CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
    A composite key MUST contain at least two component public keys.
-
-   A CompositePublicKey MUST NOT contain a component public key which
-   itself describes a composite key; i.e. recursive CompositePublicKeys
-   are not allowed.
-
-   Each component SubjectPublicKeyInfo SHALL contain an
-   AlgorithmIdentifier OID which identifies the public key type and
-   params for the public key contained within it.  See Appendix B for
-   examples.
 
 
 
@@ -338,16 +338,25 @@ Ounsworth, et al.       Expires December 7, 2022                [Page 6]
 Internet-Draft              PQ Composite Keys                  June 2022
 
 
+   A CompositePublicKey MUST NOT contain a component public key which
+   itself describes a composite key; i.e. recursive CompositePublicKeys
+   are not allowed.
+
    EDNOTE: unclear that banning recursive composite keys actually
    accomplishes anything other than a general reduction in complexity
    and therefore reduction in attack surface.
 
+   Each component SubjectPublicKeyInfo SHALL contain an
+   AlgorithmIdentifier OID which identifies the public key type and
+   params for the public key contained within it.  See Appendix B for
+   examples.
+
    Each element of a CompositePublicKey is a SubjectPublicKeyInfo object
    encoding a component public key.  When the CompositePublicKey must be
    provided in octet string or bit string format, the data structure is
-   encoded as specified in Section 2.4.
+   encoded as specified in Section 3.4.
 
-2.3.  CompositePrivateKey
+3.3.  CompositePrivateKey
 
    EDNOTE: we need to put a bit more effort into private keys,
    specificially defining what OIDs to use in the generic and explicit
@@ -356,7 +365,9 @@ Internet-Draft              PQ Composite Keys                  June 2022
    This section provides an encoding for composite private keys intended
    for PKIX protocols and other applications that require an
    interoperable format for transmitting private keys, such as PKCS #12
-   [RFC7292] or CMP / CRMF [RFC4210], [RFC4211].
+   [RFC7292] or CMP / CRMF [RFC4210], [RFC4211].  Implementors not
+   requiring interoperability of private key formats may skip this
+   section.
 
    In some cases the private keys that comprise a composite key may not
    be represented in a single structure or even be contained in a single
@@ -374,17 +385,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
 
    The parameters field MUST be absent.
 
-   A CompositePrivateKey MUST contain at least two component private
-   keys, and they MUST be in the same order as in the corresponding
-   CompositePublicKey.
-
-   EDNOTE: does this also need an explicit version?
-
-2.4.  Encoding Rules
-
-   Many protocol specifications will require that the composite public
-   key and composite private key data structures be represented by an
-   octet string or bit string.
 
 
 
@@ -393,6 +393,20 @@ Ounsworth, et al.       Expires December 7, 2022                [Page 7]
 
 Internet-Draft              PQ Composite Keys                  June 2022
 
+
+   A CompositePrivateKey MUST contain at least two component private
+   keys, and they MUST be in the same order as in the corresponding
+   CompositePublicKey.
+
+   EDNOTE: does this also need an explicit version?  It would probably
+   reduce attack surface of tricking a client into running the wrong
+   parser and a given piece of data.
+
+3.4.  Encoding Rules
+
+   Many protocol specifications will require that the composite public
+   key and composite private key data structures be represented by an
+   octet string or bit string.
 
    When an octet string is required, the DER encoding of the composite
    data structure SHALL be used directly.
@@ -407,13 +421,20 @@ CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY 
 
 CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
 
-3.  Algorithm Identifiers
+4.  Algorithm Identifiers
+
+   This section defines the algorithm identifier for generic composite,
+   as well as a framework for defining explicit combinations.  This
+   section is not intended to be exhaustive and other authors may define
+   others so long as they are compatible with the sctructures and
+   processes defined in this and companion signature and encryption
+   documents.
 
    Some use-cases desire the flexibility of choosing any combination of
    supported algorithms at runtime, while others desire the rigidity of
    explicitely-specified combinations of algorithms.
 
-3.1.  id-composite-key
+4.1.  id-composite-key (Generic Composite)
 
    The id-composite-key algorithm identifier is used for identifying a
    generic public key and a private key.  This algorithm allows for
@@ -421,12 +442,20 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
    does not need pre-defined OIDs for specific combinations.  This
    identifier MUST be used in sa-CompositeSignature.identifier.
 
+
+
+
+Ounsworth, et al.       Expires December 7, 2022                [Page 8]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
 id-composite-key OBJECT IDENTIFIER ::= {
     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
     Algorithm(80) Composite(4) CompositeKey(1) }
 
    EDNOTE: this is a temporary OID for the purposes of prototyping.  We
-   are requesting IANA to assign a permanent OID, see Section 5.
+   are requesting IANA to assign a permanent OID, see Section 6.
 
    The motivation for this variant is primarily for prototyping work
    prior to the standardization of algorithm identifiers for explicit
@@ -438,22 +467,11 @@ id-composite-key OBJECT IDENTIFIER ::= {
    prohibitive to define algorithm identifiers for every combination of
    pairs, triples, quadtuples, etc of algorithms.
 
-
-
-
-
-
-
-
-Ounsworth, et al.       Expires December 7, 2022                [Page 8]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
-
-3.2.  Other Explicit Algorithms
+4.2.  Explicit Composite Algorithms
 
    This variant provides a rigid way of specifying supported
-   combinations of algorithms.
+   combinations of algorithms.  This document does not define any
+   explicit combinations, but provides a framework for doing so.
 
    The motivation for this variant is to make it easier to reference and
    enforce specific combinations of algorithms.  The authors envision
@@ -473,13 +491,21 @@ Internet-Draft              PQ Composite Keys                  June 2022
    See Appendix A for guidance on creating and registering OIDs for
    specific explicit combinations.
 
-   In this variant, the public key is encoded as defined in Section 2
-   and Section 2.2, however the PUBLIC-KEY.id SHALL be an OID which is
+   In this variant, the public key is encoded as defined in Section 3
+   and Section 3.2, however the PUBLIC-KEY.id SHALL be an OID which is
    registered to represent a specific combination of component public
    key types.  See Appendix B for examples.
 
    The SubjectPublicKey.algorithm for each component key is redundant
    information which MUST match -- and can be infered at runtime from --
+
+
+
+Ounsworth, et al.       Expires December 7, 2022                [Page 9]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
    the specification of the explicit algorithm.  It has been left here
    for ease of implementation as the component SubjectPublicKeyInfo
    structures are the same between genaric and explicit, as well as with
@@ -498,15 +524,7 @@ Internet-Draft              PQ Composite Keys                  June 2022
    Similar checks MUST be done when handling the corresponding private
    key.
 
-
-
-
-Ounsworth, et al.       Expires December 7, 2022                [Page 9]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
-
-4.  Implementation Considerations
+5.  Implementation Considerations
 
    This section addresses practical issues of how this draft affects
    other protocols and standards.
@@ -526,7 +544,7 @@ Internet-Draft              PQ Composite Keys                  June 2022
       the authentication exchange to save transport overhead and thus it
       can be different than the intermediate and leaf certs.
 
-4.1.  Textual encoding of Composite Private Keys
+5.1.  Textual encoding of Composite Private Keys
 
    CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail
    (PEM) [RFC1421] format by placing a CompositePrivateKey into the
@@ -534,7 +552,17 @@ Internet-Draft              PQ Composite Keys                  June 2022
    then applying the PEM encoding rules as defined in [RFC7468] section
    10 and 11 for plaintext and encrypted private keys, respectively.
 
-4.2.  Asymmetric Key Packages (CMS)
+
+
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 10]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
+5.2.  Asymmetric Key Packages (CMS)
 
    The Cryptographic Message Syntax (CMS), as defined in [RFC5652], can
    be used to digitally sign, digest, authenticate, or encrypt the
@@ -554,14 +582,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
    sequence SHALL be the same as identified in the sequence of
    parameters in the privateKeyAlgorithm.
 
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 10]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
-
    The value of the publicKey (if present) SHALL be set to the DER
    encoding of the corresponding CompositePublicKey.  If this field is
    present, the number and order of component keys MUST be the same as
@@ -570,9 +590,9 @@ Internet-Draft              PQ Composite Keys                  June 2022
    The value of the attributes is encoded as usual.
 
    EDNOTE: I wonder whether this has value as its own section, or if we
-   should take what's relevant and merge it into Section 2.3?
+   should take what's relevant and merge it into Section 3.3?
 
-4.3.  Backwards Compatibility
+5.3.  Backwards Compatibility
 
    As noted in the introduction, the post-quantum cryptographic
    migration will face challenges in both guaraneeing cryptographic
@@ -590,6 +610,14 @@ Internet-Draft              PQ Composite Keys                  June 2022
 
    These migration and interoperability concerns need to be thought
    about in the context of various types of protocols that make use of
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 11]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
    X.509 and PKIX with relation to public key objects, from online
    negotiated protocols such as TLS 1.3 [RFC8446] and IKEv2 [RFC7296],
    to non-negotiated asyncronous protocols such as S/MIME signed and
@@ -599,7 +627,7 @@ Internet-Draft              PQ Composite Keys                  June 2022
    and proprietary protocols and applications that leverage CMS
    [RFC5652] signed or encrypted structures.
 
-4.3.1.  OR modes
+5.3.1.  OR modes
 
    This document purposefully does not specify how runtime clients are
    to combine compoent keys together to form a single cryptographic
@@ -610,14 +638,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
    senders and / or receivers are permitted to ignore some component
    keys.  Some envisioned uses of this include environments where the
    client encounters a component key for which it does not posess a
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 11]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
-
    compatible algorithm implementation but wishes to proceed with the
    cryptographic operation using the subset of component keys for which
    it does have compatible implementations.  Such a mechanism could be
@@ -627,7 +647,7 @@ Internet-Draft              PQ Composite Keys                  June 2022
    compatibility since clients would at least need to be upgraded from
    their current state to be able to parse the composite structures.
 
-4.3.2.  Parallel PKIs
+5.3.2.  Parallel PKIs
 
    We present the term "Parallel PKI" to refer to the setup where a PKI
    end entity posesses two or more distinct public keys or certificates
@@ -646,6 +666,14 @@ Internet-Draft              PQ Composite Keys                  June 2022
    public key(s) or certificate(s) to use based on the negotiated
    algorithms, or could combine two of the public keys for example in a
    non-composite hybrid method such as [draft-becker-guthrie-
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 12]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
    noncomposite-hybrid-auth-00] (NOTE: need kramdown formatting help
    with this ref) or [draft-guthrie-ipsecme-ikev2-hybrid-auth-00].  Note
    that it is possible to use the signature algorithm defined in [draft-
@@ -665,19 +693,10 @@ Internet-Draft              PQ Composite Keys                  June 2022
    objects is often already treated as an OR relationship, so including
    one for each of the end entity's parallel PKI public keys would, in
    many cases, have the desired effect of allowing the reciever to
-
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 12]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
-
    choose one they are compatible with and ignore the others, thus
    achieving full backwards compatibility.
 
-5.  IANA Considerations
+6.  IANA Considerations
 
    The ASN.1 module OID is TBD.  The id-composite-key and id-composite-
    or-key OIDs are to be assigned by IANA.  The authors suggest that
@@ -702,9 +721,18 @@ Internet-Draft              PQ Composite Keys                  June 2022
      mechanisms(5) pkix(7) algorithms(6) composite(??)
      id-composite-k-of-n(??)  }
 
-6.  Security Considerations
 
-6.1.  Reuse of keys in a Composite public key
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 13]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
+7.  Security Considerations
+
+7.1.  Reuse of keys in a Composite public key
 
    There is an additional security consideration that some use cases
    such as signatures remain secure against downgrade attacks if and
@@ -720,19 +748,9 @@ Internet-Draft              PQ Composite Keys                  June 2022
    presented as if they were signed in a single key mode in what is
    known as a "stripping attack".
 
+7.2.  Key mismatch in explicit composite
 
-
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 13]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
-
-6.2.  Key mismatch in explicit composite
-
-   This security consideration copied from Section 3.2.
+   This security consideration copied from Section 4.2.
 
    Implementations MUST check that that the component
    AlgorithmIdentifier OIDs match those expected by the definition of
@@ -746,7 +764,7 @@ Internet-Draft              PQ Composite Keys                  June 2022
    Similar checks MUST be done when handling the corresponding private
    key.
 
-6.3.  Policy for Deprecated and Acceptable Algorithms
+7.3.  Policy for Deprecated and Acceptable Algorithms
 
    Traditionally, a public key, certificate, or signature contains a
    single cryptographic algorithm.  If and when an algorithm becomes
@@ -759,6 +777,15 @@ Internet-Draft              PQ Composite Keys                  June 2022
    decide that certain cryptographic algorithms have complementary
    security properties and are acceptable in combination even though one
    or both algorithms are deprecated for individual use.  As such, a
+
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 14]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
    single composite public key, certificate, signature, or ciphertext
    MAY contain a mixture of deprecated and non-deprecated algorithms.
 
@@ -768,7 +795,7 @@ Internet-Draft              PQ Composite Keys                  June 2022
 
    EDNOTE: Max is working on a CRL mechanism to accomplish this.
 
-6.4.  Protection of Private Keys
+7.4.  Protection of Private Keys
 
    Structures described in this document do not protect private keys in
    any way unless combined with a security protocol or encryption
@@ -778,21 +805,13 @@ Internet-Draft              PQ Composite Keys                  June 2022
    Protection of the private keys is vital to public key cryptography.
    The consequences of disclosure depend on the purpose of the private
    key.  If a private key is used for signature, then the disclosure
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 14]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
-
    allows unauthorized signing.  If a private key is used for key
    management, then disclosure allows unauthorized parties to access the
    managed keying material.  The encryption algorithm used in the
    encryption process must be at least as 'strong' as the key it is
    protecting.
 
-6.5.  Checking for Compromised Key Reuse
+7.5.  Checking for Compromised Key Reuse
 
    Certificate Authority (CA) implementations need to be careful when
    checking for compromised key reuse, for example as required by
@@ -807,14 +826,21 @@ Internet-Draft              PQ Composite Keys                  June 2022
    because the key RSA1 was previously declared compromised even though
    the key PQ2 is unique.
 
-7.  References
+8.  References
 
-7.1.  Normative References
+8.1.  Normative References
 
    [RFC1421]  Linn, J., "Privacy Enhancement for Internet Electronic
               Mail: Part I: Message Encryption and Authentication
               Procedures", RFC 1421, DOI 10.17487/RFC1421, February
               1993, <https://www.rfc-editor.org/info/rfc1421>.
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 15]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -831,16 +857,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
-
-
-
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 15]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
 
    [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
@@ -872,22 +888,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
               RFC 8411, DOI 10.17487/RFC8411, August 2018,
               <https://www.rfc-editor.org/info/rfc8411>.
 
-   [X.690]    ITU-T, "Information technology - ASN.1 encoding Rules:
-              Specification of Basic Encoding Rules (BER), Canonical
-              Encoding Rules (CER) and Distinguished Encoding Rules
-              (DER)", ISO/IEC 8825-1:2015, November 2015.
-
-7.2.  Informative References
-
-   [Bindel2017]
-              Bindel, N., Herath, U., McKague, M., and D. Stebila,
-              "Transitioning to a quantum-resistant public key
-              infrastructure", 2017, <https://link.springer.com/
-              chapter/10.1007/978-3-319-59879-6_22>.
-
-
-
-
 
 
 
@@ -897,6 +897,19 @@ Ounsworth, et al.       Expires December 7, 2022               [Page 16]
 
 Internet-Draft              PQ Composite Keys                  June 2022
 
+
+   [X.690]    ITU-T, "Information technology - ASN.1 encoding Rules:
+              Specification of Basic Encoding Rules (BER), Canonical
+              Encoding Rules (CER) and Distinguished Encoding Rules
+              (DER)", ISO/IEC 8825-1:2015, November 2015.
+
+8.2.  Informative References
+
+   [Bindel2017]
+              Bindel, N., Herath, U., McKague, M., and D. Stebila,
+              "Transitioning to a quantum-resistant public key
+              infrastructure", 2017, <https://link.springer.com/
+              chapter/10.1007/978-3-319-59879-6_22>.
 
    [codeSigningBRsv2.8]
               CAB Forum, ., "Baseline Requirements for the Issuance and
@@ -930,6 +943,17 @@ Internet-Draft              PQ Composite Keys                  June 2022
               In Internet PKI", draft-ounsworth-pq-composite-sigs-05
               (work in progress), July 2021.
 
+
+
+
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 17]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
    [RFC4210]  Adams, C., Farrell, S., Kause, T., and T. Mononen,
               "Internet X.509 Public Key Infrastructure Certificate
               Management Protocol (CMP)", RFC 4210,
@@ -945,14 +969,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
               and M. Scott, "PKCS #12: Personal Information Exchange
               Syntax v1.1", RFC 7292, DOI 10.17487/RFC7292, July 2014,
               <https://www.rfc-editor.org/info/rfc7292>.
-
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 17]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
 
    [RFC7296]  Kaufman, C., Hoffman, P., Nir, Y., Eronen, P., and T.
               Kivinen, "Internet Key Exchange Protocol Version 2
@@ -985,6 +1001,15 @@ Appendix A.  Creating explicit combinations
    put a component AlgorithmIdentifier with each component key.  Once we
    agree as a group that the text accurately describes what we want, we
    can spend a bit of time figuring out if the ASN.1 machinery lets us
+
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 18]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
    express it in a readable way and/or a way that will actually help
    people creating explicit pairs.
 
@@ -1000,15 +1025,6 @@ Appendix A.  Creating explicit combinations
       CERT-KEY-USAGE {digitalSignature, nonRepudiation, keyCertSign,
         cRLSign}
   }
-
-
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 18]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
 
    The following ASN.1 object class then automatically generates the
    public key structure from the types defined in pk-explicitComposite.
@@ -1040,6 +1056,16 @@ ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
    Objects can be extended to have thirdPublicKey, fourthPublicKey, etc
    throughout.
 
+
+
+
+
+
+Ounsworth, et al.       Expires December 7, 2022               [Page 19]
+
+Internet-Draft              PQ Composite Keys                  June 2022
+
+
 Appendix B.  Examples
 
 B.1.  Generic Composite Public Key Examples
@@ -1057,14 +1083,6 @@ B.1.  Generic Composite Public Key Examples
    ZbfE1ZHxLYLSDt25tSL8A2pMuGMD3P81nYWO+gJ0vYV2WcRpXHRkjmliGqiCg4eB
    mC4//tm0J4r9Ll8b/pp6xyOMI7jppVUCAwEAAQ==
    -----END PUBLIC KEY-----
-
-
-
-
-Ounsworth, et al.       Expires December 7, 2022               [Page 19]
-
-Internet-Draft              PQ Composite Keys                  June 2022
-
 
    which decodes as:
 
@@ -1088,24 +1106,6 @@ Internet-Draft              PQ Composite Keys                  June 2022
      }
 
    The corresponding generic private key is:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
