@@ -72,6 +72,7 @@ normative:
 # <!-- EDNOTE: full syntax for this defined here: https://github.com/cabo/kramdown-rfc2629 -->
 
 informative:
+  RFC3279:
   RFC4210:
   RFC4211:
   RFC7292:
@@ -117,8 +118,6 @@ informative:
 
 
 
-# <!-- EDNOTE: Add RFC 3279? -->
-
 
 --- abstract
 
@@ -128,7 +127,7 @@ Cautious implementors may wish to layer cryptographic algorithms such that an at
 
 EDNOTE: the terms "dual" and "hybrid" are currently in flux. We anticipate an Informational draft to normalize terminology, and will update this draft accordingly.
 
-This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which makes no assumptions about what the component algorithms are. The explicit variant is also defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID.
+This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed. The explicit variant is also defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID.
 
 This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-ounsworth-pq-composite-kem (yet to be published).
 
@@ -203,7 +202,7 @@ LEGACY:   For the purposes of this document, a legacy algorithm is
 PKI:
           Public Key Infrastructure, as defined in [RFC5280].
 
-POST-QUANTUM ALORITHM:
+POST-QUANTUM AGLORITHM:
           Any cryptographic algorithm which is believed to be resistant
           to classical and quantum cryptanalysis, such as the algorithms being considered for standardization by NIST.
 
