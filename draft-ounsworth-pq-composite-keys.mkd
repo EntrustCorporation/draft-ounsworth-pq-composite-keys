@@ -122,11 +122,11 @@ informative:
 
 --- abstract
 
-The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, due to quantum cryptalanysis, and the incoming post-quantum algorithms since the underlying mathematics as well as hardware and software implementations have not had sufficient maturing time to gain confidence against cryptanalytic attacks and implementation bugs in the short to medium term future.
+The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, due to quantum cryptanalysis, and the incoming post-quantum algorithms since the underlying mathematics as well as hardware and software implementations have not had sufficient maturing time to gain confidence against cryptanalytic attacks and implementation bugs in the short to medium term future.
 
-Cautious implementors will wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected. For digital signatures, this is referred to as "dual", and for encryption key establishment this as reffered to as "hybrid". This document, and its companions, defines a specific instantiation of the dual and hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level.
+Cautious implementers will wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected. For digital signatures, this is referred to as "dual", and for encryption key establishment this as reffered to as "hybrid". This document, and its companions, defines a specific instantiation of the dual and hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level.
 
-This document defines the structures CompositePublicKey, CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers and are all of the same key usage. The explicit variant is also defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID.
+This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which makes no assumptions about what the component algorithms are, provided that they have defined algorithm identifiers and are all of the same key usage. The explicit variant is also defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID.
 
 This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-ounsworth-pq-composite-kem (yet to be published).
 
@@ -138,7 +138,7 @@ This document is intended to be coupled with corresponding documents that define
 
 - Merged Generic Composite ({{sec-generic-composite}}) and Explicit Composite ({{sec-explicit}}) into one document and made them share a wire encoding (only differing by the OIDs used).
 - Removed Composite-OR Public Key.
-- Syched document structure with -sigs
+- Synced document structure with -sigs
 - Added {{sec-backwards-compat}} addressing backwards compatibility and ease of migration concerns.
 
 TODO diff this against the public version and see if there are any more changes.
@@ -150,12 +150,12 @@ TODO diff this against the public version and see if there are any more changes.
 During the transition to post-quantum cryptography, there will be uncertainty as to the strength of cryptographic algorithms; we will no longer fully trust traditional cryptography such as RSA, Diffie-Hellman, DSA and their elliptic curve variants, but we will also not
    fully trust their post-quantum replacements until they have had sufficient scrutiny and time to discover and fix implementation bugs. Unlike previous cryptographic algorithm migrations, the choice of when to migrate and which algorithms to migrate to, is not so clear. Even after the migration period, it may be advantageous for an entity's cryptographic identity to be composed of multiple public-key algorithms.
 
-The deployment of composite public keys, and composite signatures and composite encryption using post-quantum algorithms will face two challenges
+The deployment of composite public keys, and composite signatures and composite encryption using post-quantum algorithms will face two challenges:
 
 - Algorithm strength uncertainty: During the transition period, some post-quantum signature and encryption algorithms will not be fully trusted, while also the trust in legacy public key algorithms will start to erode.  A relying party may learn some time after deployment that a public key algorithm has become untrustworthy, but in the interim, they may not know which algorithm an adversary has compromised.
 - Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully classical to fully post-quantum-aware cryptography.
 
-This document provides a mechanism to address algorithm strength uncertainty concerns by providing formats for encoding multiple public keys and private keys values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechinasms defined in the document, but some notes on how it can be obtained can be found in {{sec-backwards-compat}}.
+This document provides a mechanism to address algorithm strength uncertainty concerns by providing formats for encoding multiple public key and private key values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechanisms defined in the document, but some notes on how it can be obtained can be found in {{sec-backwards-compat}}.
 
 This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.
 
@@ -181,7 +181,7 @@ BER:
 
 CLIENT:
           Any software that is making use of a key at runtime.
-          This includes a signer, verifier, encryptor, decryptor.
+          This includes a signer, verifier, encrypter, decrypter.
       
 
 COMPONENT ALGORITHM:
@@ -196,8 +196,8 @@ DER:
           Distinguished Encoding Rules as defined in [X.690].
 
 LEGACY:   For the purposes of this document, a legacy algorithm is
-          any cryptographic algorithm currently is use which is 
-          not believe to be resistant to quantum cryptanalysis.
+          any cryptographic algorithm currently in use which is 
+          not believed to be resistant to quantum cryptanalysis.
 
 PKI:
           Public Key Infrastructure, as defined in [RFC5280].
@@ -223,17 +223,17 @@ STRIPPING ATTACK:
 
 # Composite Key Structures {#sec-composite-keys}
 
-In order for public keys and private keys to be composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "components") such that these structures can be used as a drop-in replacement for existing public key fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652], and the Trust Anchor Format [RFC5914].
+In order to represent public keys and private keys that are composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "components") such that these structures can be used directly in existing public key fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652], and the Trust Anchor Format [RFC5914].
 
-A composite key is a single key object that performs an atomic cryptographic operation -- such a signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This general means that the the complexity of combining algorithms can be deferred from the protocol layer to the cryptographic library layer.
+A composite key is a single key object that performs an atomic cryptographic operation -- such a signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This generally means that the complexity of combining algorithms can be deferred from the protocol layer to the cryptographic library layer.
 
 ## pk-Composite 
 
-The PUBLIC-KEY ASN.1 Class is defined in [RFC5912]. The profile of a PUBLIC-KEY for for composite public and private keys is:
+The PUBLIC-KEY ASN.1 information object class is defined in [RFC5912]. The PUBLIC-KEY information object for generic ({{sec-generic-composite}}) and explicit ({{sec-explicit}}) composite public and private keys has the following form:
 
 ~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
-    id identifier,
+    id <identifier>,
     KeyValue CompositePublicKey,
     Params ARE ABSENT,
     PrivateKey CompositePrivateKey,
@@ -241,7 +241,11 @@ pk-Composite PUBLIC-KEY ::= {
 ~~~
 {: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
 
-The identifier may be any type which represents a composite key type. {{sec-generic-composite}} defines id-composite-key which indicates that this is a "generic composite key" allowing runtime-flexibility about the choice of component algorithms. {{sec-explicit}} defines a framework for "explicit" combinations that use the same wire encoding structures and generic, but which allows for OIDs which refer to a specific combination of component algoritms. Other profiles may also be defined so long as they are compatible with the sctructures and processes defined in this and companion signature and encryption documents.
+The identifier may be an OID representing any composite key type. 
+
+{{sec-generic-composite}} defines id-composite-key which indicates that this is a "generic composite key" which can contain component keys of arbitrary types, allowing for runtime-flexibility about the choice of component algorithms. 
+
+{{sec-explicit}} defines a framework for "explicit" combinations that use the same wire encoding structures as generic, but with OIDs that dictate specific combinations of component algorithms. Other profiles may also be defined so long as they are compatible with the structures and processes defined in this and companion signature and encryption documents.
 
 
 ### Key Usage
@@ -265,17 +269,17 @@ A CompositePublicKey MUST NOT contain a component public key which itself descri
 
 EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity and therefore reduction in attack surface.
 
-Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and params for the public key contained within it. See {{appdx-examples}} for examples.
+Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and parameters for the public key contained within it. See {{appdx-examples}} for examples.
 
 Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in {{sec-encoding-rules}}.
 
 
 ## CompositePrivateKey {#sec-priv-key}
 
-EDNOTE: we need to put a bit more effort into private keys, specificially defining what OIDs to use in the generic and explicit cases.
+EDNOTE: we need to put a bit more effort into private keys, specifically defining what OIDs to use in the generic and explicit cases.
 
 
-This section provides an encoding for composite private keys intended for PKIX protocols and other applications that require an interoperable format for transmitting private keys, such as PKCS #12 [RFC7292] or CMP / CRMF [RFC4210], [RFC4211]. Implementors not requiring interoperability of private key formats may skip this section.
+This section provides an encoding for composite private keys intended for PKIX protocols and other applications that require an interoperable format for transmitting private keys, such as PKCS #12 [RFC7292] or CMP / CRMF [RFC4210], [RFC4211]. It is not intended to dictate a storage format in implementations not requiring interoperability of private key formats.
 
 In some cases the private keys that comprise a composite key may not be represented in a single structure or even be contained in a single cryptographic module. The establishment of correspondence between public keys in a CompositePublicKey and private keys not represented in a single composite structure is beyond the scope of this document.
 
@@ -315,14 +319,14 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
 
 # Algorithm Identifiers
 
-This section defines the algorithm identifier for generic composite, as well as a framework for defining explicit combinations. This section is not intended to be exhaustive and other authors may define others so long as they are compatible with the sctructures and processes defined in this and companion signature and encryption documents.
+This section defines the algorithm identifier for generic composite, as well as a framework for defining explicit combinations. This section is not intended to be exhaustive and other authors may define others so long as they are compatible with the structures and processes defined in this and companion signature and encryption documents.
 
-Some use-cases desire the flexibility of choosing any combination of supported algorithms at runtime, while others desire the rigidity of explicitely-specified combinations of algorithms.
+Some use-cases desire the flexibility of choosing any combination of supported algorithms at runtime, while others desire the rigidity of explicitly-specified combinations of algorithms.
 
 
-## id-composite-key (Generic Composite) {#sec-generic-composite}
+## id-composite-key (Generic Composite Keys) {#sec-generic-composite}
 
-The id-composite-key algorithm identifier is used for identifying a generic public key and a private key. This algorithm allows for runtime agents to use arbitrary combinations of algorithms -- ie it does not need pre-defined OIDs for specific combinations. This identifier MUST be used in sa-CompositeSignature.identifier.
+The id-composite-key algorithm identifier is used for identifying a generic composite public key and a generic composite private key. This algorithm allows for runtime agents to use arbitrary combinations of algorithms -- ie it does not need pre-defined OIDs for specific combinations. This identifier MUST be used in sa-CompositeSignature.identifier.
 
 ~~~ asn.1
 id-composite-key OBJECT IDENTIFIER ::= {
@@ -332,28 +336,40 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
 EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
-The motivation for this variant is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this variant will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadtuples, etc of algorithms.
+Which yields an information object:
+
+~~~ ASN.1
+pk-Composite PUBLIC-KEY ::= {
+    id id-composite-key,
+    KeyValue CompositePublicKey,
+    Params ARE ABSENT,
+    PrivateKey CompositePrivateKey,
+}
+~~~
+{: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
+
+The motivation for this variant is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this variant will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadruples, etc of algorithms.
 
 
 
-## Explicit Composite Algorithms {#sec-explicit}
+## Explicit Composite Keys {#sec-explicit}
 
-This variant provides a rigid way of specifying supported combinations of algorithms. This document does not define any explicit combinations, but provides a framework for doing so.
+This variant provides a rigid way of specifying supported combinations of key types. This document does not define any explicit combinations, but provides a framework for doing so.
 
 The motivation for this variant is to make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
 
-Profiles need to define an explicit algorithm which consists of:
+Profiles need to define an explicit composite key type which consists of:
 
 - A new algorithm identifier OID for the explicit algorithm.
-- The algorithm identifier OID and PUBLIC-KEY type of each component algorithm.
+- The PUBLIC-KEY information object of each component public key type.
 
 See {{appdx-creatingExplicitCombinations}} for guidance on creating and registering OIDs for specific explicit combinations.
 
 In this variant, the public key is encoded as defined in {{sec-composite-keys}} and {{sec-composite-pub-keys}}, however the PUBLIC-KEY.id SHALL be an OID which is registered to represent a specific combination of component public key types. See {{appdx-examples}} for examples.
 
-The SubjectPublicKey.algorithm for each component key is redundant information which MUST match -- and can be infered at runtime from -- the specification of the explicit algorithm. It has been left here for ease of implementation as the component SubjectPublicKeyInfo structures are the same between genaric and explicit, as well as with single-algorithm keys. However, it introduces the risk of mismatch and leads to the following security consideration:
+The SubjectPublicKeyInfo.algorithm for each component key is redundant information which MUST match -- and can be inferred at runtime from -- the specification of the explicit algorithm. It has been left here for ease of implementation as the component SubjectPublicKeyInfo structures are the same between generic and explicit, as well as with single-algorithm keys. However, it introduces the risk of mismatch and leads to the following security consideration:
 
-Security consideration: implementations MUST check that that the component AlgorithmIdentifier OIDs match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
+Security consideration: Implementations MUST check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
 
 
 
@@ -379,7 +395,7 @@ CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail (PEM) [RFC1421]
 
 The Cryptographic Message Syntax (CMS), as defined in [RFC5652], can be used to digitally sign, digest, authenticate, or encrypt the asymmetric key format content type.
 
-When encoding composite private keys, the privateKeyAlgorithm in the OneAsymmetricKey SHALL be set to id-composite-key.
+When encoding composite private keys, the privateKeyAlgorithm in the OneAsymmetricKey SHALL be set to id-composite-key or to an OID corresponding to an explicit composite key.
 
 The parameters of the privateKeyAlgorithm SHALL be a sequence of AlgorithmIdentifier objects, each of which are encoded according to the rules defined for each of the different keys in the composite private key.
 
@@ -394,27 +410,27 @@ EDNOTE: I wonder whether this has value as its own section, or if we should take
 
 ## Backwards Compatibility {#sec-backwards-compat}
 
-As noted in the introduction, the post-quantum cryptographic migration will face challenges in both guaraneeing cryptographic stength against adversaries of unknown capabilities, as well as providing ease of magritation. The composite mechanisms defined in this document primarily address cryptographic strength, however this secion contains notes on how backwards compatibility may be obtained.
+As noted in the introduction, the post-quantum cryptographic migration will face challenges in both ensuring cryptographic strength against adversaries of unknown capabilities, as well as providing ease of migration. The composite mechanisms defined in this document primarily address cryptographic strength, however this section contains notes on how backwards compatibility may be obtained.
 
 The term "ease of migration" is used here to mean that existing systems can be gracefully transitioned to the new technology without requiring large service disruptions or expensive upgrades. The term "backwards compatibility" is used here to mean something more specific; that existing systems as they are deployed today can interoperate with the upgraded systems of the future.
 
-These migration and interoperability concerns need to be thought about in the context of various types of protocols that make use of X.509 and PKIX with relation to public key objects, from online negotiated protocols such as TLS 1.3 [RFC8446] and IKEv2 [RFC7296], to non-negotiated asyncronous protocols such as S/MIME signed and encrypted email [RFC8551], document signing such as in the context of the European eIDAS regulations [eIDAS2014], and publicly trusted code signing [codeSigningBRsv2.8], as well as myriad other standardized and proprietary protocols and applications that leverage CMS [RFC5652] signed or encrypted structures.
+These migration and interoperability concerns need to be thought about in the context of various types of protocols that make use of X.509 and PKIX with relation to public key objects, from online negotiated protocols such as TLS 1.3 [RFC8446] and IKEv2 [RFC7296], to non-negotiated asynchronous protocols such as S/MIME signed and encrypted email [RFC8551], document signing such as in the context of the European eIDAS regulations [eIDAS2014], and publicly trusted code signing [codeSigningBRsv2.8], as well as myriad other standardized and proprietary protocols and applications that leverage CMS [RFC5652] signed or encrypted structures.
 
 
 ### OR modes
 
-This document purposefully does not specify how runtime clients are to combine compoent keys together to form a single cryptographic operation; this is left up to the specifications of signature and encryption algorithms that make use of the composite key type. One possible way to combine component keys is through an OR relation, or OR-like client policies for acceptable algorithm combinations, where senders and / or receivers are permitted to ignore some component keys. Some envisioned uses of this include environments where the client encounters a component key for which it does not posess a compatible algorithm implementation but wishes to proceed with the cryptographic operation using the subset of component keys for which it does have compatible implementations. Such a mechanism could be designed to provide ease of migration by allowing for composite keys to be distributed and used before all clients in the environment are fully upgraded, but it does not allow for full backwards compatibility since clients would at least need to be upgraded from their current state to be able to parse the composite structures.
+This document purposefully does not specify how runtime clients are to combine component keys together to form a single cryptographic operation; this is left up to the specifications of signature and encryption algorithms that make use of the composite key type. One possible way to combine component keys is through an OR relation, or OR-like client policies for acceptable algorithm combinations, where senders and / or receivers are permitted to ignore some component keys. Some envisioned uses of this include environments where the client encounters a component key for which it does not possess a compatible algorithm implementation but wishes to proceed with the cryptographic operation using the subset of component keys for which it does have compatible implementations. Such a mechanism could be designed to provide ease of migration by allowing for composite keys to be distributed and used before all clients in the environment are fully upgraded, but it does not allow for full backwards compatibility since clients would at least need to be upgraded from their current state to be able to parse the composite structures.
 
 
 ### Parallel PKIs
 
-We present the term "Parallel PKI" to refer to the setup where a PKI end entity posesses two or more distinct public keys or certificates for the same identity (name, SAN), but containing keys for different cryptographic algorithms. One could imagine a set of parallel PKIs where an existing PKI using legacy algorithms (RSA, ECC) is left operational during the post-quantum migration but is shadowed by one or more paralel PKIs using pure post quantum algorithms or composite algorithms (legacy and post-quantum).
+We present the term "Parallel PKI" to refer to the setup where a PKI end entity possesses two or more distinct public keys or certificates for the same identity (name, SAN), but containing keys for different cryptographic algorithms. One could imagine a set of parallel PKIs where an existing PKI using legacy algorithms (RSA, ECC) is left operational during the post-quantum migration but is shadowed by one or more parallel PKIs using pure post quantum algorithms or composite algorithms (legacy and post-quantum).
 
 Equipped with a set of parallel public keys in this way, a runtime client would have the flexibility to choose which public key(s) or certificate(s) to use in a given cryptographic operation. 
 
 For negotiated protocols, the runtime client could choose which public key(s) or certificate(s) to use based on the negotiated algorithms, or could combine two of the public keys for example in a non-composite hybrid method such as [draft-becker-guthrie-noncomposite-hybrid-auth-00] (NOTE: need kramdown formatting help with this ref) or [draft-guthrie-ipsecme-ikev2-hybrid-auth-00]. Note that it is possible to use the signature algorithm defined in [draft-ounsworth-pq-composite-sigs-06] as a way to carry the multiple signature values generated by a non-composite public mechanism in protocols where it is easier to support the composite signature algorithms than to implement such a mechanism in the protocol itself. There is also nothing precluding a composite public key from being one of the components used within a non-composite authentication operation; this may lead to greater convenience in setting up parallel PKI hierarchies that need to service a range of clients implementing different styles of post-quantum migration strategies.
 
-For non-negotiated protocols, the details for obtaining backwards compatibility will vary by protocol, but for example in CMS [RFC5652], the inclusion of multiple SignerInfo or RecipientInfo objects is often already treated as an OR relationship, so including one for each of the end entity's parallel PKI public keys would, in many cases, have the desired effect of allowing the reciever to choose one they are compatible with and ignore the others, thus achieving full backwards compatibility.
+For non-negotiated protocols, the details for obtaining backwards compatibility will vary by protocol, but for example in CMS [RFC5652], the inclusion of multiple SignerInfo or RecipientInfo objects is often already treated as an OR relationship, so including one for each of the end entity's parallel PKI public keys would, in many cases, have the desired effect of allowing the receiver to choose one they are compatible with and ignore the others, thus achieving full backwards compatibility.
 
 
 <!-- End of In Practice section -->
@@ -456,16 +472,16 @@ There is an additional security consideration that some use cases such as signat
 
 This security consideration copied from {{sec-explicit}}.
 
-Implementations MUST check that that the component AlgorithmIdentifier OIDs match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
+Implementations MUST check that that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
 
 
 ## Policy for Deprecated and Acceptable Algorithms
 
-Traditionally, a public key, certificate, or signature contains a single cryptographic algorithm. If and when an algorithm becomes deprecated (for example, RSA-512, or SHA1), it is obvious that clients performing signature verifications or encryption operations should be updated to fail to validate or refuse to encrypt for these algorithms.
+Traditionally, a public key, certificate, or signature contains a single cryptographic algorithm. If and when an algorithm becomes deprecated (for example, RSA-512, or SHA1), it is obvious that clients performing signature verification or encryption operations should be updated to fail to validate or refuse to encrypt for these algorithms.
 
 In the composite model this is less obvious since implementers may decide that certain cryptographic algorithms have complementary security properties and are acceptable in combination even though one or both algorithms are deprecated for individual use. As such, a single composite public key, certificate, signature, or ciphertext MAY contain a mixture of deprecated and non-deprecated algorithms. 
 
-Specifying behaviour in these cases is beyond the scope of this document, but should be considered by implementors and potentially in addiniotal standards.
+Specifying behaviour in these cases is beyond the scope of this document, but should be considered by implementers and potentially in additional standards.
 
 EDNOTE: Max is working on a CRL mechanism to accomplish this.
 
@@ -477,7 +493,7 @@ Protection of the private keys is vital to public key cryptography. The conseque
 
 ## Checking for Compromised Key Reuse
 
-Certificate Authority (CA) implementations need to be careful when checking for compromised key reuse, for example as required by WebTrust regulations; when checking for compromised keys, you MUST unpack the CompositePublicKey structure and compare individual component keys. In other words, for the purposes of key reuse checks, the composite public key structures need to be un-packed so that primitive keys are being compared. For example if the composite key {RSA1, PQ1} is revoked for key compromise, then the keys RSA1 and PQ1 need to be indivitually considered revoked. If the composite key {RSA1, PQ2} is submitted for certification, it SHOULD be rejected because the key RSA1 was previously declared compromised even though the key PQ2 is unique.
+Certification Authority (CA) implementations need to be careful when checking for compromised key reuse, for example as required by WebTrust regulations; when checking for compromised keys, you MUST unpack the CompositePublicKey structure and compare individual component keys. In other words, for the purposes of key reuse checks, the composite public key structures need to be un-packed so that primitive keys are being compared. For example if the composite key {RSA1, PQ1} is revoked for key compromise, then the keys RSA1 and PQ1 need to be individually considered revoked. If the composite key {RSA1, PQ2} is submitted for certification, it SHOULD be rejected because the key RSA1 was previously declared compromised even though the key PQ2 is unique.
 
 
 
@@ -488,7 +504,7 @@ Certificate Authority (CA) implementations need to be careful when checking for 
 
 # Creating explicit combinations {#appdx-creatingExplicitCombinations}
 
-The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementors to perform this check explicitely.
+The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementers to perform this check explicitly.
 
 EDNOTE  this ASN.1 needs to change.  The current definition doesn’t put a component AlgorithmIdentifier with each component key. Once we agree as a group that the text accurately describes what we want, we can spend a bit of time figuring out if the ASN.1 machinery lets us express it in a readable way and/or a way that will actually help people creating explicit pairs.
 
@@ -534,7 +550,7 @@ ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
 
 Using this module, it becomes trivial to define explicit pairs. For an example, see {{appdx-expComposite-examples}}.
 
-To define explicit triples, quadtuples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.
+To define explicit triples, quadruples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.
 
 
 # Examples {#appdx-examples}
@@ -951,7 +967,7 @@ This document borrows text from similar documents, including those referenced be
 
 ## Making contributions
 
-Additional contributions to this draft are weclome. Please see the working copy of this draft at, as well as open issues at:
+Additional contributions to this draft are welcome. Please see the working copy of this draft at, as well as open issues at:
 
 https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-keys
 
