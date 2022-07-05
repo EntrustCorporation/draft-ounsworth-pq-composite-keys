@@ -378,11 +378,10 @@
 <link href="#rfc.section.2" rel="Chapter" title="2 Introduction">
 <link href="#rfc.section.2.1" rel="Chapter" title="2.1 Terminology">
 <link href="#rfc.section.3" rel="Chapter" title="3 Composite Key Structures">
-<link href="#rfc.section.3.1" rel="Chapter" title="3.1 pk-Composite">
-<link href="#rfc.section.3.1.1" rel="Chapter" title="3.1.1 Key Usage">
-<link href="#rfc.section.3.2" rel="Chapter" title="3.2 CompositePublicKey">
-<link href="#rfc.section.3.3" rel="Chapter" title="3.3 CompositePrivateKey">
-<link href="#rfc.section.3.4" rel="Chapter" title="3.4 Encoding Rules">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 CompositePublicKey">
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 CompositePrivateKey">
+<link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 Key Usage">
+<link href="#rfc.section.3.3" rel="Chapter" title="3.3 Encoding Rules">
 <link href="#rfc.section.4" rel="Chapter" title="4 Algorithm Identifiers">
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 id-composite-key (Generic Composite Keys)">
 <link href="#rfc.section.4.2" rel="Chapter" title="4.2 Explicit Composite Keys">
@@ -418,7 +417,7 @@
 
   <meta name="dct.creator" content="Ounsworth, M., Pala, M., and J. Klaussner" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ounsworth-pq-composite-keys-02" />
-  <meta name="dct.issued" scheme="ISO8601" content="2022-06-07" />
+  <meta name="dct.issued" scheme="ISO8601" content="2022-07-04" />
   <meta name="dct.abstract" content="The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, may fall to quantum cryptalanysis, while the incoming post-quantum algorithms face uncertainty about both the underlying mathematics as well as hardware and software implementations that have not had sufficient maturing time to rule out classical cryptanalytic attacks and implementation bugs. Cautious implementors may wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected. For digital signatures, this is referred to as &quot;dual&quot;, and for encryption key establishment this as reffered to as &quot;hybrid&quot;. This document, and its companions, defines a specific instantiation of the dual and hybrid paradigm called &quot;composite&quot; where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level. EDNOTE: the terms &quot;dual&quot; and &quot;hybrid&quot; are currently in flux. We anticipate an Informational draft to normalize terminology, and will update this draft accordingly. This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed. The explicit variant is also defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-ounsworth-pq-composite-kem (yet to be published). " />
   <meta name="description" content="The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, may fall to quantum cryptalanysis, while the incoming post-quantum algorithms face uncertainty about both the underlying mathematics as well as hardware and software implementations that have not had sufficient maturing time to rule out classical cryptanalytic attacks and implementation bugs. Cautious implementors may wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected. For digital signatures, this is referred to as &quot;dual&quot;, and for encryption key establishment this as reffered to as &quot;hybrid&quot;. This document, and its companions, defines a specific instantiation of the dual and hybrid paradigm called &quot;composite&quot; where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level. EDNOTE: the terms &quot;dual&quot; and &quot;hybrid&quot; are currently in flux. We anticipate an Informational draft to normalize terminology, and will update this draft accordingly. This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed. The explicit variant is also defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID. This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as [draft-ounsworth-pq-composite-sigs-05] and draft-ounsworth-pq-composite-kem (yet to be published). " />
 
@@ -442,7 +441,7 @@
 <td class="right">M. Pala</td>
 </tr>
 <tr>
-<td class="left">Expires: December 9, 2022</td>
+<td class="left">Expires: January 5, 2023</td>
 <td class="right">CableLabs</td>
 </tr>
 <tr>
@@ -455,7 +454,7 @@
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">June 07, 2022</td>
+<td class="right">July 04, 2022</td>
 </tr>
 
     	
@@ -475,7 +474,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 9, 2022.</p>
+<p>This Internet-Draft will expire on January 5, 2023.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2022 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -493,15 +492,13 @@
 </li>
 </ul><li>3.   <a href="#rfc.section.3">Composite Key Structures</a>
 </li>
-<ul><li>3.1.   <a href="#rfc.section.3.1">pk-Composite</a>
+<ul><li>3.1.   <a href="#rfc.section.3.1">CompositePublicKey</a>
 </li>
-<ul><li>3.1.1.   <a href="#rfc.section.3.1.1">Key Usage</a>
+<li>3.2.   <a href="#rfc.section.3.2">CompositePrivateKey</a>
 </li>
-</ul><li>3.2.   <a href="#rfc.section.3.2">CompositePublicKey</a>
+<ul><li>3.2.1.   <a href="#rfc.section.3.2.1">Key Usage</a>
 </li>
-<li>3.3.   <a href="#rfc.section.3.3">CompositePrivateKey</a>
-</li>
-<li>3.4.   <a href="#rfc.section.3.4">Encoding Rules</a>
+</ul><li>3.3.   <a href="#rfc.section.3.3">Encoding Rules</a>
 </li>
 </ul><li>4.   <a href="#rfc.section.4">Algorithm Identifiers</a>
 </li>
@@ -609,60 +606,45 @@
 <p id="rfc.section.3.p.1">In order to represent public keys and private keys that are composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "components") such that these structures can be used directly in existing public key fields such as those found in PKCS#10 <a href="#RFC2986" class="xref">[RFC2986]</a>, CMP <a href="#RFC4210" class="xref">[RFC4210]</a>, X.509 <a href="#RFC5280" class="xref">[RFC5280]</a>, CMS <a href="#RFC5652" class="xref">[RFC5652]</a>, and the Trust Anchor Format <a href="#RFC5914" class="xref">[RFC5914]</a>.</p>
 <p id="rfc.section.3.p.2">A composite key is a single key object that performs an atomic cryptographic operation -- such a signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This generally means that the complexity of combining algorithms can be deferred from the protocol layer to the cryptographic library layer.</p>
 <h1 id="rfc.section.3.1">
-<a href="#rfc.section.3.1">3.1.</a> <a href="#pk-composite" id="pk-composite">pk-Composite</a>
+<a href="#rfc.section.3.1">3.1.</a> <a href="#sec-composite-pub-keys" id="sec-composite-pub-keys">CompositePublicKey</a>
 </h1>
-<p id="rfc.section.3.1.p.1">The PUBLIC-KEY ASN.1 information object class is defined in <a href="#RFC5912" class="xref">[RFC5912]</a>. The PUBLIC-KEY information object for generic (<a href="#sec-generic-composite" class="xref">Section 4.1</a>) and explicit (<a href="#sec-explicit" class="xref">Section 4.2</a>) composite public and private keys has the following form:</p>
-<pre>
-pk-Composite PUBLIC-KEY ::= {
-    id &lt;identifier&gt;,
-    KeyValue CompositePublicKey,
-    Params ARE ABSENT,
-    PrivateKey CompositePrivateKey,
-}
-</pre>
-<p id="rfc.section.3.1.p.2">The identifier may be an OID representing any composite key type.</p>
-<p><a href="#sec-generic-composite" class="xref">Section 4.1</a> defines the object identifier id-composite-key which indicates that this is a "generic composite key" which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed.</p>
-<p><a href="#sec-explicit" class="xref">Section 4.2</a> defines a framework for defining new "explicit" combinations that use the same wire encoding structures as generic, but with OIDs that dictate specific combinations of component algorithms.</p>
-<h1 id="rfc.section.3.1.1">
-<a href="#rfc.section.3.1.1">3.1.1.</a> <a href="#key-usage" id="key-usage">Key Usage</a>
-</h1>
-<p id="rfc.section.3.1.1.p.1">For protocols such as X.509 <a href="#RFC5280" class="xref">[RFC5280]</a> that specify key usage along with the public key, any key usage may be used with composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.</p>
-<h1 id="rfc.section.3.2">
-<a href="#rfc.section.3.2">3.2.</a> <a href="#sec-composite-pub-keys" id="sec-composite-pub-keys">CompositePublicKey</a>
-</h1>
-<p id="rfc.section.3.2.p.1">Composite public key data is represented by the following structure:</p>
+<p id="rfc.section.3.1.p.1">Composite public key data is represented by the following structure:</p>
 <pre>
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 </pre>
-<p id="rfc.section.3.2.p.2">A composite key MUST contain at least two component public keys.</p>
-<p id="rfc.section.3.2.p.3">A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed.</p>
-<p id="rfc.section.3.2.p.4">EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity and therefore reduction in attack surface.</p>
-<p id="rfc.section.3.2.p.5">Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and parameters for the public key contained within it. See <a href="#appdx-examples" class="xref">Appendix B</a> for examples.</p>
-<p id="rfc.section.3.2.p.6">Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in <a href="#sec-encoding-rules" class="xref">Section 3.4</a>.</p>
-<h1 id="rfc.section.3.3">
-<a href="#rfc.section.3.3">3.3.</a> <a href="#sec-priv-key" id="sec-priv-key">CompositePrivateKey</a>
+<p id="rfc.section.3.1.p.2">A composite key MUST contain at least two component public keys.</p>
+<p id="rfc.section.3.1.p.3">A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed.</p>
+<p id="rfc.section.3.1.p.4">EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity and therefore reduction in attack surface.</p>
+<p id="rfc.section.3.1.p.5">Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and parameters for the public key contained within it. See <a href="#appdx-examples" class="xref">Appendix B</a> for examples.</p>
+<p id="rfc.section.3.1.p.6">Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in <a href="#sec-encoding-rules" class="xref">Section 3.3</a>.</p>
+<h1 id="rfc.section.3.2">
+<a href="#rfc.section.3.2">3.2.</a> <a href="#sec-priv-key" id="sec-priv-key">CompositePrivateKey</a>
 </h1>
-<p id="rfc.section.3.3.p.1">EDNOTE: we need to put a bit more effort into private keys, specifically defining what OIDs to use in the generic and explicit cases.</p>
-<p id="rfc.section.3.3.p.2">This section provides an encoding for composite private keys intended for PKIX protocols and other applications that require an interoperable format for transmitting private keys, such as PKCS #12 <a href="#RFC7292" class="xref">[RFC7292]</a> or CMP / CRMF <a href="#RFC4210" class="xref">[RFC4210]</a>, <a href="#RFC4211" class="xref">[RFC4211]</a>. It is not intended to dictate a storage format in implementations not requiring interoperability of private key formats.</p>
-<p id="rfc.section.3.3.p.3">In some cases the private keys that comprise a composite key may not be represented in a single structure or even be contained in a single cryptographic module. The establishment of correspondence between public keys in a CompositePublicKey and private keys not represented in a single composite structure is beyond the scope of this document.</p>
-<p id="rfc.section.3.3.p.4">The composite private key data is represented by the following structure:</p>
+<p id="rfc.section.3.2.p.1">EDNOTE: we need to put a bit more effort into private keys, specifically defining what OIDs to use in the generic and explicit cases.</p>
+<p id="rfc.section.3.2.p.2">This section provides an encoding for composite private keys intended for PKIX protocols and other applications that require an interoperable format for transmitting private keys, such as PKCS #12 <a href="#RFC7292" class="xref">[RFC7292]</a> or CMP / CRMF <a href="#RFC4210" class="xref">[RFC4210]</a>, <a href="#RFC4211" class="xref">[RFC4211]</a>. It is not intended to dictate a storage format in implementations not requiring interoperability of private key formats.</p>
+<p id="rfc.section.3.2.p.3">In some cases the private keys that comprise a composite key may not be represented in a single structure or even be contained in a single cryptographic module. The establishment of correspondence between public keys in a CompositePublicKey and private keys not represented in a single composite structure is beyond the scope of this document.</p>
+<p id="rfc.section.3.2.p.4">The composite private key data is represented by the following structure:</p>
 <pre>
 CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 </pre>
-<p id="rfc.section.3.3.p.5">Each element is a OneAsymmetricKey <a href="#RFC5958" class="xref">[RFC5958]</a> object for a component private key.</p>
-<p id="rfc.section.3.3.p.6">The parameters field MUST be absent.</p>
-<p id="rfc.section.3.3.p.7">A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.</p>
-<p id="rfc.section.3.3.p.8">EDNOTE: does this also need an explicit version? It would probably reduce attack surface of tricking a client into running the wrong parser and a given piece of data.</p>
-<h1 id="rfc.section.3.4">
-<a href="#rfc.section.3.4">3.4.</a> <a href="#sec-encoding-rules" id="sec-encoding-rules">Encoding Rules</a>
+<p id="rfc.section.3.2.p.5">Each element is a OneAsymmetricKey <a href="#RFC5958" class="xref">[RFC5958]</a> object for a component private key.</p>
+<p id="rfc.section.3.2.p.6">The parameters field MUST be absent.</p>
+<p id="rfc.section.3.2.p.7">A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.</p>
+<p id="rfc.section.3.2.p.8">EDNOTE: does this also need an explicit version? It would probably reduce attack surface of tricking a client into running the wrong parser and a given piece of data.</p>
+<h1 id="rfc.section.3.2.1">
+<a href="#rfc.section.3.2.1">3.2.1.</a> <a href="#key-usage" id="key-usage">Key Usage</a>
 </h1>
-<p id="rfc.section.3.4.p.1">Many protocol specifications will require that the composite public key and composite private key data structures be represented by an octet string or bit string.</p>
-<p id="rfc.section.3.4.p.2">When an octet string is required, the DER encoding of the composite data structure SHALL be used directly.</p>
+<p id="rfc.section.3.2.1.p.1">For protocols such as X.509 <a href="#RFC5280" class="xref">[RFC5280]</a> that specify key usage along with the public key, any key usage may be used with composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.</p>
+<h1 id="rfc.section.3.3">
+<a href="#rfc.section.3.3">3.3.</a> <a href="#sec-encoding-rules" id="sec-encoding-rules">Encoding Rules</a>
+</h1>
+<p id="rfc.section.3.3.p.1">Many protocol specifications will require that the composite public key and composite private key data structures be represented by an octet string or bit string.</p>
+<p id="rfc.section.3.3.p.2">When an octet string is required, the DER encoding of the composite data structure SHALL be used directly.</p>
 <pre>
 CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
 </pre>
-<p id="rfc.section.3.4.p.3">EDNOTE: will this definition include an ASN.1 tag and length byte inside the OCTET STRING object? If so, that's probably an extra uneccessary layer.</p>
-<p id="rfc.section.3.4.p.4">When a bit string is required, the octets of the DER encoded composite data structure SHALL be used as the bits of the bit string, with the most significant bit of the first octet becoming the first bit, and so on, ending with the least significant bit of the last octet becoming the last bit of the bit string.</p>
+<p id="rfc.section.3.3.p.3">EDNOTE: will this definition include an ASN.1 tag and length byte inside the OCTET STRING object? If so, that's probably an extra uneccessary layer.</p>
+<p id="rfc.section.3.3.p.4">When a bit string is required, the octets of the DER encoded composite data structure SHALL be used as the bits of the bit string, with the most significant bit of the first octet becoming the first bit, and so on, ending with the least significant bit of the last octet becoming the last bit of the bit string.</p>
 <pre>
 CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
 </pre>
@@ -681,7 +663,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
     Algorithm(80) Composite(4) CompositeKey(1) }
 </pre>
 <p id="rfc.section.4.1.p.2">EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 6</a>.</p>
-<p id="rfc.section.4.1.p.3">Which yields an information object:</p>
+<p id="rfc.section.4.1.p.3">The PUBLIC-KEY ASN.1 information object class is defined in <a href="#RFC5912" class="xref">[RFC5912]</a>. The PUBLIC-KEY information object for generic (<a href="#sec-generic-composite" class="xref">Section 4.1</a>) and explicit (<a href="#sec-explicit" class="xref">Section 4.2</a>) composite public and private keys has the following form:</p>
 <pre>
 pk-Composite PUBLIC-KEY ::= {
     id id-composite-key,
@@ -696,7 +678,7 @@ pk-Composite PUBLIC-KEY ::= {
 </h1>
 <p id="rfc.section.4.2.p.1">This variant provides a rigid way of specifying supported combinations of key types. This document does not define any explicit combinations, but provides a framework for doing so.</p>
 <p id="rfc.section.4.2.p.2">The motivation for this variant is to make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.</p>
-<p id="rfc.section.4.2.p.3">Profiles need to define an explicit composite key type which consists of:</p>
+<p id="rfc.section.4.2.p.3">Profiles need to define an explicit composite key type which consists of, at the minimum.</p>
 <p></p>
 
 <ul>
@@ -704,7 +686,7 @@ pk-Composite PUBLIC-KEY ::= {
 <li>The PUBLIC-KEY information object of each component public key type.</li>
 </ul>
 <p id="rfc.section.4.2.p.5">See <a href="#appdx-creatingExplicitCombinations" class="xref">Appendix A</a> for guidance on creating and registering OIDs for specific explicit combinations.</p>
-<p id="rfc.section.4.2.p.6">In this variant, the public key is encoded as defined in <a href="#sec-composite-keys" class="xref">Section 3</a> and <a href="#sec-composite-pub-keys" class="xref">Section 3.2</a>, however the PUBLIC-KEY.id SHALL be an OID which is registered to represent a specific combination of component public key types. See <a href="#appdx-examples" class="xref">Appendix B</a> for examples.</p>
+<p id="rfc.section.4.2.p.6">In this variant, the public key is encoded as defined in <a href="#sec-composite-keys" class="xref">Section 3</a> and <a href="#sec-composite-pub-keys" class="xref">Section 3.1</a>, however the PUBLIC-KEY.id SHALL be an OID which is registered to represent a specific combination of component public key types. See <a href="#appdx-examples" class="xref">Appendix B</a> for examples.</p>
 <p id="rfc.section.4.2.p.7">The SubjectPublicKeyInfo.algorithm for each component key is redundant information which MUST match -- and can be inferred from -- the specification of the explicit algorithm. It has been left here for ease of implementation as the component SubjectPublicKeyInfo structures are the same between generic and explicit, as well as with single-algorithm keys. However, it introduces the risk of mismatch and leads to the following security consideration:</p>
 <p id="rfc.section.4.2.p.8">Security consideration: Implementations MUST check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.</p>
 <h1 id="rfc.section.5">
@@ -733,7 +715,7 @@ pk-Composite PUBLIC-KEY ::= {
 <p id="rfc.section.5.2.p.4">The value of the privateKey field in the OneAsymmetricKey SHALL be set to the DER encoding of the SEQUENCE of private key values that make up the composite key. The number and order of elements in the sequence SHALL be the same as identified in the sequence of parameters in the privateKeyAlgorithm.</p>
 <p id="rfc.section.5.2.p.5">The value of the publicKey (if present) SHALL be set to the DER encoding of the corresponding CompositePublicKey. If this field is present, the number and order of component keys MUST be the same as identified in the sequence of parameters in the privateKeyAlgorithm.</p>
 <p id="rfc.section.5.2.p.6">The value of the attributes is encoded as usual.</p>
-<p id="rfc.section.5.2.p.7">EDNOTE: I wonder whether this has value as its own section, or if we should take what's relevant and merge it into <a href="#sec-priv-key" class="xref">Section 3.3</a>?</p>
+<p id="rfc.section.5.2.p.7">EDNOTE: I wonder whether this has value as its own section, or if we should take what's relevant and merge it into <a href="#sec-priv-key" class="xref">Section 3.2</a>?</p>
 <h1 id="rfc.section.5.3">
 <a href="#rfc.section.5.3">5.3.</a> <a href="#sec-backwards-compat" id="sec-backwards-compat">Backwards Compatibility</a>
 </h1>

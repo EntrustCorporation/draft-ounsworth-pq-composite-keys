@@ -2,7 +2,7 @@
 title: Composite Public and Private Keys For Use In Internet PKI
 abbrev: PQ Composite Keys
 # <!-- EDNOTE: Edits the draft name -->
-docname: draft-ounsworth-pq-composite-keys-02
+docname: draft-ounsworth-pq-composite-keys-03
 # <!-- date: 2012-01-13 -->
 # <!-- date: 2012-01 -->
 # <!-- date: 2012 -->
@@ -135,14 +135,8 @@ This document is intended to be coupled with corresponding documents that define
 
 --- middle
 
-# Changes in version -02
+# Changes in version -03
 
-- Merged Generic Composite ({{sec-generic-composite}}) and Explicit Composite ({{sec-explicit}}) into one document and made them share a wire encoding (only differing by the OIDs used).
-- Removed Composite-OR Public Key.
-- Synced document structure with -sigs
-- Added {{sec-backwards-compat}} addressing backwards compatibility and ease of migration concerns.
-
-TODO diff this against the public version and see if there are any more changes.
 
 
 
@@ -218,31 +212,6 @@ In order to represent public keys and private keys that are composed of multiple
 
 A composite key is a single key object that performs an atomic cryptographic operation -- such a signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This generally means that the complexity of combining algorithms can be deferred from the protocol layer to the cryptographic library layer.
 
-## pk-Composite 
-
-The PUBLIC-KEY ASN.1 information object class is defined in [RFC5912]. The PUBLIC-KEY information object for generic ({{sec-generic-composite}}) and explicit ({{sec-explicit}}) composite public and private keys has the following form:
-
-~~~ ASN.1
-pk-Composite PUBLIC-KEY ::= {
-    id <identifier>,
-    KeyValue CompositePublicKey,
-    Params ARE ABSENT,
-    PrivateKey CompositePrivateKey,
-}
-~~~
-{: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
-
-The identifier may be an OID representing any composite key type. 
-
-{{sec-generic-composite}} defines the object identifier id-composite-key which indicates that this is a "generic composite key" which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed.
-
-{{sec-explicit}} defines a framework for defining new "explicit" combinations that use the same wire encoding structures as generic, but with OIDs that dictate specific combinations of component algorithms.
-
-
-### Key Usage
-
-For protocols such as X.509 [RFC5280] that specify key usage along with the public key, any key usage may be used with composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.
-
 
 ## CompositePublicKey {#sec-composite-pub-keys}
 
@@ -291,6 +260,12 @@ A CompositePrivateKey MUST contain at least two component private keys, and they
 EDNOTE: does this also need an explicit version? It would probably reduce attack surface of tricking a client into running the wrong parser and a given piece of data.
 
 
+
+### Key Usage
+
+For protocols such as X.509 [RFC5280] that specify key usage along with the public key, any key usage may be used with composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.
+
+
 ## Encoding Rules {#sec-encoding-rules}
 <!-- EDNOTE 7: Examples of how other specifications specify how a data structure is converted to a bit string can be found in RFC 2313, section 10.1.4, 3279 section 2.3.5, and RFC 4055, section 3.2. -->
 
@@ -329,7 +304,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
 EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
-Which yields an information object:
+The PUBLIC-KEY ASN.1 information object class is defined in [RFC5912]. The PUBLIC-KEY information object for generic ({{sec-generic-composite}}) and explicit ({{sec-explicit}}) composite public and private keys has the following form:
 
 ~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
@@ -351,7 +326,7 @@ This variant provides a rigid way of specifying supported combinations of key ty
 
 The motivation for this variant is to make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
 
-Profiles need to define an explicit composite key type which consists of:
+Profiles need to define an explicit composite key type which consists of, at the minimum.
 
 - A new algorithm identifier OID for the explicit algorithm.
 - The PUBLIC-KEY information object of each component public key type.
