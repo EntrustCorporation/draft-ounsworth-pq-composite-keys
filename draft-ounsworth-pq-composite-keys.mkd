@@ -285,6 +285,9 @@ When a bit string is required, the octets of the DER encoded composite data stru
 CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
 ~~~
 
+EDNOTE: See this LAMPS mailist discussion about BIT STRING vs OCTET STRING for public keys. I think we have dodged the issue, but may we worth re-visiting.
+https://mailarchive.ietf.org/arch/msg/spasm/Gv-ACiOpYZfOM0AJEZUX1jIhVq0/
+
 # Algorithm Identifiers
 
 This section defines the algorithm identifier for generic composite, as well as a framework for defining explicit combinations. This section is not intended to be exhaustive and other authors may define others so long as they are compatible with the structures and processes defined in this and companion signature and encryption documents.
@@ -294,7 +297,7 @@ Some use-cases desire the flexibility for client to use any combination of suppo
 
 ## id-composite-key (Generic Composite Keys) {#sec-generic-composite}
 
-The id-composite-key algorithm identifier is used for identifying a generic composite public key and a generic composite private key. This allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed. 
+The id-composite-key object identifier is used for identifying a generic composite public key and a generic composite private key. This allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or standardized. 
 
 ~~~ asn.1
 id-composite-key OBJECT IDENTIFIER ::= {
@@ -308,10 +311,10 @@ The PUBLIC-KEY ASN.1 information object class is defined in [RFC5912]. The PUBLI
 
 ~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
-    id id-composite-key,
-    KeyValue CompositePublicKey,
-    Params ARE ABSENT,
-    PrivateKey CompositePrivateKey,
+    id id-composite-key
+    KeyValue CompositePublicKey
+    Params ARE ABSENT
+    PrivateKey CompositePrivateKey
 }
 ~~~
 {: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
