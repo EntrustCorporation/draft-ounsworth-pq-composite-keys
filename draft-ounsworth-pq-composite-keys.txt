@@ -253,7 +253,7 @@ Internet-Draft              PQ Composite Keys                August 2022
 
    1.  Traditional cryptographic algorithms -- those based on integer
        factorization or discrete logarithm problems -- will be broken
-       irrevocable by quantum cryptanalasys with probability 1 if one
+       irrevocable by quantum cryptanalysis with probability 1 if one
        assumes a long enough time scale; for example if one considers
        cryptographically-protected data produced today that needs to
        remain secure until the year 2070.
@@ -264,7 +264,7 @@ Internet-Draft              PQ Composite Keys                August 2022
 
    3.  Open source and proprietary implementations of Post-quantum
        cryptographic algorithms will, with high probability but not
-       certainty, admit implimentation bugs which will lead to "zero-
+       certainty, admit implementation bugs which will lead to "zero-
        day" security incidents with impacts ranging across private key
        recovery, signature forgery, ciphertext recovery, etc.  These
        will lead to short-term exposures until, for example, clients can
@@ -289,7 +289,7 @@ Internet-Draft              PQ Composite Keys                August 2022
 
    A break to digital signatures assumes the ability of an attacker to
    present a forged signature either in real-time, for example during
-   the challenge-response protocol, or asyncronously by forging the
+   the challenge-response protocol, or asynchronously by forging the
    digital signature on a long-lived document such as a certificate, a
    digital contract, or a code-signed software application.
 
@@ -349,7 +349,7 @@ Internet-Draft              PQ Composite Keys                August 2022
 
    Short-lived data
 
-   Here the only revelant attacks are short-term ones such as
+   Here the only relevant attacks are short-term ones such as
    implementation bugs leading to "zero-day" attacks and fairly short
    exposure windows before mitigations can be applied to future
    encrypted transmissions.  As with digital signatures above, hybrids
@@ -373,7 +373,7 @@ Internet-Draft              PQ Composite Keys                August 2022
 
    We conclude that there are enough cases where hybrids provide
    meaningful security that it would be wise for designers of internet
-   protocols to employ post quantum / tradational (PQ/T) or post quantum
+   protocols to employ post quantum / traditional (PQ/T) or post quantum
    / post quantum (PQ/PQ) hybrids especially where the protocol will be
    used to carry a range of types of user data with confidentiality
    periods ranging from seconds to decades.

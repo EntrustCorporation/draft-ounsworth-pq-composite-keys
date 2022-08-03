@@ -233,18 +233,18 @@ This section presents an analysis of cases under which hybrid approaches in gene
 
 Assumptions for this analysis:
 
-1. Traditional cryptographic algorithms -- those based on integer factorization or discrete logarithm problems -- will be broken irrevocable by quantum cryptanalasys with probability 1 if one assumes a long enough time scale; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
+1. Traditional cryptographic algorithms -- those based on integer factorization or discrete logarithm problems -- will be broken irrevocable by quantum cryptanalysis with probability 1 if one assumes a long enough time scale; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
 
 2. Prior to the advent of cryptographically-relevant quantum computers, traditional cryptographic algorithms maintain approximately the same security strength that they enjoy today.
 
-3. Open source and proprietary implementations of Post-quantum cryptographic algorithms will, with high probability but not certainty, admit implimentation bugs which will lead to "zero-day" security incidents with impacts ranging across private key recovery, signature forgery, ciphertext recovery, etc. These will lead to short-term exposures until, for example, clients can be patched or keys re-issued and data re-protected.
+3. Open source and proprietary implementations of Post-quantum cryptographic algorithms will, with high probability but not certainty, admit implementation bugs which will lead to "zero-day" security incidents with impacts ranging across private key recovery, signature forgery, ciphertext recovery, etc. These will lead to short-term exposures until, for example, clients can be patched or keys re-issued and data re-protected.
 
 4. With high probability, there exists correct implementations of post quantum cryptographic algorithms which will remain secure over long time scales; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
 
 
 ### Analysis: digital signatures
 
-A break to digital signatures assumes the ability of an attacker to present a forged signature either in real-time, for example during the challenge-response protocol, or asyncronously by forging the digital signature on a long-lived document such as a certificate, a digital contract, or a code-signed software application.
+A break to digital signatures assumes the ability of an attacker to present a forged signature either in real-time, for example during the challenge-response protocol, or asynchronously by forging the digital signature on a long-lived document such as a certificate, a digital contract, or a code-signed software application.
 
 There is a possible future in which we can delay migration to post quantum cryptographic algorithms long enough to guarantee that there will be no further "zero-day" incidents in commonly-used implementations. Given the history of modern cryptography, the authors posit that this is unlikely; consider for example the Bleichenbacher attack against RSA signatures using PKCS#1 padding first published with mitigations in 1998 [Bleichenbacher1998], and also the 2018 study [ROBOT2018] which found that 19 years later, many of the most common TLS implementations on the internet had either failed to implement the original mitigations, or else failed to implement them correctly. Given that post quantum cryptographic algorithms have substantially higher algorithmic and implementation complexity than RSA PKCS#1, the authors posit that recurring implementation bugs is highly likely.
 
@@ -260,13 +260,13 @@ Some encrypted traffic over the internet may have relatively short data protecti
 
 Short-lived data
 
-Here the only revelant attacks are short-term ones such as implementation bugs leading to "zero-day" attacks and fairly short exposure windows before mitigations can be applied to future encrypted transmissions. As with digital signatures above, hybrids provide protection across the immediate exposure periods, extending the data confidentiality period to be the longest of the component algorithms used.
+Here the only relevant attacks are short-term ones such as implementation bugs leading to "zero-day" attacks and fairly short exposure windows before mitigations can be applied to future encrypted transmissions. As with digital signatures above, hybrids provide protection across the immediate exposure periods, extending the data confidentiality period to be the longest of the component algorithms used.
 
 Long-lived data
 
 Under the assumptions above, traditional cryptography will be broken with probability 1, and any given implementation of post quantum cryptography with probability approaching 1. This means that long-term data confidentiality against store-and-decrypt attacks fails with probability approaching 1 even if hybrid approaches are employed. However, even in this case, the data confidentiality period is extended to be the longest of the component algorithms used, which could provide years or even decades of additional confidentiality time before the eventual break of all component algorithms. While not a complete mitigation, the authors posit that this is still valuable.
 
-We conclude that there are enough cases where hybrids provide meaningful security that it would be wise for designers of internet protocols to employ post quantum / tradational (PQ/T) or post quantum / post quantum (PQ/PQ) hybrids especially where the protocol will be used to carry a range of types of user data with confidentiality periods ranging from seconds to decades.
+We conclude that there are enough cases where hybrids provide meaningful security that it would be wise for designers of internet protocols to employ post quantum / traditional (PQ/T) or post quantum / post quantum (PQ/PQ) hybrids especially where the protocol will be used to carry a range of types of user data with confidentiality periods ranging from seconds to decades.
 
 <!-- End of Introduction section -->
 
