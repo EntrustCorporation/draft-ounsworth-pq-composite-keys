@@ -115,7 +115,35 @@ informative:
         ins: European Council
         name: THE EUROPEAN PARLIAMENT AND THE COUNCIL OF THE EUROPEAN UNION,
     date: 23 July 2014
-
+  Bleichenbacher1998:
+    title: "Chosen ciphertext attacks against protocols based on the RSA encryption standard PKCS# 1."
+    author:
+      -
+        ins: D. Bleichenbacher
+        name: Daniel Bleichenbacher 
+    date: 1998
+  ROBOT2018:
+    title: "Return Of {Bleichenbacher’s} Oracle Threat (ROBOT)."
+    target: "https://www.usenix.org/conference/usenixsecurity18/presentation/bock"
+    author:
+      - 
+        ins: H. Böck 
+        name: Böck, Hanno
+      - 
+        ins: J. Somorovsky
+        name: Juraj Somorovsky
+      -
+        ins: C. Young
+        name: Craig Young.  
+    date: 2018
+  Mosca2015:
+    title: "Cybersecurity in a Quantum World: will we be ready?"
+    target: "https://csrc.nist.gov/csrc/media/events/workshop-on-cybersecurity-in-a-post-quantum-world/documents/presentations/session8-mosca-michele.pdf"
+    author:
+      -
+        ins: M. Mosca
+        name: Michele Mosca
+    date: "3 April 2015"
 
 
 
@@ -137,25 +165,6 @@ This document is intended to be coupled with corresponding documents that define
 
 # Changes in version -03
 
-
-
-
-# Introduction {#sec-intro}
-
-During the transition to post-quantum cryptography, there will be uncertainty as to the strength of cryptographic algorithms; we will no longer fully trust traditional cryptography such as RSA, Diffie-Hellman, DSA and their elliptic curve variants, but we may also not fully trust their post-quantum replacements until further time has passed to allow additional scrutiny and the discovery of implementation bugs. Unlike previous cryptographic algorithm migrations, the choice of when to migrate and which algorithms to migrate to, is not so clear. Even after the migration period, it may be advantageous for an entity's cryptographic identity to be composed of multiple public-key algorithms.
-
-The deployment of composite public keys, and composite signatures and composite encryption using post-quantum algorithms will face two challenges:
-
-- Algorithm strength uncertainty: During the transition period, some post-quantum signature and encryption algorithms will not be fully trusted, while also the trust in legacy public key algorithms will start to erode.  A relying party may learn some time after deployment that a public key algorithm has become untrustworthy, but in the interim, they may not know which algorithm an adversary has compromised.
-- Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully classical to fully post-quantum-aware cryptography.
-
-This document provides a mechanism to address algorithm strength uncertainty concerns by providing formats for encoding multiple public key and private key values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechanisms defined in the document, but some notes on how it can be obtained can be found in {{sec-backwards-compat}}.
-
-This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.
-
-
-
-<!-- End of Introduction section -->
 
 
 ## Terminology {#sec-terminology}
@@ -204,6 +213,62 @@ PUBLIC / PRIVATE KEY:
           The public and private portion of an asymmetric cryptographic
           key, making no assumptions about which algorithm.
 
+
+# Introduction {#sec-intro}
+
+During the transition to post-quantum cryptography, there will be uncertainty as to the strength of cryptographic algorithms; we will no longer fully trust traditional cryptography such as RSA, Diffie-Hellman, DSA and their elliptic curve variants, but we may also not fully trust their post-quantum replacements until further time has passed to allow additional scrutiny and the discovery of implementation bugs. Unlike previous cryptographic algorithm migrations, the choice of when to migrate and which algorithms to migrate to, is not so clear. Even after the migration period, it may be advantageous for an entity's cryptographic identity to be composed of multiple public-key algorithms.
+
+The deployment of composite public keys, and composite signatures and composite encryption using post-quantum algorithms will face two challenges:
+
+- Algorithm strength uncertainty: During the transition period, some post-quantum signature and encryption algorithms will not be fully trusted, while also the trust in legacy public key algorithms will start to erode.  A relying party may learn some time after deployment that a public key algorithm has become untrustworthy, but in the interim, they may not know which algorithm an adversary has compromised.
+- Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully classical to fully post-quantum-aware cryptography.
+
+This document provides a mechanism to address algorithm strength uncertainty concerns by providing formats for encoding multiple public key and private key values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechanisms defined in the document, but some notes on how it can be obtained can be found in {{sec-backwards-compat}}.
+
+This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.
+
+## Value proposition of hybrid / composite schemes
+
+This section presents an analysis of cases under which hybrid approaches in general, and composite in particular, provide value.
+
+Assumptions for this analysis:
+
+1. Traditional cryptographic algorithms -- those based on integer factorization or discrete logarithm problems -- will be broken irrevocable by quantum cryptanalasys with probability 1 if one assumes a long enough time scale; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
+
+2. Prior to the advent of cryptographically-relevant quantum computers, traditional cryptographic algorithms maintain approximately the same security strength that they enjoy today.
+
+3. Open source and proprietary implementations of Post-quantum cryptographic algorithms will, with high probability but not certainty, admit implimentation bugs which will lead to "zero-day" security incidents with impacts ranging across private key recovery, signature forgery, ciphertext recovery, etc. These will lead to short-term exposures until, for example, clients can be patched or keys re-issued and data re-protected.
+
+4. With high probability, there exists correct implementations of post quantum cryptographic algorithms which will remain secure over long time scales; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
+
+
+### Analysis: digital signatures
+
+A break to digital signatures assumes the ability of an attacker to present a forged signature either in real-time, for example during the challenge-response protocol, or asyncronously by forging the digital signature on a long-lived document such as a certificate, a digital contract, or a code-signed software application.
+
+There is a possible future in which we can delay migration to post quantum cryptographic algorithms long enough to guarantee that there will be no further "zero-day" incidents in commonly-used implementations. Given the history of modern cryptography, the authors posit that this is unlikely; consider for example the Bleichenbacher attack against RSA signatures using PKCS#1 padding first published with mitigations in 1998 [Bleichenbacher1998], and also the 2018 study [ROBOT2018] which found that 19 years later, many of the most common TLS implementations on the internet had either failed to implement the original mitigations, or else failed to implement them correctly. Given that post quantum cryptographic algorithms have substantially higher algorithmic and implementation complexity than RSA PKCS#1, the authors posit that recurring implementation bugs is highly likely.
+
+Therefore it is highly likely that either post quantum / traditional (PQ/T) hybrids or post-quantum / post quantum (PQ/PQ) hybrids will provide meaningful protection across "zero-day" exposure periods while mitigations are deployed, whether that be software patches to signers and verifiers, or revocation of keys and re-issuing of signed documents.
+
+
+### Analysis: encryption and key establishment
+
+Encryption and key establishment has slightly more complex analysis in that in addition to the real-time attacks analogous to those described above for digital signature schemes, there is also the potential for store-and-decrypt attacks where an attacker records traffic now and holding it until cryptanalytic techniques have advanced enough to allow for its decryption.  This idea was nicely described by Michele Mosca as "x + y > Z" where x is how long you need your encrypted documents to remain secret, y is the lead-time needed for a cryptographic migration, and Z is the time until a cryptographically relevant quantum computer is available [Mosca2015]. 
+
+Some encrypted traffic over the internet may have relatively short data protection timelines x; for example a TLS connection to a social media site may only require confidentiality until the expiry of the user's session token, typically measured in minutes or hours; or a TLS connection to an e-commerce site until the expiry of the user's payment card, typically measured in a small number of years. However it is easy to imagine encrypted internet traffic containing intellectual property, financial data, health data, political or journalistic content for which the confidentiality lifetime could be 50 years or more. 
+
+
+Short-lived data
+
+Here the only revelant attacks are short-term ones such as implementation bugs leading to "zero-day" attacks and fairly short exposure windows before mitigations can be applied to future encrypted transmissions. As with digital signatures above, hybrids provide protection across the immediate exposure periods, extending the data confidentiality period to be the longest of the component algorithms used.
+
+Long-lived data
+
+Under the assumptions above, traditional cryptography will be broken with probability 1, and any given implementation of post quantum cryptography with probability approaching 1. This means that long-term data confidentiality against store-and-decrypt attacks fails with probability approaching 1 even if hybrid approaches are employed. However, even in this case, the data confidentiality period is extended to be the longest of the component algorithms used, which could provide years or even decades of additional confidentiality time before the eventual break of all component algorithms. While not a complete mitigation, the authors posit that this is still valuable.
+
+We conclude that there are enough cases where hybrids provide meaningful security that it would be wise for designers of internet protocols to employ post quantum / tradational (PQ/T) or post quantum / post quantum (PQ/PQ) hybrids especially where the protocol will be used to carry a range of types of user data with confidentiality periods ranging from seconds to decades.
+
+<!-- End of Introduction section -->
 
 
 # Composite Key Structures {#sec-composite-keys}
@@ -407,12 +472,13 @@ For non-negotiated protocols, the details for obtaining backwards compatibility 
 <!-- End of In Practice section -->
 
 # IANA Considerations {#sec-iana}
-The ASN.1 module OID is TBD.  The id-composite-key and id-composite-or-key OIDs are to be assigned by IANA.  The authors suggest that IANA assign an OID on the id-pkix arc:
+
+This document registers the following in the SMI "Security for PKIX Algorithms (1.3.6.1.5.5.7.6)" registry:
 
 ~~~ ASN.1
 id-composite-key OBJECT IDENTIFIER ::= {
     iso(1) identified-organization(3) dod(6) internet(1) security(5)
-    mechanisms(5) pkix(7) algorithms(6) composite(??) }
+    mechanisms(5) pkix(7) algorithms(6) id-composite-key(??) }
 ~~~
 
 <!-- End of IANA Considerations section -->
