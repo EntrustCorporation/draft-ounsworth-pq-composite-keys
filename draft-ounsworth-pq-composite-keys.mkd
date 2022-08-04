@@ -144,6 +144,25 @@ informative:
         ins: M. Mosca
         name: Michele Mosca
     date: "3 April 2015"
+  Beullens2022:
+    title: "Breaking rainbow takes a weekend on a laptop."
+    target: "https://eprint.iacr.org/2022/214"
+    author:
+      -
+        ins: W. Beullens
+        name: Ward Beullens
+    date: 2022
+  Castryck2022:
+    title: "An efficient key recovery attack on SIDH (preliminary version)."
+    target: "https://eprint.iacr.org/2022/975.pdf"
+    author:
+      - 
+        ins: W. Castryck
+        name: Wouter Castryck
+      - 
+        ins: T. Decru
+        name: Thomas Decru
+    date: 2022
 
 
 
@@ -233,38 +252,41 @@ This section presents an analysis of cases under which hybrid approaches in gene
 
 Assumptions for this analysis:
 
-1. Traditional cryptographic algorithms -- those based on integer factorization or discrete logarithm problems -- will be broken irrevocable by quantum cryptanalysis with probability 1 if one assumes a long enough time scale; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
+1. Traditional cryptographic algorithms -- those based on integer factorization or discrete logarithm problems -- will be broken irrevocably by quantum cryptanalysis with probability 1 if one assumes a long enough time scale; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
 
-2. Prior to the advent of cryptographically-relevant quantum computers, traditional cryptographic algorithms maintain approximately the same security strength that they enjoy today.
+2. Prior to the advent of cryptographically-relevant quantum computers, traditional cryptographic algorithms maintain approximately the same security strength that they enjoy today, accounting for minor advances in cryptanalytic techniques and computational power, but a full classical break is not expected in traditional algorithms that have been well scrutinized for the past 30-40 years
 
-3. Open source and proprietary implementations of Post-quantum cryptographic algorithms will, with high probability but not certainty, admit implementation bugs which will lead to "zero-day" security incidents with impacts ranging across private key recovery, signature forgery, ciphertext recovery, etc. These will lead to short-term exposures until, for example, clients can be patched or keys re-issued and data re-protected.
+3. Classical cryptanalysis of Post quantum cryptographic algorithms are still an active field of research with two of the, at the time, leading candidates being broken in 2022; Rainbow [Beullens2022] and SIKE [Castryck2022]. Any early adopters of PQC would be wise to design for the possibility of a full break of their chosen PQC algorithm(s). Discovery of such a break post-deployment of the affected algorithm would result in a "zero-day" security incident requiring large-scale rapid effort to completely replace the affected algorithm across production environments.
 
-4. With high probability, there exists correct implementations of post quantum cryptographic algorithms which will remain secure over long time scales; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
+4. Open source and proprietary implementations of Post-quantum cryptographic algorithms will, with high probability but not certainty, admit implementation bugs which will lead to "zero-day" security incidents with impacts ranging across private key recovery, signature forgery, ciphertext recovery, etc. These will lead to short-term exposures until, for example, clients can be patched or keys re-issued and data re-protected.
+
 
 
 ### Analysis: digital signatures
 
 A break to digital signatures assumes the ability of an attacker to present a forged signature either in real-time, for example during the challenge-response protocol, or asynchronously by forging the digital signature on a long-lived document such as a certificate, a digital contract, or a code-signed software application.
 
-There is a possible future in which we can delay migration to post quantum cryptographic algorithms long enough to guarantee that there will be no further "zero-day" incidents in commonly-used implementations. Given the history of modern cryptography, the authors posit that this is unlikely; consider for example the Bleichenbacher attack against RSA signatures using PKCS#1 padding first published with mitigations in 1998 [Bleichenbacher1998], and also the 2018 study [ROBOT2018] which found that 19 years later, many of the most common TLS implementations on the internet had either failed to implement the original mitigations, or else failed to implement them correctly. Given that post quantum cryptographic algorithms have substantially higher algorithmic and implementation complexity than RSA PKCS#1, the authors posit that recurring implementation bugs is highly likely.
+Early adopters of post quantum cryptography (PQC), particularly of lattice-based schemes, face the risk of the chosen scheme being broken and requiring rapid migration to a new cryptographic algorithm.
+
+Even late adopters, those who wait for cryptanalytic research to stabilize before selecting and migrating to PQC, face the ongoing risk of implementation bugs leading to "zero-day" incidents in commonly-used implementations. Given the history of modern cryptography, the authors posit that this is likely; consider for example the Bleichenbacher attack against RSA signatures using PKCS#1 padding first published with mitigations in 1998 [Bleichenbacher1998], and also the 2018 study [ROBOT2018] which found that 19 years later, many of the most common TLS implementations on the internet had either failed to implement the original mitigations, or else failed to implement them correctly. Given that post quantum cryptographic algorithms have substantially higher algorithmic and implementation complexity than RSA PKCS#1, the authors posit that recurring implementation bugs is highly likely.
 
 Therefore it is highly likely that either post quantum / traditional (PQ/T) hybrids or post-quantum / post quantum (PQ/PQ) hybrids will provide meaningful protection across "zero-day" exposure periods while mitigations are deployed, whether that be software patches to signers and verifiers, or revocation of keys and re-issuing of signed documents.
 
 
 ### Analysis: encryption and key establishment
 
-Encryption and key establishment has slightly more complex analysis in that in addition to the real-time attacks analogous to those described above for digital signature schemes, there is also the potential for store-and-decrypt attacks where an attacker records traffic now and holding it until cryptanalytic techniques have advanced enough to allow for its decryption.  This idea was nicely described by Michele Mosca as "x + y > Z" where x is how long you need your encrypted documents to remain secret, y is the lead-time needed for a cryptographic migration, and Z is the time until a cryptographically relevant quantum computer is available [Mosca2015]. 
+Encryption and key establishment has slightly more complex analysis in that in addition to the real-time attacks analogous to those described above for digital signature schemes, there is also the potential for store-and-decrypt attacks where an attacker records traffic now and holding it until cryptanalytic techniques have advanced enough to allow for its decryption, as well as recovery attacks against data encrypted at rest in long-term storage media.  This idea was nicely described by Michele Mosca as "x + y > Z" where x is the length of time you need your encrypted documents to remain secret, y is the lead-time needed for a cryptographic migration, and Z is the time until a cryptographically relevant quantum computer is available [Mosca2015]. 
 
-Some encrypted traffic over the internet may have relatively short data protection timelines x; for example a TLS connection to a social media site may only require confidentiality until the expiry of the user's session token, typically measured in minutes or hours; or a TLS connection to an e-commerce site until the expiry of the user's payment card, typically measured in a small number of years. However it is easy to imagine encrypted internet traffic containing intellectual property, financial data, health data, political or journalistic content for which the confidentiality lifetime could be 50 years or more. 
+Some encrypted traffic over the internet may have relatively short data protection timelines x; for example a TLS connection to an e-commerce site may only require confidentiality until the expiry of the user's session token, typically measured in minutes or hours, or until the expiry of the user's payment card, typically measured in a small number of years. However it is easy to imagine encrypted internet traffic containing intellectual property, financial data, health data, political or journalistic content, and more for which leaking the data could have real-world consequences even 50 years later.
 
 
 Short-lived data
 
-Here the only relevant attacks are short-term ones such as implementation bugs leading to "zero-day" attacks and fairly short exposure windows before mitigations can be applied to future encrypted transmissions. As with digital signatures above, hybrids provide protection across the immediate exposure periods, extending the data confidentiality period to be the longest of the component algorithms used.
+Here the only relevant attacks are "short-term" ones leading to "zero-day" attacks and fairly short exposure windows before mitigations can be applied to future encrypted transmissions. As with digital signatures above, hybrids provide protection across the immediate exposure periods. For real-time and store-and-decrypt attacks this extends the data confidentiality period to be the longest of the component algorithms used in the hybrid. For offline data storage, this gives operators a period of time in which to retrieve and re-encrypt the data without risk of exposure.
 
 Long-lived data
 
-Under the assumptions above, traditional cryptography will be broken with probability 1, and any given implementation of post quantum cryptography with probability approaching 1. This means that long-term data confidentiality against store-and-decrypt attacks fails with probability approaching 1 even if hybrid approaches are employed. However, even in this case, the data confidentiality period is extended to be the longest of the component algorithms used, which could provide years or even decades of additional confidentiality time before the eventual break of all component algorithms. While not a complete mitigation, the authors posit that this is still valuable.
+Under the assumptions above, traditional cryptography will be broken with probability 1, and any given implementation of post quantum cryptography, especially for early adopters, with probability approaching 1. This means that long-term data confidentiality against store-and-decrypt and recovery attacks fails with probability approaching 1 even if hybrid approaches are employed. However, even in this case, the data confidentiality period is extended to be the longest of the component algorithms used, which could provide years or even decades of additional confidentiality time before the eventual break of all component algorithms. Often that extra time will avoid the need for a costly emergency crypto migration. While not a complete mitigation, the authors posit that this is still valuable.
 
 We conclude that there are enough cases where hybrids provide meaningful security that it would be wise for designers of internet protocols to employ post quantum / traditional (PQ/T) or post quantum / post quantum (PQ/PQ) hybrids especially where the protocol will be used to carry a range of types of user data with confidentiality periods ranging from seconds to decades.
 
