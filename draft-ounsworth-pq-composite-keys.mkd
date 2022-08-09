@@ -184,6 +184,7 @@ This document is intended to be coupled with corresponding documents that define
 
 # Changes in version -03
 
+- Added section "Value proposition of hybrid / composite schemes"
 
 
 ## Terminology {#sec-terminology}
