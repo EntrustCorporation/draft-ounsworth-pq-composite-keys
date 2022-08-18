@@ -735,16 +735,51 @@ pk-Composite PUBLIC-KEY ::= {
 <pre>
 id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { TBD }
 </pre>
-<p id="rfc.section.4.2.1.p.2">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT, but clients SHALL process as if parameters had been supplied as <samp>ECParameters ::= secp256r1</samp>.</p>
-<p id="rfc.section.4.2.1.p.3">The public key encoding is defined using the ASN.1 module defined in <a href="#appdx-creatingExplicitCombinations" class="xref">Appendix A</a> as:</p>
+<p id="rfc.section.4.2.1.p.2">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.</p>
+<p id="rfc.section.4.2.1.p.3">TODO: Find a way to specify that the ECC component SKPI needs <samp>ECParameters ::= secp256r1</samp>.</p>
+<p id="rfc.section.4.2.1.p.4">The public key encoding is defined using the ASN.1 module defined in <a href="#appdx-creatingExplicitCombinations" class="xref">Appendix A</a> as:</p>
 <pre>
 pk-explicitComposite{id-Dilithium3-ECDSA-P256, pk-dilithiumTBD,
  TBDPublicKey, pk-ec, ecPublicKey} 
 </pre>
-<p id="rfc.section.4.2.1.p.4">EDNOTE: <samp>pk-dilithiumTBD</samp> and <samp>TBDPublicKey</samp> refer to <a href="#I-D.massimo-lamps-pq-sig-certificates" class="xref">[I-D.massimo-lamps-pq-sig-certificates]</a> and should be kept in sync with future versions of that draft.</p>
-<p id="rfc.section.4.2.1.p.5">TODO: define private key, see rfc5915 and <a href="#I-D.massimo-lamps-pq-sig-certificates" class="xref">[I-D.massimo-lamps-pq-sig-certificates]</a>.</p>
-<p id="rfc.section.4.2.1.p.6">TODO: provide and example public and private key in the examples appendix.</p>
-<p id="rfc.section.4.2.1.p.7">TODO: provide sizes for {dilithium3 + ecdsa-p256 + composite overhead}, and compare against, for example RSA or SPHINCS+ - pubkey - priv key - signature</p>
+<p id="rfc.section.4.2.1.p.5">EDNOTE: <samp>pk-dilithiumTBD</samp> and <samp>TBDPublicKey</samp> refer to <a href="#I-D.massimo-lamps-pq-sig-certificates" class="xref">[I-D.massimo-lamps-pq-sig-certificates]</a> and should be kept in sync with future versions of that draft.</p>
+<p id="rfc.section.4.2.1.p.6">The private key is defined as per <a href="#sec-priv-key" class="xref">Section 3.2</a> as</p>
+<pre>
+CompositePrivateKey ::= SEQUENCE SIZE (2) OF OneAsymmetricKey
+</pre>
+<p id="rfc.section.4.2.1.p.7">TODO: is "SEQUENCE SIZE (2) correct syntax?</p>
+<p id="rfc.section.4.2.1.p.8">OneAsymmetricKey is defined in [<a href="#RFC5958" class="xref">[RFC5958]</a>] as:</p>
+<pre>
+OneAsymmetricKey ::= SEQUENCE {
+  version                   Version,
+  privateKeyAlgorithm       PrivateKeyAlgorithmIdentifier,
+  privateKey                PrivateKey,
+  attributes            [0] Attributes OPTIONAL,
+  ...,
+  [[2: publicKey        [1] PublicKey OPTIONAL ]],
+  ...
+}
+</pre>
+<p id="rfc.section.4.2.1.p.9">The first OneAsymmetricKey SHALL contain</p>
+<pre>
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-dilithiumTBD,
+    parameters ABSENT
+  },
+privateKey DilithiumPrivateKey
+</pre>
+<p id="rfc.section.4.2.1.p.10">The publicKey remains OPTIONAL.</p>
+<p id="rfc.section.4.2.1.p.11">The second OneAsymmetricKey SHALL contain</p>
+<pre>
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters secp256r1
+  },
+privateKey ECPrivateKey
+</pre>
+<p id="rfc.section.4.2.1.p.12">The publicKey remains OPTIONAL.</p>
+<p id="rfc.section.4.2.1.p.13">TODO: provide and example public and private key in the examples appendix.</p>
+<p id="rfc.section.4.2.1.p.14">TODO: provide sizes for {dilithium3 + ecdsa-p256 + composite overhead} based on the samples we're providing, and compare against, for example RSA or SPHINCS+ - pubkey - priv key - signature</p>
 <h1 id="rfc.section.4.2.2">
 <a href="#rfc.section.4.2.2">4.2.2.</a> <a href="#id-dilithium3-rsa" id="id-dilithium3-rsa">id-Dilithium3-RSA</a>
 </h1>

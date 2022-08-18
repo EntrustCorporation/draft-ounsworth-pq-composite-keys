@@ -405,7 +405,9 @@ The following object identifier is defined:
 id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { TBD }
 ~~~
 
-When used in an AlgorithmIdentifier, parameters SHALL be ABSENT, but clients SHALL process as if parameters had been supplied as `ECParameters ::= secp256r1`.
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+TODO: Find a way to specify that the ECC component SKPI needs `ECParameters ::= secp256r1`.
 
 
 The public key encoding is defined using the ASN.1 module defined in {{appdx-creatingExplicitCombinations}} as:
@@ -418,11 +420,58 @@ pk-explicitComposite{id-Dilithium3-ECDSA-P256, pk-dilithiumTBD,
 EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
 
 
-TODO: define private key, see rfc5915 and {{I-D.massimo-lamps-pq-sig-certificates}}.
+The private key is defined as per {{sec-priv-key}} as
+
+~~~
+CompositePrivateKey ::= SEQUENCE SIZE (2) OF OneAsymmetricKey
+~~~
+
+TODO: is "SEQUENCE SIZE (2) correct syntax?
+
+OneAsymmetricKey is defined in [[RFC5958]] as:
+
+~~~
+OneAsymmetricKey ::= SEQUENCE {
+  version                   Version,
+  privateKeyAlgorithm       PrivateKeyAlgorithmIdentifier,
+  privateKey                PrivateKey,
+  attributes            [0] Attributes OPTIONAL,
+  ...,
+  [[2: publicKey        [1] PublicKey OPTIONAL ]],
+  ...
+}
+~~~
+
+The first OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-dilithiumTBD,
+    parameters ABSENT
+  },
+privateKey DilithiumPrivateKey
+~~~
+
+The publicKey remains OPTIONAL.
+
+
+The second OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters secp256r1
+  },
+privateKey ECPrivateKey
+~~~
+
+The publicKey remains OPTIONAL.
+
+
 
 TODO: provide and example public and private key in the examples appendix.
 
-TODO: provide sizes for {dilithium3 + ecdsa-p256 + composite overhead}, and compare against, for example RSA or SPHINCS+
+TODO: provide sizes for {dilithium3 + ecdsa-p256 + composite overhead} based on the samples we're providing, and compare against, for example RSA or SPHINCS+
   - pubkey
   - priv key
   - signature
