@@ -62,6 +62,8 @@ normative:
   RFC7468:
   RFC8174:
   RFC8411:
+  I-D.draft-ounsworth-pq-composite-sigs-05:
+  I-D.draft-massimo-lamps-pq-sig-certificates-00:
   X.690:
       title: "Information technology - ASN.1 encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"
       date: November 2015
@@ -81,11 +83,9 @@ informative:
   RFC7296:
   RFC8446:
   RFC8551:
-  I-D.draft-ounsworth-pq-composite-sigs-05:
   I-D.draft-becker-guthrie-noncomposite-hybrid-auth-00:
   I-D.draft-guthrie-ipsecme-ikev2-hybrid-auth-00:
   I-D.draft-driscoll-pqt-hybrid-terminology-00:
-  I-D.draft-massimo-lamps-pq-sig-certificates-00:
   Bindel2017:
     title: "Transitioning to a quantum-resistant public key infrastructure"
     target: "https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22"
@@ -345,6 +345,10 @@ This section defines the algorithm identifier for generic composite, as well as 
 
 Some use-cases desire the flexibility for client to use any combination of supported algorithms, while others desire the rigidity of explicitly-specified combinations of algorithms.
 
+TODO: blurb about why we have chosen the combinations that we did.
+* No SPHINCS+ because here we are only considering composite AND modes where a composite of SPHINCS+ does not add value over pure SPHINCS+. ... or should we to bridge across implementation bugs (CVEs)?
+* We have tried to pair components of equivalent strengths so that even if one component algorithm is broken, then the overall strength of the composite remains the same.
+
 
 ## id-composite-key (Generic Composite Keys) {#sec-generic-composite}
 
@@ -378,7 +382,7 @@ The motivation for this variant is primarily for prototyping work prior to the s
 
 ## Explicit Composite Signature Keys {#sec-explicit-sigs}
 
-This variant provides a rigid way of specifying supported combinations of key types. This document does not define any explicit combinations, but provides a framework for doing so.
+This variant provides a rigid way of specifying supported combinations of key types.
 
 The motivation for this variant is to make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
 
@@ -395,9 +399,12 @@ The SubjectPublicKeyInfo.algorithm for each component key is redundant informati
 
 Security consideration: Implementations MUST check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
 
-
+TODO: ref to draft-ounsworth-pq-composite-sigs
 
 ### id-Dilithium3-ECDSA-P256
+
+Usage guidance: This signature key type is intended to be the standard composite signature, applicable for most use cases. 
+
 
 The following object identifier is defined:
 
@@ -478,19 +485,32 @@ TODO: provide sizes for {dilithium3 + ecdsa-p256 + composite overhead} based on 
 
 ### id-Dilithium3-RSA
 
+Usage guidance: This signature key type is intended to be the standard composite signature for environments that support RSA but not elliptic curve.
+
+
 ### id-Falcon512-ECDSA-P256
+
+Usage guidance: This signature key type is intended for constrained environments that need to use FIPS-approved elliptic curve.
 
 ### id-Falcon512-Ed25519
 
-### id-Dilithium3-Falcon512-ECDSA-P256
+Usage guidance: This signature key type is intended for constrained environments that may use non-FIPS-approved elliptic curve.
+
+### id-SPHINCSXXX-ECDSA-P256
+
+Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateful hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations.
 
 ### id-Dilithium5-Falcon1024-ECDSA-P384
 
+Usage guidance: This signature key type is intended for long-term keys that desire robustness to the break of a given lattice-based scheme, but also desire smaller signatures than stateful hash-based signatures.
+
 Note that this still has smaller pubkey + sig than SPHINCS+
 
-## Explicit Composite encryption Keys {#sec-explicit-encr}
+## Explicit Composite KEM Keys {#sec-explicit-encr}
 
 TODO: some text
+
+Ref to draft-ounsworth-pq-composite-kem
 
 ### id-Kyber512-RSA
 
@@ -498,11 +518,6 @@ TODO: some text
 
 ### id-Kyber512-x25519
 
-### id-McEliece??-RSA
-
-### id-McEliece??-x448
-
-### id-Kyber768-McEliece??-x448
 
 # Implementation Considerations {#sec-imp-considers}
 
