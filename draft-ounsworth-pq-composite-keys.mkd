@@ -352,7 +352,9 @@ TODO: blurb about why we have chosen the combinations that we did.
 
 ## id-composite-key (Generic Composite Keys) {#sec-generic-composite}
 
-NOTE: This mode is for prototyping and for use in proprietary implementations. This section should be removed prior to publication by the RFC Editors.
+This mode is primarily for prototyping and for use in proprietary implementations; implementers MAY implement this section if there is a need for greater flexibility in algorithm combinations than is available by using the pre-defined composite algorithms defined below.
+
+EDNOTE: Does the WG feel strongly that this section should be removed prior to publication by the RFC Editors? IE remove it entirely from the standard?
 
 The id-composite-key object identifier is used for identifying a generic composite public key and a generic composite private key. This allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or standardized. 
 
@@ -400,6 +402,8 @@ The SubjectPublicKeyInfo.algorithm for each component key is redundant informati
 Security consideration: Implementations MUST check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
 
 TODO: ref to draft-ounsworth-pq-composite-sigs
+
+EDNOTE: for the algorithms including elliptic curve ECDSA, should the curve (NIST P256, Brainpool P256r1, etc) be specified in the OID, or should we leave this out of the OID and include it in the params? I know the WG has a general distaste for params, but this is a source of OID explosion.
 
 ### id-Dilithium3-ECDSA-P256
 
@@ -498,11 +502,17 @@ Usage guidance: This signature key type is intended for constrained environments
 
 ### id-SPHINCSXXX-ECDSA-P256
 
-Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateful hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations.
+Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateless hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations.
 
-### id-Dilithium5-Falcon1024-ECDSA-P384
+### id-Dilithium5-Falcon1024-ECDSA-P521
 
-Usage guidance: This signature key type is intended for long-term keys that desire robustness to the break of a given lattice-based scheme, but also desire smaller signatures than stateful hash-based signatures.
+Usage guidance: This signature key type is intended for long-term keys that desire robustness to the break of a given lattice-based scheme, but also desire smaller signatures than stateless hash-based signatures.
+
+Note that this still has smaller pubkey + sig than SPHINCS+
+
+### id-Dilithium5-Falcon1024-RSA
+
+Usage guidance: This signature key type is intended for long-term keys that desire robustness to the break of a given lattice-based scheme for environments that support RSA but not elliptic curve, but also desire smaller signatures than stateless hash-based signatures. 
 
 Note that this still has smaller pubkey + sig than SPHINCS+
 
