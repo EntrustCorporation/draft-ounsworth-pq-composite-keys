@@ -53,13 +53,17 @@ normative:
   RFC2119:
   RFC2986:
   RFC5280:
+  rfc5480:
   RFC5652:
   RFC5912:
   RFC5914:
+  rfc5915:
   RFC5958:
   RFC7468:
   RFC8174:
   RFC8411:
+  I-D.draft-ounsworth-pq-composite-sigs-05:
+  I-D.draft-massimo-lamps-pq-sig-certificates-00:
   X.690:
       title: "Information technology - ASN.1 encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"
       date: November 2015
@@ -79,9 +83,9 @@ informative:
   RFC7296:
   RFC8446:
   RFC8551:
-  I-D.draft-ounsworth-pq-composite-sigs-05:
   I-D.draft-becker-guthrie-noncomposite-hybrid-auth-00:
   I-D.draft-guthrie-ipsecme-ikev2-hybrid-auth-00:
+  I-D.draft-driscoll-pqt-hybrid-terminology-00:
   Bindel2017:
     title: "Transitioning to a quantum-resistant public key infrastructure"
     target: "https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22"
@@ -174,7 +178,7 @@ Cautious implementors may wish to layer cryptographic algorithms such that an at
 
 EDNOTE: the terms "dual" and "hybrid" are currently in flux. We anticipate an Informational draft to normalize terminology, and will update this draft accordingly.
 
-This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed. The explicit variant is also defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID.
+This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed. The explicit variant is alxso defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID.
 
 This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as {{I-D.ounsworth-pq-composite-sigs}} and draft-ounsworth-pq-composite-kem (yet to be published).
 
@@ -184,7 +188,9 @@ This document is intended to be coupled with corresponding documents that define
 
 # Changes in version -03
 
-- Added section "Value proposition of hybrid / composite schemes"
+- Added the following explicit composite key types
+- Marked generic composite for prototyping; to be removed in final publication.
+- TODO: Sycronized terminology with I-D.draft-driscoll-pqt-hybrid-terminology-00 
 
 
 ## Terminology {#sec-terminology}
@@ -247,49 +253,6 @@ This document provides a mechanism to address algorithm strength uncertainty con
 
 This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.
 
-## Value proposition of hybrid / composite schemes
-
-This section presents an analysis of cases under which hybrid approaches in general, and composite in particular, provide value.
-
-Assumptions for this analysis:
-
-1. Traditional cryptographic algorithms -- those based on integer factorization or discrete logarithm problems -- will be broken irrevocably by quantum cryptanalysis with probability 1 if one assumes a long enough time scale; for example if one considers cryptographically-protected data produced today that needs to remain secure until the year 2070.
-
-2. Prior to the advent of cryptographically-relevant quantum computers, traditional cryptographic algorithms maintain approximately the same security strength that they enjoy today, accounting for minor advances in cryptanalytic techniques and computational power, but a full classical break is not expected in traditional algorithms that have been well scrutinized for the past 30-40 years
-
-3. Classical cryptanalysis of Post quantum cryptographic algorithms are still an active field of research with two of the, at the time, leading candidates being broken in 2022; Rainbow [Beullens2022] and SIKE [Castryck2022]. Any early adopters of PQC would be wise to design for the possibility of a full break of their chosen PQC algorithm(s). Discovery of such a break post-deployment of the affected algorithm would result in a "zero-day" security incident requiring large-scale rapid effort to completely replace the affected algorithm across production environments.
-
-4. Open source and proprietary implementations of Post-quantum cryptographic algorithms will, with high probability but not certainty, admit implementation bugs which will lead to "zero-day" security incidents with impacts ranging across private key recovery, signature forgery, ciphertext recovery, etc. These will lead to short-term exposures until, for example, clients can be patched or keys re-issued and data re-protected.
-
-
-
-### Analysis: digital signatures
-
-A break to digital signatures assumes the ability of an attacker to present a forged signature either in real-time, for example during the challenge-response protocol, or asynchronously by forging the digital signature on a long-lived document such as a certificate, a digital contract, or a code-signed software application.
-
-Early adopters of post quantum cryptography (PQC), particularly of lattice-based schemes, face the risk of the chosen scheme being broken and requiring rapid migration to a new cryptographic algorithm.
-
-Even late adopters, those who wait for cryptanalytic research to stabilize before selecting and migrating to PQC, face the ongoing risk of implementation bugs leading to "zero-day" incidents in commonly-used implementations. Given the history of modern cryptography, the authors posit that this is likely; consider for example the Bleichenbacher attack against RSA signatures using PKCS#1 padding first published with mitigations in 1998 [Bleichenbacher1998], and also the 2018 study [ROBOT2018] which found that 19 years later, many of the most common TLS implementations on the internet had either failed to implement the original mitigations, or else failed to implement them correctly. Given that post quantum cryptographic algorithms have substantially higher algorithmic and implementation complexity than RSA PKCS#1, the authors posit that recurring implementation bugs is highly likely.
-
-Therefore it is highly likely that either post quantum / traditional (PQ/T) hybrids or post-quantum / post quantum (PQ/PQ) hybrids will provide meaningful protection across "zero-day" exposure periods while mitigations are deployed, whether that be software patches to signers and verifiers, or revocation of keys and re-issuing of signed documents.
-
-
-### Analysis: encryption and key establishment
-
-Encryption and key establishment has slightly more complex analysis in that in addition to the real-time attacks analogous to those described above for digital signature schemes, there is also the potential for store-and-decrypt attacks where an attacker records traffic now and holding it until cryptanalytic techniques have advanced enough to allow for its decryption, as well as recovery attacks against data encrypted at rest in long-term storage media.  This idea was nicely described by Michele Mosca as "x + y > Z" where x is the length of time you need your encrypted documents to remain secret, y is the lead-time needed for a cryptographic migration, and Z is the time until a cryptographically relevant quantum computer is available [Mosca2015]. 
-
-Some encrypted traffic over the internet may have relatively short data protection timelines x; for example a TLS connection to an e-commerce site may only require confidentiality until the expiry of the user's session token, typically measured in minutes or hours, or until the expiry of the user's payment card, typically measured in a small number of years. However it is easy to imagine encrypted internet traffic containing intellectual property, financial data, health data, political or journalistic content, and more for which leaking the data could have real-world consequences even 50 years later.
-
-
-Short-lived data
-
-Here the only relevant attacks are "short-term" ones leading to "zero-day" attacks and fairly short exposure windows before mitigations can be applied to future encrypted transmissions. As with digital signatures above, hybrids provide protection across the immediate exposure periods. For real-time and store-and-decrypt attacks this extends the data confidentiality period to be the longest of the component algorithms used in the hybrid. For offline data storage, this gives operators a period of time in which to retrieve and re-encrypt the data without risk of exposure.
-
-Long-lived data
-
-Under the assumptions above, traditional cryptography will be broken with probability 1, and any given implementation of post quantum cryptography, especially for early adopters, with probability approaching 1. This means that long-term data confidentiality against store-and-decrypt and recovery attacks fails with probability approaching 1 even if hybrid approaches are employed. However, even in this case, the data confidentiality period is extended to be the longest of the component algorithms used, which could provide years or even decades of additional confidentiality time before the eventual break of all component algorithms. Often that extra time will avoid the need for a costly emergency crypto migration. While not a complete mitigation, the authors posit that this is still valuable.
-
-We conclude that there are enough cases where hybrids provide meaningful security that it would be wise for designers of internet protocols to employ post quantum / traditional (PQ/T) or post quantum / post quantum (PQ/PQ) hybrids especially where the protocol will be used to carry a range of types of user data with confidentiality periods ranging from seconds to decades.
 
 <!-- End of Introduction section -->
 
@@ -382,8 +345,16 @@ This section defines the algorithm identifier for generic composite, as well as 
 
 Some use-cases desire the flexibility for client to use any combination of supported algorithms, while others desire the rigidity of explicitly-specified combinations of algorithms.
 
+TODO: blurb about why we have chosen the combinations that we did.
+* No SPHINCS+ because here we are only considering composite AND modes where a composite of SPHINCS+ does not add value over pure SPHINCS+. ... or should we to bridge across implementation bugs (CVEs)?
+* We have tried to pair components of equivalent strengths so that even if one component algorithm is broken, then the overall strength of the composite remains the same.
+
 
 ## id-composite-key (Generic Composite Keys) {#sec-generic-composite}
+
+This mode is primarily for prototyping and for use in proprietary implementations; implementers MAY implement this section if there is a need for greater flexibility in algorithm combinations than is available by using the pre-defined composite algorithms defined below.
+
+EDNOTE: Does the WG feel strongly that this section should be removed prior to publication by the RFC Editors? IE remove it entirely from the standard?
 
 The id-composite-key object identifier is used for identifying a generic composite public key and a generic composite private key. This allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or standardized. 
 
@@ -395,7 +366,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
 EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
-The PUBLIC-KEY ASN.1 information object class is defined in [RFC5912]. The PUBLIC-KEY information object for generic ({{sec-generic-composite}}) and explicit ({{sec-explicit}}) composite public and private keys has the following form:
+The PUBLIC-KEY ASN.1 information object class is defined in [RFC5912]. The PUBLIC-KEY information object for generic ({{sec-generic-composite}}) and explicit ({{sec-explicit-sigs}}) composite public and private keys has the following form:
 
 ~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
@@ -411,9 +382,9 @@ The motivation for this variant is primarily for prototyping work prior to the s
 
 
 
-## Explicit Composite Keys {#sec-explicit}
+## Explicit Composite Signature Keys {#sec-explicit-sigs}
 
-This variant provides a rigid way of specifying supported combinations of key types. This document does not define any explicit combinations, but provides a framework for doing so.
+This variant provides a rigid way of specifying supported combinations of key types.
 
 The motivation for this variant is to make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
 
@@ -430,6 +401,132 @@ The SubjectPublicKeyInfo.algorithm for each component key is redundant informati
 
 Security consideration: Implementations MUST check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
 
+TODO: ref to draft-ounsworth-pq-composite-sigs
+
+EDNOTE: for the algorithms including elliptic curve ECDSA, should the curve (NIST P256, Brainpool P256r1, etc) be specified in the OID, or should we leave this out of the OID and include it in the params? I know the WG has a general distaste for params, but this is a source of OID explosion.
+
+### id-Dilithium3-ECDSA-P256
+
+Usage guidance: This signature key type is intended to be the standard composite signature, applicable for most use cases. 
+
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { TBD }
+~~~
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+TODO: Find a way to specify that the ECC component SKPI needs `ECParameters ::= secp256r1`.
+
+
+The public key encoding is defined using the ASN.1 module defined in {{appdx-creatingExplicitCombinations}} as:
+
+~~~
+pk-explicitComposite{id-Dilithium3-ECDSA-P256, pk-dilithiumTBD,
+ TBDPublicKey, pk-ec, ecPublicKey} 
+~~~
+
+EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
+
+
+The private key is defined as per {{sec-priv-key}} as
+
+~~~
+CompositePrivateKey ::= SEQUENCE SIZE (2) OF OneAsymmetricKey
+~~~
+
+TODO: is "SEQUENCE SIZE (2) correct syntax?
+
+OneAsymmetricKey is defined in [[RFC5958]] as:
+
+~~~
+OneAsymmetricKey ::= SEQUENCE {
+  version                   Version,
+  privateKeyAlgorithm       PrivateKeyAlgorithmIdentifier,
+  privateKey                PrivateKey,
+  attributes            [0] Attributes OPTIONAL,
+  ...,
+  [[2: publicKey        [1] PublicKey OPTIONAL ]],
+  ...
+}
+~~~
+
+The first OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-dilithiumTBD,
+    parameters ABSENT
+  },
+privateKey DilithiumPrivateKey
+~~~
+
+The publicKey remains OPTIONAL.
+
+
+The second OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters secp256r1
+  },
+privateKey ECPrivateKey
+~~~
+
+The publicKey remains OPTIONAL.
+
+
+
+TODO: provide and example public and private key in the examples appendix.
+
+TODO: provide sizes for {dilithium3 + ecdsa-p256 + composite overhead} based on the samples we're providing, and compare against, for example RSA or SPHINCS+
+  - pubkey
+  - priv key
+  - signature
+
+### id-Dilithium3-RSA
+
+Usage guidance: This signature key type is intended to be the standard composite signature for environments that support RSA but not elliptic curve.
+
+
+### id-Falcon512-ECDSA-P256
+
+Usage guidance: This signature key type is intended for constrained environments that need to use FIPS-approved elliptic curve.
+
+### id-Falcon512-Ed25519
+
+Usage guidance: This signature key type is intended for constrained environments that may use non-FIPS-approved elliptic curve.
+
+### id-SPHINCSXXX-ECDSA-P256
+
+Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateless hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations.
+
+### id-Dilithium5-Falcon1024-ECDSA-P521
+
+Usage guidance: This signature key type is intended for long-term keys that desire robustness to the break of a given lattice-based scheme, but also desire smaller signatures than stateless hash-based signatures.
+
+Note that this still has smaller pubkey + sig than SPHINCS+
+
+### id-Dilithium5-Falcon1024-RSA
+
+Usage guidance: This signature key type is intended for long-term keys that desire robustness to the break of a given lattice-based scheme for environments that support RSA but not elliptic curve, but also desire smaller signatures than stateless hash-based signatures. 
+
+Note that this still has smaller pubkey + sig than SPHINCS+
+
+## Explicit Composite KEM Keys {#sec-explicit-encr}
+
+TODO: some text
+
+Ref to draft-ounsworth-pq-composite-kem
+
+### id-Kyber512-RSA
+
+### id-Kyber512-ECDH-P256
+
+### id-Kyber512-x25519
 
 
 # Implementation Considerations {#sec-imp-considers}
@@ -515,7 +612,7 @@ There is an additional security consideration that some use cases such as signat
 
 ## Key mismatch in explicit composite
 
-This security consideration copied from {{sec-explicit}}.
+This security consideration copied from {{sec-explicit-sigs}}.
 
 Implementations MUST check that that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
 
