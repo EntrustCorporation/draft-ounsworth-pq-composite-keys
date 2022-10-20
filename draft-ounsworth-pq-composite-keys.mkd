@@ -53,13 +53,14 @@ normative:
   RFC2119:
   RFC2986:
   RFC5280:
-  rfc5480:
+  RFC5480:
   RFC5652:
   RFC5912:
   RFC5914:
   rfc5915:
   RFC5958:
   RFC7468:
+  RFC8017:
   RFC8174:
   RFC8411:
   I-D.draft-ounsworth-pq-composite-sigs-05:
@@ -401,9 +402,8 @@ The SubjectPublicKeyInfo.algorithm for each component key is redundant informati
 
 Security consideration: Implementations MUST check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
 
-TODO: ref to draft-ounsworth-pq-composite-sigs
+TODO: ref to draft-ounsworth-pq-composite-sigs and -kem ?
 
-EDNOTE: for the algorithms including elliptic curve ECDSA, should the curve (NIST P256, Brainpool P256r1, etc) be specified in the OID, or should we leave this out of the OID and include it in the params? I know the WG has a general distaste for params, but this is a source of OID explosion.
 
 ### id-Dilithium3-ECDSA-P256
 
@@ -413,47 +413,220 @@ Usage guidance: This signature key type is intended to be the standard composite
 The following object identifier is defined:
 
 ~~~ asn1
-id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { TBD }
+id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-ECDSA-P256(1) }
 ~~~
+
+EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-TODO: Find a way to specify that the ECC component SKPI needs `ECParameters ::= secp256r1`.
 
+The PUBLIC-KEY SHALL be:
 
-The public key encoding is defined using the ASN.1 module defined in {{appdx-creatingExplicitCombinations}} as:
-
+~~~ ASN.1
+pk-Dilithium3-ECDSA-P256 PUBLIC-KEY ::= {
+    id id-Dilithium3-ECDSA-P256
+    KeyValue CompositePublicKey
+    Params ARE ABSENT
+    PrivateKey CompositePrivateKey
+}
 ~~~
-pk-explicitComposite{id-Dilithium3-ECDSA-P256, pk-dilithiumTBD,
- TBDPublicKey, pk-ec, ecPublicKey} 
+
+--- BEGIN EDNOTE ---
+
+EDNOTE: design decision needed: should it be CompositePublicKey + CompositePrivateKey, or should we define *-PublicKey and *-PrivateKey for each explicit type?
+
+Pros of a *-PublicKey for each explicit composite type: 1) the ASN.1 parser will do some of the heavy-lifting of checking that types match (but how much is up for debate..). 2) can further compress the encoding by removing the redundant inner component OIDs.
+
+Pros of CompositePublicKey (ie carrying full SPKIs for each component): 1) it becomes harder to write abstract code that takes advantange of the fact that all composite explicit types have the same wire encoding structure because each will have an independantly defined structure object. 2) The wire encoding carries a full SPKI, so for crypto libraries that require an SPKI for each component alg, clients need to reconstruct a full SPKI, including reconstituting the components OIDs, which needs the client to have a mapping table of explicit composite OIDs to component OIDs.
+
+--- END EDNOTE ---
+
+
+
+The public key encoding is defined in {{sec-composite-pub-keys}} for id-Dilithium3-ECDSA-P256 SHALL have SIZE (2):
+
+~~~ ASN.1
+CompositePublicKey ::= SEQUENCE SIZE (2) OF SubjectPublicKeyInfo
 ~~~
+
+The first SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-dilithiumTBD,
+          paramaters ABSENT
+      },
+     subjectPublicKey     BIT STRING(DilithiumPublicKey)
+}
+~~~
+
+where pk-dilithiumTBD and TBDDilithiumPublicKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
+
+TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
 
 EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
 
 
-The private key is defined as per {{sec-priv-key}} as
+The second SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm id-ecPublicKey,
+            parameters secp256r1
+      },
+     subjectPublicKey     BIT STRING(ECPoint)
+}
+~~~
+
+where id-ecPublicKey, secp256r1, and ECPoint are defined in [RFC5912].
+
+
+
+The private key encoding is defined in {{sec-priv-key}}, and for id-Dilithium3-ECDSA-P256 SHALL have SIZE (2):
 
 ~~~
 CompositePrivateKey ::= SEQUENCE SIZE (2) OF OneAsymmetricKey
 ~~~
 
-TODO: is "SEQUENCE SIZE (2) correct syntax?
 
-OneAsymmetricKey is defined in [[RFC5958]] as:
+The first OneAsymmetricKey, defined in [RFC5958] SHALL contain
 
 ~~~
-OneAsymmetricKey ::= SEQUENCE {
-  version                   Version,
-  privateKeyAlgorithm       PrivateKeyAlgorithmIdentifier,
-  privateKey                PrivateKey,
-  attributes            [0] Attributes OPTIONAL,
-  ...,
-  [[2: publicKey        [1] PublicKey OPTIONAL ]],
-  ...
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-dilithiumTBD,
+    parameters ABSENT
+  },
+privateKey DilithiumPrivateKey
+~~~
+
+where id-dilithiumTBD and DilithiumPrivateKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
+
+The publicKey remains OPTIONAL.
+
+
+The second OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters secp256r1
+  },
+privateKey ECPrivateKey
+~~~
+
+where ECPrivateKey is defined in [RFC5480].
+
+The publicKey remains OPTIONAL.
+
+
+
+TODO: provide and example public and private key in the examples appendix.
+
+TODO: provide sizes for {dilithium3 + ecdsa-p256 + composite overhead} based on the samples we're providing, and compare against, for example RSA or SPHINCS+
+  - pubkey
+  - priv key
+  - signature
+
+
+### id-Dilithium3-RSA
+
+Usage guidance: This signature key type is intended to be the standard composite signature for environments that support RSA but not elliptic curve.
+
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Dilithium3-RSA OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-RSA(2) }
+~~~
+
+EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+The PUBLIC-KEY SHALL be:
+
+~~~ ASN.1
+pk-Dilithium3-ECDSA-P256 PUBLIC-KEY ::= {
+    id id-Dilithium3-RSA
+    KeyValue CompositePublicKey
+    Params ARE ABSENT
+    PrivateKey CompositePrivateKey
 }
 ~~~
 
-The first OneAsymmetricKey SHALL contain
+--- BEGIN EDNOTE ---
+
+EDNOTE: design decision needed: should it be CompositePublicKey + CompositePrivateKey, or should we define *-PublicKey and *-PrivateKey for each explicit type?
+
+Pros of a *-PublicKey for each explicit composite type: 1) the ASN.1 parser will do some of the heavy-lifting of checking that types match (but how much is up for debate..). 2) can further compress the encoding by removing the redundant inner component OIDs.
+
+Pros of CompositePublicKey (ie carrying full SPKIs for each component): 1) it becomes harder to write abstract code that takes advantange of the fact that all composite explicit types have the same wire encoding structure because each will have an independantly defined structure object. 2) The wire encoding carries a full SPKI, so for crypto libraries that require an SPKI for each component alg, clients need to reconstruct a full SPKI, including reconstituting the components OIDs, which needs the client to have a mapping table of explicit composite OIDs to component OIDs.
+
+--- END EDNOTE ---
+
+
+The public key encoding is defined in {{sec-composite-pub-keys}} for id-Dilithium3-ECDSA-P256 SHALL have SIZE (2):
+
+~~~ ASN.1
+CompositePublicKey ::= SEQUENCE SIZE (2) OF SubjectPublicKeyInfo
+~~~
+
+The first SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-dilithiumTBD,
+          paramaters ABSENT
+      },
+     subjectPublicKey     BIT STRING(DilithiumPublicKey)
+}
+~~~
+
+where pk-dilithiumTBD and TBDDilithiumPublicKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
+
+TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
+
+EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
+
+
+The second SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm rsaEncryption,
+            parameters NULL
+      },
+     subjectPublicKey     BIT STRING(RSAPublicKey)
+}
+~~~
+
+where rsaEncryption and RSAPublicKey are defined in [RFC8017].
+
+
+
+
+The private key encoding is defined in {{sec-priv-key}}, and for id-Dilithium3-ECDSA-P256 SHALL have SIZE (2):
+
+~~~
+CompositePrivateKey ::= SEQUENCE SIZE (2) OF OneAsymmetricKey
+~~~
+
+
+The first OneAsymmetricKey, defined in [RFC5958] SHALL contain
 
 ~~~
 privateKeyAlgorithm AlgorithmIdentifier ::= {
@@ -476,6 +649,8 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 privateKey ECPrivateKey
 ~~~
 
+where ECPrivateKey is defined in [RFC5480].
+
 The publicKey remains OPTIONAL.
 
 
@@ -486,11 +661,6 @@ TODO: provide sizes for {dilithium3 + ecdsa-p256 + composite overhead} based on 
   - pubkey
   - priv key
   - signature
-
-### id-Dilithium3-RSA
-
-Usage guidance: This signature key type is intended to be the standard composite signature for environments that support RSA but not elliptic curve.
-
 
 ### id-Falcon512-ECDSA-P256
 
@@ -800,6 +970,8 @@ SEQUENCE {
 
 ## Explicit Composite Public Key Examples {#appdx-expComposite-examples}
 
+### pk-example-ECandRSA
+
 Assume that the following is a defined explicit pair:
 
 ~~~ asn.1
@@ -912,6 +1084,53 @@ SEQUENCE {
     }
   }
 ~~~
+
+### id-Dilithium3-ECDSA-P256
+
+
+This example uses the following OID as definid in Open Quantum Safe:
+
+https://github.com/open-quantum-safe/openssl/blob/OQS-OpenSSL_1_1_1-stable/oqs-template/oqs-sig-info.md
+
+~~~
+id-pk-dilithium3 1.3.6.1.4.1.2.267.7.6.5
+~~~
+
+A Dilithium3-ECDSA-P256 public key:
+
+
+
+which decodes as:
+
+~~~
+algorithm: AlgorithmIdentifier{id-Dilithium3-ECDSA-P256}
+
+subjectPublicKey: CompositePublicKey {
+  SubjectPublicKeyInfo {
+    algorithm: AlgorithmIdentifier {
+      algorithm: id-pk-dilithium3
+      }
+    subjectPublicKey: <dilithium key octet string>
+    },
+    SubjectPublicKeyInfo {
+    algorithm: AlgorithmIdentifier {
+      algorithm: ecPublicKey
+      parameters: prime256v1
+      }
+    subjectPublicKey: <ec key octet string>
+    }
+  }
+           
+~~~
+
+The corresponding explicit private key is:
+
+~~~
+-----BEGIN PRIVATE KEY-----
+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
+-----END PRIVATE KEY-----
+~~~
+
 
 # ASN.1 Module
 
