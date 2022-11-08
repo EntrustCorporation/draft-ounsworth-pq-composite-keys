@@ -307,6 +307,11 @@ EDNOTE: does this also need an explicit version? It would probably reduce attack
 For protocols such as X.509 [RFC5280] that specify key usage along with the public key, any key usage may be used with composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.
 
 
+### As a PrivateKeyInfo or OneAsymmetricKey {#sec-as-one-asymmetric-key}
+
+A CompositePrivateKey can be stored in a OneAsymmetricKey structure (version 1 of which is also known as PrivateKeyInfo) [RFC5958].  When this is done, the privateKeyAlgorithm field SHALL be set to the corresponding composite algorithm identifier defined according to {{sec-alg-ids}}, the privateKey field SHALL contain the CompositePrivateKey, and the publicKey field MUST NOT be present. Associated public key material MAY be present in the CompositePrivateKey.
+
+
 ## Encoding Rules {#sec-encoding-rules}
 <!-- EDNOTE 7: Examples of how other specifications specify how a data structure is converted to a bit string can be found in RFC 2313, section 10.1.4, 3279 section 2.3.5, and RFC 4055, section 3.2. -->
 
@@ -699,10 +704,9 @@ EDNOTE 10: Possible topics to address:
   - If a cert in the chain is a composite cert then does the whole chain need to be of composite Certs?
   - We could also explain that the root CA cert does not have to be of the same algorithms. The root cert SHOULD NOT be transferred in the authentication exchange to save transport overhead and thus it can be different than the intermediate and leaf certs.
 
-
 ## Textual encoding of Composite Private Keys
 
-CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail (PEM) [RFC1421] format by placing a CompositePrivateKey into the privateKey field of a PrivateKeyInfo or OneAsymmetricKey object, and then applying the PEM encoding rules as defined in [RFC7468] section 10 and 11 for plaintext and encrypted private keys, respectively.
+CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail (PEM) [RFC1421] format by storing a CompositePrivateKey in a PrivateKeyInfo or OneAsymmetricKey object according to {{sec-as-one-asymmetric-key}}, and then applying the PEM encoding rules as defined in [RFC7468] section 10 and 11 for plaintext and encrypted private keys, respectively.
 
 
 ## Backwards Compatibility {#sec-backwards-compat}
