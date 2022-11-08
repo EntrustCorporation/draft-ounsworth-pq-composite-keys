@@ -267,7 +267,7 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 {: artwork-name="CompositePublicKey-asn.1-structures"}
 
 
-A composite key MUST contain at least two component public keys.
+A composite key MUST contain at least two component public keys.  When the composite key is used in conjunction with an explicit composite algorithm identifier defined under section {{sec-alg-ids}}, the order of the component keys is determined by that algorithm identifier's definition.  Otherwise, the composite key is considered to be used in conjunction with the algorithm identifier id-composite-key defined in {{sec-generic-composite}}, and no ordering constraint applies.
 
 A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed.
 
@@ -296,7 +296,7 @@ Each element is a OneAsymmetricKey [RFC5958] object for a component private key.
 
 The parameters field MUST be absent.
 
-A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.
+A CompositePrivateKey MUST contain at least two component private keys, and the order of the component keys is the same as the order defined in {{sec-composite-pub-keys}} for the components of CompositePublicKey.
 
 EDNOTE: does this also need an explicit version? It would probably reduce attack surface of tricking a client into running the wrong parser and a given piece of data. ... maybe we get that for free if we use the explicit composite OIDs also for private keys?
 
@@ -331,7 +331,7 @@ https://mailarchive.ietf.org/arch/msg/spasm/Gv-ACiOpYZfOM0AJEZUX1jIhVq0/
 
 # Algorithm Identifiers {#sec-alg-ids}
 
-This section defines the algorithm identifier for generic composite, as well as a framework for defining explicit combinations and a list of explicit composite algorithms covering a wide range of use cases. This section is not intended to be exhaustive and other authors may define others so long as they are compatible with the structures and processes defined in this and companion signature and encryption documents.
+This section defines the algorithm identifier for generic composite, as well as a framework for defining explicit combinations and a list of explicit composite algorithms covering a wide range of use cases. This section is not intended to be exhaustive and other authors may define others so long as they are compatible with the structures and processes defined in this and companion signature and encryption documents, including defining the order of the components of the corresponding composite keys.
 
 Some use-cases desire the flexibility for client to use any combination of supported algorithms, while others desire the rigidity of explicitly-specified combinations of algorithms.
 
@@ -341,7 +341,7 @@ Usage guidance: This mode is primarily for prototyping and for use in proprietar
 
 EDNOTE: Does the WG feel strongly that this section should be removed prior to publication by the RFC Editors? IE remove it entirely from the standard? Are there enduring (ie non-prototyping) usecases that benefit from generic composite?
 
-The id-composite-key object identifier is used for identifying a generic composite public key and a generic composite private key. This allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or standardized. 
+The id-composite-key object identifier is used for identifying a generic composite public key and a generic composite private key. This allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or standardized. No order is defined for the components of CompositePublicKey or CompositePrivateKey structures identified by id-composite-key.
 
 ~~~ asn.1
 id-composite-key OBJECT IDENTIFIER ::= {
