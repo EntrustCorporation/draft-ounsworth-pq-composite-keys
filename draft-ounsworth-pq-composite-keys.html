@@ -20,7 +20,7 @@
     ' name="description">
 <meta content="xml2rfc 3.12.2" name="generator">
 <meta content="Internet-Draft" name="keyword">
-<meta content="draft-ounsworth-pq-composite-keys-03" name="ietf.draft">
+<meta content="draft-ounsworth-pq-composite-keys-04" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.12.2
     Python 3.10.6
@@ -1181,11 +1181,11 @@ li > p:last-of-type {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PQ Composite Keys</td>
-<td class="right">October 2022</td>
+<td class="right">November 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 25 April 2023</td>
+<td class="center">Expires 13 May 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1195,15 +1195,15 @@ li > p:last-of-type {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">LAMPS</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ounsworth-pq-composite-keys-03</dd>
+<dd class="internet-draft">draft-ounsworth-pq-composite-keys-04</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-10-22" class="published">22 October 2022</time>
+<time datetime="2022-11-09" class="published">9 November 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-04-25">25 April 2023</time></dd>
+<dd class="expires"><time datetime="2023-05-13">13 May 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1248,7 +1248,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 April 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 May 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1278,7 +1278,7 @@ li > p:last-of-type {
         </h2>
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
-            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-changes-in-version-03-2" class="xref">Changes in version -03</a></p>
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-changes-in-version-04-2" class="xref">Changes in version -04</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-terminology-2" class="xref">Terminology</a></p>
@@ -1329,7 +1329,7 @@ li > p:last-of-type {
                     <p id="section-toc.1-1.4.2.2.2.4.1"><a href="#section-4.2.4" class="xref">4.2.4</a>.  <a href="#name-id-falcon512-ed25519-3" class="xref">id-Falcon512-Ed25519</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.5">
-                    <p id="section-toc.1-1.4.2.2.2.5.1"><a href="#section-4.2.5" class="xref">4.2.5</a>.  <a href="#name-id-sphincssha256256frobust-ec" class="xref">id-SPHINCSsha256256frobust-ECDSA-P256</a></p>
+                    <p id="section-toc.1-1.4.2.2.2.5.1"><a href="#section-4.2.5" class="xref">4.2.5</a>.  <a href="#name-id-sphincssha256256ssimple-e" class="xref">id-SPHINCSsha256256ssimple-ECDSA-P521</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2.2.6">
                     <p id="section-toc.1-1.4.2.2.2.6.1"><a href="#section-4.2.6" class="xref">4.2.6</a>.  <a href="#name-id-dilithium5-falcon1024-ecds" class="xref">id-Dilithium5-Falcon1024-ECDSA-P521</a></p>
@@ -1343,13 +1343,31 @@ li > p:last-of-type {
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-explicit-composite-kem-keys-2" class="xref">Explicit Composite KEM Keys</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.1">
-                    <p id="section-toc.1-1.4.2.3.2.1.1"><a href="#section-4.3.1" class="xref">4.3.1</a>.  <a href="#name-id-kyber512-rsa-3" class="xref">id-Kyber512-RSA</a></p>
+                    <p id="section-toc.1-1.4.2.3.2.1.1"><a href="#section-4.3.1" class="xref">4.3.1</a>.  <a href="#name-id-kyber512-ecdh-p256-3" class="xref">id-Kyber512-ECDH-P256</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.2">
-                    <p id="section-toc.1-1.4.2.3.2.2.1"><a href="#section-4.3.2" class="xref">4.3.2</a>.  <a href="#name-id-kyber512-ecdh-p256-3" class="xref">id-Kyber512-ECDH-P256</a></p>
+                    <p id="section-toc.1-1.4.2.3.2.2.1"><a href="#section-4.3.2" class="xref">4.3.2</a>.  <a href="#name-id-kyber512-x25519-3" class="xref">id-Kyber512-x25519</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.3">
-                    <p id="section-toc.1-1.4.2.3.2.3.1"><a href="#section-4.3.3" class="xref">4.3.3</a>.  <a href="#name-id-kyber512-x25519-3" class="xref">id-Kyber512-x25519</a></p>
+                    <p id="section-toc.1-1.4.2.3.2.3.1"><a href="#section-4.3.3" class="xref">4.3.3</a>.  <a href="#name-id-kyber768-rsa-2" class="xref">id-Kyber768-RSA</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.4">
+                    <p id="section-toc.1-1.4.2.3.2.4.1"><a href="#section-4.3.4" class="xref">4.3.4</a>.  <a href="#name-id-kyber768-ecdh-p384-2" class="xref">id-Kyber768-ECDH-P384</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.5">
+                    <p id="section-toc.1-1.4.2.3.2.5.1"><a href="#section-4.3.5" class="xref">4.3.5</a>.  <a href="#name-id-kyber768-x25519-2" class="xref">id-Kyber768-X25519</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.6">
+                    <p id="section-toc.1-1.4.2.3.2.6.1"><a href="#section-4.3.6" class="xref">4.3.6</a>.  <a href="#name-id-kyber1024-ecdh-p521-2" class="xref">id-Kyber1024-ECDH-P521</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.7">
+                    <p id="section-toc.1-1.4.2.3.2.7.1"><a href="#section-4.3.7" class="xref">4.3.7</a>.  <a href="#name-id-kyber1024-x448-2" class="xref">id-Kyber1024-X448</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.8">
+                    <p id="section-toc.1-1.4.2.3.2.8.1"><a href="#section-4.3.8" class="xref">4.3.8</a>.  <a href="#name-id-kyber768-ecdh-brainpoolp3" class="xref">id-Kyber768-ECDH-brainpoolP384r1</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3.2.9">
+                    <p id="section-toc.1-1.4.2.3.2.9.1"><a href="#section-4.3.9" class="xref">4.3.9</a>.  <a href="#name-id-kyber1024-ecdh-brainpoolp" class="xref">id-Kyber1024-ECDH-brainpoolP512r1</a></p>
 </li>
                 </ul>
 </li>
@@ -1436,7 +1454,7 @@ li > p:last-of-type {
                     <p id="section-toc.1-1.10.2.2.2.5.1"><a href="#appendix-B.2.5" class="xref">B.2.5</a>.  <a href="#name-id-falcon512-ed25519-4" class="xref">id-Falcon512-Ed25519</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.6">
-                    <p id="section-toc.1-1.10.2.2.2.6.1"><a href="#appendix-B.2.6" class="xref">B.2.6</a>.  <a href="#name-id-sphincssha256256frobust-ecd" class="xref">id-SPHINCSsha256256frobust-ECDSA-P256</a></p>
+                    <p id="section-toc.1-1.10.2.2.2.6.1"><a href="#appendix-B.2.6" class="xref">B.2.6</a>.  <a href="#name-id-sphincssha256256frobust-e" class="xref">id-SPHINCSsha256256frobust-ECDSA-P256</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.7">
                     <p id="section-toc.1-1.10.2.2.2.7.1"><a href="#appendix-B.2.7" class="xref">B.2.7</a>.  <a href="#name-id-dilithium5-falcon1024-ecdsa" class="xref">id-Dilithium5-Falcon1024-ECDSA-P521</a></p>
@@ -1445,7 +1463,7 @@ li > p:last-of-type {
                     <p id="section-toc.1-1.10.2.2.2.8.1"><a href="#appendix-B.2.8" class="xref">B.2.8</a>.  <a href="#name-id-dilithium5-falcon1024-rsa-3" class="xref">id-Dilithium5-Falcon1024-RSA</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.9">
-                    <p id="section-toc.1-1.10.2.2.2.9.1"><a href="#appendix-B.2.9" class="xref">B.2.9</a>.  <a href="#name-id-kyber512-rsa-4" class="xref">id-Kyber512-RSA</a></p>
+                    <p id="section-toc.1-1.10.2.2.2.9.1"><a href="#appendix-B.2.9" class="xref">B.2.9</a>.  <a href="#name-id-kyber512-rsa-2" class="xref">id-Kyber512-RSA</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.10">
                     <p id="section-toc.1-1.10.2.2.2.10.1"><a href="#appendix-B.2.10" class="xref">B.2.10</a>. <a href="#name-id-kyber512-ecdh-p256-4" class="xref">id-Kyber512-ECDH-P256</a></p>
@@ -1478,54 +1496,18 @@ li > p:last-of-type {
 </nav>
 </section>
 </div>
-<div id="changes-in-version-03">
+<div id="changes-in-version-04">
 <section id="section-1">
-      <h2 id="name-changes-in-version-03-2">
-<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-changes-in-version-03-2" class="section-name selfRef">Changes in version -03</a>
+      <h2 id="name-changes-in-version-04-2">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-changes-in-version-04-2" class="section-name selfRef">Changes in version -04</a>
       </h2>
 <ul class="normal">
 <li class="normal" id="section-1-1.1">
-          <p id="section-1-1.1.1">Added the following explicit composite key types<a href="#section-1-1.1.1" class="pilcrow">¶</a></p>
+          <p id="section-1-1.1.1">Aligned explicit composite choices with OpenPGP WG TODO: INSERT DRAFT REF<a href="#section-1-1.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-1.1.2.1">
-              <p id="section-1-1.1.2.1.1">Explicit Composite Signature Keys<a href="#section-1-1.1.2.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-1.1.2.1.2.1">id-Dilithium3-ECDSA-P256<a href="#section-1-1.1.2.1.2.1" class="pilcrow">¶</a>
-</li>
-                <li class="normal" id="section-1-1.1.2.1.2.2">id-Dilithium3-RSA<a href="#section-1-1.1.2.1.2.2" class="pilcrow">¶</a>
-</li>
-                <li class="normal" id="section-1-1.1.2.1.2.3">id-Falcon512-ECDSA-P256<a href="#section-1-1.1.2.1.2.3" class="pilcrow">¶</a>
-</li>
-                <li class="normal" id="section-1-1.1.2.1.2.4">id-Falcon512-Ed25519<a href="#section-1-1.1.2.1.2.4" class="pilcrow">¶</a>
-</li>
-                <li class="normal" id="section-1-1.1.2.1.2.5">id-SPHINCSXXX-ECDSA-P256<a href="#section-1-1.1.2.1.2.5" class="pilcrow">¶</a>
-</li>
-                <li class="normal" id="section-1-1.1.2.1.2.6">id-Dilithium5-Falcon1024-ECDSA-P521<a href="#section-1-1.1.2.1.2.6" class="pilcrow">¶</a>
-</li>
-                <li class="normal" id="section-1-1.1.2.1.2.7">id-Dilithium5-Falcon1024-RSA<a href="#section-1-1.1.2.1.2.7" class="pilcrow">¶</a>
-</li>
-              </ul>
-</li>
-            <li class="normal" id="section-1-1.1.2.2">
-              <p id="section-1-1.1.2.2.1">Explicit Composite KEM Keys<a href="#section-1-1.1.2.2.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-1.1.2.2.2.1">id-Kyber512-RSA<a href="#section-1-1.1.2.2.2.1" class="pilcrow">¶</a>
-</li>
-                <li class="normal" id="section-1-1.1.2.2.2.2">id-Kyber512-ECDH-P256<a href="#section-1-1.1.2.2.2.2" class="pilcrow">¶</a>
-</li>
-                <li class="normal" id="section-1-1.1.2.2.2.3">id-Kyber512-x25519<a href="#section-1-1.1.2.2.2.3" class="pilcrow">¶</a>
-</li>
-              </ul>
+<li class="normal" id="section-1-1.1.2.1">Changed "id-SPHINCSsha256256fsimple-ECDSA-P256" to "id-SPHINCSsha256256ssimple-ECDSA-P521"<a href="#section-1-1.1.2.1" class="pilcrow">¶</a>
 </li>
           </ul>
-</li>
-        <li class="normal" id="section-1-1.2">Added samples of (most of) the above explic composites in appendices.<a href="#section-1-1.2" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-1-1.3">Marked generic composite for prototyping; to be removed in final publication.<a href="#section-1-1.3" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-1-1.4">Sycronized terminology with I-D.draft-driscoll-pqt-hybrid-terminology-01.<a href="#section-1-1.4" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-1-1.5">Removed the section "Implementation Considerations &gt; Asymmetric Key Packages (CMS)" since private key formats are now fully covered in the body and examples.<a href="#section-1-1.5" class="pilcrow">¶</a>
 </li>
       </ul>
 <div id="sec-terminology">
@@ -1653,6 +1635,165 @@ https://mailarchive.ietf.org/arch/msg/spasm/Gv-ACiOpYZfOM0AJEZUX1jIhVq0/<a href=
       </h2>
 <p id="section-4-1">This section defines the algorithm identifier for generic composite, as well as a framework for defining explicit combinations and a list of explicit composite algorithms covering a wide range of use cases. This section is not intended to be exhaustive and other authors may define others so long as they are compatible with the structures and processes defined in this and companion signature and encryption documents.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">Some use-cases desire the flexibility for client to use any combination of supported algorithms, while others desire the rigidity of explicitly-specified combinations of algorithms.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">Signature public key types:<a href="#section-4-3" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+        <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Signature Algorithm</th>
+            <th class="text-left" rowspan="1" colspan="1">Requirement</th>
+            <th class="text-left" rowspan="1" colspan="1">Definition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-composite-key</td>
+            <td class="text-left" rowspan="1" colspan="1">Prototyping</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-generic-composite" class="xref">Section 4.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Dilithium3-ECDSA-P384</td>
+            <td class="text-left" rowspan="1" colspan="1">RECOMMENDED</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Dilithium3-RSA</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Dilithium3_ECDSA-brainpoolP384r1</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Dilithium5-ECDSA-P-521</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Dilithium5-Ed448</td>
+            <td class="text-left" rowspan="1" colspan="1">RECOMMENDED</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Dilithium5-ECDSA-brainpoolP512r1</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Falcon512-ECDSA-P25</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Falcon512-Ed25519</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-SPHINCSsha256256ssimple-ECDSA-P521</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Dilithium5-Falcon1024-ECDSA-P521</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Dilithium5-Falcon1024-RSA</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">TODO</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="section-4-5">KEM public key types:<a href="#section-4-5" class="pilcrow">¶</a></p>
+<table class="center" id="table-2">
+        <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">KEM Algorithm</th>
+            <th class="text-left" rowspan="1" colspan="1">Requirement</th>
+            <th class="text-left" rowspan="1" colspan="1">Definition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-composite-key</td>
+            <td class="text-left" rowspan="1" colspan="1">Prototyping</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-generic-composite" class="xref">Section 4.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber512-ECDH-P256</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber512-ECDH-P256" class="xref">Section 4.3.1</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber512-x25519</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber512-x25519" class="xref">Section 4.3.2</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber768-RSA</td>
+            <td class="text-left" rowspan="1" colspan="1">MAY</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber768-RSA" class="xref">Section 4.3.3</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber768-ECDH-P384</td>
+            <td class="text-left" rowspan="1" colspan="1">RECOMMENDED</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber768-ECDH-P384" class="xref">Section 4.3.4</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber768-X25519</td>
+            <td class="text-left" rowspan="1" colspan="1">RECOMMENDED</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber768-X25519" class="xref">Section 4.3.5</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber768-ECDH-brainpoolP384r1</td>
+            <td class="text-left" rowspan="1" colspan="1">RECOMMENDED</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber768-ECDH-brainpoolP384r1" class="xref">Section 4.3.8</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber1024-ECDH-P521</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber1024-ECDH-P521" class="xref">Section 4.3.6</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber1024-X448</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber1024-X448" class="xref">Section 4.3.7</a>
+</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">id-Kyber1024-ECDH-brainpoolP512r1</td>
+            <td class="text-left" rowspan="1" colspan="1">SHOULD</td>
+            <td class="text-left" rowspan="1" colspan="1">
+              <a href="#sec-id-Kyber1024-ECDH-brainpoolP512r1" class="xref">Section 4.3.9</a>
+</td>
+          </tr>
+        </tbody>
+      </table>
+<p id="section-4-7">EDNOTE: also RSA Key Trans's? S/MIME might be a usecase where ECC is not yet well adopted and therefore wants RSA as the bridging algorithm. Currently we have given exactly one of these and that should be enough.<a href="#section-4-7" class="pilcrow">¶</a></p>
 <div id="sec-generic-composite">
 <section id="section-4.1">
         <h3 id="name-id-composite-key-generic-com">
@@ -1918,13 +2059,15 @@ privateKey ECPrivateKey
 <p id="section-4.2.4-2">TODO: fill in details.<a href="#section-4.2.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="id-sphincssha256256frobust-ecdsa-p256">
+<div id="id-sphincssha256256ssimple-ecdsa-p521">
 <section id="section-4.2.5">
-          <h4 id="name-id-sphincssha256256frobust-ec">
-<a href="#section-4.2.5" class="section-number selfRef">4.2.5. </a><a href="#name-id-sphincssha256256frobust-ec" class="section-name selfRef">id-SPHINCSsha256256frobust-ECDSA-P256</a>
+          <h4 id="name-id-sphincssha256256ssimple-e">
+<a href="#section-4.2.5" class="section-number selfRef">4.2.5. </a><a href="#name-id-sphincssha256256ssimple-e" class="section-name selfRef">id-SPHINCSsha256256ssimple-ECDSA-P521</a>
           </h4>
-<p id="section-4.2.5-1">Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateless hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations.<a href="#section-4.2.5-1" class="pilcrow">¶</a></p>
-<p id="section-4.2.5-2">TODO: fill in details.<a href="#section-4.2.5-2" class="pilcrow">¶</a></p>
+<p id="section-4.2.5-1">Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateless hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations. An obvious use is for long-lived trust anchors, such as root CAs where, high assurance is required, hence choosing the highest security levels of SPHINCS and ECDSA. Trust anchors will typically produce few signatures, for example on intermediate CAs, but have those signatures will be transmitted and verified often, hence choosing the "s-simple" variant which will incur higher CPU load during signing for the benefit of smaller signatures and faster verification times.<a href="#section-4.2.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.5-2">Requirement: SHOULD<a href="#section-4.2.5-2" class="pilcrow">¶</a></p>
+<p id="section-4.2.5-3">It is expected that that PKI clients will encounter hybrid PKIs that use a hash-based signature as a trust anchor and lattice schemes and issuing CAs and end entities. Therefore clients SHOULD support at least verification of id-SPHINCSsha256256ssimple-ECDSA-P521 signatures, although it is admitted that these will proably be liss common than pure SPHINCS trust anchors.<a href="#section-4.2.5-3" class="pilcrow">¶</a></p>
+<p id="section-4.2.5-4">TODO: fill in details.<a href="#section-4.2.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="id-dilithium5-falcon1024-ecdsa-p521">
@@ -1958,28 +2101,81 @@ TODO: fill in numbers.<a href="#section-4.2.7-2" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.3-1">TODO: some text<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">Ref to draft-ounsworth-pq-composite-kem<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<div id="id-kyber512-rsa">
+<div id="sec-id-Kyber512-ECDH-P256">
 <section id="section-4.3.1">
-          <h4 id="name-id-kyber512-rsa-3">
-<a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-id-kyber512-rsa-3" class="section-name selfRef">id-Kyber512-RSA</a>
+          <h4 id="name-id-kyber512-ecdh-p256-3">
+<a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-id-kyber512-ecdh-p256-3" class="section-name selfRef">id-Kyber512-ECDH-P256</a>
           </h4>
 <p id="section-4.3.1-1">TODO<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="id-kyber512-ecdh-p256">
+<div id="sec-id-Kyber512-x25519">
 <section id="section-4.3.2">
-          <h4 id="name-id-kyber512-ecdh-p256-3">
-<a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-id-kyber512-ecdh-p256-3" class="section-name selfRef">id-Kyber512-ECDH-P256</a>
+          <h4 id="name-id-kyber512-x25519-3">
+<a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-id-kyber512-x25519-3" class="section-name selfRef">id-Kyber512-x25519</a>
           </h4>
 <p id="section-4.3.2-1">TODO<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="id-kyber512-x25519">
+<div id="sec-id-Kyber768-RSA">
 <section id="section-4.3.3">
-          <h4 id="name-id-kyber512-x25519-3">
-<a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-id-kyber512-x25519-3" class="section-name selfRef">id-Kyber512-x25519</a>
+          <h4 id="name-id-kyber768-rsa-2">
+<a href="#section-4.3.3" class="section-number selfRef">4.3.3. </a><a href="#name-id-kyber768-rsa-2" class="section-name selfRef">id-Kyber768-RSA</a>
           </h4>
 <p id="section-4.3.3-1">TODO<a href="#section-4.3.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.3-2">Recommended to be used with RSA-3072 or greater.<a href="#section-4.3.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-id-Kyber768-ECDH-P384">
+<section id="section-4.3.4">
+          <h4 id="name-id-kyber768-ecdh-p384-2">
+<a href="#section-4.3.4" class="section-number selfRef">4.3.4. </a><a href="#name-id-kyber768-ecdh-p384-2" class="section-name selfRef">id-Kyber768-ECDH-P384</a>
+          </h4>
+<p id="section-4.3.4-1">TODO<a href="#section-4.3.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-id-Kyber768-X25519">
+<section id="section-4.3.5">
+          <h4 id="name-id-kyber768-x25519-2">
+<a href="#section-4.3.5" class="section-number selfRef">4.3.5. </a><a href="#name-id-kyber768-x25519-2" class="section-name selfRef">id-Kyber768-X25519</a>
+          </h4>
+<p id="section-4.3.5-1">TODO<a href="#section-4.3.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-id-Kyber1024-ECDH-P521">
+<section id="section-4.3.6">
+          <h4 id="name-id-kyber1024-ecdh-p521-2">
+<a href="#section-4.3.6" class="section-number selfRef">4.3.6. </a><a href="#name-id-kyber1024-ecdh-p521-2" class="section-name selfRef">id-Kyber1024-ECDH-P521</a>
+          </h4>
+<p id="section-4.3.6-1">TODO<a href="#section-4.3.6-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.6-2">Usage guidance: highest security level using FIPS-approved elliptic curves.<a href="#section-4.3.6-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-id-Kyber1024-X448">
+<section id="section-4.3.7">
+          <h4 id="name-id-kyber1024-x448-2">
+<a href="#section-4.3.7" class="section-number selfRef">4.3.7. </a><a href="#name-id-kyber1024-x448-2" class="section-name selfRef">id-Kyber1024-X448</a>
+          </h4>
+<p id="section-4.3.7-1">TODO<a href="#section-4.3.7-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.7-2">Usage guidance: highest security level with best performance.<a href="#section-4.3.7-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-id-Kyber768-ECDH-brainpoolP384r1">
+<section id="section-4.3.8">
+          <h4 id="name-id-kyber768-ecdh-brainpoolp3">
+<a href="#section-4.3.8" class="section-number selfRef">4.3.8. </a><a href="#name-id-kyber768-ecdh-brainpoolp3" class="section-name selfRef">id-Kyber768-ECDH-brainpoolP384r1</a>
+          </h4>
+<p id="section-4.3.8-1">TODO<a href="#section-4.3.8-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.8-2">Usage guidance: recommended security level using brainpool elliptic curves.<a href="#section-4.3.8-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-id-Kyber1024-ECDH-brainpoolP512r1">
+<section id="section-4.3.9">
+          <h4 id="name-id-kyber1024-ecdh-brainpoolp">
+<a href="#section-4.3.9" class="section-number selfRef">4.3.9. </a><a href="#name-id-kyber1024-ecdh-brainpoolp" class="section-name selfRef">id-Kyber1024-ECDH-brainpoolP512r1</a>
+          </h4>
+<p id="section-4.3.9-1">TODO<a href="#section-4.3.9-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.9-2">Usage guidance: highest security level using brainpool elliptic curves.<a href="#section-4.3.9-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2224,6 +2420,10 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <dt id="I-D.becker-guthrie-noncomposite-hybrid-auth">[I-D.becker-guthrie-noncomposite-hybrid-auth]</dt>
         <dd>
 <span class="refAuthor">Becker, A.</span>, <span class="refAuthor">Guthrie, R.</span>, and <span class="refAuthor">M. Jenkins</span>, <span class="refTitle">"Non-Composite Hybrid Authentication in PKIX and Applications to Internet Protocols"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-becker-guthrie-noncomposite-hybrid-auth-00</span>, <time datetime="2022-03-22" class="refDate">22 March 2022</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-becker-guthrie-noncomposite-hybrid-auth-00.txt">https://www.ietf.org/archive/id/draft-becker-guthrie-noncomposite-hybrid-auth-00.txt</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.cfrg-schwabe-kyber">[I-D.cfrg-schwabe-kyber]</dt>
+        <dd>
+<span class="refAuthor">Schwabe, P.</span> and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Kyber Post-Quantum KEM"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-cfrg-schwabe-kyber-01</span>, <time datetime="2022-09-23" class="refDate">23 September 2022</time>, <span>&lt;<a href="https://www.ietf.org/archive/id/draft-cfrg-schwabe-kyber-01.txt">https://www.ietf.org/archive/id/draft-cfrg-schwabe-kyber-01.txt</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.driscoll-pqt-hybrid-terminology">[I-D.driscoll-pqt-hybrid-terminology]</dt>
         <dd>
@@ -3100,10 +3300,10 @@ hkjOPQMBBwQnMCUCAQEEICXQxbtuhGjYSkyLz+K0V0tRyxgEBlQcElOVwHZSA4QL
 <p id="appendix-B.2.5-1">TODO<a href="#appendix-B.2.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="id-sphincssha256256frobust-ecdsa-p256-1">
+<div id="id-sphincssha256256frobust-ecdsa-p256">
 <section id="appendix-B.2.6">
-          <h4 id="name-id-sphincssha256256frobust-ecd">
-<a href="#appendix-B.2.6" class="section-number selfRef">B.2.6. </a><a href="#name-id-sphincssha256256frobust-ecd" class="section-name selfRef">id-SPHINCSsha256256frobust-ECDSA-P256</a>
+          <h4 id="name-id-sphincssha256256frobust-e">
+<a href="#appendix-B.2.6" class="section-number selfRef">B.2.6. </a><a href="#name-id-sphincssha256256frobust-e" class="section-name selfRef">id-SPHINCSsha256256frobust-ECDSA-P256</a>
           </h4>
 <p id="appendix-B.2.6-1">This example uses the following OID as definid in Open Quantum Safe:<a href="#appendix-B.2.6-1" class="pilcrow">¶</a></p>
 <p id="appendix-B.2.6-2">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.2.6-2" class="pilcrow">¶</a></p>
@@ -3893,15 +4093,15 @@ J2yh97mTCfBQXHBeZ3hczweJYx90n1T94G/6ixkCd9ZllX+Oz6a2lBHZ7c
 </div>
 </section>
 </div>
-<div id="id-kyber512-rsa-1">
+<div id="id-kyber512-rsa">
 <section id="appendix-B.2.9">
-          <h4 id="name-id-kyber512-rsa-4">
-<a href="#appendix-B.2.9" class="section-number selfRef">B.2.9. </a><a href="#name-id-kyber512-rsa-4" class="section-name selfRef">id-Kyber512-RSA</a>
+          <h4 id="name-id-kyber512-rsa-2">
+<a href="#appendix-B.2.9" class="section-number selfRef">B.2.9. </a><a href="#name-id-kyber512-rsa-2" class="section-name selfRef">id-Kyber512-RSA</a>
           </h4>
 <p id="appendix-B.2.9-1">TODO<a href="#appendix-B.2.9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="id-kyber512-ecdh-p256-1">
+<div id="id-kyber512-ecdh-p256">
 <section id="appendix-B.2.10">
           <h4 id="name-id-kyber512-ecdh-p256-4">
 <a href="#appendix-B.2.10" class="section-number selfRef">B.2.10. </a><a href="#name-id-kyber512-ecdh-p256-4" class="section-name selfRef">id-Kyber512-ECDH-P256</a>
@@ -3909,7 +4109,7 @@ J2yh97mTCfBQXHBeZ3hczweJYx90n1T94G/6ixkCd9ZllX+Oz6a2lBHZ7c
 <p id="appendix-B.2.10-1">TODO<a href="#appendix-B.2.10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="id-kyber512-x25519-1">
+<div id="id-kyber512-x25519">
 <section id="appendix-B.2.11">
           <h4 id="name-id-kyber512-x25519-4">
 <a href="#appendix-B.2.11" class="section-number selfRef">B.2.11. </a><a href="#name-id-kyber512-x25519-4" class="section-name selfRef">id-Kyber512-x25519</a>

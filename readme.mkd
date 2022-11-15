@@ -14,12 +14,15 @@ There may be a way to do this in cygwin, but I cut losses and did it in ubuntu:
 
 We have provided a makefile to build the draft in either pure TXT, or fancy HTML formats:
 
+    $ make clean
+
     $ make txt
     or
     $ make html
 
 The default target will build both:
 
+    $ make clean
     $ make
 
 ## Building the document from markdown

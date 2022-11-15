@@ -2,7 +2,7 @@
 title: Composite Public and Private Keys For Use In Internet PKI
 abbrev: PQ Composite Keys
 # <!-- EDNOTE: Edits the draft name -->
-docname: draft-ounsworth-pq-composite-keys-03
+docname: draft-ounsworth-pq-composite-keys-04
 
 # <!-- stand_alone: true -->
 ipr: trust200902
@@ -85,6 +85,7 @@ informative:
   I-D.draft-becker-guthrie-noncomposite-hybrid-auth-00:
   I-D.draft-guthrie-ipsecme-ikev2-hybrid-auth-00:
   I-D.draft-driscoll-pqt-hybrid-terminology-01:
+  I-D.draft-cfrg-schwabe-kyber-01:
   Bindel2017:
     title: "Transitioning to a quantum-resistant public key infrastructure"
     target: "https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22"
@@ -183,26 +184,10 @@ This document is intended to be coupled with corresponding documents that define
 
 --- middle
 
-# Changes in version -03
+# Changes in version -04
 
-- Added the following explicit composite key types
-  - Explicit Composite Signature Keys
-    - id-Dilithium3-ECDSA-P256
-    - id-Dilithium3-RSA
-    - id-Falcon512-ECDSA-P256
-    - id-Falcon512-Ed25519
-    - id-SPHINCSXXX-ECDSA-P256
-    - id-Dilithium5-Falcon1024-ECDSA-P521
-    - id-Dilithium5-Falcon1024-RSA
-  - Explicit Composite KEM Keys
-    - id-Kyber512-RSA
-    - id-Kyber512-ECDH-P256
-    - id-Kyber512-x25519
-- Added samples of (most of) the above explic composites in appendices.
-- Marked generic composite for prototyping; to be removed in final publication.
-- Sycronized terminology with I-D.draft-driscoll-pqt-hybrid-terminology-01.
-- Removed the section "Implementation Considerations > Asymmetric Key Packages (CMS)" since private key formats are now fully covered in the body and examples.
-
+- Aligned explicit composite choices with OpenPGP WG TODO: INSERT DRAFT REF
+  - Changed "id-SPHINCSsha256256fsimple-ECDSA-P256" to "id-SPHINCSsha256256ssimple-ECDSA-P521"
 
 ## Terminology {#sec-terminology}
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{RFC2119}}  {{RFC8174}} when, and only when, they appear in all capitals, as shown here.
@@ -334,6 +319,47 @@ https://mailarchive.ietf.org/arch/msg/spasm/Gv-ACiOpYZfOM0AJEZUX1jIhVq0/
 This section defines the algorithm identifier for generic composite, as well as a framework for defining explicit combinations and a list of explicit composite algorithms covering a wide range of use cases. This section is not intended to be exhaustive and other authors may define others so long as they are compatible with the structures and processes defined in this and companion signature and encryption documents.
 
 Some use-cases desire the flexibility for client to use any combination of supported algorithms, while others desire the rigidity of explicitly-specified combinations of algorithms.
+
+
+Signature public key types:
+
+Signature Algorithm                   | Requirement | Definition
+ ---------                            | ----------- | ----------
+id-composite-key                      | Prototyping | {{sec-generic-composite}}
+id-Dilithium3-ECDSA-P384              | RECOMMENDED | TODO
+id-Dilithium3-RSA                     | MAY         | TODO
+id-Dilithium3_ECDSA-brainpoolP384r1   | MAY         | TODO
+id-Dilithium5-ECDSA-P-521             | MAY         | TODO
+id-Dilithium5-Ed448                   | RECOMMENDED | TODO
+id-Dilithium5-ECDSA-brainpoolP512r1   | MAY         | TODO
+id-Falcon512-ECDSA-P25                | MAY         | TODO
+id-Falcon512-Ed25519                  | MAY         | TODO
+id-SPHINCSsha256256ssimple-ECDSA-P521 | SHOULD      | TODO
+id-Dilithium5-Falcon1024-ECDSA-P521   | MAY         | TODO
+id-Dilithium5-Falcon1024-RSA          | MAY         | TODO
+
+
+
+
+
+KEM public key types:
+
+
+KEM Algorithm                      | Requirement | Definition
+---------                          | ----------- | ----------
+id-composite-key                   | Prototyping | {{sec-generic-composite}}
+id-Kyber512-ECDH-P256              | MAY         | {{sec-id-Kyber512-ECDH-P256}}
+id-Kyber512-x25519                 | MAY         | {{sec-id-Kyber512-x25519}}
+id-Kyber768-RSA                    | MAY         | {{sec-id-Kyber768-RSA}}
+id-Kyber768-ECDH-P384              | RECOMMENDED | {{sec-id-Kyber768-ECDH-P384}}
+id-Kyber768-X25519                 | RECOMMENDED | {{sec-id-Kyber768-X25519}}
+id-Kyber768-ECDH-brainpoolP384r1   | RECOMMENDED | {{sec-id-Kyber768-ECDH-brainpoolP384r1}}
+id-Kyber1024-ECDH-P521             | SHOULD      | {{sec-id-Kyber1024-ECDH-P521}}
+id-Kyber1024-X448                  | SHOULD      | {{sec-id-Kyber1024-X448}}
+id-Kyber1024-ECDH-brainpoolP512r1  | SHOULD      | {{sec-id-Kyber1024-ECDH-brainpoolP512r1}}
+
+
+EDNOTE: also RSA Key Trans's? S/MIME might be a usecase where ECC is not yet well adopted and therefore wants RSA as the bridging algorithm. Currently we have given exactly one of these and that should be enough.
 
 ## id-composite-key (Generic Composite Keys) {#sec-generic-composite}
 
@@ -644,9 +670,13 @@ Usage guidance: This signature key type is intended for constrained environments
 
 TODO: fill in details.
 
-### id-SPHINCSsha256256frobust-ECDSA-P256
+### id-SPHINCSsha256256ssimple-ECDSA-P521
 
-Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateless hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations.
+Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateless hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations. An obvious use is for long-lived trust anchors, such as root CAs where, high assurance is required, hence choosing the highest security levels of SPHINCS and ECDSA. Trust anchors will typically produce few signatures, for example on intermediate CAs, but have those signatures will be transmitted and verified often, hence choosing the "s-simple" variant which will incur higher CPU load during signing for the benefit of smaller signatures and faster verification times. 
+
+Requirement: SHOULD
+
+It is expected that that PKI clients will encounter hybrid PKIs that use a hash-based signature as a trust anchor and lattice schemes and issuing CAs and end entities. Therefore clients SHOULD support at least verification of id-SPHINCSsha256256ssimple-ECDSA-P521 signatures, although it is admitted that these will proably be liss common than pure SPHINCS trust anchors.
 
 TODO: fill in details.
 
@@ -674,17 +704,56 @@ TODO: some text
 
 Ref to draft-ounsworth-pq-composite-kem
 
-### id-Kyber512-RSA
+
+### id-Kyber512-ECDH-P256 {#sec-id-Kyber512-ECDH-P256}
 
 TODO
 
-### id-Kyber512-ECDH-P256
+### id-Kyber512-x25519 {#sec-id-Kyber512-x25519}
 
 TODO
 
-### id-Kyber512-x25519
+
+### id-Kyber768-RSA {#sec-id-Kyber768-RSA}
 
 TODO
+
+Recommended to be used with RSA-3072 or greater.
+
+
+### id-Kyber768-ECDH-P384 {#sec-id-Kyber768-ECDH-P384}
+
+TODO
+
+### id-Kyber768-X25519 {#sec-id-Kyber768-X25519}
+
+TODO
+
+### id-Kyber1024-ECDH-P521 {#sec-id-Kyber1024-ECDH-P521}
+
+TODO
+
+Usage guidance: highest security level using FIPS-approved elliptic curves.
+
+### id-Kyber1024-X448 {#sec-id-Kyber1024-X448}
+
+TODO
+
+Usage guidance: highest security level with best performance.
+
+
+### id-Kyber768-ECDH-brainpoolP384r1 {#sec-id-Kyber768-ECDH-brainpoolP384r1}
+
+TODO
+
+Usage guidance: recommended security level using brainpool elliptic curves.
+
+
+### id-Kyber1024-ECDH-brainpoolP512r1 {#sec-id-Kyber1024-ECDH-brainpoolP512r1}
+
+TODO
+
+Usage guidance: highest security level using brainpool elliptic curves.
 
 
 # Implementation Considerations {#sec-imp-considers}
