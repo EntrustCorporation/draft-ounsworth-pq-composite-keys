@@ -7,6 +7,7 @@ docname: draft-ounsworth-pq-composite-keys-04
 # <!-- stand_alone: true -->
 ipr: trust200902
 area: Security
+stream: IETF
 wg: LAMPS
 kw: Internet-Draft
 cat: std
@@ -177,7 +178,7 @@ informative:
 
 The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, may fall to quantum cryptalanysis, while the incoming post-quantum algorithms face uncertainty about both the underlying mathematics as well as hardware and software implementations that have not had sufficient maturing time to rule out classical cryptanalytic attacks and implementation bugs.
 
-Cautious implementors may wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected using either a Post-Quantum / Traditional Hybrid, Post-Quantum / Post-Quantum Hybrid, or combinations thereof. This document, and its companions, defines a specific instantiation of hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level.
+Cautious implementers may wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected using either a Post-Quantum / Traditional Hybrid, Post-Quantum / Post-Quantum Hybrid, or combinations thereof. This document, and its companions, defines a specific instantiation of hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level.
 
 This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. The generic composite variant is defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed. The explicit variant is alxso defined which allows for a set of algorithm identifier OIDs to be registered together as an explicit composite algorithm and assigned an OID.
 
@@ -244,6 +245,27 @@ In order to represent public keys and private keys that are composed of multiple
 
 A composite key is a single key object that performs an atomic cryptographic operation -- such a signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This generally means that the complexity of combining algorithms can be deferred from the protocol layer to the cryptographic library layer.
 
+## Specifying Composite Key Types
+
+The following is the mandatory to specify information when specifying a composite key type:
+
+* An AlgorithmIdentifier OID for the composite key type.
+* Component public key types, AlgorithmIdentifiers and parameters for each position within the `CompositePublicKey`. (see {{sec-composite-pub-keys}}).
+* Component private key types, AlgorithmIdentifiers and parameters for each position within the `CompositePrivateKey` (see {{sec-priv-key}}).
+
+
+The following ASN.1 Information Object Class applies to all composite key types, with suitable replacements for the ASN.1 identifier `pk-Composite` and the OID `id-composite-key` as appropriate.
+
+~~~ ASN.1
+pk-Composite PUBLIC-KEY ::= {
+    id id-composite-key
+    KeyValue CompositePublicKey
+    Params ARE ABSENT
+    PrivateKey CompositePrivateKey
+}
+~~~
+{: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
+
 
 ## CompositePublicKey {#sec-composite-pub-keys}
 
@@ -257,13 +279,11 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
 A composite key MUST contain at least two component public keys.
 
-A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed.
+A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed. The purpose is a general reduction in complexity by not needing to consider nested key types.
 
-EDNOTE: unclear that banning recursive composite keys actually accomplishes anything other than a general reduction in complexity and therefore reduction in attack surface.
+Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and parameters for the public key contained within it. See {{sec-alg-ids}} for specific algorithms defined in this document.
 
-Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and parameters for the public key contained within it. See {{sec-alg-ids}} for specific algorithms defined in this document.
-
-Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in {{sec-encoding-rules}}.
+When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in {{sec-encoding-rules}}.
 
 
 ## CompositePrivateKey {#sec-priv-key}
@@ -286,7 +306,6 @@ The parameters field MUST be absent.
 
 A CompositePrivateKey MUST contain at least two component private keys, and they MUST be in the same order as in the corresponding CompositePublicKey.
 
-EDNOTE: does this also need an explicit version? It would probably reduce attack surface of tricking a client into running the wrong parser and a given piece of data. ... maybe we get that for free if we use the explicit composite OIDs also for private keys?
 
 
 
@@ -319,23 +338,18 @@ https://mailarchive.ietf.org/arch/msg/spasm/Gv-ACiOpYZfOM0AJEZUX1jIhVq0/
 
 # Algorithm Identifiers {#sec-alg-ids}
 
-This section defines the algorithm identifiers for generic composite combinations. The combinations registered in this section are intended to strike a balance between the overall number of combinations ("the combinatorial explosion problem"), while also covering the needs of a wide range of protocols, applications, and regulatory environments in which X.509 certificates are used. This section is not intended to be exhaustive and other authors may define OIDs for new combinations so long as they are compatible with the structures and processes defined in this and the companion signature and encryption documents.
+This section defines the algorithm identifiers for generic composite combinations. The combinations registered in this section are intended to strike a balance between the overall number of combinations ("the combinatorial explosion problem"), while also covering the needs of a wide range of protocols, applications, and regulatory environments in which X.509 certificates are used. 
 
-The combinations represented below were chosen according to the following rough guidelines:
+This section is not intended to be exhaustive and other authors may define OIDs for new combinations so long as they are compatible with the structures and processes defined in this and the companion signature and encryption documents.
 
-1. One RSA combination is provided (but RSA modulus size not mandated), matched with NIST PQC Level 3 algorithms.
-1. NIST [RFC6090], Edwards [RFC7748], and Brainpool [RFC5639] elliptic curve algorithms are provided. NIST PQC Levels 1 - 3 algorithms are matched with 256-bit curves, while NIST levels 4 - 5 are matched with 384-bit elliptic curves. This provides a balance between matching classical security levels of post-quantum and traditional algorithms, and also selecting elliptic curves which already have wide adoption.
-1. NIST level 1 candidates (Falcon512 and Kyber512) are provided, matched with 256-bit elliptic curves, intended for constrained use cases.
-1. A single SPHINCS+ combination is provided for use cases that wish to put even hash-based signatures into hybrid combination.
-1. A generic composite OID is provided for imelpmentors who wish to use combinations not listed here, without the overhead of defining new OIDs. Caution should be exercised to avoid issues with compatibility and complex cryptographic policy mechanisms.
 
 Signature public key types:
 
-Signature Algorithm                   | Definition                       | OID
- ---------                            | ----------                       | ------------
-id-Dilithium3-RSA                     | {{sec-id-Dilithium3-RSA}}        | TBD
-id-Dilithium3-ECDSA-P256              | {{sec-id-Dilithium3-ECDSA-P256}} | TBD
-id-Dilithium3_ECDSA-brainpoolP256r1   | TODO                         | TBD
+Signature key type                    | Definition                                  | OID
+ ---------                            | ----------                                  | ------------
+id-Dilithium3-RSA                     | {{sec-id-Dilithium3-RSA}}                   | 2.16.840.1.114027.80.5.2 (for prototyping only)
+id-Dilithium3-ECDSA-P256              | {{sec-id-Dilithium3-ECDSA-P256}}            | 2.16.840.1.114027.80.5.1 (for prototyping only)
+id-Dilithium3_ECDSA-brainpoolP256r1   | {{sec-id-Dilithium3_ECDSA-brainpoolP256r1}} | TBD
 id-Dilithium3-ECDSA-Ed25519           | TODO                         | TBD
 id-Dilithium5-ECDSA-P384              | TODO                         | TBD
 id-Dilithium5-Ed448                   | TODO                         | TBD
@@ -344,14 +358,14 @@ id-Falcon512-ECDSA-P256               | TODO                         | TBD
 id-Falcon512-Ed25519                  | TODO                         | TBD
 id-SPHINCSsha256256ssimple-ECDSA-P256 | TODO                         | TBD
 id-composite-key                      | {{sec-generic-composite}}    | TBD
-{: #tab-sig-agls title="Composite signatures algorithms"}
+{: #tab-sig-agls title="Composite signatures key types"}
 
 
 
 KEM public key types:
 
 
-KEM Algorithm                      | Definition                                | OID
+KEM key type                       | Definition                                | OID
 ---------                          | -----------                               | ----------
 id-Kyber512-ECDH-P256              | {{sec-id-Kyber512-ECDH-P256}}             | TBD
 id-Kyber512-X25519                 | {{sec-id-Kyber512-x25519}}                | TBD
@@ -363,10 +377,271 @@ id-Kyber1024-ECDH-P384             | {{sec-id-Kyber1024-ECDH-P521}}            |
 id-Kyber1024-X448                  | {{sec-id-Kyber1024-X448}}                 | TBD
 id-Kyber1024-ECDH-brainpoolP384r1  | {{sec-id-Kyber1024-ECDH-brainpoolP512r1}} | TBD
 id-composite-key                   | {{sec-generic-composite}}                 | TBD
-{: #tab-kem-agls title="Composite KEM algorithms"}
+{: #tab-kem-agls title="Composite KEM key types"}
 
 
-EDNOTE: also RSA Key Trans's? S/MIME might be a usecase where ECC is not yet well adopted and therefore wants RSA as the bridging algorithm. Currently we have given exactly one of these and that should be enough.
+
+These combinations were chosen according to the following rough guidelines:
+
+1. One RSA combination is provided (but RSA modulus size not mandated), matched with NIST PQC Level 3 algorithms.
+1. NIST [RFC6090], Edwards [RFC7748], and Brainpool [RFC5639] elliptic curve algorithms are provided. NIST PQC Levels 1 - 3 algorithms are matched with 256-bit curves, while NIST levels 4 - 5 are matched with 384-bit elliptic curves. This provides a balance between matching classical security levels of post-quantum and traditional algorithms, and also selecting elliptic curves which already have wide adoption.
+1. NIST level 1 candidates (Falcon512 and Kyber512) are provided, matched with 256-bit elliptic curves, intended for constrained use cases.
+1. A single SPHINCS+ combination is provided for use cases that wish to put even hash-based signatures into hybrid combination.
+1. A generic composite OID is provided for implementers who wish to use combinations not listed here, without the overhead of defining new OIDs. Caution should be exercised to avoid issues with compatibility and complex cryptographic policy mechanisms.
+
+
+### id-Dilithium3-RSA {#sec-id-Dilithium3-RSA}
+
+
+The following object identifier represents the id-Dilithium3-RSA key type:
+
+~~~ asn1
+id-Dilithium3-RSA OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-RSA(2) }
+~~~
+
+EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+The first public key component SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-dilithium3TBD,
+          paramaters ABSENT
+      },
+     subjectPublicKey     BIT STRING(DilithiumPublicKey)
+}
+~~~
+
+where pk-dilithiumTBD and TBDDilithiumPublicKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
+
+TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
+
+EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
+
+
+The second public key component SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm rsaEncryption,
+            parameters NULL
+      },
+     subjectPublicKey     BIT STRING(RSAPublicKey)
+}
+~~~
+
+where rsaEncryption and RSAPublicKey are defined in [RFC8017].
+
+
+
+The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-dilithium3TBD,
+    parameters ABSENT
+  },
+privateKey DilithiumPrivateKey
+~~~
+
+The publicKey remains OPTIONAL.
+
+
+The second private key component OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters secp256r1
+  },
+privateKey ECPrivateKey
+~~~
+
+where ECPrivateKey is defined in [RFC5480].
+
+The publicKey remains OPTIONAL.
+
+<!-- END id-Dilithium3-RSA -->
+
+
+## id-Dilithium3-ECDSA-P256 {#sec-id-Dilithium3-ECDSA-P256}
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-ECDSA-P256(1) }
+~~~
+
+EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+The first public key component SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-dilithium3TBD,
+          paramaters ABSENT
+      },
+     subjectPublicKey     BIT STRING(DilithiumPublicKey)
+}
+~~~
+
+where pk-dilithiumTBD and TBDDilithiumPublicKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
+
+TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
+
+EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
+
+
+The second public key component SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm id-ecPublicKey,
+            parameters secp256r1
+      },
+     subjectPublicKey     BIT STRING(ECPoint)
+}
+~~~
+
+where id-ecPublicKey, secp256r1, and ECPoint are defined in [RFC5480].
+Alternatively, the `algorithm.algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
+
+
+The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-dilithium3TBD,
+    parameters ABSENT
+  },
+privateKey DilithiumPrivateKey
+~~~
+
+where id-dilithiumTBD and DilithiumPrivateKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
+
+The publicKey remains OPTIONAL.
+
+
+The second private key component OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters secp256r1
+  },
+privateKey ECPrivateKey
+~~~
+
+where ECPrivateKey is defined in [RFC5480].
+Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
+
+The publicKey remains OPTIONAL.
+
+<!-- END id-Dilithium3-ECDSA-P256 -->
+
+
+
+## id-Dilithium3_ECDSA-brainpoolP256r1 {#sec-id-Dilithium3_ECDSA-brainpoolP256r1}
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3_ECDSA-brainpoolP256r1(TODO) }
+~~~
+
+EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+The first public key component SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-dilithium3TBD,
+          paramaters ABSENT
+      },
+     subjectPublicKey     BIT STRING(DilithiumPublicKey)
+}
+~~~
+
+where pk-dilithiumTBD and TBDDilithiumPublicKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
+
+TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
+
+EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
+
+
+The second public key component SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm id-ecPublicKey,
+            parameters brainpoolP256r1
+      },
+     subjectPublicKey     BIT STRING(ECPoint)
+}
+~~~
+
+where id-ecPublicKey and ECPoint are defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
+Alternatively, the `algorithm.algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5639] section 4.2.
+
+
+
+
+
+
+The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-dilithiumTBD,
+    parameters ABSENT
+  },
+privateKey DilithiumPrivateKey
+~~~
+
+where id-dilithiumTBD and DilithiumPrivateKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
+
+The publicKey remains OPTIONAL.
+
+
+The second private key component OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters brainpoolP256r1
+  },
+privateKey ECPrivateKey
+~~~
+
+where ECPrivateKey is defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
+Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5639] section 4.2.
+
+The publicKey remains OPTIONAL.
+
+<!-- END id-Dilithium3_ECDSA-brainpoolP256r1 -->
+
+
+## Mike-up-to-here
 
 ## id-composite-key (Generic Composite Keys) {#sec-generic-composite}
 
@@ -399,8 +674,9 @@ pk-Composite PUBLIC-KEY ::= {
 The motivation for this variant is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this variant will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadruples, etc of algorithms.
 
 
-
 ## Explicit Composite Signature Keys {#sec-explicit-sigs}
+
+TODO: Delete once all the content is covered elsewhere.
 
 This variant provides a rigid way of specifying supported combinations of key types.
 
@@ -427,248 +703,7 @@ The algorithm set provided here is not intended to be exhaustive; additional use
 
 
 
-### id-Dilithium3-RSA {#sec-id-Dilithium3-RSA}
 
-Usage guidance: This signature key type is intended to be the standard composite signature for environments that support RSA but not elliptic curve.
-
-
-The following object identifier is defined:
-
-~~~ asn1
-id-Dilithium3-RSA OBJECT IDENTIFIER ::= { 
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-RSA(2) }
-~~~
-
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
-
-
-
-When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
-
-
-The PUBLIC-KEY SHALL be:
-
-~~~ ASN.1
-pk-Dilithium3-ECDSA-P256 PUBLIC-KEY ::= {
-    id id-Dilithium3-RSA
-    KeyValue CompositePublicKey
-    Params ARE ABSENT
-    PrivateKey CompositePrivateKey
-}
-~~~
-
---- BEGIN EDNOTE ---
-
-EDNOTE: design decision needed: should it be CompositePublicKey + CompositePrivateKey, or should we define *-PublicKey and *-PrivateKey for each explicit type?
-
-Pros of a *-PublicKey for each explicit composite type: 1) the ASN.1 parser will do some of the heavy-lifting of checking that types match (but how much is up for debate..). 2) can further compress the encoding by removing the redundant inner component OIDs.
-
-Pros of CompositePublicKey (ie carrying full SPKIs for each component): 1) it becomes harder to write abstract code that takes advantange of the fact that all composite explicit types have the same wire encoding structure because each will have an independantly defined structure object. 2) The wire encoding carries a full SPKI, so for crypto libraries that require an SPKI for each component alg, clients need to reconstruct a full SPKI, including reconstituting the components OIDs, which needs the client to have a mapping table of explicit composite OIDs to component OIDs.
-
---- END EDNOTE ---
-
-
-The public key encoding is defined in {{sec-composite-pub-keys}} for id-Dilithium3-ECDSA-P256 SHALL have SIZE (2):
-
-~~~ ASN.1
-CompositePublicKey ::= SEQUENCE SIZE (2) OF SubjectPublicKeyInfo
-~~~
-
-The first SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
-
-~~~ ASN.1
-SEQUENCE  {
-     algorithm  AlgorithmIdentifier {
-          algorithm id-dilithiumTBD,
-          paramaters ABSENT
-      },
-     subjectPublicKey     BIT STRING(DilithiumPublicKey)
-}
-~~~
-
-where pk-dilithiumTBD and TBDDilithiumPublicKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
-
-TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
-
-EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
-
-
-The second SubjectPublicKeyInfo SHALL contain:
-
-~~~ ASN.1
-SEQUENCE  {
-     algorithm  AlgorithmIdentifier {
-            algorithm rsaEncryption,
-            parameters NULL
-      },
-     subjectPublicKey     BIT STRING(RSAPublicKey)
-}
-~~~
-
-where rsaEncryption and RSAPublicKey are defined in [RFC8017].
-
-
-
-
-The private key encoding is defined in {{sec-priv-key}}, and for id-Dilithium3-ECDSA-P256 SHALL have SIZE (2):
-
-~~~
-CompositePrivateKey ::= SEQUENCE SIZE (2) OF OneAsymmetricKey
-~~~
-
-
-The first OneAsymmetricKey, defined in [RFC5958] SHALL contain
-
-~~~
-privateKeyAlgorithm AlgorithmIdentifier ::= {
-    algorithm id-dilithiumTBD,
-    parameters ABSENT
-  },
-privateKey DilithiumPrivateKey
-~~~
-
-The publicKey remains OPTIONAL.
-
-
-The second OneAsymmetricKey SHALL contain
-
-~~~
-privateKeyAlgorithm AlgorithmIdentifier ::= {
-    algorithm id-ecPublicKey,
-    parameters secp256r1
-  },
-privateKey ECPrivateKey
-~~~
-
-where ECPrivateKey is defined in [RFC5480].
-
-The publicKey remains OPTIONAL.
-
-
-
-
-
-
-### id-Dilithium3-ECDSA-P256 {#sec-id-Dilithium3-ECDSA-P256}
-
-Usage guidance: This signature key type is intended to be the standard composite signature, applicable for most use cases. 
-
-
-The following object identifier is defined:
-
-~~~ asn1
-id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { 
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-ECDSA-P256(1) }
-~~~
-
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
-
-
-
-When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
-
-
-The PUBLIC-KEY SHALL be:
-
-~~~ ASN.1
-pk-Dilithium3-ECDSA-P256 PUBLIC-KEY ::= {
-    id id-Dilithium3-ECDSA-P256
-    KeyValue CompositePublicKey
-    Params ARE ABSENT
-    PrivateKey CompositePrivateKey
-}
-~~~
-
---- BEGIN EDNOTE ---
-
-EDNOTE: design decision needed: should it be CompositePublicKey and CompositePrivateKey, or should we define Dilithium3-ECDSA-P256-PublicKey and Dilithium3-ECDSA-P256-PrivateKey for each explicit type?
-
-Pros of a *-PublicKey for each explicit composite type: 1) the ASN.1 parser will do some of the heavy-lifting of checking that types match (but how much is up for debate..). 2) can further compress the encoding by removing the redundant inner component OIDs.
-
-Pros of CompositePublicKey (ie carrying full SPKIs for each component): 1) it becomes harder to write abstract code that takes advantange of the fact that all composite explicit types have the same wire encoding structure because each will have an independantly defined structure object. 2) The wire encoding carries a full SPKI, so for crypto libraries that require an SPKI for each component alg, clients need to reconstruct a full SPKI, including reconstituting the components OIDs, which needs the client to have a mapping table of explicit composite OIDs to component OIDs.
-
---- END EDNOTE ---
-
-
-
-The public key encoding is defined in {{sec-composite-pub-keys}} for id-Dilithium3-ECDSA-P256 SHALL have SIZE (2):
-
-~~~ ASN.1
-CompositePublicKey ::= SEQUENCE SIZE (2) OF SubjectPublicKeyInfo
-~~~
-
-The first SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
-
-~~~ ASN.1
-SEQUENCE  {
-     algorithm  AlgorithmIdentifier {
-          algorithm id-dilithiumTBD,
-          paramaters ABSENT
-      },
-     subjectPublicKey     BIT STRING(DilithiumPublicKey)
-}
-~~~
-
-where pk-dilithiumTBD and TBDDilithiumPublicKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
-
-TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
-
-EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.massimo-lamps-pq-sig-certificates}} and should be kept in sync with future versions of that draft.
-
-
-The second SubjectPublicKeyInfo SHALL contain:
-
-~~~ ASN.1
-SEQUENCE  {
-     algorithm  AlgorithmIdentifier {
-            algorithm id-ecPublicKey,
-            parameters secp256r1
-      },
-     subjectPublicKey     BIT STRING(ECPoint)
-}
-~~~
-
-where id-ecPublicKey, secp256r1, and ECPoint are defined in [RFC5912].
-
-
-
-The private key encoding is defined in {{sec-priv-key}}, and for id-Dilithium3-ECDSA-P256 SHALL have SIZE (2):
-
-~~~
-CompositePrivateKey ::= SEQUENCE SIZE (2) OF OneAsymmetricKey
-~~~
-
-
-The first OneAsymmetricKey, defined in [RFC5958] SHALL contain
-
-~~~
-privateKeyAlgorithm AlgorithmIdentifier ::= {
-    algorithm id-dilithiumTBD,
-    parameters ABSENT
-  },
-privateKey DilithiumPrivateKey
-~~~
-
-where id-dilithiumTBD and DilithiumPrivateKey are defined in {{I-D.massimo-lamps-pq-sig-certificates}}.
-
-The publicKey remains OPTIONAL.
-
-
-The second OneAsymmetricKey SHALL contain
-
-~~~
-privateKeyAlgorithm AlgorithmIdentifier ::= {
-    algorithm id-ecPublicKey,
-    parameters secp256r1
-  },
-privateKey ECPrivateKey
-~~~
-
-where ECPrivateKey is defined in [RFC5480].
-
-The publicKey remains OPTIONAL.
 
 
 
