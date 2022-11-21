@@ -11,6 +11,12 @@ stream: IETF
 wg: LAMPS
 kw: Internet-Draft
 cat: std
+venue:
+  group: "Limited Additional Mechanisms for PKIX and SMIME (lamps)"
+  type: "Working Group"
+  mail: "spasm@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/spasm/"
+  github: "EntrustCorporation/draft-ounsworth-pq-composite-keys"
 
 coding: us-ascii
 pi:    # can use array (if all yes) or hash here
@@ -29,6 +35,17 @@ author:
       country: Canada
       code: K2K 3G5
       email: mike.ounsworth@entrust.com
+
+    -
+      ins: J. Gray
+      name: John GRay
+      org: Entrust Limited
+      abbrev: Entrust
+      street: 2500 Solandt Road – Suite 100
+      city: Ottawa, Ontario
+      country: Canada
+      code: K2K 3G5
+      email: john.gray@entrust.com
 
     -
       ins: M. Pala
@@ -68,7 +85,7 @@ normative:
   I-D.draft-ounsworth-pq-composite-sigs-05:
   I-D.draft-ounsworth-pq-composite-kem-00:
   I-D.draft-ietf-lamps-dilithium-certificates-00:
-  I-D.draft-ietf-lamps-cms-sphincs-plus-00:
+  I-D.draft-ietf-lamps-cms-sphincs-plus-01:
   I-D.draft-ietf-lamps-kyber-certificates-00:
   X.690:
       title: "Information technology - ASN.1 encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"
@@ -92,7 +109,6 @@ informative:
   I-D.draft-becker-guthrie-noncomposite-hybrid-auth-00:
   I-D.draft-guthrie-ipsecme-ikev2-hybrid-auth-00:
   I-D.draft-driscoll-pqt-hybrid-terminology-01:
-  I-D.draft-cfrg-schwabe-kyber-01:
   Bindel2017:
     title: "Transitioning to a quantum-resistant public key infrastructure"
     target: "https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22"
@@ -198,11 +214,11 @@ This document is intended to be coupled with corresponding documents that define
 - The following algorithms were removed: TODO: FILL IN
   - id-SPHINCSsha256256fsimple-ECDSA-P256
 - The following algorithms were added: TODO: FILL IN
-  - id-SPHINCSsha256256ssimple-ECDSA-P521
+  - id-SPHINCSsha256256-ECDSA-P256
 - TODO: samples were removed from this document and placed in github instead (they were unreasonably large).
 
 # Terminology {#sec-terminology}
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{RFC2119}}  {{RFC8174}} when, and only when, they appear in all capitals, as shown here.
+{::boilerplate bcp14}
 
 This document is consistent with all terminology from {{I-D.driscoll-pqt-hybrid-terminology}}.
 
@@ -334,7 +350,7 @@ When a bit string is required, the octets of the DER encoded composite data stru
 CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
 ~~~
 
-EDNOTE: See this LAMPS mailist discussion about BIT STRING vs OCTET STRING for public keys. I think we have dodged the issue, but may we worth re-visiting.
+> EDNOTE: See this LAMPS mailist discussion about BIT STRING vs OCTET STRING for public keys. I think we have dodged the issue, but may we worth re-visiting.
 https://mailarchive.ietf.org/arch/msg/spasm/Gv-ACiOpYZfOM0AJEZUX1jIhVq0/
 
 # Algorithm Identifiers {#sec-alg-ids}
@@ -354,10 +370,10 @@ id-Dilithium3-brainpoolP256r1         | {{sec-id-Dilithium3-brainpoolP256r1}} | 
 id-Dilithium3-Ed25519                 | {{sec-id-Dilithium3-Ed25519}}         | TBD
 id-Dilithium5-ECDSA-P384              | {{sec-id-Dilithium5-ECDSA-P384}}      | TBD
 id-Dilithium5-Ed448                   | {{sec-id-Dilithium5-Ed448}}           | TBD
-id-Dilithium5-ECDSA-brainpoolP384r1   | {{sec-id-Dilithium5-ECDSA-brainpoolP384r1}} | TBD
+id-Dilithium5-ECDSA-brainpoolP384r1   | {{sec-id-Dilithium5-ECDSA-brainpoolP384r1}}  | TBD
 id-Falcon512-ECDSA-P256               | {{sec-id-Falcon512-ECDSA-P256}}       | 2.16.840.1.114027.80.5.3 (for prototyping only)
 id-Falcon512-Ed25519                  | {{sec-id-Falcon512-Ed25519}}          | TBD
-id-SPHINCSsha256256ssimple-ECDSA-P256 | TODO                         | TBD
+id-SPHINCSsha256256-ECDSA-P256        | {{sec-id-SPHINCSsha256256-ECDSA-P256}} | TBD
 id-composite-key                      | TODO                         | TBD
 {: #tab-sig-agls title="Composite signatures key types"}
 
@@ -369,15 +385,15 @@ KEM public key types:
 KEM key type                       | Definition                                | OID
 ---------                          | -----------                               | ----------
 id-Kyber512-ECDH-P256              | {{sec-id-Kyber512-ECDH-P256}}             | TBD
-id-Kyber512-X25519                 | {{sec-id-Kyber512-x25519}}                | TBD
-id-Kyber768-RSA                    | {{sec-id-Kyber768-RSA}}                   | TBD
-id-Kyber768-ECDH-P256              | {{sec-id-Kyber768-ECDH-P384}}             | TBD
-id-Kyber768-X25519                 | {{sec-id-Kyber768-X25519}}                | TBD
-id-Kyber768-ECDH-brainpoolP256r1   | {{sec-id-Kyber768-ECDH-brainpoolP384r1}}  | TBD
-id-Kyber1024-ECDH-P384             | {{sec-id-Kyber1024-ECDH-P521}}            | TBD
-id-Kyber1024-X448                  | {{sec-id-Kyber1024-X448}}                 | TBD
-id-Kyber1024-ECDH-brainpoolP384r1  | {{sec-id-Kyber1024-ECDH-brainpoolP512r1}} | TBD
-id-composite-key                   | {{sec-generic-composite}}                 | TBD
+id-Kyber512-X25519                 | {{sec-id-Kyber512-X25519}}                | TBD
+id-Kyber768-RSA                    | TODO                  | TBD
+id-Kyber768-ECDH-P256              | TODO             | TBD
+id-Kyber768-X25519                 | TODO                | TBD
+id-Kyber768-ECDH-brainpoolP256r1   | TODO  | TBD
+id-Kyber1024-ECDH-P384             | TODO          | TBD
+id-Kyber1024-X448                  | TODO                 | TBD
+id-Kyber1024-ECDH-brainpoolP384r1  | TODO | TBD
+id-composite-key                   | TODO                 | TBD
 {: #tab-kem-agls title="Composite KEM key types"}
 
 
@@ -402,7 +418,7 @@ id-Dilithium3-RSA OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-RSA(2) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -420,9 +436,9 @@ SEQUENCE  {
 
 where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in {{I-D.ietf-lamps-dilithium-certificates}}.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
-EDNOTE: `pk-dilithium3TBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
+> EDNOTE: `pk-dilithium3TBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -480,7 +496,7 @@ id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-ECDSA-P256(1) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -499,9 +515,9 @@ SEQUENCE  {
 
 where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in {{I-D.ietf-lamps-dilithium-certificates}}.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
-EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
+> EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -563,7 +579,7 @@ id-Dilithium3-brainpoolP256r1 OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-brainpoolP256r1(TODO) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -582,9 +598,9 @@ SEQUENCE  {
 
 where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in {{I-D.ietf-lamps-dilithium-certificates}}.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
-EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
+> EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -646,7 +662,7 @@ id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-Ed25519(TODO) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -664,9 +680,9 @@ SEQUENCE  {
 
 where pk-dilithium3TBD are defined in {{I-D.ietf-lamps-dilithium-certificates}}.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
-EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
+> EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -723,7 +739,7 @@ id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-ECDSA-P384(TODO) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -741,9 +757,9 @@ SEQUENCE  {
 
 where `pk-dilithium5TBD` is defined in {{I-D.ietf-lamps-dilithium-certificates}}.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
-EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
+> EDNOTE: `pk-dilithiumTBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -805,7 +821,7 @@ id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-Ed448(TODO) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -823,9 +839,9 @@ SEQUENCE  {
 
 where pk-dilithium3TBD are defined in {{I-D.ietf-lamps-dilithium-certificates}}.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
-EDNOTE: `pk-dilithium5TBD` and `TBDDilithiumPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
+> EDNOTE: `pk-dilithium5TBD` and `TBDDilithiumPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -882,7 +898,7 @@ id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-ECDSA-brainpoolP384r1(TODO) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -901,9 +917,9 @@ SEQUENCE  {
 
 where pk-dilithium5TBD and TBDDilithiumPublicKey are defined in {{I-D.ietf-lamps-dilithium-certificates}}.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(DilithiumPublicKey)` is correct ASN.1.
 
-EDNOTE: `pk-dilithium5TBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
+> EDNOTE: `pk-dilithium5TBD` and `TBDPublicKey` refer to {{I-D.ietf-lamps-dilithium-certificates}} and should be kept in sync with future versions of that draft.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -964,7 +980,7 @@ id-Falcon512-ECDSA-P256 OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Falcon512-ECDSA-P256(TBD) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -981,9 +997,9 @@ SEQUENCE  {
 }
 ~~~
 
-TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
+> TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -1012,7 +1028,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 privateKey FalconPrivateKey
 ~~~
 
-TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
+> TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
 
 The publicKey remains OPTIONAL.
 
@@ -1045,7 +1061,7 @@ id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
   algorithm(80) ExplicitCompositeKey(5) id-Falcon512-Ed25519(3) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -1061,9 +1077,9 @@ SEQUENCE  {
 }
 ~~~
 
-TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
+> TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
 
 
@@ -1085,12 +1101,12 @@ The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL con
 
 ~~~
 privateKeyAlgorithm AlgorithmIdentifier ::= {
-    algorithm id-dilithium3TBD
+    algorithm id-falcon512TBD
   },
 privateKey FalconPrivateKey
 ~~~
 
-TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
+> TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
 
 The publicKey remains OPTIONAL.
 
@@ -1110,17 +1126,17 @@ The publicKey remains OPTIONAL.
 
 <!-- END id-Falcon512-Ed25519 -->
 
-## id-SPHINCSsha256256ssimple-ECDSA-P256 {#sec-id-SPHINCSsha256256ssimple-ECDSA-P256}
+## id-SPHINCSsha256256-ECDSA-P256 {#sec-id-SPHINCSsha256256-ECDSA-P256}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-SPHINCSsha256256ssimple-ECDSA-P256 OBJECT IDENTIFIER ::= { 
+id-SPHINCSsha256256-ECDSA-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-SPHINCSsha256256ssimple-ECDSA-P256(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-SPHINCSsha256256-ECDSA-P256(TBD) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -1138,7 +1154,7 @@ SEQUENCE  {
 
 where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in {{I-D.ietf-lamps-cms-sphincs-plus}}.
 
-TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
 
 The second public key component SubjectPublicKeyInfo SHALL contain:
@@ -1161,13 +1177,12 @@ The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL con
 
 ~~~
 privateKeyAlgorithm AlgorithmIdentifier ::= {
-    algorithm id-TBD,
-    parameters ABSENT
+    algorithm pk-sphincs-plus-256
   },
-privateKey FalconPrivateKey
+privateKey SPHINCS-Plus-PrivateKey
 ~~~
 
-TODO: {{I-D.ietf-lamps-cms-sphincs-plus}} doesn't define a private key format. I've asked the authors to add one.
+where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in {{I-D.ietf-lamps-cms-sphincs-plus}}
 
 The publicKey remains OPTIONAL.
 
@@ -1188,7 +1203,167 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 The publicKey remains OPTIONAL.
 
 
-<!-- END id-SPHINCSsha256256ssimple-ECDSA-P256 -->
+<!-- END id-SPHINCSsha256256-ECDSA-P256 -->
+
+
+## id-Kyber512-ECDH-P256 {#sec-id-Kyber512-ECDH-P256}
+
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Kyber512-ECDH-P256 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber512-ECDH-P256(TBD) }
+~~~
+
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+The first public key component SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-kyber512TBD
+      },
+     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+}
+~~~
+
+> TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+
+
+The second public key component SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm id-ecPublicKey,
+            parameters secp256r1
+      },
+     subjectPublicKey     BIT STRING(ECPoint)
+}
+~~~
+
+where id-ecPublicKey, secp256r1, and ECPoint are defined in [RFC5480].
+Alternatively, the `algorithm.algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
+
+
+The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-kyber512TBD
+  },
+privateKey KyberPrivateKey
+~~~
+
+> TODO: id-kyber512TBD and KyberPrivateKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+The publicKey remains OPTIONAL.
+
+
+The second private key component OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters secp256r1
+  },
+privateKey ECPrivateKey
+~~~
+
+where id-ecPublicKey, secp256r1, ECPrivateKey is defined in [RFC5480].
+Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
+
+The publicKey remains OPTIONAL.
+
+
+<!-- END id-Kyber512-ECDH-P256 -->
+
+
+
+## id-Kyber512-X25519 {#sec-id-Kyber512-X25519}
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Kyber512-X25519 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber512-X25519(3) }
+~~~
+
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+The first public key component SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-kyber512TBD
+      },
+     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+}
+~~~
+
+> TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+
+
+
+The second public key component SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm id-X25519
+      },
+     subjectPublicKey     BIT STRING
+}
+~~~
+
+where id-X25519 and the public key encoding are defined in [RFC8410].
+
+
+The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-dilithium3TBD
+  },
+privateKey FalconPrivateKey
+~~~
+
+> TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.
+
+The publicKey remains OPTIONAL.
+
+
+The second private key component OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-X25519
+  },
+privateKey OCTET STRING
+~~~
+
+where id-X25519 and the private key encoding are defined in [RFC8410].
+
+The publicKey remains OPTIONAL.
+
+
+<!-- END id-Kyber512-X25519 -->
+
 
 ## Mike-up-to-here
 
@@ -1196,7 +1371,7 @@ The publicKey remains OPTIONAL.
 
 Usage guidance: This mode is primarily for prototyping and for use in proprietary implementations; implementers MAY implement this section if there is a need for greater flexibility in algorithm combinations than is available by using the pre-defined composite algorithms defined below.
 
-EDNOTE: Does the WG feel strongly that this section should be removed prior to publication by the RFC Editors? IE remove it entirely from the standard? Are there enduring (ie non-prototyping) usecases that benefit from generic composite?
+> EDNOTE: Does the WG feel strongly that this section should be removed prior to publication by the RFC Editors? IE remove it entirely from the standard? Are there enduring (ie non-prototyping) usecases that benefit from generic composite?
 
 The id-composite-key object identifier is used for identifying a generic composite public key and a generic composite private key. This allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or standardized. 
 
@@ -1206,7 +1381,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
     Algorithm(80) Composite(4) CompositeKey(1) }
 ~~~
 
-EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 The PUBLIC-KEY ASN.1 information object class is defined in [RFC5912]. The PUBLIC-KEY information object for generic ({{sec-generic-composite}}) and explicit ({{sec-explicit-sigs}}) composite public and private keys has the following form:
 
@@ -1225,7 +1400,7 @@ The motivation for this variant is primarily for prototyping work prior to the s
 
 ## Explicit Composite Signature Keys {#sec-explicit-sigs}
 
-TODO: Delete once all the content is covered elsewhere.
+> TODO: Delete once all the content is covered elsewhere.
 
 This variant provides a rigid way of specifying supported combinations of key types.
 
@@ -1255,106 +1430,12 @@ The algorithm set provided here is not intended to be exhaustive; additional use
 
 
 
-
-
-### id-Falcon512-Ed25519
-
-Usage guidance: This signature key type is intended for constrained environments that may use non-FIPS-approved elliptic curve.
-
-TODO: fill in details.
-
-### id-SPHINCSsha256256ssimple-ECDSA-P521
-
-Usage guidance: This signature key type is intended for long-term keys that desire the robustness to algorithmic attacks that comes from stateless hash-based signatures as well as the robustness to implementation bugs that comes from coupling with mature ECDSA implementations. An obvious use is for long-lived trust anchors, such as root CAs where, high assurance is required, hence choosing the highest security levels of SPHINCS and ECDSA. Trust anchors will typically produce few signatures, for example on intermediate CAs, but have those signatures will be transmitted and verified often, hence choosing the "s-simple" variant which will incur higher CPU load during signing for the benefit of smaller signatures and faster verification times. 
-
-Requirement: SHOULD
-
-It is expected that that PKI clients will encounter hybrid PKIs that use a hash-based signature as a trust anchor and lattice schemes and issuing CAs and end entities. Therefore clients SHOULD support at least verification of id-SPHINCSsha256256ssimple-ECDSA-P521 signatures, although it is admitted that these will proably be liss common than pure SPHINCS trust anchors.
-
-TODO: fill in details.
-
-### id-Dilithium5-Falcon1024-ECDSA-P521
-
-Usage guidance: This signature key type is intended for long-term keys that desire robustness to the break of a given lattice-based scheme, but also desire smaller signatures than stateless hash-based signatures.
-
-Note that this still has smaller pubkey + sig than SPHINCS+.
-TODO: fill in numbers.
-
-TODO: fill in details.
-
-### id-Dilithium5-Falcon1024-RSA
-
-Usage guidance: This signature key type is intended for long-term keys that desire robustness to the break of a given lattice-based scheme for environments that support RSA but not elliptic curve, but also desire smaller signatures than stateless hash-based signatures. 
-
-Note that this still has smaller pubkey + sig than SPHINCS+.
-TODO: fill in numbers.
-
-TODO: fill in details.
-
-## Explicit Composite KEM Keys {#sec-explicit-encr}
-
-TODO: some text
-
-Ref to draft-ounsworth-pq-composite-kem
-
-
-### id-Kyber512-ECDH-P256 {#sec-id-Kyber512-ECDH-P256}
-
-TODO
-
-### id-Kyber512-x25519 {#sec-id-Kyber512-x25519}
-
-TODO
-
-
-### id-Kyber768-RSA {#sec-id-Kyber768-RSA}
-
-TODO
-
-Recommended to be used with RSA-3072 or greater.
-
-
-### id-Kyber768-ECDH-P384 {#sec-id-Kyber768-ECDH-P384}
-
-TODO
-
-### id-Kyber768-X25519 {#sec-id-Kyber768-X25519}
-
-TODO
-
-### id-Kyber1024-ECDH-P521 {#sec-id-Kyber1024-ECDH-P521}
-
-TODO
-
-Usage guidance: highest security level using FIPS-approved elliptic curves.
-
-### id-Kyber1024-X448 {#sec-id-Kyber1024-X448}
-
-TODO
-
-Usage guidance: highest security level with best performance.
-
-
-### id-Kyber768-ECDH-brainpoolP384r1 {#sec-id-Kyber768-ECDH-brainpoolP384r1}
-
-TODO
-
-Usage guidance: recommended security level using brainpool elliptic curves.
-
-
-### id-Kyber1024-ECDH-brainpoolP512r1 {#sec-id-Kyber1024-ECDH-brainpoolP512r1}
-
-TODO
-
-Usage guidance: highest security level using brainpool elliptic curves.
-
-
 # Implementation Considerations {#sec-imp-considers}
 
 This section addresses practical issues of how this draft affects other protocols and standards.
 
 
-EDNOTE 10: Possible topics to address:
+> EDNOTE 10: Possible topics to address:
 
   - The size of these certs and cert chains.
   - In particular, implications for (large) composite keys / signatures / certs on the handshake stages of TLS and IKEv2.
@@ -1428,7 +1509,7 @@ In the composite model this is less obvious since implementers may decide that c
 
 Specifying behaviour in these cases is beyond the scope of this document, but should be considered by implementers and potentially in additional standards.
 
-EDNOTE: Max had proposed a CRL mechanism to accomplish this, which could be revived if necessary.
+> EDNOTE: Max had proposed a CRL mechanism to accomplish this, which could be revived if necessary.
 
 ## Protection of Private Keys
 
@@ -1451,7 +1532,7 @@ Certification Authority (CA) implementations need to be careful when checking fo
 
 The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementers to perform this check explicitly.
 
-EDNOTE  this ASN.1 needs to change.  The current definition doesn’t put a component AlgorithmIdentifier with each component key. Once we agree as a group that the text accurately describes what we want, we can spend a bit of time figuring out if the ASN.1 machinery lets us express it in a readable way and/or a way that will actually help people creating explicit pairs.
+> EDNOTE  this ASN.1 needs to change.  The current definition doesn’t put a component AlgorithmIdentifier with each component key. Once we agree as a group that the text accurately describes what we want, we can spend a bit of time figuring out if the ASN.1 machinery lets us express it in a readable way and/or a way that will actually help people creating explicit pairs.
 
 ~~~ ASN.1
 -- pk-explicitComposite - Composite public key information object
@@ -2252,7 +2333,7 @@ hkjOPQMBBwQnMCUCAQEEICXQxbtuhGjYSkyLz+K0V0tRyxgEBlQcElOVwHZSA4QL
 
 ### id-Falcon512-Ed25519
 
-TODO
+> TODO
 
 
 
@@ -3049,22 +3130,6 @@ J2yh97mTCfBQXHBeZ3hczweJYx90n1T94G/6ixkCd9ZllX+Oz6a2lBHZ7c
 ~~~
 
 
-
-
-### id-Kyber512-RSA
-
-TODO
-
-### id-Kyber512-ECDH-P256
-
-TODO
-
-
-### id-Kyber512-x25519
-
-TODO
-
-
 # ASN.1 Module
 
 ~~~ ASN.1
@@ -3223,12 +3288,5 @@ been inadvertently omitted from this list.
 
 This document borrows text from similar documents, including those referenced below. Thanks go to the authors of those
    documents.  "Copying always makes things easier and less error prone" - [RFC8411].
-
-## Making contributions
-
-Additional contributions to this draft are welcome. Please see the working copy of this draft at, as well as open issues at:
-
-https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-keys
-
 
 <!-- End of Contributors section -->
