@@ -389,10 +389,10 @@ id-Kyber512-X25519                 | {{sec-id-Kyber512-X25519}}                |
 id-Kyber768-RSA                    | {{sec-id-Kyber768-RSA}}                   | TBD
 id-Kyber768-ECDH-P256              | {{sec-id-Kyber768-ECDH-P256}}             | TBD
 id-Kyber768-X25519                 | {{sec-id-Kyber768-X25519}}                | TBD
-id-Kyber768-ECDH-brainpoolP256r1   | TODO  | TBD
-id-Kyber1024-ECDH-P384             | TODO          | TBD
-id-Kyber1024-X448                  | TODO                 | TBD
-id-Kyber1024-ECDH-brainpoolP384r1  | TODO | TBD
+id-Kyber768-ECDH-brainpoolP256r1   | {{sec-id-Kyber768-ECDH-brainpoolP256r1}}  | TBD
+id-Kyber1024-ECDH-P384             | {{sec-id-Kyber1024-ECDH-P384}}            | TBD
+id-Kyber1024-X448                  | {{sec-id-Kyber1024-X448}}                 | TBD
+id-Kyber1024-ECDH-brainpoolP384r1  | {{sec-id-Kyber1024-ECDH-brainpoolP384r1}} | TBD
 id-composite-key                   | TODO                 | TBD
 {: #tab-kem-agls title="Composite KEM key types"}
 
@@ -1497,7 +1497,7 @@ SEQUENCE  {
 }
 ~~~
 
-> TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
+> TODO: id-kyber768TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
 
 > TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
@@ -1659,7 +1659,7 @@ SEQUENCE  {
 }
 ~~~
 
-> TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
+> TODO: id-kyber768TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
 
 > TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
 
@@ -1677,7 +1677,7 @@ SEQUENCE  {
 }
 ~~~
 
-where id-ecPublicKey and ECPoint are defined in [RFC5480], and `brainpoolP384r1` is defined in [RFC5639].
+where id-ecPublicKey and ECPoint are defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
 Alternatively, the `algorithm.algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 
@@ -1714,6 +1714,249 @@ The publicKey remains OPTIONAL.
 
 
 <!-- id-Kyber768-ECDH-brainpoolP256r1 -->
+
+## id-Kyber1024-ECDH-P384 {#sec-id-Kyber1024-ECDH-P384}
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Kyber1024-ECDH-P384 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-ECDH-P384(TBD) }
+~~~
+
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+The first public key component SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-kyber1024TBD
+      },
+     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+}
+~~~
+
+> TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+
+
+
+The second public key component SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm id-ecPublicKey,
+            parameters secp384r1
+      },
+     subjectPublicKey     BIT STRING(ECPoint)
+}
+~~~
+
+where id-ecPublicKey, secp384r1, and ECPoint are defined in [RFC5480].
+Alternatively, the `algorithm.algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
+
+
+The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-kyber1024TBD
+  },
+  privateKey PqckemPrivateKey
+}
+~~~
+
+where id-kyber768TBD and PqckemPrivateKey are defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+The publicKey remains OPTIONAL.
+
+
+The second private key component OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters secp384r1
+  },
+  privateKey ECPrivateKey
+}
+~~~
+
+where id-ecPublicKey, secp384r1, ECPrivateKey is defined in [RFC5480].
+Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
+
+The publicKey remains OPTIONAL.
+
+
+<!-- END id-Kyber1024-ECDH-P384 -->
+
+
+## id-Kyber1024-X448 {#sec-id-Kyber1024-X448}
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Kyber1024-X448 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-X448(TBD) }
+~~~
+
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+The first public key component SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-kyber1024TBD
+      },
+     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+}
+~~~
+
+> TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+
+
+
+The second public key component SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm id-X448
+      },
+     subjectPublicKey     BIT STRING
+}
+~~~
+
+where id-X448 and the public key encoding are defined in [RFC8410].
+
+
+The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-kyber1024TBD
+  },
+  privateKey PqckemPrivateKey
+}
+~~~
+
+where id-kyber1024TBD and PqckemPrivateKey are defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+The publicKey remains OPTIONAL.
+
+
+The second private key component OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-X448
+  },
+  privateKey OCTET STRING
+}
+~~~
+
+where id-X448 and the private key encoding are defined in [RFC8410].
+
+The publicKey remains OPTIONAL.
+
+
+<!-- END id-Kyber1024-X448 -->
+
+## id-Kyber1024-ECDH-brainpoolP384r1 {#sec-id-Kyber1024-ECDH-brainpoolP384r1}
+
+The following object identifier is defined:
+
+~~~ asn1
+id-Kyber1024-ECDH-brainpoolP384r1 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-ECDH-brainpoolP384r1(TBD) }
+~~~
+
+> EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
+
+When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+The first public key component SubjectPublicKeyInfo (defined in [RFC5280]) SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+          algorithm id-kyber1024TBD
+      },
+     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+}
+~~~
+
+> TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+> TODO: I don't think `subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)` is correct ASN.1.
+
+
+
+The second public key component SubjectPublicKeyInfo SHALL contain:
+
+~~~ ASN.1
+SEQUENCE  {
+     algorithm  AlgorithmIdentifier {
+            algorithm id-ecPublicKey,
+            parameters brainpoolP384r1
+      },
+     subjectPublicKey     BIT STRING(ECPoint)
+}
+~~~
+
+where id-ecPublicKey and ECPoint are defined in [RFC5480], and `brainpoolP384r1` is defined in [RFC5639].
+Alternatively, the `algorithm.algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
+
+
+The first private key component OneAsymmetricKey, defined in [RFC5958] SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-kyber1024TBD
+  },
+  privateKey PqckemPrivateKey
+}
+~~~
+
+where id-kyber1024TBD and PqckemPrivateKey are defined in {{I-D.ietf-lamps-kyber-certificates}}.
+
+The publicKey remains OPTIONAL.
+
+
+The second private key component OneAsymmetricKey SHALL contain
+
+~~~
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm id-ecPublicKey,
+    parameters brainpoolP384r1
+  },
+  privateKey ECPrivateKey
+}
+~~~
+
+where ECPrivateKey is defined in [RFC5480], and `brainpoolP384r1` is defined in [RFC5639].
+Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
+
+The publicKey remains OPTIONAL.
+
+
+<!-- END id-Kyber1024-ECDH-brainpoolP384r1 -->
 
 ## Mike-up-to-here
 
