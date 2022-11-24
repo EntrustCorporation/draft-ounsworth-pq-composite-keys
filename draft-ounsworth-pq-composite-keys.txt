@@ -127,7 +127,7 @@ Table of Contents
    4.  Composite Key Structures  . . . . . . . . . . . . . . . . . .   6
      4.1.  Specifying Composite Key Types  . . . . . . . . . . . . .   6
      4.2.  CompositePublicKey  . . . . . . . . . . . . . . . . . . .   7
-     4.3.  CompositePrivateKey . . . . . . . . . . . . . . . . . . .   7
+     4.3.  CompositePrivateKey . . . . . . . . . . . . . . . . . . .   8
        4.3.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   8
      4.4.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .   8
    5.  Algorithm Identifiers . . . . . . . . . . . . . . . . . . . .   9
@@ -136,32 +136,32 @@ Table of Contents
      5.3.  id-Dilithium3-EDSA-brainpoolP256r1  . . . . . . . . . . .  15
      5.4.  id-Dilithium3-Ed25519 . . . . . . . . . . . . . . . . . .  16
      5.5.  id-Dilithium5-ECDSA-P384  . . . . . . . . . . . . . . . .  18
-     5.6.  id-Dilithium5-Ed448 . . . . . . . . . . . . . . . . . . .  20
-     5.7.  id-Dilithium5-ECDSA-brainpoolP384r1 . . . . . . . . . . .  21
-     5.8.  id-Falcon512-ECDSA-P256 . . . . . . . . . . . . . . . . .  23
-     5.9.  id-Falcon512-Ed25519  . . . . . . . . . . . . . . . . . .  24
-     5.10. id-SPHINCSplusSHA256-ECDSA-P256 . . . . . . . . . . . . .  26
-     5.11. id-Kyber512-ECDH-P256 . . . . . . . . . . . . . . . . . .  27
-     5.12. id-Kyber512-X25519  . . . . . . . . . . . . . . . . . . .  29
-     5.13. id-Kyber768-RSA . . . . . . . . . . . . . . . . . . . . .  30
-     5.14. id-Kyber768-ECDH-P256 . . . . . . . . . . . . . . . . . .  32
-     5.15. id-Kyber768-X25519  . . . . . . . . . . . . . . . . . . .  33
-     5.16. id-Kyber768-ECDH-brainpoolP256r1  . . . . . . . . . . . .  35
-     5.17. id-Kyber1024-ECDH-P384  . . . . . . . . . . . . . . . . .  36
-     5.18. id-Kyber1024-X448 . . . . . . . . . . . . . . . . . . . .  38
-     5.19. id-Kyber1024-ECDH-brainpoolP384r1 . . . . . . . . . . . .  39
-     5.20. Mike-up-to-here . . . . . . . . . . . . . . . . . . . . .  41
-     5.21. id-composite-key (Generic Composite Keys) . . . . . . . .  41
-     5.22. Explicit Composite Signature Keys . . . . . . . . . . . .  42
-   6.  Implementation Considerations . . . . . . . . . . . . . . . .  43
-     6.1.  Textual encoding of Composite Private Keys  . . . . . . .  44
-     6.2.  Backwards Compatibility . . . . . . . . . . . . . . . . .  44
-       6.2.1.  OR modes  . . . . . . . . . . . . . . . . . . . . . .  45
-       6.2.2.  Parallel PKIs . . . . . . . . . . . . . . . . . . . .  45
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  46
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  46
-     8.1.  Reuse of keys in a Composite public key . . . . . . . . .  46
-     8.2.  Key mismatch in explicit composite  . . . . . . . . . . .  46
+     5.6.  id-Dilithium5-ECDSA-brainpoolP384r1 . . . . . . . . . . .  19
+     5.7.  id-Dilithium5-Ed448 . . . . . . . . . . . . . . . . . . .  21
+     5.8.  id-Falcon512-ECDSA-P256 . . . . . . . . . . . . . . . . .  22
+     5.9.  id-Falcon512-ECDSA-brainpoolP256r1  . . . . . . . . . . .  24
+     5.10. id-Falcon512-Ed25519  . . . . . . . . . . . . . . . . . .  25
+     5.11. id-SPHINCSplusSHA256-ECDSA-P256 . . . . . . . . . . . . .  27
+     5.12. id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1  . . . . . . .  28
+     5.13. id-SPHINCSplusSHA256-Ed25519  . . . . . . . . . . . . . .  30
+     5.14. id-Kyber512-ECDH-P256 . . . . . . . . . . . . . . . . . .  31
+     5.15. id-Kyber512-ECDH-brainpoolP256r1  . . . . . . . . . . . .  33
+     5.16. id-Kyber512-X25519  . . . . . . . . . . . . . . . . . . .  34
+     5.17. id-Kyber768-RSA . . . . . . . . . . . . . . . . . . . . .  36
+     5.18. id-Kyber768-ECDH-P256 . . . . . . . . . . . . . . . . . .  37
+     5.19. id-Kyber768-ECDH-brainpoolP256r1  . . . . . . . . . . . .  39
+     5.20. id-Kyber768-X25519  . . . . . . . . . . . . . . . . . . .  40
+     5.21. id-Kyber1024-ECDH-P384  . . . . . . . . . . . . . . . . .  42
+     5.22. id-Kyber1024-ECDH-brainpoolP384r1 . . . . . . . . . . . .  43
+     5.23. id-Kyber1024-X448 . . . . . . . . . . . . . . . . . . . .  45
+     5.24. Mike-up-to-here . . . . . . . . . . . . . . . . . . . . .  46
+     5.25. id-composite-key (Generic Composite Keys) . . . . . . . .  46
+     5.26. Explicit Composite Signature Keys . . . . . . . . . . . .  47
+   6.  Implementation Considerations . . . . . . . . . . . . . . . .  49
+     6.1.  Textual encoding of Composite Private Keys  . . . . . . .  49
+     6.2.  Backwards Compatibility . . . . . . . . . . . . . . . . .  50
+       6.2.1.  OR modes  . . . . . . . . . . . . . . . . . . . . . .  50
+       6.2.2.  Parallel PKIs . . . . . . . . . . . . . . . . . . . .  51
 
 
 
@@ -170,28 +170,32 @@ Ounsworth, et al.          Expires 27 May 2023                  [Page 3]
 Internet-Draft              PQ Composite Keys              November 2022
 
 
-     8.3.  Policy for Deprecated and Acceptable Algorithms . . . . .  47
-     8.4.  Protection of Private Keys  . . . . . . . . . . . . . . .  47
-     8.5.  Checking for Compromised Key Reuse  . . . . . . . . . . .  48
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  48
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  48
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  51
-   Appendix A.  Creating explicit combinations . . . . . . . . . . .  53
-   Appendix B.  Examples . . . . . . . . . . . . . . . . . . . . . .  55
-     B.1.  Generic Composite Public Key Examples . . . . . . . . . .  55
-     B.2.  Explicit Composite Public Key Examples  . . . . . . . . .  57
-       B.2.1.  pk-example-ECandRSA . . . . . . . . . . . . . . . . .  57
-       B.2.2.  id-Dilithium3-ECDSA-P256  . . . . . . . . . . . . . .  60
-       B.2.3.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . .  64
-       B.2.4.  id-Falcon512-ECDSA-P256 . . . . . . . . . . . . . . .  69
-       B.2.5.  id-Falcon512-Ed25519  . . . . . . . . . . . . . . . .  71
-       B.2.6.  id-SPHINCSplusSHA256256frobust-ECDSA-P256 . . . . . .  72
-       B.2.7.  id-Dilithium5-Falcon1024-ECDSA-P521 . . . . . . . . .  73
-       B.2.8.  id-Dilithium5-Falcon1024-RSA  . . . . . . . . . . . .  80
-   Appendix C.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  88
-   Appendix D.  Intellectual Property Considerations . . . . . . . .  91
-   Appendix E.  Contributors and Acknowledgements  . . . . . . . . .  91
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  91
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  51
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  52
+     8.1.  Reuse of keys in a Composite public key . . . . . . . . .  52
+     8.2.  Key mismatch in explicit composite  . . . . . . . . . . .  52
+     8.3.  Policy for Deprecated and Acceptable Algorithms . . . . .  52
+     8.4.  Protection of Private Keys  . . . . . . . . . . . . . . .  53
+     8.5.  Checking for Compromised Key Reuse  . . . . . . . . . . .  53
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  53
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  53
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  56
+   Appendix A.  Creating explicit combinations . . . . . . . . . . .  59
+   Appendix B.  Examples . . . . . . . . . . . . . . . . . . . . . .  60
+     B.1.  Generic Composite Public Key Examples . . . . . . . . . .  60
+     B.2.  Explicit Composite Public Key Examples  . . . . . . . . .  63
+       B.2.1.  pk-example-ECandRSA . . . . . . . . . . . . . . . . .  63
+       B.2.2.  id-Dilithium3-ECDSA-P256  . . . . . . . . . . . . . .  66
+       B.2.3.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . .  70
+       B.2.4.  id-Falcon512-ECDSA-P256 . . . . . . . . . . . . . . .  75
+       B.2.5.  id-Falcon512-Ed25519  . . . . . . . . . . . . . . . .  77
+       B.2.6.  id-SPHINCSplusSHA256256frobust-ECDSA-P256 . . . . . .  78
+       B.2.7.  id-Dilithium5-Falcon1024-ECDSA-P521 . . . . . . . . .  79
+       B.2.8.  id-Dilithium5-Falcon1024-RSA  . . . . . . . . . . . .  86
+   Appendix C.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  94
+   Appendix D.  Intellectual Property Considerations . . . . . . . .  97
+   Appendix E.  Contributors and Acknowledgements  . . . . . . . . .  97
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  97
 
 1.  Changes in version -04
 
@@ -215,16 +219,15 @@ Internet-Draft              PQ Composite Keys              November 2022
 
       -  id-SPHINCSplusSHA256256-ECDSA-P256
 
-   *  TODO: samples were removed from this document and placed in github
-      instead (they were unreasonably large).
-
-
 
 
 Ounsworth, et al.          Expires 27 May 2023                  [Page 4]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
+
+   *  TODO: samples were removed from this document and placed in github
+      instead (they were unreasonably large).
 
 2.  Terminology
 
@@ -265,13 +268,10 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The transition to PQC will face two challenges:
 
-   *  Algorithm strength uncertainty: During the transition period, some
-      post-quantum signature and encryption algorithms will not be fully
-      trusted, while also the trust in legacy public key algorithms will
-      start to erode.  A relying party may learn some time after
-      deployment that a public key algorithm has become untrustworthy,
-      but in the interim, they may not know which algorithm an adversary
-      has compromised.
+
+
+
+
 
 
 
@@ -281,6 +281,14 @@ Ounsworth, et al.          Expires 27 May 2023                  [Page 5]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
+
+   *  Algorithm strength uncertainty: During the transition period, some
+      post-quantum signature and encryption algorithms will not be fully
+      trusted, while also the trust in legacy public key algorithms will
+      start to erode.  A relying party may learn some time after
+      deployment that a public key algorithm has become untrustworthy,
+      but in the interim, they may not know which algorithm an adversary
+      has compromised.
 
    *  Migration: During the transition period, systems will require
       mechanisms that allow for staged migrations from fully traditional
@@ -321,14 +329,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    *  An AlgorithmIdentifier OID for the composite key type.
 
-   *  Component public key types, AlgorithmIdentifiers and parameters
-      for each position within the CompositePublicKey. (see
-      Section 4.2).
-
-   *  Component private key types, AlgorithmIdentifiers and parameters
-      for each position within the CompositePrivateKey (see
-      Section 4.3).
-
 
 
 
@@ -337,6 +337,14 @@ Ounsworth, et al.          Expires 27 May 2023                  [Page 6]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
+
+   *  Component public key types, AlgorithmIdentifiers and parameters
+      for each position within the CompositePublicKey. (see
+      Section 4.2).
+
+   *  Component private key types, AlgorithmIdentifiers and parameters
+      for each position within the CompositePrivateKey (see
+      Section 4.3).
 
    The following ASN.1 Information Object Class applies to all composite
    key types, with suitable replacements for the ASN.1 identifier pk-
@@ -372,6 +380,20 @@ Internet-Draft              PQ Composite Keys              November 2022
    string format, the data structure is encoded as specified in
    Section 4.4.
 
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                  [Page 7]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
 4.3.  CompositePrivateKey
 
    This section provides an encoding for composite private keys intended
@@ -386,13 +408,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    cryptographic module.  The establishment of correspondence between
    public keys in a CompositePublicKey and private keys not represented
    in a single composite structure is beyond the scope of this document.
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                  [Page 7]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    The composite private key data is represented by the following
    structure:
@@ -426,6 +441,15 @@ Internet-Draft              PQ Composite Keys              November 2022
    key and composite private key data structures be represented by an
    octet string or bit string.
 
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                  [Page 8]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    When an octet string is required, the DER encoding of the composite
    data structure SHALL be used directly.
 
@@ -438,17 +462,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    octet becoming the last bit of the bit string.
 
    CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                  [Page 8]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
       EDNOTE: See this LAMPS mailist discussion about BIT STRING vs
       OCTET STRING for public keys.  I think we have dodged the issue,
@@ -488,68 +501,55 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 Ounsworth, et al.          Expires 27 May 2023                  [Page 9]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
 
-     +======================+=============+==========================+
-     | Signature key type   | Definition  | OID                      |
-     +======================+=============+==========================+
-     | id-Dilithium3-RSA    | Section 5.1 | 2.16.840.1.114027.80.5.2 |
-     |                      |             | (for prototyping only)   |
-     +----------------------+-------------+--------------------------+
-     | id-Dilithium3-ECDSA- | Section 5.2 | 2.16.840.1.114027.80.5.1 |
-     | P256                 |             | (for prototyping only)   |
-     +----------------------+-------------+--------------------------+
-     | id-Dilithium3-ECDSA- | Section 5.3 | TBD                      |
-     | brainpoolP256r1      |             |                          |
-     +----------------------+-------------+--------------------------+
-     | id-                  | Section 5.4 | TBD                      |
-     | Dilithium3-Ed25519   |             |                          |
-     +----------------------+-------------+--------------------------+
-     | id-Dilithium5-ECDSA- | Section 5.5 | TBD                      |
-     | P384                 |             |                          |
-     +----------------------+-------------+--------------------------+
-     | id-Dilithium5-Ed448  | Section 5.6 | TBD                      |
-     +----------------------+-------------+--------------------------+
-     | id-Dilithium5-ECDSA- | Section 5.7 | TBD                      |
-     | brainpoolP384r1      |             |                          |
-     +----------------------+-------------+--------------------------+
-     | id-                  | Section 5.8 | 2.16.840.1.114027.80.5.3 |
-     | Falcon512-ECDSA-P256 |             | (for prototyping only)   |
-     +----------------------+-------------+--------------------------+
-     | id-Falcon512-Ed25519 | Section 5.9 | TBD                      |
-     +----------------------+-------------+--------------------------+
-     | id-SPHINCSplusSHA256 | Section     | TBD                      |
-     | -ECDSA-P256          | 5.10        |                          |
-     +----------------------+-------------+--------------------------+
-     | id-composite-key     | TODO        | TBD                      |
-     +----------------------+-------------+--------------------------+
+   +===========================+============+==========================+
+   |Signature key type         |Definition  | OID                      |
+   +===========================+============+==========================+
+   |id-Dilithium3-RSA          |Section 5.1 | 2.16.840.1.114027.80.5.2 |
+   |                           |            | (for prototyping only)   |
+   +---------------------------+------------+--------------------------+
+   |id-Dilithium3-ECDSA-P256   |Section 5.2 | 2.16.840.1.114027.80.5.1 |
+   |                           |            | (for prototyping only)   |
+   +---------------------------+------------+--------------------------+
+   |id-Dilithium3-ECDSA-       |Section 5.3 | TBD                      |
+   |brainpoolP256r1            |            |                          |
+   +---------------------------+------------+--------------------------+
+   |id-Dilithium3-Ed25519      |Section 5.4 | TBD                      |
+   +---------------------------+------------+--------------------------+
+   |id-Dilithium5-ECDSA-P384   |Section 5.5 | TBD                      |
+   +---------------------------+------------+--------------------------+
+   |id-Dilithium5-ECDSA-       |Section 5.6 | TBD                      |
+   |brainpoolP384r1            |            |                          |
+   +---------------------------+------------+--------------------------+
+   |id-Dilithium5-Ed448        |Section 5.7 | TBD                      |
+   +---------------------------+------------+--------------------------+
+   |id-Falcon512-ECDSA-P256    |Section 5.8 | 2.16.840.1.114027.80.5.3 |
+   |                           |            | (for prototyping only)   |
+   +---------------------------+------------+--------------------------+
+   |id-Falcon512-ECDSA-        |Section 5.9 | TBD                      |
+   |brainpoolP256r1            |            |                          |
+   +---------------------------+------------+--------------------------+
+   |id-Falcon512-Ed25519       |Section 5.10| TBD                      |
+   +---------------------------+------------+--------------------------+
+   |id-SPHINCSplusSHA256-ECDSA-|Section 5.11| TBD                      |
+   |P256                       |            |                          |
+   +---------------------------+------------+--------------------------+
+   |id-SPHINCSplusSHA256-ECDSA-|Section 5.12| TBD                      |
+   |brainpoolP256r1            |            |                          |
+   +---------------------------+------------+--------------------------+
+   |id-                        |Section 5.13| TBD                      |
+   |SPHINCSplusSHA256-Ed25519  |            |                          |
+   +---------------------------+------------+--------------------------+
+   |id-composite-key           |TODO        | TBD                      |
+   +---------------------------+------------+--------------------------+
 
                   Table 1: Composite signatures key types
 
    KEM public key types:
-
-
-
-
-
-
-
 
 
 
@@ -565,23 +565,25 @@ Internet-Draft              PQ Composite Keys              November 2022
         +===================================+==============+=====+
         | KEM key type                      | Definition   | OID |
         +===================================+==============+=====+
-        | id-Kyber512-ECDH-P256             | Section 5.11 | TBD |
+        | id-Kyber512-ECDH-P256             | Section 5.14 | TBD |
         +-----------------------------------+--------------+-----+
-        | id-Kyber512-X25519                | Section 5.12 | TBD |
+        | id-Kyber512-ECDH-brainpoolP256r1  | Section 5.15 | TBD |
         +-----------------------------------+--------------+-----+
-        | id-Kyber768-RSA                   | Section 5.13 | TBD |
+        | id-Kyber512-X25519                | Section 5.16 | TBD |
         +-----------------------------------+--------------+-----+
-        | id-Kyber768-ECDH-P256             | Section 5.14 | TBD |
+        | id-Kyber768-RSA                   | Section 5.17 | TBD |
         +-----------------------------------+--------------+-----+
-        | id-Kyber768-X25519                | Section 5.15 | TBD |
+        | id-Kyber768-ECDH-P256             | Section 5.18 | TBD |
         +-----------------------------------+--------------+-----+
-        | id-Kyber768-ECDH-brainpoolP256r1  | Section 5.16 | TBD |
+        | id-Kyber768-ECDH-brainpoolP256r1  | Section 5.19 | TBD |
         +-----------------------------------+--------------+-----+
-        | id-Kyber1024-ECDH-P384            | Section 5.17 | TBD |
+        | id-Kyber768-X25519                | Section 5.20 | TBD |
         +-----------------------------------+--------------+-----+
-        | id-Kyber1024-X448                 | Section 5.18 | TBD |
+        | id-Kyber1024-ECDH-P384            | Section 5.21 | TBD |
         +-----------------------------------+--------------+-----+
-        | id-Kyber1024-ECDH-brainpoolP384r1 | Section 5.19 | TBD |
+        | id-Kyber1024-ECDH-brainpoolP384r1 | Section 5.22 | TBD |
+        +-----------------------------------+--------------+-----+
+        | id-Kyber1024-X448                 | Section 5.23 | TBD |
         +-----------------------------------+--------------+-----+
         | id-composite-key                  | TODO         | TBD |
         +-----------------------------------+--------------+-----+
@@ -608,8 +610,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    4.  A single SPHINCS+ combination is provided for use cases that wish
        to put even hash-based signatures into hybrid combination.
-
-
 
 
 
@@ -642,8 +642,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
-             algorithm id-dilithium3TBD,
-             paramaters ABSENT
+             algorithm id-dilithium3TBD
          },
         subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
    }
@@ -660,20 +659,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The second public key component SubjectPublicKeyInfo SHALL contain:
 
-
-
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 12]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
                algorithm rsaEncryption,
@@ -681,6 +666,13 @@ Internet-Draft              PQ Composite Keys              November 2022
          },
         subjectPublicKey     BIT STRING(RSAPrivateKey)
    }
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 12]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    where rsaEncryption and RSAPrivateKey are defined in [RFC8017].
 
@@ -721,7 +713,15 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
+   The first public key component SubjectPublicKeyInfo (defined in
+   [RFC5280]) SHALL contain:
 
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+             algorithm id-dilithium3TBD
+         },
+        subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
+   }
 
 
 
@@ -729,17 +729,6 @@ Ounsworth, et al.          Expires 27 May 2023                 [Page 13]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
-
-   The first public key component SubjectPublicKeyInfo (defined in
-   [RFC5280]) SHALL contain:
-
-   SEQUENCE  {
-        algorithm  AlgorithmIdentifier {
-             algorithm id-dilithium3TBD,
-             paramaters ABSENT
-         },
-        subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
-   }
 
    where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in
    [I-D.ietf-lamps-dilithium-certificates].
@@ -779,13 +768,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 14]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    The second private key component OneAsymmetricKey SHALL contain
 
    privateKeyAlgorithm AlgorithmIdentifier ::= {
@@ -794,6 +776,15 @@ Internet-Draft              PQ Composite Keys              November 2022
      },
      privateKey ECPrivateKey
    }
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 14]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    where id-ecPublicKey, secp256r1, ECPrivateKey is defined in
    [RFC5480].  Alternatively, the algorithm MAY be id-ecDH or id-ecMQV
@@ -819,8 +810,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
-             algorithm id-dilithium3TBD,
-             paramaters ABSENT
+             algorithm id-dilithium3TBD
          },
         subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
    }
@@ -835,13 +825,6 @@ Internet-Draft              PQ Composite Keys              November 2022
       [I-D.ietf-lamps-dilithium-certificates] and should be kept in sync
       with future versions of that draft.
 
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 15]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    The second public key component SubjectPublicKeyInfo SHALL contain:
 
    SEQUENCE  {
@@ -851,6 +834,13 @@ Internet-Draft              PQ Composite Keys              November 2022
          },
         subjectPublicKey     BIT STRING(ECPoint)
    }
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 15]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    where id-ecPublicKey and ECPoint are defined in [RFC5480], and
    brainpoolP256r1 is defined in [RFC5639].  Alternatively, the
@@ -890,14 +880,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The following object identifier is defined:
 
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 16]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-Ed25519(TODO) }
@@ -906,6 +888,15 @@ Internet-Draft              PQ Composite Keys              November 2022
       We are requesting IANA to assign a permanent OID, see Section 7.
 
    When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 16]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    The first public key component SubjectPublicKeyInfo (defined in
    [RFC5280]) SHALL contain:
@@ -942,18 +933,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    The first private key component OneAsymmetricKey, defined in
    [RFC5958] SHALL contain
 
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 17]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    privateKeyAlgorithm AlgorithmIdentifier ::= {
        algorithm id-dilithium3TBD
      },
@@ -966,6 +945,14 @@ Internet-Draft              PQ Composite Keys              November 2022
    The publicKey remains OPTIONAL.
 
    The second private key component OneAsymmetricKey SHALL contain
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 17]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    privateKeyAlgorithm AlgorithmIdentifier ::= {
        algorithm id-Ed25519
@@ -1001,15 +988,6 @@ Internet-Draft              PQ Composite Keys              November 2022
         subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
    }
 
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 18]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    where pk-dilithium5TBD is defined in
    [I-D.ietf-lamps-dilithium-certificates].
 
@@ -1021,6 +999,16 @@ Internet-Draft              PQ Composite Keys              November 2022
       with future versions of that draft.
 
    The second public key component SubjectPublicKeyInfo SHALL contain:
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 18]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
@@ -1057,7 +1045,19 @@ Internet-Draft              PQ Composite Keys              November 2022
      privateKey ECPrivateKey
    }
 
+   where ECPrivateKey is defined in [RFC5480].  Alternatively, the
+   algorithm MAY be id-ecDH or id-ecMQV in accordance with [RFC5480]
+   section 2.1.
 
+   The publicKey remains OPTIONAL.
+
+5.6.  id-Dilithium5-ECDSA-brainpoolP384r1
+
+   The following object identifier is defined:
+
+   id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-ECDSA-brainpoolP384r1(TODO) }
 
 
 
@@ -1065,20 +1065,6 @@ Ounsworth, et al.          Expires 27 May 2023                 [Page 19]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
-
-   where ECPrivateKey is defined in [RFC5480].  Alternatively, the
-   algorithm MAY be id-ecDH or id-ecMQV in accordance with [RFC5480]
-   section 2.1.
-
-   The publicKey remains OPTIONAL.
-
-5.6.  id-Dilithium5-Ed448
-
-   The following object identifier is defined:
-
-   id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
-     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-Ed448(TODO) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -1091,97 +1077,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
              algorithm id-dilithium5TBD
-         },
-        subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
-   }
-
-   where pk-dilithium3TBD are defined in
-   [I-D.ietf-lamps-dilithium-certificates].
-
-      TODO: I don't think subjectPublicKey BIT
-      STRING(TBDDilithiumPublicKey) is correct ASN.1.
-
-      EDNOTE: pk-dilithium5TBD and TBDDilithiumPublicKey refer to
-      [I-D.ietf-lamps-dilithium-certificates] and should be kept in sync
-      with future versions of that draft.
-
-   The second public key component SubjectPublicKeyInfo SHALL contain:
-
-   SEQUENCE  {
-        algorithm  AlgorithmIdentifier {
-               algorithm id-Ed448
-         },
-        subjectPublicKey     BIT STRING
-   }
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 20]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
-   where id-Ed448 and the public key encoding are defined in [RFC8410].
-
-   The first private key component OneAsymmetricKey, defined in
-   [RFC5958] SHALL contain
-
-   privateKeyAlgorithm AlgorithmIdentifier ::= {
-       algorithm id-dilithium5TBD
-     },
-     privateKey DilithiumPrivateKey
-   }
-
-   where id-dilithium5TBD and DilithiumPrivateKey are defined in
-   [I-D.ietf-lamps-dilithium-certificates].
-
-   The publicKey remains OPTIONAL.
-
-   The second private key component OneAsymmetricKey SHALL contain
-
-   privateKeyAlgorithm AlgorithmIdentifier ::= {
-       algorithm id-Ed448
-     },
-     privateKey OCTET STRING
-   }
-
-   where id-Ed448 and the private key encoding are defined in [RFC8410].
-
-   The publicKey remains OPTIONAL.
-
-5.7.  id-Dilithium5-ECDSA-brainpoolP384r1
-
-   The following object identifier is defined:
-
-   id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
-     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-ECDSA-brainpoolP384r1(TODO) }
-
-      EDNOTE: this is a temporary OID for the purposes of prototyping.
-      We are requesting IANA to assign a permanent OID, see Section 7.
-
-   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
-
-   The first public key component SubjectPublicKeyInfo (defined in
-   [RFC5280]) SHALL contain:
-
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 21]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
-   SEQUENCE  {
-        algorithm  AlgorithmIdentifier {
-             algorithm id-dilithium5TBD,
-             paramaters ABSENT
          },
         subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
    }
@@ -1220,19 +1115,19 @@ Internet-Draft              PQ Composite Keys              November 2022
      privateKey DilithiumPrivateKey
    }
 
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 20]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    where id-dilithium5TBD and DilithiumPrivateKey are defined in
    [I-D.ietf-lamps-dilithium-certificates].
 
    The publicKey remains OPTIONAL.
 
    The second private key component OneAsymmetricKey SHALL contain
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 22]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    privateKeyAlgorithm AlgorithmIdentifier ::= {
        algorithm id-ecPublicKey,
@@ -1247,13 +1142,13 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.8.  id-Falcon512-ECDSA-P256
+5.7.  id-Dilithium5-Ed448
 
    The following object identifier is defined:
 
-   id-Falcon512-ECDSA-P256 OBJECT IDENTIFIER ::= {
+   id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Falcon512-ECDSA-P256(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-Ed448(TODO) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -1265,8 +1160,91 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
-             algorithm id-falcon512TBD,
-             paramaters ABSENT
+             algorithm id-dilithium5TBD
+         },
+        subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
+   }
+
+   where pk-dilithium3TBD are defined in
+   [I-D.ietf-lamps-dilithium-certificates].
+
+      TODO: I don't think subjectPublicKey BIT
+      STRING(TBDDilithiumPublicKey) is correct ASN.1.
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 21]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+      EDNOTE: pk-dilithium5TBD and TBDDilithiumPublicKey refer to
+      [I-D.ietf-lamps-dilithium-certificates] and should be kept in sync
+      with future versions of that draft.
+
+   The second public key component SubjectPublicKeyInfo SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+               algorithm id-Ed448
+         },
+        subjectPublicKey     BIT STRING
+   }
+
+   where id-Ed448 and the public key encoding are defined in [RFC8410].
+
+   The first private key component OneAsymmetricKey, defined in
+   [RFC5958] SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-dilithium5TBD
+     },
+     privateKey DilithiumPrivateKey
+   }
+
+   where id-dilithium5TBD and DilithiumPrivateKey are defined in
+   [I-D.ietf-lamps-dilithium-certificates].
+
+   The publicKey remains OPTIONAL.
+
+   The second private key component OneAsymmetricKey SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-Ed448
+     },
+     privateKey OCTET STRING
+   }
+
+   where id-Ed448 and the private key encoding are defined in [RFC8410].
+
+   The publicKey remains OPTIONAL.
+
+5.8.  id-Falcon512-ECDSA-P256
+
+   The following object identifier is defined:
+
+   id-Falcon512-ECDSA-P256 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) ExplicitCompositeKey(5) id-Falcon512-ECDSA-P256(TBD) }
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 22]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
+
+   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+   The first public key component SubjectPublicKeyInfo (defined in
+   [RFC5280]) SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+             algorithm id-falcon512TBD
          },
         subjectPublicKey     BIT STRING(TBDFalconPublicKey)
    }
@@ -1278,17 +1256,6 @@ Internet-Draft              PQ Composite Keys              November 2022
       STRING(TBDDilithiumPublicKey) is correct ASN.1.
 
    The second public key component SubjectPublicKeyInfo SHALL contain:
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 23]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
@@ -1307,7 +1274,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    privateKeyAlgorithm AlgorithmIdentifier ::= {
        algorithm id-falcon512TBD,
-       parameters ABSENT
      },
      privateKey FalconPrivateKey
    }
@@ -1316,6 +1282,13 @@ Internet-Draft              PQ Composite Keys              November 2022
       reference one once it exists.
 
    The publicKey remains OPTIONAL.
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 23]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    The second private key component OneAsymmetricKey SHALL contain
 
@@ -1332,7 +1305,90 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.9.  id-Falcon512-Ed25519
+5.9.  id-Falcon512-ECDSA-brainpoolP256r1
+
+   The following object identifier is defined:
+
+   id-Falcon512-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) ExplicitCompositeKey(5) id-Falcon512-ECDSA-brainpoolP256r1(TBD) }
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
+
+   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+   The first public key component SubjectPublicKeyInfo (defined in
+   [RFC5280]) SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+             algorithm id-falcon512TBD
+         },
+        subjectPublicKey     BIT STRING(TBDFalconPublicKey)
+   }
+
+      TODO: I don't think LAMPS has a FALCON draft yet.  Will need to
+      reference one once it exists.
+
+      TODO: I don't think subjectPublicKey BIT
+      STRING(TBDDilithiumPublicKey) is correct ASN.1.
+
+   The second public key component SubjectPublicKeyInfo SHALL contain:
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 24]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+               algorithm id-ecPublicKey,
+               parameters brainpoolP384r1
+         },
+        subjectPublicKey     BIT STRING(ECPoint)
+   }
+
+   where id-ecPublicKey and ECPoint are defined in [RFC5480], and
+   brainpoolP384r1 is defined in [RFC5639].  Alternatively, the
+   algorithm.algorithm MAY be id-ecDH or id-ecMQV in accordance with
+   [RFC5639] section 4.2.
+
+   The first private key component OneAsymmetricKey, defined in
+   [RFC5958] SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-falcon512TBD
+     },
+     privateKey FalconPrivateKey
+   }
+
+      TODO: I don't think LAMPS has a FALCON draft yet.  Will need to
+      reference one once it exists.
+
+   The publicKey remains OPTIONAL.
+
+   The second private key component OneAsymmetricKey SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-ecPublicKey,
+       parameters brainpoolP256r1
+     },
+     privateKey ECPrivateKey
+   }
+
+   where ECPrivateKey is defined in [RFC5480], and brainpoolP256r1 is
+   defined in [RFC5639].  Alternatively, the algorithm MAY be id-ecDH or
+   id-ecMQV in accordance with [RFC5639] section 4.2.
+
+   The publicKey remains OPTIONAL.
+
+5.10.  id-Falcon512-Ed25519
 
    The following object identifier is defined:
 
@@ -1341,7 +1397,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 24]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 25]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -1397,7 +1453,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 25]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 26]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -1417,7 +1473,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.10.  id-SPHINCSplusSHA256-ECDSA-P256
+5.11.  id-SPHINCSplusSHA256-ECDSA-P256
 
    The following object identifier is defined:
 
@@ -1453,7 +1509,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 26]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 27]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -1499,7 +1555,171 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.11.  id-Kyber512-ECDH-P256
+5.12.  id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1
+
+   The following object identifier is defined:
+
+   id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-ECDSA-P256(TBD) }
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 28]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
+
+   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+   The first public key component SubjectPublicKeyInfo (defined in
+   [RFC5280]) SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+             algorithm pk-sphincs-plus-256
+         },
+        subjectPublicKey     BIT STRING(SPHINCS-Plus-PublicKey)
+   }
+
+   where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in
+   [I-D.ietf-lamps-cms-sphincs-plus].
+
+      TODO: I don't think subjectPublicKey BIT
+      STRING(TBDDilithiumPublicKey) is correct ASN.1.
+
+   The second public key component SubjectPublicKeyInfo SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+               algorithm id-ecPublicKey,
+               parameters brainpoolP384r1
+         },
+        subjectPublicKey     BIT STRING(ECPoint)
+   }
+
+   where id-ecPublicKey and ECPoint are defined in [RFC5480], and
+   brainpoolP384r1 is defined in [RFC5639].  Alternatively, the
+   algorithm.algorithm MAY be id-ecDH or id-ecMQV in accordance with
+   [RFC5639] section 4.2.
+
+   The first private key component OneAsymmetricKey, defined in
+   [RFC5958] SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm pk-sphincs-plus-256
+     },
+     privateKey SPHINCS-Plus-PrivateKey
+   }
+
+   where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in
+   [I-D.ietf-lamps-cms-sphincs-plus]
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 29]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+   The publicKey remains OPTIONAL.
+
+   The second private key component OneAsymmetricKey SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-ecPublicKey,
+       parameters brainpoolP256r1
+     },
+     privateKey ECPrivateKey
+   }
+
+   where ECPrivateKey is defined in [RFC5480], and brainpoolP256r1 is
+   defined in [RFC5639].  Alternatively, the algorithm MAY be id-ecDH or
+   id-ecMQV in accordance with [RFC5639] section 4.2.
+
+   The publicKey remains OPTIONAL.
+
+5.13.  id-SPHINCSplusSHA256-Ed25519
+
+   The following object identifier is defined:
+
+   id-SPHINCSplusSHA256-Ed25519 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-Ed25519(TBD) }
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
+
+   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+   The first public key component SubjectPublicKeyInfo (defined in
+   [RFC5280]) SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+             algorithm pk-sphincs-plus-256
+         },
+        subjectPublicKey     BIT STRING(SPHINCS-Plus-PublicKey)
+   }
+
+   where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in
+   [I-D.ietf-lamps-cms-sphincs-plus].
+
+      TODO: I don't think subjectPublicKey BIT
+      STRING(TBDDilithiumPublicKey) is correct ASN.1.
+
+   The second public key component SubjectPublicKeyInfo SHALL contain:
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 30]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+               algorithm id-Ed25519
+         },
+        subjectPublicKey     BIT STRING
+   }
+
+   where id-Ed25519 and the public key encoding are defined in
+   [RFC8410].
+
+   The first private key component OneAsymmetricKey, defined in
+   [RFC5958] SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm pk-sphincs-plus-256
+     },
+     privateKey SPHINCS-Plus-PrivateKey
+   }
+
+   where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in
+   [I-D.ietf-lamps-cms-sphincs-plus]
+
+   The publicKey remains OPTIONAL.
+
+   The second private key component OneAsymmetricKey SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-Ed25519
+     },
+     privateKey OCTET STRING
+   }
+
+   where id-Ed25519 and the private key encoding are defined in
+   [RFC8410].
+
+   The publicKey remains OPTIONAL.
+
+5.14.  id-Kyber512-ECDH-P256
 
    The following object identifier is defined:
 
@@ -1507,15 +1727,16 @@ Internet-Draft              PQ Composite Keys              November 2022
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) ExplicitCompositeKey(5) id-Kyber512-ECDH-P256(TBD) }
 
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 27]
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 31]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
-
-      EDNOTE: this is a temporary OID for the purposes of prototyping.
-      We are requesting IANA to assign a permanent OID, see Section 7.
 
    When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -1563,14 +1784,15 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
+   The second private key component OneAsymmetricKey SHALL contain
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 28]
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 32]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
-
-   The second private key component OneAsymmetricKey SHALL contain
 
    privateKeyAlgorithm AlgorithmIdentifier ::= {
        algorithm id-ecPublicKey,
@@ -1585,9 +1807,104 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.12.  id-Kyber512-X25519
+5.15.  id-Kyber512-ECDH-brainpoolP256r1
 
    The following object identifier is defined:
+
+   id-Kyber512-ECDH-brainpoolP256r1 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber512-ECDH-brainpoolP256r1 (TBD) }
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
+
+   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+   The first public key component SubjectPublicKeyInfo (defined in
+   [RFC5280]) SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+             algorithm id-kyber512TBD
+         },
+        subjectPublicKey     BIT STRING(Kyber-PublicKey)
+   }
+
+      TODO: id-kyber512TBD and Kyber-PublicKey will eventually be
+      defined in [I-D.ietf-lamps-kyber-certificates].
+
+      TODO: I don't think subjectPublicKey BIT
+      STRING(TBDDilithiumPublicKey) is correct ASN.1.
+
+   The second public key component SubjectPublicKeyInfo SHALL contain:
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 33]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+               algorithm id-ecPublicKey,
+               parameters brainpoolP256r1
+         },
+        subjectPublicKey     BIT STRING(ECPoint)
+   }
+
+   where id-ecPublicKey and ECPoint are defined in [RFC5480], and
+   brainpoolP256r1 is defined in [RFC5639].  Alternatively, the
+   algorithm.algorithm MAY be id-ecDH or id-ecMQV in accordance with
+   [RFC5480] section 2.1.
+
+   The first private key component OneAsymmetricKey, defined in
+   [RFC5958] SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-kyber512TBD
+     },
+     privateKey PqckemPrivateKey
+   }
+
+   where id-kyber512TBD and PqckemPrivateKey are defined in
+   [I-D.ietf-lamps-kyber-certificates].
+
+   The publicKey remains OPTIONAL.
+
+   The second private key component OneAsymmetricKey SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-ecPublicKey,
+       parameters brainpoolP256r1
+     },
+     privateKey ECPrivateKey
+   }
+
+   where ECPrivateKey is defined in [RFC5480], and brainpoolP256r1 is
+   defined in [RFC5639].  Alternatively, the algorithm MAY be id-ecDH or
+   id-ecMQV in accordance with [RFC5480] section 2.1.
+
+   The publicKey remains OPTIONAL.
+
+5.16.  id-Kyber512-X25519
+
+   The following object identifier is defined:
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 34]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    id-Kyber512-X25519 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
@@ -1616,16 +1933,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The second public key component SubjectPublicKeyInfo SHALL contain:
 
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 29]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
                algorithm id-X25519
@@ -1647,6 +1954,14 @@ Internet-Draft              PQ Composite Keys              November 2022
    where id-kyber512TBD and PqckemPrivateKey are defined in
    [I-D.ietf-lamps-kyber-certificates].
 
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 35]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    The publicKey remains OPTIONAL.
 
    The second private key component OneAsymmetricKey SHALL contain
@@ -1662,7 +1977,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.13.  id-Kyber768-RSA
+5.17.  id-Kyber768-RSA
 
    The following object identifier is defined:
 
@@ -1674,13 +1989,6 @@ Internet-Draft              PQ Composite Keys              November 2022
       We are requesting IANA to assign a permanent OID, see Section 7.
 
    When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 30]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    The first public key component SubjectPublicKeyInfo (defined in
    [RFC5280]) SHALL contain:
@@ -1699,6 +2007,16 @@ Internet-Draft              PQ Composite Keys              November 2022
       STRING(TBDDilithiumPublicKey) is correct ASN.1.
 
    The second public key component SubjectPublicKeyInfo SHALL contain:
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 36]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
@@ -1726,18 +2044,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The second private key component OneAsymmetricKey SHALL contain
 
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 31]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
                algorithm rsaEncryption,
@@ -1750,7 +2056,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.14.  id-Kyber768-ECDH-P256
+5.18.  id-Kyber768-ECDH-P256
 
    The following object identifier is defined:
 
@@ -1760,6 +2066,13 @@ Internet-Draft              PQ Composite Keys              November 2022
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 37]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -1780,19 +2093,6 @@ Internet-Draft              PQ Composite Keys              November 2022
       STRING(TBDDilithiumPublicKey) is correct ASN.1.
 
    The second public key component SubjectPublicKeyInfo SHALL contain:
-
-
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 32]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
@@ -1822,6 +2122,14 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The second private key component OneAsymmetricKey SHALL contain
 
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 38]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    privateKeyAlgorithm AlgorithmIdentifier ::= {
        algorithm id-ecPublicKey,
        parameters secp256r1
@@ -1835,89 +2143,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.15.  id-Kyber768-X25519
-
-   The following object identifier is defined:
-
-   id-Kyber767-X25519 OBJECT IDENTIFIER ::= {
-     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Kyber768-X25519(TBD) }
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 33]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
-      EDNOTE: this is a temporary OID for the purposes of prototyping.
-      We are requesting IANA to assign a permanent OID, see Section 7.
-
-   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
-
-   The first public key component SubjectPublicKeyInfo (defined in
-   [RFC5280]) SHALL contain:
-
-   SEQUENCE  {
-        algorithm  AlgorithmIdentifier {
-             algorithm id-kyber768TBD
-         },
-        subjectPublicKey     BIT STRING(Kyber-PublicKey)
-   }
-
-      TODO: id-kyber768TBD and Kyber-PublicKey will eventually be
-      defined in [I-D.ietf-lamps-kyber-certificates].
-
-      TODO: I don't think subjectPublicKey BIT
-      STRING(TBDDilithiumPublicKey) is correct ASN.1.
-
-   The second public key component SubjectPublicKeyInfo SHALL contain:
-
-   SEQUENCE  {
-        algorithm  AlgorithmIdentifier {
-               algorithm id-X25519
-         },
-        subjectPublicKey     BIT STRING
-   }
-
-   where id-X25519 and the public key encoding are defined in [RFC8410].
-
-   The first private key component OneAsymmetricKey, defined in
-   [RFC5958] SHALL contain
-
-   privateKeyAlgorithm AlgorithmIdentifier ::= {
-       algorithm id-kyber768TBD
-     },
-     privateKey PqckemPrivateKey
-   }
-
-   where id-kyber768TBD and PqckemPrivateKey are defined in
-   [I-D.ietf-lamps-kyber-certificates].
-
-   The publicKey remains OPTIONAL.
-
-   The second private key component OneAsymmetricKey SHALL contain
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 34]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
-   privateKeyAlgorithm AlgorithmIdentifier ::= {
-       algorithm id-X25519
-     },
-     privateKey OCTET STRING
-   }
-
-   where id-X25519 and the private key encoding are defined in
-   [RFC8410].
-
-   The publicKey remains OPTIONAL.
-
-5.16.  id-Kyber768-ECDH-brainpoolP256r1
+5.19.  id-Kyber768-ECDH-brainpoolP256r1
 
    The following object identifier is defined:
 
@@ -1955,9 +2181,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 35]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 39]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -2004,7 +2228,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.17.  id-Kyber1024-ECDH-P384
+5.20.  id-Kyber768-X25519
 
    The following object identifier is defined:
 
@@ -2013,10 +2237,85 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 36]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 40]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
+
+   id-Kyber767-X25519 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber768-X25519(TBD) }
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
+
+   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+   The first public key component SubjectPublicKeyInfo (defined in
+   [RFC5280]) SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+             algorithm id-kyber768TBD
+         },
+        subjectPublicKey     BIT STRING(Kyber-PublicKey)
+   }
+
+      TODO: id-kyber768TBD and Kyber-PublicKey will eventually be
+      defined in [I-D.ietf-lamps-kyber-certificates].
+
+      TODO: I don't think subjectPublicKey BIT
+      STRING(TBDDilithiumPublicKey) is correct ASN.1.
+
+   The second public key component SubjectPublicKeyInfo SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+               algorithm id-X25519
+         },
+        subjectPublicKey     BIT STRING
+   }
+
+   where id-X25519 and the public key encoding are defined in [RFC8410].
+
+   The first private key component OneAsymmetricKey, defined in
+   [RFC5958] SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-kyber768TBD
+     },
+     privateKey PqckemPrivateKey
+   }
+
+   where id-kyber768TBD and PqckemPrivateKey are defined in
+   [I-D.ietf-lamps-kyber-certificates].
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 41]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+   The publicKey remains OPTIONAL.
+
+   The second private key component OneAsymmetricKey SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-X25519
+     },
+     privateKey OCTET STRING
+   }
+
+   where id-X25519 and the private key encoding are defined in
+   [RFC8410].
+
+   The publicKey remains OPTIONAL.
+
+5.21.  id-Kyber1024-ECDH-P384
+
+   The following object identifier is defined:
 
    id-Kyber1024-ECDH-P384 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
@@ -2045,6 +2344,16 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The second public key component SubjectPublicKeyInfo SHALL contain:
 
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 42]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    SEQUENCE  {
         algorithm  AlgorithmIdentifier {
                algorithm id-ecPublicKey,
@@ -2066,14 +2375,6 @@ Internet-Draft              PQ Composite Keys              November 2022
      privateKey PqckemPrivateKey
    }
 
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 37]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    where id-kyber768TBD and PqckemPrivateKey are defined in
    [I-D.ietf-lamps-kyber-certificates].
 
@@ -2094,80 +2395,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.18.  id-Kyber1024-X448
-
-   The following object identifier is defined:
-
-   id-Kyber1024-X448 OBJECT IDENTIFIER ::= {
-     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-X448(TBD) }
-
-      EDNOTE: this is a temporary OID for the purposes of prototyping.
-      We are requesting IANA to assign a permanent OID, see Section 7.
-
-   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
-
-   The first public key component SubjectPublicKeyInfo (defined in
-   [RFC5280]) SHALL contain:
-
-   SEQUENCE  {
-        algorithm  AlgorithmIdentifier {
-             algorithm id-kyber1024TBD
-         },
-        subjectPublicKey     BIT STRING(Kyber-PublicKey)
-   }
-
-      TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be
-      defined in [I-D.ietf-lamps-kyber-certificates].
-
-      TODO: I don't think subjectPublicKey BIT
-      STRING(TBDDilithiumPublicKey) is correct ASN.1.
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 38]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
-   The second public key component SubjectPublicKeyInfo SHALL contain:
-
-   SEQUENCE  {
-        algorithm  AlgorithmIdentifier {
-               algorithm id-X448
-         },
-        subjectPublicKey     BIT STRING
-   }
-
-   where id-X448 and the public key encoding are defined in [RFC8410].
-
-   The first private key component OneAsymmetricKey, defined in
-   [RFC5958] SHALL contain
-
-   privateKeyAlgorithm AlgorithmIdentifier ::= {
-       algorithm id-kyber1024TBD
-     },
-     privateKey PqckemPrivateKey
-   }
-
-   where id-kyber1024TBD and PqckemPrivateKey are defined in
-   [I-D.ietf-lamps-kyber-certificates].
-
-   The publicKey remains OPTIONAL.
-
-   The second private key component OneAsymmetricKey SHALL contain
-
-   privateKeyAlgorithm AlgorithmIdentifier ::= {
-       algorithm id-X448
-     },
-     privateKey OCTET STRING
-   }
-
-   where id-X448 and the private key encoding are defined in [RFC8410].
-
-   The publicKey remains OPTIONAL.
-
-5.19.  id-Kyber1024-ECDH-brainpoolP384r1
+5.22.  id-Kyber1024-ECDH-brainpoolP384r1
 
    The following object identifier is defined:
 
@@ -2175,16 +2403,15 @@ Internet-Draft              PQ Composite Keys              November 2022
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-ECDH-brainpoolP384r1(TBD) }
 
-      EDNOTE: this is a temporary OID for the purposes of prototyping.
-      We are requesting IANA to assign a permanent OID, see Section 7.
 
 
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 39]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 43]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
 
    When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
@@ -2231,16 +2458,17 @@ Internet-Draft              PQ Composite Keys              November 2022
    where id-kyber1024TBD and PqckemPrivateKey are defined in
    [I-D.ietf-lamps-kyber-certificates].
 
-   The publicKey remains OPTIONAL.
-
-   The second private key component OneAsymmetricKey SHALL contain
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 40]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 44]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
+
+   The publicKey remains OPTIONAL.
+
+   The second private key component OneAsymmetricKey SHALL contain
 
    privateKeyAlgorithm AlgorithmIdentifier ::= {
        algorithm id-ecPublicKey,
@@ -2255,15 +2483,100 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The publicKey remains OPTIONAL.
 
-5.20.  Mike-up-to-here
+5.23.  id-Kyber1024-X448
 
-5.21.  id-composite-key (Generic Composite Keys)
+   The following object identifier is defined:
+
+   id-Kyber1024-X448 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-X448(TBD) }
+
+      EDNOTE: this is a temporary OID for the purposes of prototyping.
+      We are requesting IANA to assign a permanent OID, see Section 7.
+
+   When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
+
+   The first public key component SubjectPublicKeyInfo (defined in
+   [RFC5280]) SHALL contain:
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+             algorithm id-kyber1024TBD
+         },
+        subjectPublicKey     BIT STRING(Kyber-PublicKey)
+   }
+
+      TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be
+      defined in [I-D.ietf-lamps-kyber-certificates].
+
+      TODO: I don't think subjectPublicKey BIT
+      STRING(TBDDilithiumPublicKey) is correct ASN.1.
+
+   The second public key component SubjectPublicKeyInfo SHALL contain:
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 45]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
+   SEQUENCE  {
+        algorithm  AlgorithmIdentifier {
+               algorithm id-X448
+         },
+        subjectPublicKey     BIT STRING
+   }
+
+   where id-X448 and the public key encoding are defined in [RFC8410].
+
+   The first private key component OneAsymmetricKey, defined in
+   [RFC5958] SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-kyber1024TBD
+     },
+     privateKey PqckemPrivateKey
+   }
+
+   where id-kyber1024TBD and PqckemPrivateKey are defined in
+   [I-D.ietf-lamps-kyber-certificates].
+
+   The publicKey remains OPTIONAL.
+
+   The second private key component OneAsymmetricKey SHALL contain
+
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm id-X448
+     },
+     privateKey OCTET STRING
+   }
+
+   where id-X448 and the private key encoding are defined in [RFC8410].
+
+   The publicKey remains OPTIONAL.
+
+5.24.  Mike-up-to-here
+
+5.25.  id-composite-key (Generic Composite Keys)
 
    Usage guidance: This mode is primarily for prototyping and for use in
    proprietary implementations; implementers MAY implement this section
    if there is a need for greater flexibility in algorithm combinations
    than is available by using the pre-defined composite algorithms
    defined below.
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 46]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
       EDNOTE: Does the WG feel strongly that this section should be
       removed prior to publication by the RFC Editors?  IE remove it
@@ -2285,18 +2598,8 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    The PUBLIC-KEY ASN.1 information object class is defined in
    [RFC5912].  The PUBLIC-KEY information object for generic
-   (Section 5.21) and explicit (Section 5.22) composite public and
+   (Section 5.25) and explicit (Section 5.26) composite public and
    private keys has the following form:
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 41]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    pk-Composite PUBLIC-KEY ::= {
        id id-composite-key
@@ -2315,12 +2618,21 @@ Internet-Draft              PQ Composite Keys              November 2022
    prohibitive to define algorithm identifiers for every combination of
    pairs, triples, quadruples, etc of algorithms.
 
-5.22.  Explicit Composite Signature Keys
+5.26.  Explicit Composite Signature Keys
 
       TODO: Delete once all the content is covered elsewhere.
 
    This variant provides a rigid way of specifying supported
    combinations of key types.
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 47]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    The motivation for this variant is to make it easier to reference and
    enforce specific combinations of algorithms.  The authors envision
@@ -2343,16 +2655,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    See Appendix A for guidance on creating and registering OIDs for
    specific explicit combinations.
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 42]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    In this variant, the public key is encoded as defined in Section 4
    and Section 4.2, however the PUBLIC-KEY.id SHALL be an OID which is
@@ -2379,6 +2681,15 @@ Internet-Draft              PQ Composite Keys              November 2022
    Similar checks MUST be done when handling the corresponding private
    key.
 
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 48]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    Below are provided a set of explicit composite algorithms which have
    been selected to fill a wide range of use cases, with algorithms
    selected to match security levels across a group.  The selections
@@ -2401,15 +2712,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    *  The size of these certs and cert chains.
 
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 43]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    *  In particular, implications for (large) composite keys /
       signatures / certs on the handshake stages of TLS and IKEv2.
 
@@ -2428,6 +2730,21 @@ Internet-Draft              PQ Composite Keys              November 2022
    privateKey field of a PrivateKeyInfo or OneAsymmetricKey object, and
    then applying the PEM encoding rules as defined in [RFC7468] section
    10 and 11 for plaintext and encrypted private keys, respectively.
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 49]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
 6.2.  Backwards Compatibility
 
@@ -2457,15 +2774,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    and proprietary protocols and applications that leverage CMS
    [RFC5652] signed or encrypted structures.
 
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 44]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
 6.2.1.  OR modes
 
    This document purposefully does not specify how clients are to
@@ -2485,6 +2793,14 @@ Internet-Draft              PQ Composite Keys              November 2022
    fully upgraded, but it does not allow for full backwards
    compatibility since clients would at least need to be upgraded from
    their current state to be able to parse the composite structures.
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 50]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
 6.2.2.  Parallel PKIs
 
@@ -2514,14 +2830,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    [I-D.ounsworth-pq-composite-sigs] as a way to carry the multiple
    signature values generated by a non-composite public mechanism in
    protocols where it is easier to support the composite signature
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 45]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    algorithms than to implement such a mechanism in the protocol itself.
    There is also nothing precluding a composite public key from being
    one of the components used within a non-composite authentication
@@ -2542,6 +2850,13 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    This document registers the following in the SMI "Security for PKIX
    Algorithms (1.3.6.1.5.5.7.6)" registry:
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 51]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    id-composite-key OBJECT IDENTIFIER ::= {
        iso(1) identified-organization(3) dod(6) internet(1) security(5)
@@ -2567,16 +2882,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 8.2.  Key mismatch in explicit composite
 
-   This security consideration copied from Section 5.22.
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 46]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
+   This security consideration copied from Section 5.26.
 
    Implementations MUST check that that the component
    AlgorithmIdentifier OIDs and parameters match those expected by the
@@ -2599,6 +2905,15 @@ Internet-Draft              PQ Composite Keys              November 2022
    should be updated to fail to validate or refuse to encrypt for these
    algorithms.
 
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 52]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    In the composite model this is less obvious since implementers may
    decide that certain cryptographic algorithms have complementary
    security properties and are acceptable in combination even though one
@@ -2619,20 +2934,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    any way unless combined with a security protocol or encryption
    properties of the objects (if any) where the CompositePrivateKey is
    used.
-
-
-
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 47]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    Protection of the private keys is vital to public key cryptography.
    The consequences of disclosure depend on the purpose of the private
@@ -2662,6 +2963,13 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 9.1.  Normative References
 
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 53]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    [I-D.ietf-lamps-cms-sphincs-plus]
               Housley, R., Fluhrer, S., Kampanakis, P., and B.
               Westerbaan, "Use of the SPHINCS+ Signature Algorithm in
@@ -2682,14 +2990,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    [I-D.ietf-lamps-kyber-certificates]
               Turner, S., Kampanakis, P., Massimo, J., and B.
               Westerbaan, "Internet X.509 Public Key Infrastructure -
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 48]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
               Algorithm Identifiers for Kyber", Work in Progress,
               Internet-Draft, draft-ietf-lamps-kyber-certificates-00, 26
               September 2022, <https://www.ietf.org/archive/id/draft-
@@ -2719,6 +3019,13 @@ Internet-Draft              PQ Composite Keys              November 2022
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 54]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    [RFC2986]  Nystrom, M. and B. Kaliski, "PKCS #10: Certification
               Request Syntax Specification Version 1.7", RFC 2986,
               DOI 10.17487/RFC2986, November 2000,
@@ -2734,17 +3041,6 @@ Internet-Draft              PQ Composite Keys              November 2022
               "Elliptic Curve Cryptography Subject Public Key
               Information", RFC 5480, DOI 10.17487/RFC5480, March 2009,
               <https://www.rfc-editor.org/info/rfc5480>.
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 49]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    [RFC5639]  Lochter, M., Merkle, J., and RFC Publisher, "Elliptic
               Curve Cryptography (ECC) Brainpool Standard Curves and
@@ -2777,6 +3073,15 @@ Internet-Draft              PQ Composite Keys              November 2022
               DOI 10.17487/RFC6090, February 2011,
               <https://www.rfc-editor.org/info/rfc6090>.
 
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 55]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    [RFC7468]  Josefsson, S. and S. Leonard, "Textual Encodings of PKIX,
               PKCS, and CMS Structures", RFC 7468, DOI 10.17487/RFC7468,
               April 2015, <https://www.rfc-editor.org/info/rfc7468>.
@@ -2794,13 +3099,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 50]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    [RFC8410]  Josefsson, S. and J. Schaad, "Algorithm Identifiers for
               Ed25519, Ed448, X25519, and X448 for Use in the Internet
@@ -2830,6 +3128,16 @@ Internet-Draft              PQ Composite Keys              November 2022
               infrastructure", 2017, <https://link.springer.com/
               chapter/10.1007/978-3-319-59879-6_22>.
 
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 56]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    [Bleichenbacher1998]
               Bleichenbacher, D., "Chosen ciphertext attacks against
               protocols based on the RSA encryption standard PKCS# 1.",
@@ -2850,14 +3158,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    [eIDAS2014]
               "REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT
               AND OF THE COUNCIL of 23 July 2014 on electronic
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 51]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
               identification and trust services for electronic
               transactions in the internal market and repealing
               Directive 1999/93/EC", July 2014,
@@ -2886,6 +3186,14 @@ Internet-Draft              PQ Composite Keys              November 2022
               <https://www.ietf.org/archive/id/draft-guthrie-ipsecme-
               ikev2-hybrid-auth-00.txt>.
 
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 57]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    [Mosca2015]
               Mosca, M., "Cybersecurity in a Quantum World: will we be
               ready?", April 2015,
@@ -2904,15 +3212,6 @@ Internet-Draft              PQ Composite Keys              November 2022
               Management Protocol (CMP)", RFC 4210,
               DOI 10.17487/RFC4210, September 2005,
               <https://www.rfc-editor.org/info/rfc4210>.
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 52]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
    [RFC4211]  Schaad, J., "Internet X.509 Public Key Infrastructure
               Certificate Request Message Format (CRMF)", RFC 4211,
@@ -2944,6 +3243,13 @@ Internet-Draft              PQ Composite Keys              November 2022
               <https://www.usenix.org/conference/usenixsecurity18/
               presentation/bock>.
 
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 58]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
 Appendix A.  Creating explicit combinations
 
    The following ASN.1 Information Objects may be useful in defining and
@@ -2956,19 +3262,6 @@ Appendix A.  Creating explicit combinations
    if they are absent for the declared public key type.  This ASN.1
    module declares them OPTIONAL and leaves it to implementers to
    perform this check explicitly.
-
-
-
-
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 53]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
 
       EDNOTE this ASN.1 needs to change.  The current definition doesn't
       put a component AlgorithmIdentifier with each component key.  Once
@@ -2993,6 +3286,26 @@ Internet-Draft              PQ Composite Keys              November 2022
    The following ASN.1 object class then automatically generates the
    public key structure from the types defined in pk-explicitComposite.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 59]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
+
    -- ExplicitCompositePublicKey - The data structure for a composite
    -- public key sec-composite-pub-keys and SecondPublicKeyType are needed
    -- because PUBLIC-KEY contains a set of public key types, not a single
@@ -3016,16 +3329,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    Using this module, it becomes trivial to define explicit pairs.  For
    an example, see Appendix B.2.
 
-
-
-
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 54]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    To define explicit triples, quadruples, etc, these Information
    Objects can be extended to have thirdPublicKey, fourthPublicKey, etc
    throughout.
@@ -3041,6 +3344,23 @@ Appendix B.  Examples
 B.1.  Generic Composite Public Key Examples
 
    This is an example generic composite public key
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 60]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    -----BEGIN PUBLIC KEY-----
    MIIBmDAMBgpghkgBhvprUAQBA4IBhgAwggGBMFkwEwYHKoZIzj0CAQYIKoZIzj0D
@@ -3075,19 +3395,28 @@ B.1.  Generic Composite Public Key Examples
        }
      }
 
-
-
-Ounsworth, et al.          Expires 27 May 2023                 [Page 55]
-
-Internet-Draft              PQ Composite Keys              November 2022
-
-
    The corresponding explicit private key is as follows.  Note that the
    PQ key comes from OpenQuantumSafe-openssl and is in the
    {privatekey || publickey} concatenated format.  This may cause
    interoperability issues with some clients, and also makes the private
    keys appear larger than they would be if generated by a non-openssl
    client.
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 61]
+
+Internet-Draft              PQ Composite Keys              November 2022
+
 
    -----BEGIN PRIVATE KEY-----
    MIIFHgIBADAMBgpghkgBhvprUAQBBIIFCTCCBQUwQQIBADATBgcqhkjOPQIBBggq
@@ -3133,7 +3462,14 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 56]
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 27 May 2023                 [Page 62]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3189,7 +3525,7 @@ B.2.1.  pk-example-ECandRSA
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 57]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 63]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3245,7 +3581,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 58]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 64]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3301,7 +3637,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 59]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 65]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3357,7 +3693,7 @@ B.2.2.  id-Dilithium3-ECDSA-P256
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 60]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 66]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3413,7 +3749,7 @@ Srzd4w0i+5dCNM9rX
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 61]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 67]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3469,7 +3805,7 @@ RWBAFBWUiAyM4hwIwUkBgFwc0I3QlhGYxECR0QQVUhRIUcjEihgYxiAQyBySBciB2SHQoJRVSdW
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 62]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 68]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3525,7 +3861,7 @@ XnyDiUwdxO/i0onKxh56aI9sPUptY8AGOArV/1DZ5gJqjcF9BMs1CTZTGQiReyL/stfgkDcUvbb
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 63]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 69]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3581,7 +3917,7 @@ B.2.3.  id-Dilithium3-RSA
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 64]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 70]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3637,7 +3973,7 @@ dN2ayilmvdG06dMwrGKs2Tag5HKbUSMPA3BlKvvqrJhMb3w86xPf2MnvWzVWmi0tpE2zcCgXkX+
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 65]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 71]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3693,7 +4029,7 @@ MEdERGZIdSADhIJQdDNHcVVxiHNjUVQwUUAXKHFxWDOIVzQQBQN2iFQUECQEgGGGh2dRKARQaCY
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 66]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 72]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3749,7 +4085,7 @@ T5IeA95LI0GP2sv3a9ZX4JUKFq+pAB5t7EwcGj9/htQ1MOKItwAGgYJvTVKmiCgO48UxqinqH+j
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 67]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 73]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3805,7 +4141,7 @@ oxUvT9LYWtcF4aPdA7GqgwKAybHq0UYzc2Uggki4gKtlw9MHdzz0u1jnu42sJ7qjadVlWH/UwpV
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 68]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 74]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3861,7 +4197,7 @@ HymrF59in1pXEPnEWLZ9xLO5A6cg==
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 69]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 75]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3917,7 +4253,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 70]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 76]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -3973,7 +4309,7 @@ B.2.5.  id-Falcon512-Ed25519
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 71]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 77]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4029,7 +4365,7 @@ Eytrtq3H7e59JYdkceK1h+T8jZFyUP5e0M=
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 72]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 78]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4085,7 +4421,7 @@ OPsmcKlPF3LxUxakZfULqtmblGwqztrw0753HBrxqjhk008OsDyLMygMJ8f98bfQOiguYLgLInc
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 73]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 79]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4141,7 +4477,7 @@ hY38bbUDRZ+rMSGAntqdIIoiVTXThCegPJrT6aol/EB6thiYVPoW9ny6Gu6HoVDVBQLNgK10fpG
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 74]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 80]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4197,7 +4533,7 @@ GOU1gCuPuJpLhgwgZswEAYHKoZIzj0CAQYFK4EEACMDgYYABACe7fcRLUKh2ESJPrFIHMHXIkRf
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 75]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 81]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4253,7 +4589,7 @@ HVRn05VvST60BVcrDXgLgdY49STnebgJJES6cW2b0/hyNJh0/QeVWQE5xJoh6+D7JNj5p51vahQ
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 76]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 82]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4309,7 +4645,7 @@ ayNbo1DbmDDLYnX7ts2sG+tC64hWNsMQQZ9oqXA1++VLC5RES4NxJeXDRRCUE7rR37XD6WJWa8b
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 77]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 83]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4365,7 +4701,7 @@ ATpgiF8HBh+EAPBF/3Ok94IfBCAAPDH/3/g1wABg0XQCi6MIQ/+IIee/s4Q/ET/SgEIHeA6IAg9
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 78]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 84]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4421,7 +4757,7 @@ CoICLyYSjpsUIb0x80OmDyZQ53NHiJyNtPtl2+NgtSQj7mL0nwCC5rkRBW5YCWHrwyIBMOnYvy3
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 79]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 85]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4477,7 +4813,7 @@ p/+chFXAfT43X85TfaKEbI2FjfBXkSXKRDM4RdzHwlSsSC/gNA7Uy7phndqxrLI+18wOVXtwXT4
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 80]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 86]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4533,7 +4869,7 @@ Kt9eqDOKJRYrn0OdLLBxWc17npXzYZTRJZU+uOjWL8qqQCzDWdmLGWEoIiIpF1TavaAZ2XGkkgl
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 81]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 87]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4589,7 +4925,7 @@ iKAw5IRVQWXCEX3g8x4UbQb9L0gq1MnqxVsn5g5MjpG8MCAwEAAQ==
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 82]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 88]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4645,7 +4981,7 @@ i3Coi0YBkUCxWTYECyAJEAEIE6SBFAjRmQCpYXUGJFcIgpSuCUZFEAbM2RcAG4RAlCUSGwSl4HC
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 83]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 89]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4701,7 +5037,7 @@ ddda/Yi9I+MNsm819K/hw4cfV3XgwxLErncWRlON7MCYT4G9RyaqrizhOZHysoAfvLHwlC62OTK
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 84]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 90]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4757,7 +5093,7 @@ U6gNoKSL1zcY/fDK8jH/lLXRjbNAW8zuxrRQpaGaYQePfCfVFOPS5uWdX6o0F3RQbTta3o7lMiA
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 85]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 91]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4813,7 +5149,7 @@ tv7K/gKFf3k8czbE+bbAQAk8gr1GObF9SUR+fUS9fQH9f8A+/0S6gcg/Bfn3Qz53BIJGBQKDv7r
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 86]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 92]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4869,7 +5205,7 @@ DANBgkqhkiG9w0BAQEFAASCBugwggbkAgEAAoIBgQCc8x0qq2jSuQhAVnTBLJpeYHeUa/x4tZlL
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 87]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 93]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4925,7 +5261,7 @@ Appendix C.  ASN.1 Module
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 88]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 94]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -4981,7 +5317,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 89]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 95]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -5037,7 +5373,7 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 90]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 96]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -5093,7 +5429,7 @@ Authors' Addresses
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 91]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 97]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
@@ -5149,4 +5485,4 @@ Internet-Draft              PQ Composite Keys              November 2022
 
 
 
-Ounsworth, et al.          Expires 27 May 2023                 [Page 92]
+Ounsworth, et al.          Expires 27 May 2023                 [Page 98]
