@@ -211,6 +211,7 @@ This document is intended to be coupled with corresponding documents that define
 
 - General restructuring of the document.
 - Aligned composite pairings with OpenPGP and JOSE/COSE WGs TODO: INSERT DRAFT REF
+- We have dropped the MAY / RECOMMENDED column because in the end we think it does not belong at the X.509 level because we believe these recommendations belong at the application profile level; for example what is RECOMMENDED for X.509-based client authentication may be very different from what is RECOMMENDED for X.509-based code-signing.
 - The following algorithms were removed: TODO: FILL IN
   - id-SPHINCSplusSHA256256fsimple-ECDSA-P256
 - The following algorithms were added: TODO: FILL IN
