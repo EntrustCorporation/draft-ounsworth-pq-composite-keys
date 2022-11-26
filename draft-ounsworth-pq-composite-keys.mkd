@@ -211,12 +211,31 @@ This document is intended to be coupled with corresponding documents that define
 
 - General restructuring of the document.
 - Aligned composite pairings with OpenPGP and JOSE/COSE WGs TODO: INSERT DRAFT REF
-- We have dropped the MAY / RECOMMENDED column because in the end we think it does not belong at the X.509 level because we believe these recommendations belong at the application profile level; for example what is RECOMMENDED for X.509-based client authentication may be very different from what is RECOMMENDED for X.509-based code-signing.
-- The following algorithms were removed: TODO: FILL IN
-  - id-SPHINCSplusSHA256256fsimple-ECDSA-P256
+- We have dropped the MAY / RECOMMENDED column as well as per-algorithm usage guidance because in the end we think it does not belong at the X.509 level because we believe these recommendations belong at the application profile level; for example what is RECOMMENDED for X.509-based client authentication may be very different from what is RECOMMENDED for X.509-based code-signing.
+- Renamed "id-SPHINCSsha256256frobust-ECDSA-P256" to "id-SPHINCSplusSHA256-ECDSA-P256" because the public key format does not depend on the signature algorithm parameters.
+- The following algorithms were removed:
+  - pk-example-ECandRSA
+  - id-Dilithium5-Falcon1024-ECDSA-P521
+  - id-Dilithium5-Falcon1024-RSA
+  - id-Kyber512-RSA
 - The following algorithms were added: TODO: FILL IN
-  - id-SPHINCSplusSHA256256-ECDSA-P256
-- TODO: samples were removed from this document and placed in github instead (they were unreasonably large).
+  - id-Dilithium3-EDSA-brainpoolP256r1
+  - id-Dilithium3-Ed25519
+  - id-Dilithium5-ECDSA-P384
+  - id-Dilithium5-ECDSA-brainpoolP384r1
+  - id-Dilithium5-Ed448
+  - id-Falcon512-ECDSA-brainpoolP256r1
+  - id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1
+  - id-SPHINCSplusSHA256-Ed25519
+  - id-Kyber512-ECDH-brainpoolP256r1
+  - id-Kyber768-RSA
+  - id-Kyber768-ECDH-P256
+  - id-Kyber768-ECDH-brainpoolP256r1
+  - id-Kyber768-X25519
+  - id-Kyber1024-ECDH-P384
+  - id-Kyber1024-ECDH-brainpoolP384r1
+  - id-Kyber1024-X448
+- Changed "examples" to "samples" when referring to {{appdx-samples}}.
 
 # Terminology {#sec-terminology}
 {::boilerplate bcp14}
