@@ -472,11 +472,11 @@ SEQUENCE  {
             algorithm rsaEncryption,
             parameters NULL
       },
-     subjectPublicKey     BIT STRING(RSAPrivateKey)
+     subjectPublicKey     BIT STRING(RSAPublicKey)
 }
 ~~~
 
-where rsaEncryption and RSAPrivateKey are defined in [RFC8017].
+where rsaEncryption and RSAPublicKey are defined in [RFC8017].
 
 
 
