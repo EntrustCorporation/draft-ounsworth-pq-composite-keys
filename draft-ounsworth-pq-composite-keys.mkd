@@ -218,7 +218,7 @@ This document is intended to be coupled with corresponding documents that define
   - id-Dilithium5-Falcon1024-ECDSA-P521
   - id-Dilithium5-Falcon1024-RSA
   - id-Kyber512-RSA
-- The following algorithms were added: TODO: FILL IN
+- The following algorithms were added:
   - id-Dilithium3-EDSA-brainpoolP256r1
   - id-Dilithium3-Ed25519
   - id-Dilithium5-ECDSA-P384
@@ -270,7 +270,9 @@ The transition to PQC will face two challenges:
 - Algorithm strength uncertainty: During the transition period, some post-quantum signature and encryption algorithms will not be fully trusted, while also the trust in legacy public key algorithms will start to erode.  A relying party may learn some time after deployment that a public key algorithm has become untrustworthy, but in the interim, they may not know which algorithm an adversary has compromised.
 - Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully traditional to fully post-quantum-aware cryptography.
 
-This document provides the composite mechanism, which is a specific instantiation of the PQ/T and PQ/PQ Hybrid paradigm to address algorithm strength uncertainty concerns by providing formats for encoding multiple public key and private key values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechanisms defined in the document, but some notes on how it can be obtained can be found in {{sec-backwards-compat}}.
+This document provides the composite mechanism, which is a specific instantiation of the PQ/T hybrid paradigm to address algorithm strength uncertainty concerns by providing formats for encoding multiple public key and private key values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechanisms defined in the document, but some notes on how it can be obtained can be found in {{sec-backwards-compat}}.
+
+This document only specifies key formats; usage of these keys are covered in the corresponding composite signatures {{I-D.ounsworth-pq-composite-sigs}} and composite KEM {{I-D.ounsworth-pq-composite-kem}} specifications.
 
 This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.
 
@@ -282,7 +284,13 @@ This document is intended for general applicability anywhere that keys are used 
 
 In order to represent public keys and private keys that are composed of multiple algorithms, we define encodings consisting of a sequence of public key or private key primitives (aka "components") such that these structures can be used directly in existing public key fields such as those found in PKCS#10 [RFC2986], CMP [RFC4210], X.509 [RFC5280], CMS [RFC5652], and the Trust Anchor Format [RFC5914].
 
-A composite key is a single key object that performs an atomic cryptographic operation -- such a signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This generally means that the complexity of combining algorithms can be deferred from the protocol layer to the cryptographic library layer.
+{{I-D.driscoll-pqt-hybrid-terminology}} defines composites as:
+
+>   *Composite Cryptographic Element*:  A cryptographic element that
+>      incorporates multiple component cryptographic elements of the same
+>      type in a multi-algorithm scheme.
+
+Composite keys as defined here follow this definition and should be regarded as a single key that performs a single cryptographic operation such key generation, signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This generally means that the complexity of combining algorithms can and should be ignored by application and protocol layers and deferred to the cryptographic library layer.
 
 ## Specifying Composite Key Types
 
@@ -305,6 +313,8 @@ pk-Composite PUBLIC-KEY ::= {
 ~~~
 {: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
 
+`keyUsage` is omitted here because composites may be formed for keys of any type, provided that any key usage specified MUST apply to all component keys. Composites MAY NOT be used to combine key types, for example to make a "dual-usage" key by combining a signing key with a KEM key.
+
 
 ## CompositePublicKey {#sec-composite-pub-keys}
 
@@ -323,6 +333,22 @@ A CompositePublicKey MUST NOT contain a component public key which itself descri
 Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and parameters for the public key contained within it. See {{sec-alg-ids}} for specific algorithms defined in this document.
 
 When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in {{sec-encoding-rules}}.
+
+### Key Usage
+
+For protocols such as X.509 [RFC5280] that specify key usage along with the public key, any key usage may be used with composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.
+
+
+### Component Matching {#sec-component-matching}
+
+Many cryptographic libraries will require treating each component key independently and thus expect a full SubjectPublicKeyInfo for each component at some layer of the software stack. This left two design choices: either we carry full SPKI for each component within the CompositePublicKey, or we compress it by only carrying the raw key bytes and force implementations to carry OID and parameter mapping tables to be able to reconstruct component SPKIs. 
+
+The authors decided to carry the full SPKIs in order to lessen the implementation complexity. This also leads to the same wire format between explicitly specified combinations and generic composites {{sec-generic-composite}}.
+
+This design choice has a non-obvious security risk in that the `algorithm` carried within each component SPKI is redundant information which MUST match -- and can be inferred from -- the specification of the explicit algorithm. 
+
+Security consideration: Implementations SHOULD check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's `SubjectPublicKeyInfo.algorithm`, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the `SubjectPublicKeyInfo.subjectPublicKey`. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks SHOULD be done when handling the corresponding private key.
+
 
 
 ## CompositePrivateKey {#sec-priv-key}
@@ -348,11 +374,6 @@ A CompositePrivateKey MUST contain at least two component private keys, and they
 
 
 
-### Key Usage
-
-For protocols such as X.509 [RFC5280] that specify key usage along with the public key, any key usage may be used with composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.
-
-
 ## Encoding Rules {#sec-encoding-rules}
 <!-- EDNOTE 7: Examples of how other specifications specify how a data structure is converted to a bit string can be found in RFC 2313, section 10.1.4, 3279 section 2.3.5, and RFC 4055, section 3.2. -->
 
@@ -370,12 +391,10 @@ When a bit string is required, the octets of the DER encoded composite data stru
 CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
 ~~~
 
-> EDNOTE: See this LAMPS mailist discussion about BIT STRING vs OCTET STRING for public keys. I think we have dodged the issue, but may we worth re-visiting.
-https://mailarchive.ietf.org/arch/msg/spasm/Gv-ACiOpYZfOM0AJEZUX1jIhVq0/
 
 # Algorithm Identifiers {#sec-alg-ids}
 
-This section defines the algorithm identifiers for generic composite combinations. The combinations registered in this section are intended to strike a balance between the overall number of combinations ("the combinatorial explosion problem"), while also covering the needs of a wide range of protocols, applications, and regulatory environments in which X.509 certificates are used. 
+This section defines algorithm identifiers for composite combinations. The combinations registered in this section are intended to strike a balance between the overall number of combinations ("the combinatorial explosion problem"), while also covering the needs of a wide range of protocols, applications, and regulatory environments in which X.509-based technologies are used. 
 
 This section is not intended to be exhaustive and other authors may define OIDs for new combinations so long as they are compatible with the structures and processes defined in this and the companion signature and encryption documents.
 
@@ -397,7 +416,7 @@ id-Falcon512-Ed25519                  | {{sec-id-Falcon512-Ed25519}}          | 
 id-SPHINCSplusSHA256-ECDSA-P256       | {{sec-id-SPHINCSplusSHA256-ECDSA-P256}} | TBD
 id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1  | {{sec-id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1}} | TBD
 id-SPHINCSplusSHA256-Ed25519          | {{sec-id-SPHINCSplusSHA256-Ed25519}}  | TBD
-id-composite-key                      | TODO                         | TBD
+id-composite-key                      | {{sec-generic-composite}}                         | TBD
 {: #tab-sig-agls title="Composite signatures key types"}
 
 
@@ -417,7 +436,7 @@ id-Kyber768-X25519                 | {{sec-id-Kyber768-X25519}}                |
 id-Kyber1024-ECDH-P384             | {{sec-id-Kyber1024-ECDH-P384}}            | TBD
 id-Kyber1024-ECDH-brainpoolP384r1  | {{sec-id-Kyber1024-ECDH-brainpoolP384r1}} | TBD
 id-Kyber1024-X448                  | {{sec-id-Kyber1024-X448}}                 | TBD
-id-composite-key                   | TODO                 | TBD
+id-composite-key                   | {{sec-generic-composite}}                 | TBD
 {: #tab-kem-agls title="Composite KEM key types"}
 
 
@@ -429,6 +448,8 @@ These combinations were chosen according to the following rough guidelines:
 1. NIST level 1 candidates (Falcon512 and Kyber512) are provided, matched with 256-bit elliptic curves, intended for constrained use cases.
 1. A single SPHINCS+ combination is provided for use cases that wish to put even hash-based signatures into hybrid combination.
 1. A generic composite OID is provided for implementers who wish to use combinations not listed here, without the overhead of defining new OIDs. Caution should be exercised to avoid issues with compatibility and complex cryptographic policy mechanisms.
+
+The authors wish to note that although the CompositePublicKey and CompositePrivateKey structures are defined in such a way as to easily allow 3 or more component keys, it was decided at the time of writing to only specify explicit pairs. The generic composite specified in {{sec-generic-composite}} of course allows for an arbitrary number of components. This also does not preclude future specification of explicit combinations with three or more components.
 
 
 ### id-Dilithium3-RSA {#sec-id-Dilithium3-RSA}
@@ -2306,13 +2327,9 @@ The publicKey remains OPTIONAL.
 <!-- END id-Kyber1024-X448 -->
 
 
-## Mike-up-to-here
-
 ## id-composite-key (Generic Composite Keys) {#sec-generic-composite}
 
-Usage guidance: This mode is primarily for prototyping and for use in proprietary implementations; implementers MAY implement this section if there is a need for greater flexibility in algorithm combinations than is available by using the pre-defined composite algorithms defined below.
-
-> EDNOTE: Does the WG feel strongly that this section should be removed prior to publication by the RFC Editors? IE remove it entirely from the standard? Are there enduring (ie non-prototyping) usecases that benefit from generic composite?
+This key type is primarily for prototyping and for use in proprietary implementations where an application needs a combination that does not have a defined OID. The semantics are the same as above except that no consistency check is needed between the outer AlgorithmIdentifier OID and the AlgorithmIdentifier OIDs within the component SubjectPublicKeyInfos or OneAsymmetricKeys.
 
 The id-composite-key object identifier is used for identifying a generic composite public key and a generic composite private key. This allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or standardized. 
 
@@ -2324,49 +2341,11 @@ id-composite-key OBJECT IDENTIFIER ::= {
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
-The PUBLIC-KEY ASN.1 information object class is defined in [RFC5912]. The PUBLIC-KEY information object for generic ({{sec-generic-composite}}) and explicit ({{sec-explicit-sigs}}) composite public and private keys has the following form:
-
-~~~ ASN.1
-pk-Composite PUBLIC-KEY ::= {
-    id id-composite-key
-    KeyValue CompositePublicKey
-    Params ARE ABSENT
-    PrivateKey CompositePrivateKey
-}
-~~~
-{: artwork-name="CompositeAlgorithmObject-asn.1-structures"}
+This section does not specify the contents of the component SubjectPublicKeyInfos or OneAsymmetricKeys since the purpose of this generic composite algorithm is to leave this flexible for runtime agents.
 
 The motivation for this variant is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this variant will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadruples, etc of algorithms.
 
-
-## Explicit Composite Signature Keys {#sec-explicit-sigs}
-
-> TODO: Delete once all the content is covered elsewhere.
-
-This variant provides a rigid way of specifying supported combinations of key types.
-
-The motivation for this variant is to make it easier to reference and enforce specific combinations of algorithms. The authors envision this being useful for client-server negotiated protocols, protocol designers who wish to place constraints on allowable algorithm combinations in the protocol specification, as well as audited environments that wish to prove that only certain combinations will be supported by clients.
-
-Profiles need to define an explicit composite key type which consists of, at the minimum:
-
-- A new algorithm identifier OID for the explicit algorithm.
-- The PUBLIC-KEY information object of each component public key type.
-- The algorithm identifiers and parameters to be contained in each of the component SubjectPublicKeyInfos and OneAsymmetricKeys.
-
-See {{appdx-creatingExplicitCombinations}} for guidance on creating and registering OIDs for specific explicit combinations.
-
-In this variant, the public key is encoded as defined in {{sec-composite-keys}} and {{sec-composite-pub-keys}}, however the PUBLIC-KEY.id SHALL be an OID which is registered to represent a specific combination of component public key types. See {{appdx-samples}} for samples.
-
-The SubjectPublicKeyInfo.algorithm for each component key is redundant information which MUST match -- and can be inferred from -- the specification of the explicit algorithm. It has been left here for ease of implementation as the component SubjectPublicKeyInfo structures are the same between generic and explicit, as well as with single-algorithm keys. However, it introduces the risk of mismatch and leads to the following security consideration:
-
-Security consideration: Implementations MUST check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
-
-Below are provided a set of explicit composite algorithms which have been selected to fill a wide range of use cases, with algorithms selected to match security levels across a group. The selections include pairs of {lattice, ECC/RSA} which should cover most short-term use cases, and also {hash-based, ECC} pairs and {lattice, lattice, ECC/RSA} triples for long-term use cases. Usage guidance is provided for each explicit combination. 
-
-The algorithm set provided here is not intended to be exhaustive; additional use cases and cryptographic advances may require additional combinations to be defined in other documents by using the mechanim provided in {{appdx-creatingExplicitCombinations}}.
-
-
-
+<!-- END id-composite-key -->
 
 
 
@@ -2437,9 +2416,9 @@ There is an additional security consideration that some use cases such as signat
 
 ## Key mismatch in explicit composite
 
-This security consideration copied from {{sec-explicit-sigs}}.
+This security consideration copied from {{sec-component-matching}}.
 
-Implementations MUST check that that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's SubjectPublicKeyInfo.algorithm, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the SubjectPublicKeyInfo.subjectPublicKey. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks MUST be done when handling the corresponding private key.
+Implementations SHOULD check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's `SubjectPublicKeyInfo.algorithm`, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the `SubjectPublicKeyInfo.subjectPublicKey`. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks SHOULD be done when handling the corresponding private key.
 
 
 ## Policy for Deprecated and Acceptable Algorithms
@@ -2593,120 +2572,6 @@ SEQUENCE {
 
 ## Explicit Composite Public Key Samples {#appdx-expComposite-samples}
 
-### pk-example-ECandRSA
-
-Assume that the following is a defined explicit pair:
-
-~~~ asn.1
-id-pk-example-ECandRSA OBJECT IDENTIFIER ::= { 1 2 3 4 }
-
-pk-example-ECandRSA PUBLIC-KEY ::= pk-explicitComposite{
-    id-pk-example-ECandRSA,
-    ecPublicKey,
-    pk-ec,
-    rsaEncryption,
-    pk-rsa,
-}
-~~~
-
-Then the same key as above could be encoded as an explicit composite public key as:
-
-~~~
------BEGIN PUBLIC KEY-----
-MIIBkTAFBgMqAwQDggGGADCCAYEwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATE
-Y+Gue5Ib98bLDUU36XmHingAZFAJLQsFecE752OFwjqqcXZO+tARohgYalBPnAdL
-7vLmIkn50TmqPFy/yWhEMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
-2xVArV9wtA5svhli1zNZs5sQIAVKyeDQ4ulFM+v1UZXdKxL9WgxFmpcX6yzPPojZ
-RwVNowX0LA1FtYu4gFzPO6FsdKOfrk66g346bbCw+j6iTDjpFN6QHhp31BC9hFXM
-+UgtRDw29nhbQEou+JdNdYiCCO2n9jWkpEcrPyffkno6YVbPhMoY22GfzsPbySZ3
-BBgfk0uwN48dt93DcDIus+9AuVDD+FE/P/1PF/vKL0OOD0e0nzwRLr5lt8TVkfEt
-gtIO3bm1IvwDaky4YwPc/zWdhY76AnS9hXZZxGlcdGSOaWIaqIKDh4GYLj/+2bQn
-iv0uXxv+mnrHI4wjuOmlVQIDAQAB
------END PUBLIC KEY-----
-~~~
-
-which decodes as:
-
-~~~
-algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
-
-subjectPublicKey: CompositePublicKey {
-  SubjectPublicKeyInfo {
-    algorithm: AlgorithmIdentifier {
-      algorithm: ecPublicKey
-      parameters: prime256v1
-      }
-    subjectPublicKey: <ec key octet string>
-    },
-    SubjectPublicKeyInfo {
-    algorithm: AlgorithmIdentifier {
-      algorithm: rsaEncryption
-      parameters: NULL
-      }
-    subjectPublicKey: <rsa key octet string>
-    }
-  }
-~~~
-
-The corresponding explicit private key is:
-
-~~~
------BEGIN PRIVATE KEY-----
-MIIFFwIBADAFBgMqAwQEggUJMIIFBTBBAgEAMBMGByqGSM49AgEGCCqGSM49AwEH
-BCcwJQIBAQQgI3SKEJyCDmfwAu2T22RBmqD9YsSbk158yL+R03Tpn24wggS+AgEA
-MA0GCSqGSIb3DQEBAQUABIIEqDCCBKQCAQACggEBANsVQK1fcLQObL4ZYtczWbOb
-ECAFSsng0OLpRTPr9VGV3SsS/VoMRZqXF+sszz6I2UcFTaMF9CwNRbWLuIBczzuh
-bHSjn65OuoN+Om2wsPo+okw46RTekB4ad9QQvYRVzPlILUQ8NvZ4W0BKLviXTXWI
-ggjtp/Y1pKRHKz8n35J6OmFWz4TKGNthn87D28kmdwQYH5NLsDePHbfdw3AyLrPv
-QLlQw/hRPz/9Txf7yi9Djg9HtJ88ES6+ZbfE1ZHxLYLSDt25tSL8A2pMuGMD3P81
-nYWO+gJ0vYV2WcRpXHRkjmliGqiCg4eBmC4//tm0J4r9Ll8b/pp6xyOMI7jppVUC
-AwEAAQKCAQAW1Poul1m5ih9PGHoyj0lz7F8b1zFaJLHgVAtARAEHBaVNDeeVcN34
-JHL7sWnPzJdITYcvzDkMNj3jk7IgvotiXYpeBYdotQ+/EHKqZ9Wp3skvRGcWI7PF
-T2DZmv0FQ6Pe/uSozdW0jgqEgraudaY+74ENySbOA/0qmbgqFs+4Bg+KpRlKTGlJ
-Sx3kAsuyT1vTGNHtQRiQSlXb+85HCJ4SE6Y8vO5eH4/HTJq+RrNP+9T6H+sNKgtC
-fu/h9WxCA105po4b+Ad6Ya66Is8kmVfllnqaawhoSPP4w2TRokMfamgpsCvgHvT1
-1OydiC/ti2QR9LI54wR2EyKzAjVz0WnBAoGBAPqR0eYcKh5Y02+WrFS/nt7tkMBc
-MDpZx+vKlywXSXvasjcnyg4+YVo1oKbAgf8hzP5nLt+vYhjFWPIOMJrOLypOePZk
-12zvWFRg5yrrS7RNxJWu2hwDgdbs2hYmorm2E2U1prUzfnxxgGikag2hxL3J/XSr
-YwFm2kXR9zk9sV/5AoGBAN/Uvhx7Oh5ts1No3gqhqnJwdfEqjM/YbAivXlhFiO3R
-mkey11Q8AFC7CUv0K4v7lDXtVGIzzVxRU18WwHMohdhv88ELlQP4OZGoaVPq/q5R
-ZjqOJ9SASN/I/E7SgnczpwKEdH9O+mRPlLJoTAekgfsh5dswVxLmbgaZI0EQI789
-AoGAIPQKgdPUajdOX0+WjHLDBxiBP/sf0Jy8ITN8nCzX2jUR2RUfiq4DiaSh4yxQ
-LGiamB6j2IEtSoqxvuvE0qcpJsw5NlZeypHTsQ0peciGJUlRAEqFnseLTOPLbrxY
-DEp41IewzAXgracTty9gTzimMjudXLmphKatMB+D/wAxEqkCgYEA38bA3pawT1Wb
-kEtqmjRwxQL8V0UUDIQx1ikF6Lh0IleIqB/7uaJXKl8j90TA+K1nytZgo+FoceB4
-urtzYm5kCjQ6/YhHzfUwERjPXO+2+a41x1ryJTiwItO8tE0v1F7WnOSx18ms+fa6
-EffF82ob7WhBdncIxsOLwpr9rQGmy30CgYEA9HinpY3RqhmWizJPo0jiarM28sTg
-oFqyZ+gyZMmKHuoI/dfimp2CIjRKOxBAb/660cugkBHDOFYc5l/UkqQPyVIkfTZy
-n9meuOfnA+l9goumEkGIpI/DIiO4XBxHVyTzg415irjbU0Op/uVdu/GgyqNM9qBd
-SnMe/CW4OO1KLz4=
------END PRIVATE KEY-----
-~~~
-
-which decodes as:
-
-~~~
-algorithm: AlgorithmIdentifier{id-pk-example-ECandRSA}
-
-SEQUENCE {
-  OneAsymmetricKey {
-      version: 0,
-      privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
-        algorithm: ecPublicKey 
-        parameters: prime256v1
-      }
-      privateKey: <ec key octet string>
-    },
-  OneAsymmetricKey {
-      version: 0,
-      privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
-        algorithm: rsaEncryption 
-        parameters: NULL
-      }
-      privateKey: <rsa key octet string>
-    }
-  }
-~~~
 
 ### id-Dilithium3-ECDSA-P256
 
@@ -2779,13 +2644,6 @@ The corresponding explicit private key is as follows. Note that the PQ key comes
 ~~~
 !!id-Falcon512-ECDSA-P256_priv.pem
 ~~~
-
-
-### id-Falcon512-Ed25519
-
-> TODO
-
-
 
 
 
