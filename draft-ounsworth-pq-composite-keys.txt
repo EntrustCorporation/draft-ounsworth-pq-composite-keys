@@ -4274,7 +4274,8 @@ Appendix D.  Contributors and Acknowledgements
    Daniel Van Geest (ISARA),
    Tim Hollebeek (Digicert),
    Klaus-Dieter Wirth (D-Trust),
-   Patrick Kelsey (Not for Radio LLC), and
+   Patrick Kelsey (Not for Radio LLC),
+   Anthony Hu (wolfSSL), and
    Francois Rousseau.
 
    We are grateful to all, including any contributors who may have been
@@ -4305,7 +4306,6 @@ Authors' Addresses
 
    Massimiliano Pala
    CableLabs
-   Email: director@openca.org
 
 
 
@@ -4314,15 +4314,15 @@ Ounsworth, et al.          Expires 4 June 2023                 [Page 77]
 Internet-Draft              PQ Composite Keys              December 2022
 
 
+   Email: director@openca.org
+
+
    Jan Klaussner
    D-Trust GmbH
    Kommandantenstr. 15
    10969 Berlin
    Germany
    Email: jan.klaussner@d-trust.net
-
-
-
 
 
 

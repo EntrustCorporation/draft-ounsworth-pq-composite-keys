@@ -2811,7 +2811,8 @@ Panos Kampanakis (Cisco Systems), \\
 Daniel Van Geest (ISARA), \\
 Tim Hollebeek (Digicert), \\
 Klaus-Dieter Wirth (D-Trust), \\
-Patrick Kelsey (Not for Radio LLC), and \\
+Patrick Kelsey (Not for Radio LLC), \\
+Anthony Hu (wolfSSL), and \\
 François Rousseau.
 
 We are grateful to all, including any contributors who may have
