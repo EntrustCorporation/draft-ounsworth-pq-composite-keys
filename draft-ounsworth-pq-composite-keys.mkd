@@ -521,7 +521,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm rsaEncryption,
     parameters NULL
   },
-  privateKey BIT STRING(RSAPrivateKey)
+  privateKey RSAPrivateKey
 }
 ~~~
 
@@ -1820,12 +1820,11 @@ The publicKey remains OPTIONAL.
 The second private key component OneAsymmetricKey SHALL contain
 
 ~~~
-SEQUENCE  {
-     algorithm  AlgorithmIdentifier {
-            algorithm rsaEncryption,
-            parameters NULL
-      },
-     subjectPublicKey  BIT STRING(RSAPrivateKey)
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm rsaEncryption,
+    parameters NULL
+  },
+  privateKey RSAPrivateKey
 }
 ~~~
 
@@ -2365,7 +2364,7 @@ This section addresses practical issues of how this draft affects other protocol
 
 ## Textual encoding of Composite Private Keys
 
-CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail (PEM) [RFC1421] format by placing a CompositePrivateKey into the privateKey field of a PrivateKeyInfo or OneAsymmetricKey object, and then applying the PEM encoding rules as defined in [RFC7468] section 10 and 11 for plaintext and encrypted private keys, respectively.
+CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail (PEM) [RFC1421] format by placing a CompositePrivateKey into the privateKey field of a PrivateKeyInfo (OneAsymmetricKey) object, and then applying the PEM encoding rules as defined in [RFC7468] section 10 and 11 for plaintext and encrypted private keys, respectively.
 
 
 ## Backwards Compatibility {#sec-backwards-compat}

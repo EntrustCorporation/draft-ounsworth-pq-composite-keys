@@ -2035,7 +2035,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm rsaEncryption,
     parameters NULL
   },
-  privateKey BIT STRING(RSAPrivateKey)
+  privateKey RSAPrivateKey
 }
 </pre><a href="#section-5.1-17" class="pilcrow">¶</a>
 </div>
@@ -3327,12 +3327,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <p id="section-5.17-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.17-16" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.17-17">
 <pre>
-SEQUENCE  {
-     algorithm  AlgorithmIdentifier {
-            algorithm rsaEncryption,
-            parameters NULL
-      },
-     subjectPublicKey  BIT STRING(RSAPrivateKey)
+privateKeyAlgorithm AlgorithmIdentifier ::= {
+    algorithm rsaEncryption,
+    parameters NULL
+  },
+  privateKey RSAPrivateKey
 }
 </pre><a href="#section-5.17-17" class="pilcrow">¶</a>
 </div>
@@ -3875,7 +3874,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
         <h3 id="name-textual-encoding-of-composit">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-textual-encoding-of-composit" class="section-name selfRef">Textual encoding of Composite Private Keys</a>
         </h3>
-<p id="section-6.1-1">CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail (PEM) <span>[<a href="#RFC1421" class="xref">RFC1421</a>]</span> format by placing a CompositePrivateKey into the privateKey field of a PrivateKeyInfo or OneAsymmetricKey object, and then applying the PEM encoding rules as defined in <span>[<a href="#RFC7468" class="xref">RFC7468</a>]</span> section 10 and 11 for plaintext and encrypted private keys, respectively.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail (PEM) <span>[<a href="#RFC1421" class="xref">RFC1421</a>]</span> format by placing a CompositePrivateKey into the privateKey field of a PrivateKeyInfo (OneAsymmetricKey) object, and then applying the PEM encoding rules as defined in <span>[<a href="#RFC7468" class="xref">RFC7468</a>]</span> section 10 and 11 for plaintext and encrypted private keys, respectively.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-backwards-compat">

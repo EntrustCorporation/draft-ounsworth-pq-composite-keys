@@ -813,7 +813,7 @@ Internet-Draft              PQ Composite Keys              December 2022
        algorithm rsaEncryption,
        parameters NULL
      },
-     privateKey BIT STRING(RSAPrivateKey)
+     privateKey RSAPrivateKey
    }
 
    where rsaEncryption and RSAPrivateKey are defined in [RFC8017].
@@ -2186,12 +2186,11 @@ Ounsworth, et al.          Expires 4 June 2023                 [Page 39]
 Internet-Draft              PQ Composite Keys              December 2022
 
 
-   SEQUENCE  {
-        algorithm  AlgorithmIdentifier {
-               algorithm rsaEncryption,
-               parameters NULL
-         },
-        subjectPublicKey  BIT STRING(RSAPrivateKey)
+   privateKeyAlgorithm AlgorithmIdentifier ::= {
+       algorithm rsaEncryption,
+       parameters NULL
+     },
+     privateKey RSAPrivateKey
    }
 
    where rsaEncryption and RSAPrivateKey are defined in [RFC8017].
@@ -2228,6 +2227,7 @@ Internet-Draft              PQ Composite Keys              December 2022
       STRING(TBDDilithiumPublicKey) is correct ASN.1.
 
    The second public key component SubjectPublicKeyInfo SHALL contain:
+
 
 
 
@@ -2775,7 +2775,7 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    CompositePrivateKeys can be encoded to the Privacy-Enhanced Mail
    (PEM) [RFC1421] format by placing a CompositePrivateKey into the
-   privateKey field of a PrivateKeyInfo or OneAsymmetricKey object, and
+   privateKey field of a PrivateKeyInfo (OneAsymmetricKey) object, and
    then applying the PEM encoding rules as defined in [RFC7468] section
    10 and 11 for plaintext and encrypted private keys, respectively.
 
