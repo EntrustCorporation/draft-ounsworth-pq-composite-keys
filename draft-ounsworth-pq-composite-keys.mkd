@@ -2448,57 +2448,6 @@ Certification Authority (CA) implementations need to be careful when checking fo
 <!-- Start of Appendices -->
 --- back
 
-# Creating explicit combinations {#appdx-creatingExplicitCombinations}
-
-The following ASN.1 Information Objects may be useful in defining and parsing explicit pairs of public key types. Given an ASN.1 2002 compliant ASN.1 compiler, these Information Objects will enforce the binding between the public key types specified in the instantiation of pk-explicitComposite, and the wire objects which implement it. The one thing that is not enforced automatically by this Information Object is that publicKey.params are intended to be absent if and only if they are absent for the declared public key type. This ASN.1 module declares them OPTIONAL and leaves it to implementers to perform this check explicitly.
-
-> EDNOTE  this ASN.1 needs to change.  The current definition doesn’t put a component AlgorithmIdentifier with each component key. Once we agree as a group that the text accurately describes what we want, we can spend a bit of time figuring out if the ASN.1 machinery lets us express it in a readable way and/or a way that will actually help people creating explicit pairs.
-
-~~~ ASN.1
--- pk-explicitComposite - Composite public key information object
-
-pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
- FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} 
- PUBLIC-KEY ::= {PUBLIC-KEYPUBLIC-KEY
-    IDENTIFIER id
-    KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
-     secondPublicKey, SecondPublicKeyType}
-    PARAMS ARE absent
-    CERT-KEY-USAGE {digitalSignature, nonRepudiation, keyCertSign,
-      cRLSign}
-}
-~~~
-
-The following ASN.1 object class then automatically generates the
-public key structure from the types defined in pk-explicitComposite.
-
-~~~ ASN.1
--- ExplicitCompositePublicKey - The data structure for a composite 
--- public key sec-composite-pub-keys and SecondPublicKeyType are needed
--- because PUBLIC-KEY contains a set of public key types, not a single
--- type.
--- TODO The parameters should be optional only if they are marked 
--- optional in the PUBLIC-KEY.
-
-
-ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType, 
-  PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} ::= SEQUENCE {
-    firstPublicKey SEQUENCE {
-        params firstPublicKey.&Params OPTIONAL,
-        publicKey FirstPublicKeyType
-    },
-    secondPublicKey SEQUENCE {
-        params secondPublicKey.&Params OPTIONAL,
-        publicKey SecondPublicKeyType
-    }
-}
-~~~
-
-Using this module, it becomes trivial to define explicit pairs. For an example, see {{appdx-expComposite-samples}}.
-
-To define explicit triples, quadruples, etc, these Information Objects can be extended to have thirdPublicKey, fourthPublicKey, etc throughout.
-
-
 # Samples {#appdx-samples}
 
 These samples are reproduced here for completeness, but are also available in github:
@@ -2835,6 +2784,8 @@ ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
         publicKey SecondPublicKeyType
     }
 }
+
+TODO: add all the OIDs
 
 END
 
