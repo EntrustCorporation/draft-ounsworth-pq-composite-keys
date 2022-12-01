@@ -521,11 +521,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm rsaEncryption,
     parameters NULL
   },
-  privateKey ECPrivateKey
+  privateKey BIT STRING(RSAPrivateKey)
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480].
+where rsaEncryption and RSAPrivateKey are defined in [RFC8017].
 
 The publicKey remains OPTIONAL.
 
@@ -607,7 +607,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where id-ecPublicKey, secp256r1, ECPrivateKey is defined in [RFC5480].
+where id-ecPublicKey and secp256r1 are defined in [RFC5480], and ECPrivateKey is defined in [RFC5915].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
@@ -692,7 +692,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
+where id-ecPublicKey is defined in [RFC5480], ECPrivateKey is defined in [RFC5915], and `brainpoolP256r1` is defined in [RFC5639].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5639] section 4.2.
 
 The publicKey remains OPTIONAL.
@@ -854,7 +854,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480].
+where id-ecPublicKey and secp384r1 are defined in [RFC5480], and ECPrivateKey is defined in [RFC5915].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
@@ -937,7 +937,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
+where id-ecPublicKey is defined in [RFC5480], ECPrivateKey is defined in [RFC5915], and `brainpoolP256r1` is defined in [RFC5639].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5639] section 4.2.
 
 The publicKey remains OPTIONAL.
@@ -1100,7 +1100,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where id-ecPublicKey, secp256r1, ECPrivateKey is defined in [RFC5480].
+where id-ecPublicKey and secp256r1 are defined in [RFC5480], and ECPrivateKey is defined in [RFC5915].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
@@ -1180,7 +1180,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
+where id-ecPublicKey is defined in [RFC5480], ECPrivateKey is defined in [RFC5915], and `brainpoolP256r1` is defined in [RFC5639].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5639] section 4.2.
 
 The publicKey remains OPTIONAL.
@@ -1341,7 +1341,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where id-ecPublicKey, secp256r1, ECPrivateKey is defined in [RFC5480].
+where id-ecPublicKey and secp256r1 are defined in [RFC5480], and ECPrivateKey is defined in [RFC5915].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
@@ -1423,7 +1423,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
+where id-ecPublicKey is defined in [RFC5480], ECPrivateKey is defined in [RFC5915], and `brainpoolP256r1` is defined in [RFC5639].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5639] section 4.2.
 
 The publicKey remains OPTIONAL.
@@ -1584,7 +1584,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where id-ecPublicKey, secp256r1, ECPrivateKey is defined in [RFC5480].
+where id-ecPublicKey and secp256r1 are defined in [RFC5480], and ECPrivateKey is defined in [RFC5915].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
@@ -1666,7 +1666,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
+where id-ecPublicKey is defined in [RFC5480], ECPrivateKey is defined in [RFC5915], and `brainpoolP256r1` is defined in [RFC5639].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 
@@ -1795,7 +1795,7 @@ SEQUENCE  {
             algorithm rsaEncryption,
             parameters NULL
       },
-     subjectPublicKey     BIT STRING(RSAPublicKey)
+     subjectPublicKey  BIT STRING(RSAPublicKey)
 }
 ~~~
 
@@ -1825,7 +1825,7 @@ SEQUENCE  {
             algorithm rsaEncryption,
             parameters NULL
       },
-     subjectPublicKey     BIT STRING(RSAPrivateKey)
+     subjectPublicKey  BIT STRING(RSAPrivateKey)
 }
 ~~~
 
@@ -1911,7 +1911,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where id-ecPublicKey, secp256r1, ECPrivateKey is defined in [RFC5480].
+where id-ecPublicKey and secp256r1 are defined in [RFC5480], and ECPrivateKey is defined in [RFC5915].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
@@ -1993,7 +1993,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480], and `brainpoolP256r1` is defined in [RFC5639].
+where id-ecPublicKey is defined in [RFC5480], ECPrivateKey is defined in [RFC5915], and `brainpoolP256r1` is defined in [RFC5639].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
@@ -2155,7 +2155,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where id-ecPublicKey, secp384r1, ECPrivateKey is defined in [RFC5480].
+where id-ecPublicKey and secp384r1 are defined in [RFC5480], and ECPrivateKey is defined in [RFC5915]
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
@@ -2237,7 +2237,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 }
 ~~~
 
-where ECPrivateKey is defined in [RFC5480], and `brainpoolP384r1` is defined in [RFC5639].
+where id-ecPublicKey is defined in [RFC5480], ECPrivateKey is defined in [RFC5915], and `brainpoolP384r1` is defined in [RFC5639].
 Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with [RFC5480] section 2.1.
 
 The publicKey remains OPTIONAL.
