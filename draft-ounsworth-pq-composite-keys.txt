@@ -127,11 +127,11 @@ Table of Contents
    4.  Composite Key Structures  . . . . . . . . . . . . . . . . . .   7
      4.1.  Specifying Composite Key Types  . . . . . . . . . . . . .   7
      4.2.  CompositePublicKey  . . . . . . . . . . . . . . . . . . .   8
-       4.2.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   8
+       4.2.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   9
        4.2.2.  Component Matching  . . . . . . . . . . . . . . . . .   9
-     4.3.  CompositePrivateKey . . . . . . . . . . . . . . . . . . .   9
+     4.3.  CompositePrivateKey . . . . . . . . . . . . . . . . . . .  10
      4.4.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .  10
-   5.  Algorithm Identifiers . . . . . . . . . . . . . . . . . . . .  10
+   5.  Algorithm Identifiers . . . . . . . . . . . . . . . . . . . .  11
      5.1.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . . . .  14
      5.2.  id-Dilithium3-ECDSA-P256  . . . . . . . . . . . . . . . .  15
      5.3.  id-Dilithium3-EDSA-brainpoolP256r1  . . . . . . . . . . .  17
@@ -418,6 +418,12 @@ Internet-Draft              PQ Composite Keys              November 2022
    CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
    A composite key MUST contain at least two component public keys.
+   When the composite key is used in conjunction with an explicit
+   composite algorithm identifier defined under section Section 5, the
+   order of the component keys is determined by that algorithm
+   identifier's definition.  Otherwise, the composite key is considered
+   to be used in conjunction with the algorithm identifier id-composite-
+   key defined in Section 5.24, and no ordering constraint applies.
 
    A CompositePublicKey MUST NOT contain a component public key which
    itself describes a composite key; i.e. recursive CompositePublicKeys
@@ -434,14 +440,8 @@ Internet-Draft              PQ Composite Keys              November 2022
    string format, the data structure is encoded as specified in
    Section 4.4.
 
-4.2.1.  Key Usage
 
-   For protocols such as X.509 [RFC5280] that specify key usage along
-   with the public key, any key usage may be used with composite keys,
-   with the requirement that the specified key usage MUST apply to all
-   component keys.  For example if a composite key is marked with a
-   KeyUsage of digitalSignature, then all component keys MUST be capable
-   of producing digital signatures.  The composite mechanism MUST NOT be
+
 
 
 
@@ -450,6 +450,14 @@ Ounsworth, et al.          Expires 3 June 2023                  [Page 8]
 Internet-Draft              PQ Composite Keys              November 2022
 
 
+4.2.1.  Key Usage
+
+   For protocols such as X.509 [RFC5280] that specify key usage along
+   with the public key, any key usage may be used with composite keys,
+   with the requirement that the specified key usage MUST apply to all
+   component keys.  For example if a composite key is marked with a
+   KeyUsage of digitalSignature, then all component keys MUST be capable
+   of producing digital signatures.  The composite mechanism MUST NOT be
    used to implement mixed-usage keys, for example, where a
    digitalSignature and a keyEncipherment key are combined together into
    a single composite key.
@@ -486,14 +494,6 @@ Internet-Draft              PQ Composite Keys              November 2022
    match the explicit algorithm definition.  Similar checks SHOULD be
    done when handling the corresponding private key.
 
-4.3.  CompositePrivateKey
-
-   This section provides an encoding for composite private keys intended
-   for PKIX protocols and other applications that require an
-   interoperable format for transmitting private keys, such as PKCS #12
-   [RFC7292] or CMP / CRMF [RFC4210], [RFC4211].  It is not intended to
-   dictate a storage format in implementations not requiring
-   interoperability of private key formats.
 
 
 
@@ -505,6 +505,15 @@ Ounsworth, et al.          Expires 3 June 2023                  [Page 9]
 
 Internet-Draft              PQ Composite Keys              November 2022
 
+
+4.3.  CompositePrivateKey
+
+   This section provides an encoding for composite private keys intended
+   for PKIX protocols and other applications that require an
+   interoperable format for transmitting private keys, such as PKCS #12
+   [RFC7292] or CMP / CRMF [RFC4210], [RFC4211].  It is not intended to
+   dictate a storage format in implementations not requiring
+   interoperability of private key formats.
 
    In some cases the private keys that comprise a composite key may not
    be represented in a single structure or even be contained in a single
@@ -523,8 +532,8 @@ Internet-Draft              PQ Composite Keys              November 2022
    The parameters field MUST be absent.
 
    A CompositePrivateKey MUST contain at least two component private
-   keys, and they MUST be in the same order as in the corresponding
-   CompositePublicKey.
+   keys, and the order of the component keys is the same as the order
+   defined in Section 4.2 for the components of CompositePublicKey.
 
 4.4.  Encoding Rules
 
@@ -545,15 +554,6 @@ Internet-Draft              PQ Composite Keys              November 2022
 
    CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
 
-5.  Algorithm Identifiers
-
-   This section defines algorithm identifiers for composite
-   combinations.  The combinations registered in this section are
-   intended to strike a balance between the overall number of
-   combinations ("the combinatorial explosion problem"), while also
-   covering the needs of a wide range of protocols, applications, and
-   regulatory environments in which X.509-based technologies are used.
-
 
 
 
@@ -562,22 +562,22 @@ Ounsworth, et al.          Expires 3 June 2023                 [Page 10]
 Internet-Draft              PQ Composite Keys              November 2022
 
 
+5.  Algorithm Identifiers
+
+   This section defines algorithm identifiers, component algorithms and
+   their ordering for composite combinations.  The combinations
+   registered in this section are intended to strike a balance between
+   the overall number of combinations ("the combinatorial explosion
+   problem"), while also covering the needs of a wide range of
+   protocols, applications, and regulatory environments in which
+   X.509-based technologies are used.
+
    This section is not intended to be exhaustive and other authors may
    define OIDs for new combinations so long as they are compatible with
    the structures and processes defined in this and the companion
    signature and encryption documents.
 
    Signature public key types:
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2717,7 +2717,9 @@ Internet-Draft              PQ Composite Keys              November 2022
    generic composite public key and a generic composite private key.
    This allows arbitrary combinations of key types to be placed in the
    CompositePublicKey and CompositePrivateKey structures without needing
-   the combination to be pre-registered or standardized.
+   the combination to be pre-registered or standardized.  No order is
+   defined for the components of CompositePublicKey or
+   CompositePrivateKey structures identified by id-composite-key.
 
    id-composite-key OBJECT IDENTIFIER ::= {
        joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
@@ -2731,13 +2733,11 @@ Internet-Draft              PQ Composite Keys              November 2022
    generic composite algorithm is to leave this flexible for runtime
    agents.
 
-
-
-
-
-
-
-
+   The motivation for this variant is primarily for prototyping work
+   prior to the standardization of algorithm identifiers for explicit
+   combinations of algorithms.  However, the authors envision that this
+   variant will remain relevant beyond full standardization for example
+   in environments requiring very high levels of crypto agility, for
 
 
 
@@ -2746,11 +2746,6 @@ Ounsworth, et al.          Expires 3 June 2023                 [Page 49]
 Internet-Draft              PQ Composite Keys              November 2022
 
 
-   The motivation for this variant is primarily for prototyping work
-   prior to the standardization of algorithm identifiers for explicit
-   combinations of algorithms.  However, the authors envision that this
-   variant will remain relevant beyond full standardization for example
-   in environments requiring very high levels of crypto agility, for
    example where clients support a large number of algorithms or where a
    large number of keys will be used at a time and it is therefore
    prohibitive to define algorithm identifiers for every combination of
@@ -2793,6 +2788,11 @@ Internet-Draft              PQ Composite Keys              November 2022
    this document primarily address cryptographic strength, however this
    section contains notes on how backwards compatibility may be
    obtained.
+
+
+
+
+
 
 
 
@@ -4267,10 +4267,15 @@ Appendix D.  Contributors and Acknowledgements
    electronic mail and VOIP traffic over the past year in pursuit of
    this document:
 
-   John Gray (Entrust), Serge Mister (Entrust), Scott Fluhrer (Cisco
-   Systems), Panos Kampanakis (Cisco Systems), Daniel Van Geest (ISARA),
-   Tim Hollebeek (Digicert), Klaus-Dieter Wirth (D-Trust), and Francois
-   Rousseau.
+   John Gray (Entrust),
+   Serge Mister (Entrust),
+   Scott Fluhrer (Cisco Systems),
+   Panos Kampanakis (Cisco Systems),
+   Daniel Van Geest (ISARA),
+   Tim Hollebeek (Digicert),
+   Klaus-Dieter Wirth (D-Trust),
+   Patrick Kelsey, and
+   Francois Rousseau.
 
    We are grateful to all, including any contributors who may have been
    inadvertently omitted from this list.
@@ -4301,11 +4306,6 @@ Authors' Addresses
    Massimiliano Pala
    CableLabs
    Email: director@openca.org
-
-
-
-
-
 
 
 
