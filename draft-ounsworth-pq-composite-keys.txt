@@ -3031,9 +3031,8 @@ Internet-Draft              PQ Composite Keys              December 2022
               Westerbaan, "Use of the SPHINCS+ Signature Algorithm in
               the Cryptographic Message Syntax (CMS)", Work in Progress,
               Internet-Draft, draft-ietf-lamps-cms-sphincs-plus-01, 21
-              November 2022,
-              <https://datatracker.ietf.org/api/v1/doc/document/draft-
-              ietf-lamps-cms-sphincs-plus/>.
+              November 2022, <https://www.ietf.org/archive/id/draft-
+              ietf-lamps-cms-sphincs-plus-01.txt>.
 
    [I-D.ietf-lamps-dilithium-certificates]
               Massimo, J., Kampanakis, P., Turner, S., and B.
@@ -3074,6 +3073,7 @@ Internet-Draft              PQ Composite Keys              December 2022
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
 
 
 
