@@ -212,7 +212,7 @@ This document is intended to be coupled with corresponding documents that define
 - General restructuring of the document.
 - Aligned composite pairings with OpenPGP and JOSE/COSE WGs TODO: INSERT DRAFT REF
 - We have dropped the MAY / RECOMMENDED column as well as per-algorithm usage guidance because in the end we think it does not belong at the X.509 level because we believe these recommendations belong at the application profile level; for example what is RECOMMENDED for X.509-based client authentication may be very different from what is RECOMMENDED for X.509-based code-signing.
-- Renamed "id-SPHINCSsha256256frobust-ECDSA-P256" to "id-SPHINCSplusSHA256-ECDSA-P256" because the public key format does not depend on the signature algorithm parameters.
+- Renamed "id-SPHINCSsha256256frobust-ECDSA-P256" to "id-SPHINCSplusSHA256-EC-P256" because the public key format does not depend on the signature algorithm parameters.
 - The following algorithms were removed:
   - pk-example-ECandRSA
   - id-Dilithium5-Falcon1024-ECDSA-P521
@@ -221,19 +221,19 @@ This document is intended to be coupled with corresponding documents that define
 - The following algorithms were added:
   - id-Dilithium3-EDSA-brainpoolP256r1
   - id-Dilithium3-Ed25519
-  - id-Dilithium5-ECDSA-P384
-  - id-Dilithium5-ECDSA-brainpoolP384r1
+  - id-Dilithium5-EC-P384
+  - id-Dilithium5-EC-brainpoolP384r1
   - id-Dilithium5-Ed448
-  - id-Falcon512-ECDSA-brainpoolP256r1
-  - id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1
+  - id-Falcon512-EC-brainpoolP256r1
+  - id-SPHINCSplusSHA256-EC-brainpoolP256r1
   - id-SPHINCSplusSHA256-Ed25519
-  - id-Kyber512-ECDH-brainpoolP256r1
+  - id-Kyber512-EC-brainpoolP256r1
   - id-Kyber768-RSA
-  - id-Kyber768-ECDH-P256
-  - id-Kyber768-ECDH-brainpoolP256r1
+  - id-Kyber768-EC-P256
+  - id-Kyber768-EC-brainpoolP256r1
   - id-Kyber768-X25519
-  - id-Kyber1024-ECDH-P384
-  - id-Kyber1024-ECDH-brainpoolP384r1
+  - id-Kyber1024-EC-P384
+  - id-Kyber1024-EC-brainpoolP384r1
   - id-Kyber1024-X448
 - Changed "examples" to "samples" when referring to {{appdx-samples}}.
 
@@ -406,17 +406,17 @@ Signature public key types:
 Signature key type                    | Definition                            | OID
  ---------                            | ----------                            | ------------
 id-Dilithium3-RSA                     | {{sec-id-Dilithium3-RSA}}             | 2.16.840.1.114027.80.5.2 (for prototyping only)
-id-Dilithium3-ECDSA-P256              | {{sec-id-Dilithium3-ECDSA-P256}}      | 2.16.840.1.114027.80.5.1 (for prototyping only)
-id-Dilithium3-ECDSA-brainpoolP256r1   | {{sec-id-Dilithium3-ECDSA-brainpoolP256r1}} | TBD
+id-Dilithium3-EC-P256                 | {{sec-id-Dilithium3-EC-P256}}         | 2.16.840.1.114027.80.5.1 (for prototyping only)
+id-Dilithium3-EC-brainpoolP256r1      | {{sec-id-Dilithium3-EC-brainpoolP256r1}}  | TBD
 id-Dilithium3-Ed25519                 | {{sec-id-Dilithium3-Ed25519}}         | TBD
-id-Dilithium5-ECDSA-P384              | {{sec-id-Dilithium5-ECDSA-P384}}      | TBD
-id-Dilithium5-ECDSA-brainpoolP384r1   | {{sec-id-Dilithium5-ECDSA-brainpoolP384r1}}  | TBD
+id-Dilithium5-EC-P384                 | {{sec-id-Dilithium5-EC-P384}}         | TBD
+id-Dilithium5-EC-brainpoolP384r1      | {{sec-id-Dilithium5-EC-brainpoolP384r1}}  | TBD
 id-Dilithium5-Ed448                   | {{sec-id-Dilithium5-Ed448}}           | TBD
-id-Falcon512-ECDSA-P256               | {{sec-id-Falcon512-ECDSA-P256}}       | 2.16.840.1.114027.80.5.3 (for prototyping only)
-id-Falcon512-ECDSA-brainpoolP256r1    | {{sec-id-Falcon512-ECDSA-brainpoolP256r1}}   | TBD
+id-Falcon512-EC-P256                  | {{sec-id-Falcon512-EC-P256}}          | 2.16.840.1.114027.80.5.3 (for prototyping only)
+id-Falcon512-EC-brainpoolP256r1       | {{sec-id-Falcon512-EC-brainpoolP256r1}}   | TBD
 id-Falcon512-Ed25519                  | {{sec-id-Falcon512-Ed25519}}          | TBD
-id-SPHINCSplusSHA256-ECDSA-P256       | {{sec-id-SPHINCSplusSHA256-ECDSA-P256}} | TBD
-id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1  | {{sec-id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1}} | TBD
+id-SPHINCSplusSHA256-EC-P256          | {{sec-id-SPHINCSplusSHA256-EC-P256}}  | TBD
+id-SPHINCSplusSHA256-EC-brainpoolP256r1  | {{sec-id-SPHINCSplusSHA256-EC-brainpoolP256r1}} | TBD
 id-SPHINCSplusSHA256-Ed25519          | {{sec-id-SPHINCSplusSHA256-Ed25519}}  | TBD
 id-composite-key                      | {{sec-generic-composite}}                         | TBD
 {: #tab-sig-agls title="Composite signatures key types"}
@@ -428,15 +428,15 @@ KEM public key types:
 
 KEM key type                       | Definition                                | OID
 ---------                          | -----------                               | ----------
-id-Kyber512-ECDH-P256              | {{sec-id-Kyber512-ECDH-P256}}             | TBD
-id-Kyber512-ECDH-brainpoolP256r1   | {{sec-id-Kyber512-ECDH-brainpoolP256r1}}  | TBD
+id-Kyber512-EC-P256                | {{sec-id-Kyber512-EC-P256}}               | TBD
+id-Kyber512-EC-brainpoolP256r1     | {{sec-id-Kyber512-EC-brainpoolP256r1}}    | TBD
 id-Kyber512-X25519                 | {{sec-id-Kyber512-X25519}}                | TBD
 id-Kyber768-RSA                    | {{sec-id-Kyber768-RSA}}                   | TBD
-id-Kyber768-ECDH-P256              | {{sec-id-Kyber768-ECDH-P256}}             | TBD
-id-Kyber768-ECDH-brainpoolP256r1   | {{sec-id-Kyber768-ECDH-brainpoolP256r1}}  | TBD
+id-Kyber768-EC-P256                | {{sec-id-Kyber768-EC-P256}}               | TBD
+id-Kyber768-EC-brainpoolP256r1     | {{sec-id-Kyber768-EC-brainpoolP256r1}}    | TBD
 id-Kyber768-X25519                 | {{sec-id-Kyber768-X25519}}                | TBD
-id-Kyber1024-ECDH-P384             | {{sec-id-Kyber1024-ECDH-P384}}            | TBD
-id-Kyber1024-ECDH-brainpoolP384r1  | {{sec-id-Kyber1024-ECDH-brainpoolP384r1}} | TBD
+id-Kyber1024-EC-P384               | {{sec-id-Kyber1024-EC-P384}}              | TBD
+id-Kyber1024-EC-brainpoolP384r1    | {{sec-id-Kyber1024-EC-brainpoolP384r1}}   | TBD
 id-Kyber1024-X448                  | {{sec-id-Kyber1024-X448}}                 | TBD
 id-composite-key                   | {{sec-generic-composite}}                 | TBD
 {: #tab-kem-agls title="Composite KEM key types"}
@@ -545,21 +545,21 @@ The publicKey remains OPTIONAL.
 <!-- END id-Dilithium3-RSA -->
 
 
-## id-Dilithium3-ECDSA-P256 {#sec-id-Dilithium3-ECDSA-P256}
+## id-Dilithium3-EC-P256 {#sec-id-Dilithium3-EC-P256}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { 
+id-Dilithium3-EC-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-ECDSA-P256(1) }
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-EC-P256(1) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Dilithium3-ECDSA-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Dilithium3-EC-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
 
 ~~~
   digitalSignature; or
@@ -636,18 +636,18 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 
 The publicKey remains OPTIONAL.
 
-<!-- END id-Dilithium3-ECDSA-P256 -->
+<!-- END id-Dilithium3-EC-P256 -->
 
 
 
-## id-Dilithium3-EDSA-brainpoolP256r1 {#sec-id-Dilithium3-ECDSA-brainpoolP256r1}
+## id-Dilithium3-EDSA-brainpoolP256r1 {#sec-id-Dilithium3-EC-brainpoolP256r1}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
+id-Dilithium3-EC-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-ECDSA-brainpoolP256r1(TODO) }
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-EC-brainpoolP256r1(TODO) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -823,22 +823,22 @@ The publicKey remains OPTIONAL.
 
 <!-- END id-Dilithium3-ECDSA-Ed25519 -->
 
-## id-Dilithium5-ECDSA-P384 {#sec-id-Dilithium5-ECDSA-P384}
+## id-Dilithium5-EC-P384 {#sec-id-Dilithium5-EC-P384}
 
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= { 
+id-Dilithium5-EC-P384 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-ECDSA-P384(TODO) }
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-EC-P384(TODO) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Dilithium5-ECDSA-P384 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Dilithium5-EC-P384 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
 
 ~~~
   digitalSignature; or
@@ -914,23 +914,23 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 
 The publicKey remains OPTIONAL.
 
-<!-- END id-Dilithium5-ECDSA-P384 -->
+<!-- END id-Dilithium5-EC-P384 -->
 
-## id-Dilithium5-ECDSA-brainpoolP384r1 {#sec-id-Dilithium5-ECDSA-brainpoolP384r1}
+## id-Dilithium5-EC-brainpoolP384r1 {#sec-id-Dilithium5-EC-brainpoolP384r1}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= { 
+id-Dilithium5-EC-brainpoolP384r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-ECDSA-brainpoolP384r1(TODO) }
+  algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-EC-brainpoolP384r1(TODO) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Dilithium5-ECDSA-brainpoolP384r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Dilithium5-EC-brainpoolP384r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
 
 ~~~
   digitalSignature; or
@@ -1007,7 +1007,7 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 
 The publicKey remains OPTIONAL.
 
-<!-- END id-Dilithium5-ECDSA-brainpoolP384r1 -->
+<!-- END id-Dilithium5-EC-brainpoolP384r1 -->
 
 
 
@@ -1102,21 +1102,21 @@ The publicKey remains OPTIONAL.
 
 
 
-## id-Falcon512-ECDSA-P256 {#sec-id-Falcon512-ECDSA-P256}
+## id-Falcon512-EC-P256 {#sec-id-Falcon512-EC-P256}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Falcon512-ECDSA-P256 OBJECT IDENTIFIER ::= { 
+id-Falcon512-EC-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Falcon512-ECDSA-P256(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-Falcon512-EC-P256(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Falcon512-ECDSA-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Falcon512-EC-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
 
 ~~~
   digitalSignature; or
@@ -1191,23 +1191,23 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 
 The publicKey remains OPTIONAL.
 
-<!-- id-Falcon512-ECDSA-P256 -->
+<!-- id-Falcon512-EC-P256 -->
 
-## id-Falcon512-ECDSA-brainpoolP256r1 {#sec-id-Falcon512-ECDSA-brainpoolP256r1}
+## id-Falcon512-EC-brainpoolP256r1 {#sec-id-Falcon512-EC-brainpoolP256r1}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Falcon512-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
+id-Falcon512-EC-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Falcon512-ECDSA-brainpoolP256r1(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-Falcon512-EC-brainpoolP256r1(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Falcon512-ECDSA-brainpoolP256r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Falcon512-EC-brainpoolP256r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
 
 ~~~
   digitalSignature; or
@@ -1282,7 +1282,7 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 
 The publicKey remains OPTIONAL.
 
-<!-- END id-Falcon512-ECDSA-brainpoolP256r1 -->
+<!-- END id-Falcon512-EC-brainpoolP256r1 -->
 
 
 
@@ -1376,21 +1376,21 @@ The publicKey remains OPTIONAL.
 
 <!-- END id-Falcon512-Ed25519 -->
 
-## id-SPHINCSplusSHA256-ECDSA-P256 {#sec-id-SPHINCSplusSHA256-ECDSA-P256}
+## id-SPHINCSplusSHA256-EC-P256 {#sec-id-SPHINCSplusSHA256-EC-P256}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= { 
+id-SPHINCSplusSHA256-EC-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-ECDSA-P256(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-EC-P256(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-SPHINCSplusSHA256-ECDSA-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-SPHINCSplusSHA256-EC-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
 
 ~~~
   digitalSignature; or
@@ -1466,24 +1466,24 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 The publicKey remains OPTIONAL.
 
 
-<!-- END id-SPHINCSplusSHA256-ECDSA-P256 -->
+<!-- END id-SPHINCSplusSHA256-EC-P256 -->
 
 
-## id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1 {#sec-id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1}
+## id-SPHINCSplusSHA256-EC-brainpoolP256r1 {#sec-id-SPHINCSplusSHA256-EC-brainpoolP256r1}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= { 
+id-SPHINCSplusSHA256-EC-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-ECDSA-P256(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-EC-P256(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-SPHINCSplusSHA256-EC-brainpoolP256r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
 
 ~~~
   digitalSignature; or
@@ -1558,7 +1558,7 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 
 The publicKey remains OPTIONAL.
 
-<!-- END id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1 -->
+<!-- END id-SPHINCSplusSHA256-EC-brainpoolP256r1 -->
 
 
 ## id-SPHINCSplusSHA256-Ed25519 {#sec-id-SPHINCSplusSHA256-Ed25519}
@@ -1647,26 +1647,26 @@ where id-Ed25519 and CurvePrivateKey are defined in [RFC8410].
 The publicKey remains OPTIONAL.
 
 
-<!-- END id-SPHINCSplusSHA256-ECDSA-P256 -->
+<!-- END id-SPHINCSplusSHA256-EC-P256 -->
 
 
 
-## id-Kyber512-ECDH-P256 {#sec-id-Kyber512-ECDH-P256}
+## id-Kyber512-EC-P256 {#sec-id-Kyber512-EC-P256}
 
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Kyber512-ECDH-P256 OBJECT IDENTIFIER ::= { 
+id-Kyber512-EC-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Kyber512-ECDH-P256(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber512-EC-P256(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber512-ECDH-P256 in the SubjectPublicKeyInfo, then the following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber512-EC-P256 in the SubjectPublicKeyInfo, then the following MUST be present:
 
 ~~~
   keyEncipherment
@@ -1739,24 +1739,24 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 The publicKey remains OPTIONAL.
 
 
-<!-- END id-Kyber512-ECDH-P256 -->
+<!-- END id-Kyber512-EC-P256 -->
 
 
-## id-Kyber512-ECDH-brainpoolP256r1 {#sec-id-Kyber512-ECDH-brainpoolP256r1}
+## id-Kyber512-EC-brainpoolP256r1 {#sec-id-Kyber512-EC-brainpoolP256r1}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Kyber512-ECDH-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
+id-Kyber512-EC-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Kyber512-ECDH-brainpoolP256r1 (TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber512-EC-brainpoolP256r1 (TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber512-ECDH-brainpoolP256r1 in the SubjectPublicKeyInfo, then the following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber512-EC-brainpoolP256r1 in the SubjectPublicKeyInfo, then the following MUST be present:
 
 ~~~
   keyEncipherment
@@ -1830,7 +1830,7 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 The publicKey remains OPTIONAL.
 
 
-<!-- END id-Kyber512-ECDH-brainpoolP256r1 -->
+<!-- END id-Kyber512-EC-brainpoolP256r1 -->
 
 
 ## id-Kyber512-X25519 {#sec-id-Kyber512-X25519}
@@ -2009,21 +2009,21 @@ The publicKey remains OPTIONAL.
 <!-- END id-Kyber768-RSA -->
 
 
-## id-Kyber768-ECDH-P256 {#sec-id-Kyber768-ECDH-P256}
+## id-Kyber768-EC-P256 {#sec-id-Kyber768-EC-P256}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= { 
+id-Kyber768-EC-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Kyber768-ECDH-P256(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber768-EC-P256(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber768-ECDH-P256 in the SubjectPublicKeyInfo, then the following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber768-EC-P256 in the SubjectPublicKeyInfo, then the following MUST be present:
 
 ~~~
   keyEncipherment
@@ -2096,24 +2096,24 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 
 The publicKey remains OPTIONAL.
 
-<!-- END id-Kyber768-ECDH-P256 -->
+<!-- END id-Kyber768-EC-P256 -->
 
 
-## id-Kyber768-ECDH-brainpoolP256r1 {#sec-id-Kyber768-ECDH-brainpoolP256r1}
+## id-Kyber768-EC-brainpoolP256r1 {#sec-id-Kyber768-EC-brainpoolP256r1}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= { 
+id-Kyber768-EC-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Kyber768-ECDH-P256(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber768-EC-P256(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
 
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber768-ECDH-brainpoolP256r1 in the SubjectPublicKeyInfo, then the following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber768-EC-brainpoolP256r1 in the SubjectPublicKeyInfo, then the following MUST be present:
 
 ~~~
   keyEncipherment
@@ -2187,7 +2187,7 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 The publicKey remains OPTIONAL.
 
 
-<!-- id-Kyber768-ECDH-brainpoolP256r1 -->
+<!-- id-Kyber768-EC-brainpoolP256r1 -->
 
 
 ## id-Kyber768-X25519 {#sec-id-Kyber768-X25519}
@@ -2278,14 +2278,14 @@ The publicKey remains OPTIONAL.
 <!-- END id-Kyber768-X25519 -->
 
 
-## id-Kyber1024-ECDH-P384 {#sec-id-Kyber1024-ECDH-P384}
+## id-Kyber1024-EC-P384 {#sec-id-Kyber1024-EC-P384}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Kyber1024-ECDH-P384 OBJECT IDENTIFIER ::= { 
+id-Kyber1024-EC-P384 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-ECDH-P384(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-EC-P384(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -2293,7 +2293,7 @@ id-Kyber1024-ECDH-P384 OBJECT IDENTIFIER ::= {
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber1024-ECDH-P384 in the SubjectPublicKeyInfo, then the following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber1024-EC-P384 in the SubjectPublicKeyInfo, then the following MUST be present:
 
 ~~~
   keyEncipherment
@@ -2367,16 +2367,16 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 The publicKey remains OPTIONAL.
 
 
-<!-- END id-Kyber1024-ECDH-P384 -->
+<!-- END id-Kyber1024-EC-P384 -->
 
-## id-Kyber1024-ECDH-brainpoolP384r1 {#sec-id-Kyber1024-ECDH-brainpoolP384r1}
+## id-Kyber1024-EC-brainpoolP384r1 {#sec-id-Kyber1024-EC-brainpoolP384r1}
 
 The following object identifier is defined:
 
 ~~~ asn1
-id-Kyber1024-ECDH-brainpoolP384r1 OBJECT IDENTIFIER ::= { 
+id-Kyber1024-EC-brainpoolP384r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-ECDH-brainpoolP384r1(TBD) }
+  algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-EC-brainpoolP384r1(TBD) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -2384,7 +2384,7 @@ id-Kyber1024-ECDH-brainpoolP384r1 OBJECT IDENTIFIER ::= {
 When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.
 
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber1024-ECDH-brainpoolP384r1 in the SubjectPublicKeyInfo, then the following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates id-Kyber1024-EC-brainpoolP384r1 in the SubjectPublicKeyInfo, then the following MUST be present:
 
 ~~~
   keyEncipherment
@@ -2458,7 +2458,7 @@ Alternatively, the `algorithm` MAY be `id-ecDH` or `id-ecMQV` in accordance with
 The publicKey remains OPTIONAL.
 
 
-<!-- END id-Kyber1024-ECDH-brainpoolP384r1 -->
+<!-- END id-Kyber1024-EC-brainpoolP384r1 -->
 
 
 
@@ -2748,7 +2748,7 @@ SEQUENCE {
 ## Explicit Composite Public Key Samples {#appdx-expComposite-samples}
 
 
-### id-Dilithium3-ECDSA-P256
+### id-Dilithium3-EC-P256
 
 
 This example uses the following OID as defined in Open Quantum Safe, which correspond to NIST Round3 candidates:
@@ -2762,14 +2762,14 @@ id-dilithium3_aes 1.3.6.1.4.1.2.267.11.6.5
 A Dilithium3-ECDSA-P256 public key:
 
 ~~~
-!!id-Dilithium3-ECDSA-P256_pub.pem
+!!id-Dilithium3-EC-P256_pub.pem
 ~~~
 
 
 The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey \|\| publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.
 
 ~~~
-!!id-Dilithium3-ECDSA-P256_priv.pem
+!!id-Dilithium3-EC-P256_priv.pem
 ~~~
 
 
@@ -2797,7 +2797,7 @@ The corresponding explicit private key is as follows. Note that the PQ key comes
 ~~~
 
 
-### id-Falcon512-ECDSA-P256
+### id-Falcon512-EC-P256
 
 
 This example uses the following OID as definid in Open Quantum Safe, which correspond to NIST Round3 candidates:
@@ -2811,20 +2811,20 @@ id-falcon512 1.3.9999.3.1
 A Falcon512-ECDSA-P256 public key:
 
 ~~~
-!!id-Falcon512-ECDSA-P256_pub.pem
+!!id-Falcon512-EC-P256_pub.pem
 ~~~
 
 The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey \|\| publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.
 
 ~~~
-!!id-Falcon512-ECDSA-P256_priv.pem
+!!id-Falcon512-EC-P256_priv.pem
 ~~~
 
 
 
 ### id-SPHINCSplusSHA256256frobust-ECDSA-P256
 
-> TODO: we switched to using a pub key identifier without the signing mode, ie just id-SPHINCSplusSHA256-ECDSA-P256
+> TODO: we switched to using a pub key identifier without the signing mode, ie just id-SPHINCSplusSHA256-EC-P256
 
 
 This example uses the following OID as definid in Open Quantum Safe:
@@ -2850,7 +2850,7 @@ Eytrtq3H7e59JYdkceK1h+T8jZFyUP5e0M=
 which decodes as:
 
 ~~~
-algorithm: AlgorithmIdentifier{id-Dilithium3-ECDSA-P256}
+algorithm: AlgorithmIdentifier{id-Dilithium3-EC-P256}
 
 subjectPublicKey: CompositePublicKey {
   SubjectPublicKeyInfo {

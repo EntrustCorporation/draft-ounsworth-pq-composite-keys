@@ -133,27 +133,27 @@ Table of Contents
      4.4.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .  10
    5.  Algorithm Identifiers . . . . . . . . . . . . . . . . . . . .  11
      5.1.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . . . .  14
-     5.2.  id-Dilithium3-ECDSA-P256  . . . . . . . . . . . . . . . .  16
+     5.2.  id-Dilithium3-EC-P256 . . . . . . . . . . . . . . . . . .  16
      5.3.  id-Dilithium3-EDSA-brainpoolP256r1  . . . . . . . . . . .  18
      5.4.  id-Dilithium3-Ed25519 . . . . . . . . . . . . . . . . . .  19
-     5.5.  id-Dilithium5-ECDSA-P384  . . . . . . . . . . . . . . . .  21
-     5.6.  id-Dilithium5-ECDSA-brainpoolP384r1 . . . . . . . . . . .  23
+     5.5.  id-Dilithium5-EC-P384 . . . . . . . . . . . . . . . . . .  21
+     5.6.  id-Dilithium5-EC-brainpoolP384r1  . . . . . . . . . . . .  23
      5.7.  id-Dilithium5-Ed448 . . . . . . . . . . . . . . . . . . .  25
-     5.8.  id-Falcon512-ECDSA-P256 . . . . . . . . . . . . . . . . .  27
-     5.9.  id-Falcon512-ECDSA-brainpoolP256r1  . . . . . . . . . . .  29
+     5.8.  id-Falcon512-EC-P256  . . . . . . . . . . . . . . . . . .  27
+     5.9.  id-Falcon512-EC-brainpoolP256r1 . . . . . . . . . . . . .  29
      5.10. id-Falcon512-Ed25519  . . . . . . . . . . . . . . . . . .  31
-     5.11. id-SPHINCSplusSHA256-ECDSA-P256 . . . . . . . . . . . . .  33
-     5.12. id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1  . . . . . . .  34
+     5.11. id-SPHINCSplusSHA256-EC-P256  . . . . . . . . . . . . . .  33
+     5.12. id-SPHINCSplusSHA256-EC-brainpoolP256r1 . . . . . . . . .  34
      5.13. id-SPHINCSplusSHA256-Ed25519  . . . . . . . . . . . . . .  36
-     5.14. id-Kyber512-ECDH-P256 . . . . . . . . . . . . . . . . . .  38
-     5.15. id-Kyber512-ECDH-brainpoolP256r1  . . . . . . . . . . . .  40
+     5.14. id-Kyber512-EC-P256 . . . . . . . . . . . . . . . . . . .  38
+     5.15. id-Kyber512-EC-brainpoolP256r1  . . . . . . . . . . . . .  40
      5.16. id-Kyber512-X25519  . . . . . . . . . . . . . . . . . . .  42
      5.17. id-Kyber768-RSA . . . . . . . . . . . . . . . . . . . . .  43
-     5.18. id-Kyber768-ECDH-P256 . . . . . . . . . . . . . . . . . .  45
-     5.19. id-Kyber768-ECDH-brainpoolP256r1  . . . . . . . . . . . .  47
+     5.18. id-Kyber768-EC-P256 . . . . . . . . . . . . . . . . . . .  45
+     5.19. id-Kyber768-EC-brainpoolP256r1  . . . . . . . . . . . . .  47
      5.20. id-Kyber768-X25519  . . . . . . . . . . . . . . . . . . .  49
-     5.21. id-Kyber1024-ECDH-P384  . . . . . . . . . . . . . . . . .  50
-     5.22. id-Kyber1024-ECDH-brainpoolP384r1 . . . . . . . . . . . .  52
+     5.21. id-Kyber1024-EC-P384  . . . . . . . . . . . . . . . . . .  50
+     5.22. id-Kyber1024-EC-brainpoolP384r1 . . . . . . . . . . . . .  52
      5.23. id-Kyber1024-X448 . . . . . . . . . . . . . . . . . . . .  54
      5.24. id-composite-key (Generic Composite Keys) . . . . . . . .  56
    6.  Implementation Considerations . . . . . . . . . . . . . . . .  57
@@ -182,9 +182,9 @@ Internet-Draft              PQ Composite Keys              December 2022
    Appendix A.  Samples  . . . . . . . . . . . . . . . . . . . . . .  66
      A.1.  Generic Composite Public Key Samples  . . . . . . . . . .  66
      A.2.  Explicit Composite Public Key Samples . . . . . . . . . .  69
-       A.2.1.  id-Dilithium3-ECDSA-P256  . . . . . . . . . . . . . .  69
+       A.2.1.  id-Dilithium3-EC-P256 . . . . . . . . . . . . . . . .  69
        A.2.2.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . .  73
-       A.2.3.  id-Falcon512-ECDSA-P256 . . . . . . . . . . . . . . .  77
+       A.2.3.  id-Falcon512-EC-P256  . . . . . . . . . . . . . . . .  77
        A.2.4.  id-SPHINCSplusSHA256256frobust-ECDSA-P256 . . . . . .  79
    Appendix B.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  81
    Appendix C.  Intellectual Property Considerations . . . . . . . .  83
@@ -206,8 +206,8 @@ Internet-Draft              PQ Composite Keys              December 2022
       different from what is RECOMMENDED for X.509-based code-signing.
 
    *  Renamed "id-SPHINCSsha256256frobust-ECDSA-P256" to "id-
-      SPHINCSplusSHA256-ECDSA-P256" because the public key format does
-      not depend on the signature algorithm parameters.
+      SPHINCSplusSHA256-EC-P256" because the public key format does not
+      depend on the signature algorithm parameters.
 
    *  The following algorithms were removed:
 
@@ -232,31 +232,31 @@ Internet-Draft              PQ Composite Keys              December 2022
 
       -  id-Dilithium3-Ed25519
 
-      -  id-Dilithium5-ECDSA-P384
+      -  id-Dilithium5-EC-P384
 
-      -  id-Dilithium5-ECDSA-brainpoolP384r1
+      -  id-Dilithium5-EC-brainpoolP384r1
 
       -  id-Dilithium5-Ed448
 
-      -  id-Falcon512-ECDSA-brainpoolP256r1
+      -  id-Falcon512-EC-brainpoolP256r1
 
-      -  id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1
+      -  id-SPHINCSplusSHA256-EC-brainpoolP256r1
 
       -  id-SPHINCSplusSHA256-Ed25519
 
-      -  id-Kyber512-ECDH-brainpoolP256r1
+      -  id-Kyber512-EC-brainpoolP256r1
 
       -  id-Kyber768-RSA
 
-      -  id-Kyber768-ECDH-P256
+      -  id-Kyber768-EC-P256
 
-      -  id-Kyber768-ECDH-brainpoolP256r1
+      -  id-Kyber768-EC-brainpoolP256r1
 
       -  id-Kyber768-X25519
 
-      -  id-Kyber1024-ECDH-P384
+      -  id-Kyber1024-EC-P384
 
-      -  id-Kyber1024-ECDH-brainpoolP384r1
+      -  id-Kyber1024-EC-brainpoolP384r1
 
       -  id-Kyber1024-X448
 
@@ -619,44 +619,44 @@ Internet-Draft              PQ Composite Keys              December 2022
 
 
    +===========================+============+==========================+
-   |Signature key type         |Definition  | OID                      |
+   | Signature key type        |Definition  | OID                      |
    +===========================+============+==========================+
-   |id-Dilithium3-RSA          |Section 5.1 | 2.16.840.1.114027.80.5.2 |
+   | id-Dilithium3-RSA         |Section 5.1 | 2.16.840.1.114027.80.5.2 |
    |                           |            | (for prototyping only)   |
    +---------------------------+------------+--------------------------+
-   |id-Dilithium3-ECDSA-P256   |Section 5.2 | 2.16.840.1.114027.80.5.1 |
+   | id-Dilithium3-EC-P256     |Section 5.2 | 2.16.840.1.114027.80.5.1 |
    |                           |            | (for prototyping only)   |
    +---------------------------+------------+--------------------------+
-   |id-Dilithium3-ECDSA-       |Section 5.3 | TBD                      |
-   |brainpoolP256r1            |            |                          |
+   | id-Dilithium3-EC-         |Section 5.3 | TBD                      |
+   | brainpoolP256r1           |            |                          |
    +---------------------------+------------+--------------------------+
-   |id-Dilithium3-Ed25519      |Section 5.4 | TBD                      |
+   | id-Dilithium3-Ed25519     |Section 5.4 | TBD                      |
    +---------------------------+------------+--------------------------+
-   |id-Dilithium5-ECDSA-P384   |Section 5.5 | TBD                      |
+   | id-Dilithium5-EC-P384     |Section 5.5 | TBD                      |
    +---------------------------+------------+--------------------------+
-   |id-Dilithium5-ECDSA-       |Section 5.6 | TBD                      |
-   |brainpoolP384r1            |            |                          |
+   | id-Dilithium5-EC-         |Section 5.6 | TBD                      |
+   | brainpoolP384r1           |            |                          |
    +---------------------------+------------+--------------------------+
-   |id-Dilithium5-Ed448        |Section 5.7 | TBD                      |
+   | id-Dilithium5-Ed448       |Section 5.7 | TBD                      |
    +---------------------------+------------+--------------------------+
-   |id-Falcon512-ECDSA-P256    |Section 5.8 | 2.16.840.1.114027.80.5.3 |
+   | id-Falcon512-EC-P256      |Section 5.8 | 2.16.840.1.114027.80.5.3 |
    |                           |            | (for prototyping only)   |
    +---------------------------+------------+--------------------------+
-   |id-Falcon512-ECDSA-        |Section 5.9 | TBD                      |
-   |brainpoolP256r1            |            |                          |
+   | id-Falcon512-EC-          |Section 5.9 | TBD                      |
+   | brainpoolP256r1           |            |                          |
    +---------------------------+------------+--------------------------+
-   |id-Falcon512-Ed25519       |Section 5.10| TBD                      |
+   | id-Falcon512-Ed25519      |Section 5.10| TBD                      |
    +---------------------------+------------+--------------------------+
-   |id-SPHINCSplusSHA256-ECDSA-|Section 5.11| TBD                      |
-   |P256                       |            |                          |
+   | id-                       |Section 5.11| TBD                      |
+   | SPHINCSplusSHA256-EC-P256 |            |                          |
    +---------------------------+------------+--------------------------+
-   |id-SPHINCSplusSHA256-ECDSA-|Section 5.12| TBD                      |
-   |brainpoolP256r1            |            |                          |
+   | id-SPHINCSplusSHA256-EC-  |Section 5.12| TBD                      |
+   | brainpoolP256r1           |            |                          |
    +---------------------------+------------+--------------------------+
-   |id-                        |Section 5.13| TBD                      |
-   |SPHINCSplusSHA256-Ed25519  |            |                          |
+   | id-                       |Section 5.13| TBD                      |
+   | SPHINCSplusSHA256-Ed25519 |            |                          |
    +---------------------------+------------+--------------------------+
-   |id-composite-key           |Section 5.24| TBD                      |
+   | id-composite-key          |Section 5.24| TBD                      |
    +---------------------------+------------+--------------------------+
 
                   Table 1: Composite signatures key types
@@ -674,31 +674,31 @@ Ounsworth, et al.         Expires 11 June 2023                 [Page 12]
 Internet-Draft              PQ Composite Keys              December 2022
 
 
-        +===================================+==============+=====+
-        | KEM key type                      | Definition   | OID |
-        +===================================+==============+=====+
-        | id-Kyber512-ECDH-P256             | Section 5.14 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber512-ECDH-brainpoolP256r1  | Section 5.15 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber512-X25519                | Section 5.16 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber768-RSA                   | Section 5.17 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber768-ECDH-P256             | Section 5.18 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber768-ECDH-brainpoolP256r1  | Section 5.19 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber768-X25519                | Section 5.20 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber1024-ECDH-P384            | Section 5.21 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber1024-ECDH-brainpoolP384r1 | Section 5.22 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-Kyber1024-X448                 | Section 5.23 | TBD |
-        +-----------------------------------+--------------+-----+
-        | id-composite-key                  | Section 5.24 | TBD |
-        +-----------------------------------+--------------+-----+
+         +=================================+==============+=====+
+         | KEM key type                    | Definition   | OID |
+         +=================================+==============+=====+
+         | id-Kyber512-EC-P256             | Section 5.14 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber512-EC-brainpoolP256r1  | Section 5.15 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber512-X25519              | Section 5.16 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber768-RSA                 | Section 5.17 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber768-EC-P256             | Section 5.18 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber768-EC-brainpoolP256r1  | Section 5.19 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber768-X25519              | Section 5.20 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber1024-EC-P384            | Section 5.21 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber1024-EC-brainpoolP384r1 | Section 5.22 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-Kyber1024-X448               | Section 5.23 | TBD |
+         +---------------------------------+--------------+-----+
+         | id-composite-key                | Section 5.24 | TBD |
+         +---------------------------------+--------------+-----+
 
                      Table 2: Composite KEM key types
 
@@ -846,13 +846,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.2.  id-Dilithium3-ECDSA-P256
+5.2.  id-Dilithium3-EC-P256
 
    The following object identifier is defined:
 
-   id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= {
+   id-Dilithium3-EC-P256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-ECDSA-P256(1) }
+     algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-EC-P256(1) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -862,8 +862,8 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Dilithium3-ECDSA-P256 in the SubjectPublicKeyInfo, then the at least
-   one of following MUST be present:
+   Dilithium3-EC-P256 in the SubjectPublicKeyInfo, then the at least one
+   of following MUST be present:
 
      digitalSignature; or
      nonRepudiation; or
@@ -958,9 +958,9 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The following object identifier is defined:
 
-   id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
+   id-Dilithium3-EC-brainpoolP256r1 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-ECDSA-brainpoolP256r1(TODO) }
+     algorithm(80) ExplicitCompositeKey(5) id-Dilithium3-EC-brainpoolP256r1(TODO) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -1158,13 +1158,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.5.  id-Dilithium5-ECDSA-P384
+5.5.  id-Dilithium5-EC-P384
 
    The following object identifier is defined:
 
-   id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
+   id-Dilithium5-EC-P384 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-ECDSA-P384(TODO) }
+     algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-EC-P384(TODO) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -1181,8 +1181,8 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Dilithium5-ECDSA-P384 in the SubjectPublicKeyInfo, then the at least
-   one of following MUST be present:
+   Dilithium5-EC-P384 in the SubjectPublicKeyInfo, then the at least one
+   of following MUST be present:
 
      digitalSignature; or
      nonRepudiation; or
@@ -1263,13 +1263,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.6.  id-Dilithium5-ECDSA-brainpoolP384r1
+5.6.  id-Dilithium5-EC-brainpoolP384r1
 
    The following object identifier is defined:
 
-   id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
+   id-Dilithium5-EC-brainpoolP384r1 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-ECDSA-brainpoolP384r1(TODO) }
+     algorithm(80) ExplicitCompositeKey(5) id-Dilithium5-EC-brainpoolP384r1(TODO) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -1279,8 +1279,8 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Dilithium5-ECDSA-brainpoolP384r1 in the SubjectPublicKeyInfo, then
-   the at least one of following MUST be present:
+   Dilithium5-EC-brainpoolP384r1 in the SubjectPublicKeyInfo, then the
+   at least one of following MUST be present:
 
 
 
@@ -1475,13 +1475,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.8.  id-Falcon512-ECDSA-P256
+5.8.  id-Falcon512-EC-P256
 
    The following object identifier is defined:
 
-   id-Falcon512-ECDSA-P256 OBJECT IDENTIFIER ::= {
+   id-Falcon512-EC-P256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Falcon512-ECDSA-P256(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Falcon512-EC-P256(TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -1491,8 +1491,8 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Falcon512-ECDSA-P256 in the SubjectPublicKeyInfo, then the at least
-   one of following MUST be present:
+   Falcon512-EC-P256 in the SubjectPublicKeyInfo, then the at least one
+   of following MUST be present:
 
      digitalSignature; or
      nonRepudiation; or
@@ -1583,13 +1583,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.9.  id-Falcon512-ECDSA-brainpoolP256r1
+5.9.  id-Falcon512-EC-brainpoolP256r1
 
    The following object identifier is defined:
 
-   id-Falcon512-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
+   id-Falcon512-EC-brainpoolP256r1 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Falcon512-ECDSA-brainpoolP256r1(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Falcon512-EC-brainpoolP256r1(TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -1599,8 +1599,8 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Falcon512-ECDSA-brainpoolP256r1 in the SubjectPublicKeyInfo, then the
-   at least one of following MUST be present:
+   Falcon512-EC-brainpoolP256r1 in the SubjectPublicKeyInfo, then the at
+   least one of following MUST be present:
 
      digitalSignature; or
      nonRepudiation; or
@@ -1796,13 +1796,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.11.  id-SPHINCSplusSHA256-ECDSA-P256
+5.11.  id-SPHINCSplusSHA256-EC-P256
 
    The following object identifier is defined:
 
-   id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= {
+   id-SPHINCSplusSHA256-EC-P256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-ECDSA-P256(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-EC-P256(TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -1812,7 +1812,7 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   SPHINCSplusSHA256-ECDSA-P256 in the SubjectPublicKeyInfo, then the at
+   SPHINCSplusSHA256-EC-P256 in the SubjectPublicKeyInfo, then the at
    least one of following MUST be present:
 
      digitalSignature; or
@@ -1891,13 +1891,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.12.  id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1
+5.12.  id-SPHINCSplusSHA256-EC-brainpoolP256r1
 
    The following object identifier is defined:
 
-   id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= {
+   id-SPHINCSplusSHA256-EC-P256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-ECDSA-P256(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-SPHINCSplusSHA256-EC-P256(TBD) }
 
 
 
@@ -1914,7 +1914,7 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   SPHINCSplusSHA256-ECDSA-brainpoolP256r1 in the SubjectPublicKeyInfo,
+   SPHINCSplusSHA256-EC-brainpoolP256r1 in the SubjectPublicKeyInfo,
    then the at least one of following MUST be present:
 
      digitalSignature; or
@@ -2097,13 +2097,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.14.  id-Kyber512-ECDH-P256
+5.14.  id-Kyber512-EC-P256
 
    The following object identifier is defined:
 
-   id-Kyber512-ECDH-P256 OBJECT IDENTIFIER ::= {
+   id-Kyber512-EC-P256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Kyber512-ECDH-P256(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber512-EC-P256(TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -2113,8 +2113,8 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Kyber512-ECDH-P256 in the SubjectPublicKeyInfo, then the following
-   MUST be present:
+   Kyber512-EC-P256 in the SubjectPublicKeyInfo, then the following MUST
+   be present:
 
      keyEncipherment
 
@@ -2199,13 +2199,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.15.  id-Kyber512-ECDH-brainpoolP256r1
+5.15.  id-Kyber512-EC-brainpoolP256r1
 
    The following object identifier is defined:
 
-   id-Kyber512-ECDH-brainpoolP256r1 OBJECT IDENTIFIER ::= {
+   id-Kyber512-EC-brainpoolP256r1 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Kyber512-ECDH-brainpoolP256r1 (TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber512-EC-brainpoolP256r1 (TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -2215,7 +2215,7 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Kyber512-ECDH-brainpoolP256r1 in the SubjectPublicKeyInfo, then the
+   Kyber512-EC-brainpoolP256r1 in the SubjectPublicKeyInfo, then the
    following MUST be present:
 
      keyEncipherment
@@ -2484,13 +2484,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.18.  id-Kyber768-ECDH-P256
+5.18.  id-Kyber768-EC-P256
 
    The following object identifier is defined:
 
-   id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= {
+   id-Kyber768-EC-P256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Kyber768-ECDH-P256(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber768-EC-P256(TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -2500,8 +2500,8 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Kyber768-ECDH-P256 in the SubjectPublicKeyInfo, then the following
-   MUST be present:
+   Kyber768-EC-P256 in the SubjectPublicKeyInfo, then the following MUST
+   be present:
 
      keyEncipherment
 
@@ -2591,13 +2591,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.19.  id-Kyber768-ECDH-brainpoolP256r1
+5.19.  id-Kyber768-EC-brainpoolP256r1
 
    The following object identifier is defined:
 
-   id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= {
+   id-Kyber768-EC-P256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Kyber768-ECDH-P256(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber768-EC-P256(TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -2607,7 +2607,7 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Kyber768-ECDH-brainpoolP256r1 in the SubjectPublicKeyInfo, then the
+   Kyber768-EC-brainpoolP256r1 in the SubjectPublicKeyInfo, then the
    following MUST be present:
 
      keyEncipherment
@@ -2782,13 +2782,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.21.  id-Kyber1024-ECDH-P384
+5.21.  id-Kyber1024-EC-P384
 
    The following object identifier is defined:
 
-   id-Kyber1024-ECDH-P384 OBJECT IDENTIFIER ::= {
+   id-Kyber1024-EC-P384 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-ECDH-P384(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-EC-P384(TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -2805,7 +2805,7 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Kyber1024-ECDH-P384 in the SubjectPublicKeyInfo, then the following
+   Kyber1024-EC-P384 in the SubjectPublicKeyInfo, then the following
    MUST be present:
 
      keyEncipherment
@@ -2884,13 +2884,13 @@ Internet-Draft              PQ Composite Keys              December 2022
 
    The publicKey remains OPTIONAL.
 
-5.22.  id-Kyber1024-ECDH-brainpoolP384r1
+5.22.  id-Kyber1024-EC-brainpoolP384r1
 
    The following object identifier is defined:
 
-   id-Kyber1024-ECDH-brainpoolP384r1 OBJECT IDENTIFIER ::= {
+   id-Kyber1024-EC-brainpoolP384r1 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-ECDH-brainpoolP384r1(TBD) }
+     algorithm(80) ExplicitCompositeKey(5) id-Kyber1024-EC-brainpoolP384r1(TBD) }
 
       EDNOTE: this is a temporary OID for the purposes of prototyping.
       We are requesting IANA to assign a permanent OID, see Section 7.
@@ -2900,7 +2900,7 @@ Internet-Draft              PQ Composite Keys              December 2022
    The intended application for the key is indicated in the keyUsage
    certificate extension; see Section 4.2.1.3 of [RFC5280].  If the
    keyUsage extension is present in a certificate that indicates id-
-   Kyber1024-ECDH-brainpoolP384r1 in the SubjectPublicKeyInfo, then the
+   Kyber1024-EC-brainpoolP384r1 in the SubjectPublicKeyInfo, then the
    following MUST be present:
 
      keyEncipherment
@@ -3833,7 +3833,7 @@ Internet-Draft              PQ Composite Keys              December 2022
 
 A.2.  Explicit Composite Public Key Samples
 
-A.2.1.  id-Dilithium3-ECDSA-P256
+A.2.1.  id-Dilithium3-EC-P256
 
    This example uses the following OID as defined in Open Quantum Safe,
    which correspond to NIST Round3 candidates:
@@ -4301,7 +4301,7 @@ BSZLFwpH1i/y1P/+z2rOuqrAuSkK462Uz6u7mslFVXb82baLM1Kf0h48Y+YuEJRlRVnNCpRHR3d
 xo0q1Hy6tHThjXl2WXxTQEKyA7olA+T2uI6x1Q==
 -----END PRIVATE KEY-----
 
-A.2.3.  id-Falcon512-ECDSA-P256
+A.2.3.  id-Falcon512-EC-P256
 
    This example uses the following OID as definid in Open Quantum Safe,
    which correspond to NIST Round3 candidates:
@@ -4417,7 +4417,7 @@ hkjOPQMBBwQnMCUCAQEEICXQxbtuhGjYSkyLz+K0V0tRyxgEBlQcElOVwHZSA4QL
 A.2.4.  id-SPHINCSplusSHA256256frobust-ECDSA-P256
 
       TODO: we switched to using a pub key identifier without the
-      signing mode, ie just id-SPHINCSplusSHA256-ECDSA-P256
+      signing mode, ie just id-SPHINCSplusSHA256-EC-P256
 
 
 
@@ -4444,7 +4444,7 @@ Eytrtq3H7e59JYdkceK1h+T8jZFyUP5e0M=
 
    which decodes as:
 
-   algorithm: AlgorithmIdentifier{id-Dilithium3-ECDSA-P256}
+   algorithm: AlgorithmIdentifier{id-Dilithium3-EC-P256}
 
    subjectPublicKey: CompositePublicKey {
      SubjectPublicKeyInfo {
