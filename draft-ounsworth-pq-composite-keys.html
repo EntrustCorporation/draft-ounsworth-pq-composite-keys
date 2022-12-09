@@ -1186,7 +1186,7 @@ li > p:last-of-type {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 4 June 2023</td>
+<td class="center">Expires 11 June 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1199,12 +1199,12 @@ li > p:last-of-type {
 <dd class="internet-draft">draft-ounsworth-pq-composite-keys-04</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-12-01" class="published">1 December 2022</time>
+<time datetime="2022-12-08" class="published">8 December 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-06-04">4 June 2023</time></dd>
+<dd class="expires"><time datetime="2023-06-11">11 June 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1268,7 +1268,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 June 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 June 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1670,12 +1670,13 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 <p id="section-4.2-4">A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed. The purpose is a general reduction in complexity by not needing to consider nested key types.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 <p id="section-4.2-5">Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and parameters for the public key contained within it. See <a href="#sec-alg-ids" class="xref">Section 5</a> for specific algorithms defined in this document.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 <p id="section-4.2-6">When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in <a href="#sec-encoding-rules" class="xref">Section 4.4</a>.<a href="#section-4.2-6" class="pilcrow">¶</a></p>
-<div id="key-usage">
+<div id="sec-keyusage">
 <section id="section-4.2.1">
           <h4 id="name-key-usage-2">
 <a href="#section-4.2.1" class="section-number selfRef">4.2.1. </a><a href="#name-key-usage-2" class="section-name selfRef">Key Usage</a>
           </h4>
-<p id="section-4.2.1-1">For protocols such as X.509 <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> that specify key usage along with the public key, any key usage may be used with composite keys, with the requirement that the specified key usage MUST apply to all component keys. For example if a composite key is marked with a KeyUsage of digitalSignature, then all component keys MUST be capable of producing digital signatures. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-1">Protocols such as X.509 <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> that specify a key usage along with the public key. For composite keys, a single key usage is specified for the entire public key and it MUST apply to all component keys. For example if a composite key is marked with a key usage of digitalSignature, then all component keys MUST be capable of producing digital signatures and handled with policies appropriate for digital signature keys. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.2.1-2">Specifications of explicit composite key types must specify allowable key usages for that type based on the types of the components.<a href="#section-4.2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-component-matching">
@@ -1982,8 +1983,18 @@ id-Dilithium3-RSA OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.1-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.1-5" class="pilcrow">¶</a></p>
-<div id="section-5.1-6">
+<p id="section-5.1-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Dilithium3-RSA in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.1-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.1-7" class="pilcrow">¶</a></p>
+<p id="section-5.1-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.1-8" class="pilcrow">¶</a></p>
+<div id="section-5.1-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -1991,21 +2002,21 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
 }
-</pre><a href="#section-5.1-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.1-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-7">where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.1-7" class="pilcrow">¶</a></p>
+<p id="section-5.1-10">where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.1-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.1-8.1">
-            <p id="section-5.1-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.1-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.1-11.1">
+            <p id="section-5.1-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.1-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.1-9.1">
-            <p id="section-5.1-9.1.1">EDNOTE: <code>pk-dilithium3TBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.1-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.1-12.1">
+            <p id="section-5.1-12.1.1">EDNOTE: <code>pk-dilithium3TBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.1-12.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.1-10">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.1-10" class="pilcrow">¶</a></p>
-<div id="section-5.1-11">
+<p id="section-5.1-13">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.1-13" class="pilcrow">¶</a></p>
+<div id="section-5.1-14">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2014,22 +2025,22 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(RSAPublicKey)
 }
-</pre><a href="#section-5.1-11" class="pilcrow">¶</a>
+</pre><a href="#section-5.1-14" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-12">where rsaEncryption and RSAPublicKey are defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>.<a href="#section-5.1-12" class="pilcrow">¶</a></p>
-<p id="section-5.1-13">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.1-13" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-14">
+<p id="section-5.1-15">where rsaEncryption and RSAPublicKey are defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>.<a href="#section-5.1-15" class="pilcrow">¶</a></p>
+<p id="section-5.1-16">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.1-16" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1-17">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-dilithium3TBD
   },
   privateKey DilithiumPrivateKey
 }
-</pre><a href="#section-5.1-14" class="pilcrow">¶</a>
+</pre><a href="#section-5.1-17" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-15">The publicKey remains OPTIONAL.<a href="#section-5.1-15" class="pilcrow">¶</a></p>
-<p id="section-5.1-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.1-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.1-17">
+<p id="section-5.1-18">The publicKey remains OPTIONAL.<a href="#section-5.1-18" class="pilcrow">¶</a></p>
+<p id="section-5.1-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.1-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm rsaEncryption,
@@ -2037,10 +2048,10 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey RSAPrivateKey
 }
-</pre><a href="#section-5.1-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.1-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-18">where rsaEncryption and RSAPrivateKey are defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>.<a href="#section-5.1-18" class="pilcrow">¶</a></p>
-<p id="section-5.1-19">The publicKey remains OPTIONAL.<a href="#section-5.1-19" class="pilcrow">¶</a></p>
+<p id="section-5.1-21">where rsaEncryption and RSAPrivateKey are defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>.<a href="#section-5.1-21" class="pilcrow">¶</a></p>
+<p id="section-5.1-22">The publicKey remains OPTIONAL.<a href="#section-5.1-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Dilithium3-ECDSA-P256">
@@ -2062,8 +2073,18 @@ id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.2-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
-<div id="section-5.2-6">
+<p id="section-5.2-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Dilithium3-ECDSA-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.2-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.2-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.2-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.2-8" class="pilcrow">¶</a></p>
+<div id="section-5.2-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2071,21 +2092,21 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
 }
-</pre><a href="#section-5.2-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-7">where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.2-10">where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.2-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.2-8.1">
-            <p id="section-5.2-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.2-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.2-11.1">
+            <p id="section-5.2-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.2-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.2-9.1">
-            <p id="section-5.2-9.1.1">EDNOTE: <code>pk-dilithiumTBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.2-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.2-12.1">
+            <p id="section-5.2-12.1.1">EDNOTE: <code>pk-dilithiumTBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.2-12.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.2-10">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.2-10" class="pilcrow">¶</a></p>
-<div id="section-5.2-11">
+<p id="section-5.2-13">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.2-13" class="pilcrow">¶</a></p>
+<div id="section-5.2-14">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2094,24 +2115,24 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(ECPoint)
 }
-</pre><a href="#section-5.2-11" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-14" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-12">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.2-12" class="pilcrow">¶</a></p>
-<p id="section-5.2-13">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.2-13" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-14">
+<p id="section-5.2-15">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.2-15" class="pilcrow">¶</a></p>
+<p id="section-5.2-16">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.2-16" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-17">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-dilithium3TBD
   },
   privateKey DilithiumPrivateKey
 }
-</pre><a href="#section-5.2-14" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-17" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-15">where id-dilithium3TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.2-15" class="pilcrow">¶</a></p>
-<p id="section-5.2-16">The publicKey remains OPTIONAL.<a href="#section-5.2-16" class="pilcrow">¶</a></p>
-<p id="section-5.2-17">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.2-17" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-18">
+<p id="section-5.2-18">where id-dilithium3TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.2-18" class="pilcrow">¶</a></p>
+<p id="section-5.2-19">The publicKey remains OPTIONAL.<a href="#section-5.2-19" class="pilcrow">¶</a></p>
+<p id="section-5.2-20">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.2-20" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-21">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -2119,11 +2140,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.2-18" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-21" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-19">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.2-19" class="pilcrow">¶</a></p>
-<p id="section-5.2-20">The publicKey remains OPTIONAL.<a href="#section-5.2-20" class="pilcrow">¶</a></p>
+<p id="section-5.2-22">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.2-22" class="pilcrow">¶</a></p>
+<p id="section-5.2-23">The publicKey remains OPTIONAL.<a href="#section-5.2-23" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Dilithium3-ECDSA-brainpoolP256r1">
@@ -2145,8 +2166,18 @@ id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.3-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
-<p id="section-5.3-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.3-5" class="pilcrow">¶</a></p>
-<div id="section-5.3-6">
+<p id="section-5.3-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Dilithium3-EDSA-brainpoolP256r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.3-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.3-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.3-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.3-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.3-7" class="pilcrow">¶</a></p>
+<p id="section-5.3-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.3-8" class="pilcrow">¶</a></p>
+<div id="section-5.3-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2154,21 +2185,21 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
 }
-</pre><a href="#section-5.3-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.3-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.3-7">where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.3-7" class="pilcrow">¶</a></p>
+<p id="section-5.3-10">where pk-dilithium3TBD and TBDDilithiumPublicKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.3-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.3-8.1">
-            <p id="section-5.3-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.3-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.3-11.1">
+            <p id="section-5.3-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.3-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.3-9.1">
-            <p id="section-5.3-9.1.1">EDNOTE: <code>pk-dilithiumTBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.3-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.3-12.1">
+            <p id="section-5.3-12.1.1">EDNOTE: <code>pk-dilithiumTBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.3-12.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.3-10">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.3-10" class="pilcrow">¶</a></p>
-<div id="section-5.3-11">
+<p id="section-5.3-13">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.3-13" class="pilcrow">¶</a></p>
+<div id="section-5.3-14">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2177,24 +2208,24 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(ECPoint)
 }
-</pre><a href="#section-5.3-11" class="pilcrow">¶</a>
+</pre><a href="#section-5.3-14" class="pilcrow">¶</a>
 </div>
-<p id="section-5.3-12">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.3-12" class="pilcrow">¶</a></p>
-<p id="section-5.3-13">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.3-13" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.3-14">
+<p id="section-5.3-15">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.3-15" class="pilcrow">¶</a></p>
+<p id="section-5.3-16">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.3-16" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.3-17">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-dilithium3TBD
   },
   privateKey DilithiumPrivateKey
 }
-</pre><a href="#section-5.3-14" class="pilcrow">¶</a>
+</pre><a href="#section-5.3-17" class="pilcrow">¶</a>
 </div>
-<p id="section-5.3-15">where id-dilithium3TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.3-15" class="pilcrow">¶</a></p>
-<p id="section-5.3-16">The publicKey remains OPTIONAL.<a href="#section-5.3-16" class="pilcrow">¶</a></p>
-<p id="section-5.3-17">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.3-17" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.3-18">
+<p id="section-5.3-18">where id-dilithium3TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.3-18" class="pilcrow">¶</a></p>
+<p id="section-5.3-19">The publicKey remains OPTIONAL.<a href="#section-5.3-19" class="pilcrow">¶</a></p>
+<p id="section-5.3-20">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.3-20" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.3-21">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -2202,11 +2233,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.3-18" class="pilcrow">¶</a>
+</pre><a href="#section-5.3-21" class="pilcrow">¶</a>
 </div>
-<p id="section-5.3-19">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.3-19" class="pilcrow">¶</a></p>
-<p id="section-5.3-20">The publicKey remains OPTIONAL.<a href="#section-5.3-20" class="pilcrow">¶</a></p>
+<p id="section-5.3-22">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.3-22" class="pilcrow">¶</a></p>
+<p id="section-5.3-23">The publicKey remains OPTIONAL.<a href="#section-5.3-23" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Dilithium3-Ed25519">
@@ -2228,8 +2259,18 @@ id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.4-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.4-4" class="pilcrow">¶</a></p>
-<p id="section-5.4-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.4-5" class="pilcrow">¶</a></p>
-<div id="section-5.4-6">
+<p id="section-5.4-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Dilithium3-Ed25519 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.4-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.4-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.4-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.4-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.4-7" class="pilcrow">¶</a></p>
+<p id="section-5.4-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.4-8" class="pilcrow">¶</a></p>
+<div id="section-5.4-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2237,55 +2278,55 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
 }
-</pre><a href="#section-5.4-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.4-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.4-7">where pk-dilithium3TBD are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.4-7" class="pilcrow">¶</a></p>
+<p id="section-5.4-10">where pk-dilithium3TBD are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.4-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.4-8.1">
-            <p id="section-5.4-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.4-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.4-11.1">
+            <p id="section-5.4-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.4-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.4-9.1">
-            <p id="section-5.4-9.1.1">EDNOTE: <code>pk-dilithiumTBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.4-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.4-12.1">
+            <p id="section-5.4-12.1.1">EDNOTE: <code>pk-dilithiumTBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.4-12.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.4-10">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.4-10" class="pilcrow">¶</a></p>
-<div id="section-5.4-11">
+<p id="section-5.4-13">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.4-13" class="pilcrow">¶</a></p>
+<div id="section-5.4-14">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-Ed25519
       },
-     subjectPublicKey     BIT STRING
+     subjectPublicKey  BIT STRING
 }
-</pre><a href="#section-5.4-11" class="pilcrow">¶</a>
+</pre><a href="#section-5.4-14" class="pilcrow">¶</a>
 </div>
-<p id="section-5.4-12">where id-Ed25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.4-12" class="pilcrow">¶</a></p>
-<p id="section-5.4-13">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.4-13" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.4-14">
+<p id="section-5.4-15">where id-Ed25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.4-15" class="pilcrow">¶</a></p>
+<p id="section-5.4-16">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.4-16" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.4-17">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-dilithium3TBD
   },
   privateKey DilithiumPrivateKey
 }
-</pre><a href="#section-5.4-14" class="pilcrow">¶</a>
+</pre><a href="#section-5.4-17" class="pilcrow">¶</a>
 </div>
-<p id="section-5.4-15">where id-dilithium3TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.4-15" class="pilcrow">¶</a></p>
-<p id="section-5.4-16">The publicKey remains OPTIONAL.<a href="#section-5.4-16" class="pilcrow">¶</a></p>
-<p id="section-5.4-17">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.4-17" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.4-18">
+<p id="section-5.4-18">where id-dilithium3TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.4-18" class="pilcrow">¶</a></p>
+<p id="section-5.4-19">The publicKey remains OPTIONAL.<a href="#section-5.4-19" class="pilcrow">¶</a></p>
+<p id="section-5.4-20">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.4-20" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.4-21">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-Ed25519
   },
-  privateKey OCTET STRING
+  privateKey CurvePrivateKey
 }
-</pre><a href="#section-5.4-18" class="pilcrow">¶</a>
+</pre><a href="#section-5.4-21" class="pilcrow">¶</a>
 </div>
-<p id="section-5.4-19">where id-Ed25519 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.4-19" class="pilcrow">¶</a></p>
-<p id="section-5.4-20">The publicKey remains OPTIONAL.<a href="#section-5.4-20" class="pilcrow">¶</a></p>
+<p id="section-5.4-22">where id-Ed25519 and CurvePrivateKey are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.4-22" class="pilcrow">¶</a></p>
+<p id="section-5.4-23">The publicKey remains OPTIONAL.<a href="#section-5.4-23" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Dilithium5-ECDSA-P384">
@@ -2307,8 +2348,18 @@ id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.5-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
-<p id="section-5.5-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.5-5" class="pilcrow">¶</a></p>
-<div id="section-5.5-6">
+<p id="section-5.5-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Dilithium5-ECDSA-P384 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.5-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.5-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.5-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.5-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.5-7" class="pilcrow">¶</a></p>
+<p id="section-5.5-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.5-8" class="pilcrow">¶</a></p>
+<div id="section-5.5-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2316,21 +2367,21 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
 }
-</pre><a href="#section-5.5-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.5-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5-7">where <code>pk-dilithium5TBD</code> is defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.5-7" class="pilcrow">¶</a></p>
+<p id="section-5.5-10">where <code>pk-dilithium5TBD</code> is defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.5-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.5-8.1">
-            <p id="section-5.5-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.5-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.5-11.1">
+            <p id="section-5.5-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.5-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.5-9.1">
-            <p id="section-5.5-9.1.1">EDNOTE: <code>pk-dilithiumTBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.5-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.5-12.1">
+            <p id="section-5.5-12.1.1">EDNOTE: <code>pk-dilithiumTBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.5-12.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.5-10">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.5-10" class="pilcrow">¶</a></p>
-<div id="section-5.5-11">
+<p id="section-5.5-13">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.5-13" class="pilcrow">¶</a></p>
+<div id="section-5.5-14">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2339,24 +2390,24 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(ECPoint)
 }
-</pre><a href="#section-5.5-11" class="pilcrow">¶</a>
+</pre><a href="#section-5.5-14" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5-12">where id-ecPublicKey, secp384r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.5-12" class="pilcrow">¶</a></p>
-<p id="section-5.5-13">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.5-13" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.5-14">
+<p id="section-5.5-15">where id-ecPublicKey, secp384r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.5-15" class="pilcrow">¶</a></p>
+<p id="section-5.5-16">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.5-16" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.5-17">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-dilithium5TBD
   },
   privateKey DilithiumPrivateKey
 }
-</pre><a href="#section-5.5-14" class="pilcrow">¶</a>
+</pre><a href="#section-5.5-17" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5-15">where id-dilithium5TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.5-15" class="pilcrow">¶</a></p>
-<p id="section-5.5-16">The publicKey remains OPTIONAL.<a href="#section-5.5-16" class="pilcrow">¶</a></p>
-<p id="section-5.5-17">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.5-17" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.5-18">
+<p id="section-5.5-18">where id-dilithium5TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.5-18" class="pilcrow">¶</a></p>
+<p id="section-5.5-19">The publicKey remains OPTIONAL.<a href="#section-5.5-19" class="pilcrow">¶</a></p>
+<p id="section-5.5-20">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.5-20" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.5-21">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -2364,11 +2415,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.5-18" class="pilcrow">¶</a>
+</pre><a href="#section-5.5-21" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5-19">where id-ecPublicKey and secp384r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.5-19" class="pilcrow">¶</a></p>
-<p id="section-5.5-20">The publicKey remains OPTIONAL.<a href="#section-5.5-20" class="pilcrow">¶</a></p>
+<p id="section-5.5-22">where id-ecPublicKey and secp384r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.5-22" class="pilcrow">¶</a></p>
+<p id="section-5.5-23">The publicKey remains OPTIONAL.<a href="#section-5.5-23" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Dilithium5-ECDSA-brainpoolP384r1">
@@ -2390,8 +2441,18 @@ id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.6-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.6-4" class="pilcrow">¶</a></p>
-<p id="section-5.6-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.6-5" class="pilcrow">¶</a></p>
-<div id="section-5.6-6">
+<p id="section-5.6-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Dilithium5-ECDSA-brainpoolP384r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.6-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.6-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.6-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.6-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.6-7" class="pilcrow">¶</a></p>
+<p id="section-5.6-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.6-8" class="pilcrow">¶</a></p>
+<div id="section-5.6-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2399,21 +2460,21 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
 }
-</pre><a href="#section-5.6-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.6-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.6-7">where pk-dilithium5TBD and TBDDilithiumPublicKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.6-7" class="pilcrow">¶</a></p>
+<p id="section-5.6-10">where pk-dilithium5TBD and TBDDilithiumPublicKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.6-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.6-8.1">
-            <p id="section-5.6-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(DilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.6-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.6-11.1">
+            <p id="section-5.6-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(DilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.6-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.6-9.1">
-            <p id="section-5.6-9.1.1">EDNOTE: <code>pk-dilithium5TBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.6-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.6-12.1">
+            <p id="section-5.6-12.1.1">EDNOTE: <code>pk-dilithium5TBD</code> and <code>TBDPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.6-12.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.6-10">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.6-10" class="pilcrow">¶</a></p>
-<div id="section-5.6-11">
+<p id="section-5.6-13">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.6-13" class="pilcrow">¶</a></p>
+<div id="section-5.6-14">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2422,24 +2483,24 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(ECPoint)
 }
-</pre><a href="#section-5.6-11" class="pilcrow">¶</a>
+</pre><a href="#section-5.6-14" class="pilcrow">¶</a>
 </div>
-<p id="section-5.6-12">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.6-12" class="pilcrow">¶</a></p>
-<p id="section-5.6-13">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.6-13" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.6-14">
+<p id="section-5.6-15">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.6-15" class="pilcrow">¶</a></p>
+<p id="section-5.6-16">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.6-16" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.6-17">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-dilithium5TBD
   },
   privateKey DilithiumPrivateKey
 }
-</pre><a href="#section-5.6-14" class="pilcrow">¶</a>
+</pre><a href="#section-5.6-17" class="pilcrow">¶</a>
 </div>
-<p id="section-5.6-15">where id-dilithium5TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.6-15" class="pilcrow">¶</a></p>
-<p id="section-5.6-16">The publicKey remains OPTIONAL.<a href="#section-5.6-16" class="pilcrow">¶</a></p>
-<p id="section-5.6-17">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.6-17" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.6-18">
+<p id="section-5.6-18">where id-dilithium5TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.6-18" class="pilcrow">¶</a></p>
+<p id="section-5.6-19">The publicKey remains OPTIONAL.<a href="#section-5.6-19" class="pilcrow">¶</a></p>
+<p id="section-5.6-20">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.6-20" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.6-21">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -2447,11 +2508,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.6-18" class="pilcrow">¶</a>
+</pre><a href="#section-5.6-21" class="pilcrow">¶</a>
 </div>
-<p id="section-5.6-19">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.6-19" class="pilcrow">¶</a></p>
-<p id="section-5.6-20">The publicKey remains OPTIONAL.<a href="#section-5.6-20" class="pilcrow">¶</a></p>
+<p id="section-5.6-22">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.6-22" class="pilcrow">¶</a></p>
+<p id="section-5.6-23">The publicKey remains OPTIONAL.<a href="#section-5.6-23" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Dilithium5-Ed448">
@@ -2473,8 +2534,18 @@ id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.7-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.7-4" class="pilcrow">¶</a></p>
-<p id="section-5.7-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.7-5" class="pilcrow">¶</a></p>
-<div id="section-5.7-6">
+<p id="section-5.7-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Dilithium5-Ed448 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.7-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.7-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.7-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.7-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.7-7" class="pilcrow">¶</a></p>
+<p id="section-5.7-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.7-8" class="pilcrow">¶</a></p>
+<div id="section-5.7-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2482,21 +2553,21 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)
 }
-</pre><a href="#section-5.7-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.7-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.7-7">where pk-dilithium3TBD are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.7-7" class="pilcrow">¶</a></p>
+<p id="section-5.7-10">where pk-dilithium3TBD are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.7-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.7-8.1">
-            <p id="section-5.7-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.7-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.7-11.1">
+            <p id="section-5.7-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.7-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.7-9.1">
-            <p id="section-5.7-9.1.1">EDNOTE: <code>pk-dilithium5TBD</code> and <code>TBDDilithiumPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.7-9.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.7-12.1">
+            <p id="section-5.7-12.1.1">EDNOTE: <code>pk-dilithium5TBD</code> and <code>TBDDilithiumPublicKey</code> refer to <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span> and should be kept in sync with future versions of that draft.<a href="#section-5.7-12.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.7-10">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.7-10" class="pilcrow">¶</a></p>
-<div id="section-5.7-11">
+<p id="section-5.7-13">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.7-13" class="pilcrow">¶</a></p>
+<div id="section-5.7-14">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2504,33 +2575,33 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING
 }
-</pre><a href="#section-5.7-11" class="pilcrow">¶</a>
+</pre><a href="#section-5.7-14" class="pilcrow">¶</a>
 </div>
-<p id="section-5.7-12">where id-Ed448 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.7-12" class="pilcrow">¶</a></p>
-<p id="section-5.7-13">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.7-13" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.7-14">
+<p id="section-5.7-15">where id-Ed448 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.7-15" class="pilcrow">¶</a></p>
+<p id="section-5.7-16">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.7-16" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.7-17">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-dilithium5TBD
   },
   privateKey DilithiumPrivateKey
 }
-</pre><a href="#section-5.7-14" class="pilcrow">¶</a>
+</pre><a href="#section-5.7-17" class="pilcrow">¶</a>
 </div>
-<p id="section-5.7-15">where id-dilithium5TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.7-15" class="pilcrow">¶</a></p>
-<p id="section-5.7-16">The publicKey remains OPTIONAL.<a href="#section-5.7-16" class="pilcrow">¶</a></p>
-<p id="section-5.7-17">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.7-17" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.7-18">
+<p id="section-5.7-18">where id-dilithium5TBD and DilithiumPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-dilithium-certificates" class="xref">I-D.ietf-lamps-dilithium-certificates</a>]</span>.<a href="#section-5.7-18" class="pilcrow">¶</a></p>
+<p id="section-5.7-19">The publicKey remains OPTIONAL.<a href="#section-5.7-19" class="pilcrow">¶</a></p>
+<p id="section-5.7-20">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.7-20" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.7-21">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-Ed448
   },
   privateKey OCTET STRING
 }
-</pre><a href="#section-5.7-18" class="pilcrow">¶</a>
+</pre><a href="#section-5.7-21" class="pilcrow">¶</a>
 </div>
-<p id="section-5.7-19">where id-Ed448 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.7-19" class="pilcrow">¶</a></p>
-<p id="section-5.7-20">The publicKey remains OPTIONAL.<a href="#section-5.7-20" class="pilcrow">¶</a></p>
+<p id="section-5.7-22">where id-Ed448 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.7-22" class="pilcrow">¶</a></p>
+<p id="section-5.7-23">The publicKey remains OPTIONAL.<a href="#section-5.7-23" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Falcon512-ECDSA-P256">
@@ -2552,8 +2623,18 @@ id-Falcon512-ECDSA-P256 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.8-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.8-4" class="pilcrow">¶</a></p>
-<p id="section-5.8-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.8-5" class="pilcrow">¶</a></p>
-<div id="section-5.8-6">
+<p id="section-5.8-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Falcon512-ECDSA-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.8-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.8-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.8-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.8-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.8-7" class="pilcrow">¶</a></p>
+<p id="section-5.8-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.8-8" class="pilcrow">¶</a></p>
+<div id="section-5.8-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2561,20 +2642,20 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDFalconPublicKey)
 }
-</pre><a href="#section-5.8-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.8-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.8-7.1">
-            <p id="section-5.8-7.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.8-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.8-10.1">
+            <p id="section-5.8-10.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.8-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.8-8.1">
-            <p id="section-5.8-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.8-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.8-11.1">
+            <p id="section-5.8-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.8-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.8-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.8-9" class="pilcrow">¶</a></p>
-<div id="section-5.8-10">
+<p id="section-5.8-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.8-12" class="pilcrow">¶</a></p>
+<div id="section-5.8-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2583,28 +2664,28 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(ECPoint)
 }
-</pre><a href="#section-5.8-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.8-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.8-11">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.8-11" class="pilcrow">¶</a></p>
-<p id="section-5.8-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.8-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.8-13">
+<p id="section-5.8-14">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.8-14" class="pilcrow">¶</a></p>
+<p id="section-5.8-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.8-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.8-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-falcon512TBD,
   },
   privateKey FalconPrivateKey
 }
-</pre><a href="#section-5.8-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.8-16" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.8-14.1">
-            <p id="section-5.8-14.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.8-14.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.8-17.1">
+            <p id="section-5.8-17.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.8-17.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.8-15">The publicKey remains OPTIONAL.<a href="#section-5.8-15" class="pilcrow">¶</a></p>
-<p id="section-5.8-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.8-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.8-17">
+<p id="section-5.8-18">The publicKey remains OPTIONAL.<a href="#section-5.8-18" class="pilcrow">¶</a></p>
+<p id="section-5.8-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.8-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.8-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -2612,11 +2693,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.8-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.8-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.8-18">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.8-18" class="pilcrow">¶</a></p>
-<p id="section-5.8-19">The publicKey remains OPTIONAL.<a href="#section-5.8-19" class="pilcrow">¶</a></p>
+<p id="section-5.8-21">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.8-21" class="pilcrow">¶</a></p>
+<p id="section-5.8-22">The publicKey remains OPTIONAL.<a href="#section-5.8-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Falcon512-ECDSA-brainpoolP256r1">
@@ -2638,8 +2719,18 @@ id-Falcon512-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.9-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.9-4" class="pilcrow">¶</a></p>
-<p id="section-5.9-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.9-5" class="pilcrow">¶</a></p>
-<div id="section-5.9-6">
+<p id="section-5.9-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Falcon512-ECDSA-brainpoolP256r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.9-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.9-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.9-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.9-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.9-7" class="pilcrow">¶</a></p>
+<p id="section-5.9-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.9-8" class="pilcrow">¶</a></p>
+<div id="section-5.9-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2647,20 +2738,20 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(TBDFalconPublicKey)
 }
-</pre><a href="#section-5.9-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.9-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.9-7.1">
-            <p id="section-5.9-7.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.9-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.9-10.1">
+            <p id="section-5.9-10.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.9-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.9-8.1">
-            <p id="section-5.9-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.9-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.9-11.1">
+            <p id="section-5.9-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.9-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.9-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.9-9" class="pilcrow">¶</a></p>
-<div id="section-5.9-10">
+<p id="section-5.9-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.9-12" class="pilcrow">¶</a></p>
+<div id="section-5.9-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -2669,28 +2760,28 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING(ECPoint)
 }
-</pre><a href="#section-5.9-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.9-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.9-11">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.9-11" class="pilcrow">¶</a></p>
-<p id="section-5.9-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.9-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.9-13">
+<p id="section-5.9-14">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.9-14" class="pilcrow">¶</a></p>
+<p id="section-5.9-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.9-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.9-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-falcon512TBD
   },
   privateKey FalconPrivateKey
 }
-</pre><a href="#section-5.9-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.9-16" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.9-14.1">
-            <p id="section-5.9-14.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.9-14.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.9-17.1">
+            <p id="section-5.9-17.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.9-17.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.9-15">The publicKey remains OPTIONAL.<a href="#section-5.9-15" class="pilcrow">¶</a></p>
-<p id="section-5.9-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.9-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.9-17">
+<p id="section-5.9-18">The publicKey remains OPTIONAL.<a href="#section-5.9-18" class="pilcrow">¶</a></p>
+<p id="section-5.9-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.9-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.9-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -2698,11 +2789,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.9-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.9-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.9-18">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.9-18" class="pilcrow">¶</a></p>
-<p id="section-5.9-19">The publicKey remains OPTIONAL.<a href="#section-5.9-19" class="pilcrow">¶</a></p>
+<p id="section-5.9-21">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.9-21" class="pilcrow">¶</a></p>
+<p id="section-5.9-22">The publicKey remains OPTIONAL.<a href="#section-5.9-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Falcon512-Ed25519">
@@ -2724,67 +2815,77 @@ id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.10-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.10-4" class="pilcrow">¶</a></p>
-<p id="section-5.10-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.10-5" class="pilcrow">¶</a></p>
-<div id="section-5.10-6">
+<p id="section-5.10-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Falcon512-Ed25519 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.10-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.10-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.10-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.10-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.10-7" class="pilcrow">¶</a></p>
+<p id="section-5.10-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.10-8" class="pilcrow">¶</a></p>
+<div id="section-5.10-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-falcon512TBD
       },
-     subjectPublicKey     BIT STRING(TBDFalconPublicKey)
+     subjectPublicKey  TBDFalconPublicKey
 }
-</pre><a href="#section-5.10-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.10-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.10-7.1">
-            <p id="section-5.10-7.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.10-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.10-10.1">
+            <p id="section-5.10-10.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.10-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.10-8.1">
-            <p id="section-5.10-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.10-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.10-11.1">
+            <p id="section-5.10-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.10-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.10-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.10-9" class="pilcrow">¶</a></p>
-<div id="section-5.10-10">
+<p id="section-5.10-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.10-12" class="pilcrow">¶</a></p>
+<div id="section-5.10-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-Ed25519
       },
-     subjectPublicKey     BIT STRING
+     subjectPublicKey  BIT STRING
 }
-</pre><a href="#section-5.10-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.10-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.10-11">where id-Ed25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.10-11" class="pilcrow">¶</a></p>
-<p id="section-5.10-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.10-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.10-13">
+<p id="section-5.10-14">where id-Ed25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.10-14" class="pilcrow">¶</a></p>
+<p id="section-5.10-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.10-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.10-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-falcon512TBD
   },
   privateKey FalconPrivateKey
 }
-</pre><a href="#section-5.10-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.10-16" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.10-14.1">
-            <p id="section-5.10-14.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.10-14.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.10-17.1">
+            <p id="section-5.10-17.1.1">TODO: I don't think LAMPS has a FALCON draft yet. Will need to reference one once it exists.<a href="#section-5.10-17.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.10-15">The publicKey remains OPTIONAL.<a href="#section-5.10-15" class="pilcrow">¶</a></p>
-<p id="section-5.10-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.10-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.10-17">
+<p id="section-5.10-18">The publicKey remains OPTIONAL.<a href="#section-5.10-18" class="pilcrow">¶</a></p>
+<p id="section-5.10-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.10-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.10-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-Ed25519
   },
-  privateKey OCTET STRING
+  privateKey  CurvePrivateKey
 }
-</pre><a href="#section-5.10-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.10-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.10-18">where id-Ed25519 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.10-18" class="pilcrow">¶</a></p>
-<p id="section-5.10-19">The publicKey remains OPTIONAL.<a href="#section-5.10-19" class="pilcrow">¶</a></p>
+<p id="section-5.10-21">where id-Ed25519 and CurvePrivateKey are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.10-21" class="pilcrow">¶</a></p>
+<p id="section-5.10-22">The publicKey remains OPTIONAL.<a href="#section-5.10-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-SPHINCSplusSHA256-ECDSA-P256">
@@ -2806,51 +2907,61 @@ id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.11-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.11-4" class="pilcrow">¶</a></p>
-<p id="section-5.11-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.11-5" class="pilcrow">¶</a></p>
-<div id="section-5.11-6">
+<p id="section-5.11-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-SPHINCSplusSHA256-ECDSA-P256 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.11-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.11-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.11-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.11-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.11-7" class="pilcrow">¶</a></p>
+<p id="section-5.11-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.11-8" class="pilcrow">¶</a></p>
+<div id="section-5.11-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm pk-sphincs-plus-256
       },
-     subjectPublicKey     BIT STRING(SPHINCS-Plus-PublicKey)
+     subjectPublicKey  SPHINCS-Plus-PublicKey
 }
-</pre><a href="#section-5.11-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.11-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.11-7">where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span>.<a href="#section-5.11-7" class="pilcrow">¶</a></p>
+<p id="section-5.11-10">where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span>.<a href="#section-5.11-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.11-8.1">
-            <p id="section-5.11-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.11-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.11-11.1">
+            <p id="section-5.11-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.11-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.11-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.11-9" class="pilcrow">¶</a></p>
-<div id="section-5.11-10">
+<p id="section-5.11-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.11-12" class="pilcrow">¶</a></p>
+<div id="section-5.11-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-ecPublicKey,
             parameters secp256r1
       },
-     subjectPublicKey     BIT STRING(ECPoint)
+     subjectPublicKey  ECPoint
 }
-</pre><a href="#section-5.11-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.11-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.11-11">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.11-11" class="pilcrow">¶</a></p>
-<p id="section-5.11-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.11-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.11-13">
+<p id="section-5.11-14">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.11-14" class="pilcrow">¶</a></p>
+<p id="section-5.11-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.11-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.11-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm pk-sphincs-plus-256
   },
   privateKey SPHINCS-Plus-PrivateKey
 }
-</pre><a href="#section-5.11-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.11-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.11-14">where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span><a href="#section-5.11-14" class="pilcrow">¶</a></p>
-<p id="section-5.11-15">The publicKey remains OPTIONAL.<a href="#section-5.11-15" class="pilcrow">¶</a></p>
-<p id="section-5.11-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.11-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.11-17">
+<p id="section-5.11-17">where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span><a href="#section-5.11-17" class="pilcrow">¶</a></p>
+<p id="section-5.11-18">The publicKey remains OPTIONAL.<a href="#section-5.11-18" class="pilcrow">¶</a></p>
+<p id="section-5.11-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.11-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.11-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -2858,11 +2969,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.11-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.11-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.11-18">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.11-18" class="pilcrow">¶</a></p>
-<p id="section-5.11-19">The publicKey remains OPTIONAL.<a href="#section-5.11-19" class="pilcrow">¶</a></p>
+<p id="section-5.11-21">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.11-21" class="pilcrow">¶</a></p>
+<p id="section-5.11-22">The publicKey remains OPTIONAL.<a href="#section-5.11-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1">
@@ -2884,51 +2995,61 @@ id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.12-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.12-4" class="pilcrow">¶</a></p>
-<p id="section-5.12-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.12-5" class="pilcrow">¶</a></p>
-<div id="section-5.12-6">
+<p id="section-5.12-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.12-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.12-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.12-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.12-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.12-7" class="pilcrow">¶</a></p>
+<p id="section-5.12-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.12-8" class="pilcrow">¶</a></p>
+<div id="section-5.12-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm pk-sphincs-plus-256
       },
-     subjectPublicKey     BIT STRING(SPHINCS-Plus-PublicKey)
+     subjectPublicKey  SPHINCS-Plus-PublicKey
 }
-</pre><a href="#section-5.12-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.12-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.12-7">where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span>.<a href="#section-5.12-7" class="pilcrow">¶</a></p>
+<p id="section-5.12-10">where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span>.<a href="#section-5.12-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.12-8.1">
-            <p id="section-5.12-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.12-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.12-11.1">
+            <p id="section-5.12-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.12-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.12-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.12-9" class="pilcrow">¶</a></p>
-<div id="section-5.12-10">
+<p id="section-5.12-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.12-12" class="pilcrow">¶</a></p>
+<div id="section-5.12-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-ecPublicKey,
             parameters brainpoolP384r1
       },
-     subjectPublicKey     BIT STRING(ECPoint)
+     subjectPublicKey  ECPoint
 }
-</pre><a href="#section-5.12-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.12-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.12-11">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.12-11" class="pilcrow">¶</a></p>
-<p id="section-5.12-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.12-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.12-13">
+<p id="section-5.12-14">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.12-14" class="pilcrow">¶</a></p>
+<p id="section-5.12-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.12-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.12-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm pk-sphincs-plus-256
   },
   privateKey SPHINCS-Plus-PrivateKey
 }
-</pre><a href="#section-5.12-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.12-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.12-14">where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span><a href="#section-5.12-14" class="pilcrow">¶</a></p>
-<p id="section-5.12-15">The publicKey remains OPTIONAL.<a href="#section-5.12-15" class="pilcrow">¶</a></p>
-<p id="section-5.12-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.12-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.12-17">
+<p id="section-5.12-17">where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span><a href="#section-5.12-17" class="pilcrow">¶</a></p>
+<p id="section-5.12-18">The publicKey remains OPTIONAL.<a href="#section-5.12-18" class="pilcrow">¶</a></p>
+<p id="section-5.12-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.12-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.12-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -2936,11 +3057,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.12-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.12-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.12-18">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.12-18" class="pilcrow">¶</a></p>
-<p id="section-5.12-19">The publicKey remains OPTIONAL.<a href="#section-5.12-19" class="pilcrow">¶</a></p>
+<p id="section-5.12-21">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span> section 4.2.<a href="#section-5.12-21" class="pilcrow">¶</a></p>
+<p id="section-5.12-22">The publicKey remains OPTIONAL.<a href="#section-5.12-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-SPHINCSplusSHA256-Ed25519">
@@ -2962,59 +3083,69 @@ id-SPHINCSplusSHA256-Ed25519 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.13-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.13-4" class="pilcrow">¶</a></p>
-<p id="section-5.13-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.13-5" class="pilcrow">¶</a></p>
-<div id="section-5.13-6">
+<p id="section-5.13-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-SPHINCSplusSHA256-Ed25519 in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-5.13-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.13-6">
+<pre>
+  digitalSignature; or
+  nonRepudiation; or
+  keyCertSign; or
+  cRLSign.
+</pre><a href="#section-5.13-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.13-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.13-7" class="pilcrow">¶</a></p>
+<p id="section-5.13-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.13-8" class="pilcrow">¶</a></p>
+<div id="section-5.13-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm pk-sphincs-plus-256
       },
-     subjectPublicKey     BIT STRING(SPHINCS-Plus-PublicKey)
+     subjectPublicKey  SPHINCS-Plus-PublicKey
 }
-</pre><a href="#section-5.13-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.13-9" class="pilcrow">¶</a>
 </div>
-<p id="section-5.13-7">where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span>.<a href="#section-5.13-7" class="pilcrow">¶</a></p>
+<p id="section-5.13-10">where pk-sphincs-plus-256 and SPHINCS-Plus-PublicKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span>.<a href="#section-5.13-10" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.13-8.1">
-            <p id="section-5.13-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.13-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.13-11.1">
+            <p id="section-5.13-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.13-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.13-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.13-9" class="pilcrow">¶</a></p>
-<div id="section-5.13-10">
+<p id="section-5.13-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.13-12" class="pilcrow">¶</a></p>
+<div id="section-5.13-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-Ed25519
       },
-     subjectPublicKey     BIT STRING
+     subjectPublicKey  BIT STRING
 }
-</pre><a href="#section-5.13-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.13-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.13-11">where id-Ed25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.13-11" class="pilcrow">¶</a></p>
-<p id="section-5.13-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.13-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.13-13">
+<p id="section-5.13-14">where id-Ed25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.13-14" class="pilcrow">¶</a></p>
+<p id="section-5.13-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.13-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.13-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm pk-sphincs-plus-256
   },
   privateKey SPHINCS-Plus-PrivateKey
 }
-</pre><a href="#section-5.13-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.13-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.13-14">where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span><a href="#section-5.13-14" class="pilcrow">¶</a></p>
-<p id="section-5.13-15">The publicKey remains OPTIONAL.<a href="#section-5.13-15" class="pilcrow">¶</a></p>
-<p id="section-5.13-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.13-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.13-17">
+<p id="section-5.13-17">where pk-sphincs-plus-256 and SPHINCS-Plus-PrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span><a href="#section-5.13-17" class="pilcrow">¶</a></p>
+<p id="section-5.13-18">The publicKey remains OPTIONAL.<a href="#section-5.13-18" class="pilcrow">¶</a></p>
+<p id="section-5.13-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.13-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.13-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-Ed25519
   },
-  privateKey OCTET STRING
+  privateKey  CurvePrivateKey
 }
-</pre><a href="#section-5.13-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.13-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.13-18">where id-Ed25519 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.13-18" class="pilcrow">¶</a></p>
-<p id="section-5.13-19">The publicKey remains OPTIONAL.<a href="#section-5.13-19" class="pilcrow">¶</a></p>
+<p id="section-5.13-21">where id-Ed25519 and CurvePrivateKey are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.13-21" class="pilcrow">¶</a></p>
+<p id="section-5.13-22">The publicKey remains OPTIONAL.<a href="#section-5.13-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber512-ECDH-P256">
@@ -3036,67 +3167,74 @@ id-Kyber512-ECDH-P256 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.14-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.14-4" class="pilcrow">¶</a></p>
-<p id="section-5.14-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.14-5" class="pilcrow">¶</a></p>
-<div id="section-5.14-6">
+<p id="section-5.14-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber512-ECDH-P256 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.14-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.14-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.14-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.14-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.14-7" class="pilcrow">¶</a></p>
+<p id="section-5.14-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.14-8" class="pilcrow">¶</a></p>
+<div id="section-5.14-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber512TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.14-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.14-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.14-7.1">
-            <p id="section-5.14-7.1.1">TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.14-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.14-10.1">
+            <p id="section-5.14-10.1.1">TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.14-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.14-8.1">
-            <p id="section-5.14-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.14-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.14-11.1">
+            <p id="section-5.14-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.14-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.14-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.14-9" class="pilcrow">¶</a></p>
-<div id="section-5.14-10">
+<p id="section-5.14-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.14-12" class="pilcrow">¶</a></p>
+<div id="section-5.14-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-ecPublicKey,
             parameters secp256r1
       },
-     subjectPublicKey     BIT STRING(ECPoint)
+     subjectPublicKey  ECPoint
 }
-</pre><a href="#section-5.14-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.14-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.14-11">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.14-11" class="pilcrow">¶</a></p>
-<p id="section-5.14-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.14-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.14-13">
+<p id="section-5.14-14">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.14-14" class="pilcrow">¶</a></p>
+<p id="section-5.14-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.14-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.14-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber512TBD
   },
-  privateKey PqckemPrivateKey
+  privateKey  PqckemPrivateKey
 }
-</pre><a href="#section-5.14-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.14-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.14-14">where id-kyber512TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.14-14" class="pilcrow">¶</a></p>
-<p id="section-5.14-15">The publicKey remains OPTIONAL.<a href="#section-5.14-15" class="pilcrow">¶</a></p>
-<p id="section-5.14-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.14-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.14-17">
+<p id="section-5.14-17">where id-kyber512TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.14-17" class="pilcrow">¶</a></p>
+<p id="section-5.14-18">The publicKey remains OPTIONAL.<a href="#section-5.14-18" class="pilcrow">¶</a></p>
+<p id="section-5.14-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.14-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.14-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
     parameters secp256r1
   },
-  privateKey ECPrivateKey
+  privateKey  ECPrivateKey
 }
-</pre><a href="#section-5.14-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.14-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.14-18">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.14-18" class="pilcrow">¶</a></p>
-<p id="section-5.14-19">The publicKey remains OPTIONAL.<a href="#section-5.14-19" class="pilcrow">¶</a></p>
+<p id="section-5.14-21">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.14-21" class="pilcrow">¶</a></p>
+<p id="section-5.14-22">The publicKey remains OPTIONAL.<a href="#section-5.14-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber512-ECDH-brainpoolP256r1">
@@ -3118,67 +3256,74 @@ id-Kyber512-ECDH-brainpoolP256r1 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.15-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.15-4" class="pilcrow">¶</a></p>
-<p id="section-5.15-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.15-5" class="pilcrow">¶</a></p>
-<div id="section-5.15-6">
+<p id="section-5.15-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber512-ECDH-brainpoolP256r1 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.15-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.15-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.15-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.15-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.15-7" class="pilcrow">¶</a></p>
+<p id="section-5.15-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.15-8" class="pilcrow">¶</a></p>
+<div id="section-5.15-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber512TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.15-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.15-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.15-7.1">
-            <p id="section-5.15-7.1.1">TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.15-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.15-10.1">
+            <p id="section-5.15-10.1.1">TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.15-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.15-8.1">
-            <p id="section-5.15-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.15-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.15-11.1">
+            <p id="section-5.15-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.15-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.15-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.15-9" class="pilcrow">¶</a></p>
-<div id="section-5.15-10">
+<p id="section-5.15-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.15-12" class="pilcrow">¶</a></p>
+<div id="section-5.15-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-ecPublicKey,
             parameters brainpoolP256r1
       },
-     subjectPublicKey     BIT STRING(ECPoint)
+     subjectPublicKey  ECPoint
 }
-</pre><a href="#section-5.15-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.15-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.15-11">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.15-11" class="pilcrow">¶</a></p>
-<p id="section-5.15-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.15-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.15-13">
+<p id="section-5.15-14">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.15-14" class="pilcrow">¶</a></p>
+<p id="section-5.15-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.15-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.15-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber512TBD
   },
-  privateKey PqckemPrivateKey
+  privateKey  PqckemPrivateKey
 }
-</pre><a href="#section-5.15-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.15-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.15-14">where id-kyber512TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.15-14" class="pilcrow">¶</a></p>
-<p id="section-5.15-15">The publicKey remains OPTIONAL.<a href="#section-5.15-15" class="pilcrow">¶</a></p>
-<p id="section-5.15-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.15-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.15-17">
+<p id="section-5.15-17">where id-kyber512TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.15-17" class="pilcrow">¶</a></p>
+<p id="section-5.15-18">The publicKey remains OPTIONAL.<a href="#section-5.15-18" class="pilcrow">¶</a></p>
+<p id="section-5.15-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.15-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.15-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
     parameters brainpoolP256r1
   },
-  privateKey ECPrivateKey
+  privateKey  ECPrivateKey
 }
-</pre><a href="#section-5.15-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.15-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.15-18">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.15-18" class="pilcrow">¶</a></p>
-<p id="section-5.15-19">The publicKey remains OPTIONAL.<a href="#section-5.15-19" class="pilcrow">¶</a></p>
+<p id="section-5.15-21">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.15-21" class="pilcrow">¶</a></p>
+<p id="section-5.15-22">The publicKey remains OPTIONAL.<a href="#section-5.15-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber512-X25519">
@@ -3200,63 +3345,70 @@ id-Kyber512-X25519 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.16-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.16-4" class="pilcrow">¶</a></p>
-<p id="section-5.16-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.16-5" class="pilcrow">¶</a></p>
-<div id="section-5.16-6">
+<p id="section-5.16-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber512-X25519 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.16-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.16-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.16-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.16-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.16-7" class="pilcrow">¶</a></p>
+<p id="section-5.16-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.16-8" class="pilcrow">¶</a></p>
+<div id="section-5.16-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber512TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.16-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.16-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.16-7.1">
-            <p id="section-5.16-7.1.1">TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.16-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.16-10.1">
+            <p id="section-5.16-10.1.1">TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.16-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.16-8.1">
-            <p id="section-5.16-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.16-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.16-11.1">
+            <p id="section-5.16-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.16-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.16-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.16-9" class="pilcrow">¶</a></p>
-<div id="section-5.16-10">
+<p id="section-5.16-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.16-12" class="pilcrow">¶</a></p>
+<div id="section-5.16-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-X25519
       },
-     subjectPublicKey     BIT STRING
+     subjectPublicKey  BIT STRING
 }
-</pre><a href="#section-5.16-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.16-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.16-11">where id-X25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.16-11" class="pilcrow">¶</a></p>
-<p id="section-5.16-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.16-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.16-13">
+<p id="section-5.16-14">where id-X25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.16-14" class="pilcrow">¶</a></p>
+<p id="section-5.16-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.16-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.16-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber512TBD
   },
-  privateKey PqckemPrivateKey
+  privateKey  PqckemPrivateKey
 }
-</pre><a href="#section-5.16-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.16-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.16-14">where id-kyber512TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.16-14" class="pilcrow">¶</a></p>
-<p id="section-5.16-15">The publicKey remains OPTIONAL.<a href="#section-5.16-15" class="pilcrow">¶</a></p>
-<p id="section-5.16-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.16-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.16-17">
+<p id="section-5.16-17">where id-kyber512TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.16-17" class="pilcrow">¶</a></p>
+<p id="section-5.16-18">The publicKey remains OPTIONAL.<a href="#section-5.16-18" class="pilcrow">¶</a></p>
+<p id="section-5.16-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.16-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.16-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-X25519
   },
   privateKey OCTET STRING
 }
-</pre><a href="#section-5.16-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.16-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.16-18">where id-X25519 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.16-18" class="pilcrow">¶</a></p>
-<p id="section-5.16-19">The publicKey remains OPTIONAL.<a href="#section-5.16-19" class="pilcrow">¶</a></p>
+<p id="section-5.16-21">where id-X25519 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.16-21" class="pilcrow">¶</a></p>
+<p id="section-5.16-22">The publicKey remains OPTIONAL.<a href="#section-5.16-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber768-RSA">
@@ -3278,65 +3430,72 @@ id-Kyber768-RSA OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.17-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.17-4" class="pilcrow">¶</a></p>
-<p id="section-5.17-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.17-5" class="pilcrow">¶</a></p>
-<div id="section-5.17-6">
+<p id="section-5.17-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber768-RSA in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.17-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.17-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.17-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.17-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.17-7" class="pilcrow">¶</a></p>
+<p id="section-5.17-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.17-8" class="pilcrow">¶</a></p>
+<div id="section-5.17-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber768TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.17-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.17-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.17-7.1">
-            <p id="section-5.17-7.1.1">TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.17-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.17-10.1">
+            <p id="section-5.17-10.1.1">TODO: id-kyber512TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.17-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.17-8.1">
-            <p id="section-5.17-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.17-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.17-11.1">
+            <p id="section-5.17-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.17-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.17-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.17-9" class="pilcrow">¶</a></p>
-<div id="section-5.17-10">
+<p id="section-5.17-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.17-12" class="pilcrow">¶</a></p>
+<div id="section-5.17-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm rsaEncryption,
             parameters NULL
       },
-     subjectPublicKey  BIT STRING(RSAPublicKey)
+     subjectPublicKey  RSAPublicKey
 }
-</pre><a href="#section-5.17-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.17-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.17-11">where rsaEncryption and RSAPublicKey are defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>.<a href="#section-5.17-11" class="pilcrow">¶</a></p>
-<p id="section-5.17-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.17-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.17-13">
+<p id="section-5.17-14">where rsaEncryption and RSAPublicKey are defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>.<a href="#section-5.17-14" class="pilcrow">¶</a></p>
+<p id="section-5.17-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.17-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.17-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber768TBD
   },
-  privateKey PqckemPrivateKey
+  privateKey  PqckemPrivateKey
 }
-</pre><a href="#section-5.17-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.17-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.17-14">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.17-14" class="pilcrow">¶</a></p>
-<p id="section-5.17-15">The publicKey remains OPTIONAL.<a href="#section-5.17-15" class="pilcrow">¶</a></p>
-<p id="section-5.17-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.17-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.17-17">
+<p id="section-5.17-17">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.17-17" class="pilcrow">¶</a></p>
+<p id="section-5.17-18">The publicKey remains OPTIONAL.<a href="#section-5.17-18" class="pilcrow">¶</a></p>
+<p id="section-5.17-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.17-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.17-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm rsaEncryption,
     parameters NULL
   },
-  privateKey RSAPrivateKey
+  privateKey  RSAPrivateKey
 }
-</pre><a href="#section-5.17-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.17-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.17-18">where rsaEncryption and RSAPrivateKey are defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>.<a href="#section-5.17-18" class="pilcrow">¶</a></p>
-<p id="section-5.17-19">The publicKey remains OPTIONAL.<a href="#section-5.17-19" class="pilcrow">¶</a></p>
+<p id="section-5.17-21">where rsaEncryption and RSAPrivateKey are defined in <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span>.<a href="#section-5.17-21" class="pilcrow">¶</a></p>
+<p id="section-5.17-22">The publicKey remains OPTIONAL.<a href="#section-5.17-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber768-ECDH-P256">
@@ -3358,55 +3517,62 @@ id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.18-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.18-4" class="pilcrow">¶</a></p>
-<p id="section-5.18-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.18-5" class="pilcrow">¶</a></p>
-<div id="section-5.18-6">
+<p id="section-5.18-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber768-ECDH-P256 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.18-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.18-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.18-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.18-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.18-7" class="pilcrow">¶</a></p>
+<p id="section-5.18-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.18-8" class="pilcrow">¶</a></p>
+<div id="section-5.18-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber768TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.18-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.18-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.18-7.1">
-            <p id="section-5.18-7.1.1">TODO: id-kyber768TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.18-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.18-10.1">
+            <p id="section-5.18-10.1.1">TODO: id-kyber768TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.18-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.18-8.1">
-            <p id="section-5.18-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.18-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.18-11.1">
+            <p id="section-5.18-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.18-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.18-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.18-9" class="pilcrow">¶</a></p>
-<div id="section-5.18-10">
+<p id="section-5.18-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.18-12" class="pilcrow">¶</a></p>
+<div id="section-5.18-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-ecPublicKey,
             parameters secp256r1
       },
-     subjectPublicKey     BIT STRING(ECPoint)
+     subjectPublicKey  ECPoint
 }
-</pre><a href="#section-5.18-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.18-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.18-11">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.18-11" class="pilcrow">¶</a></p>
-<p id="section-5.18-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.18-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.18-13">
+<p id="section-5.18-14">where id-ecPublicKey, secp256r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.18-14" class="pilcrow">¶</a></p>
+<p id="section-5.18-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.18-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.18-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber768TBD
   },
   privateKey PqckemPrivateKey
 }
-</pre><a href="#section-5.18-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.18-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.18-14">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.18-14" class="pilcrow">¶</a></p>
-<p id="section-5.18-15">The publicKey remains OPTIONAL.<a href="#section-5.18-15" class="pilcrow">¶</a></p>
-<p id="section-5.18-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.18-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.18-17">
+<p id="section-5.18-17">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.18-17" class="pilcrow">¶</a></p>
+<p id="section-5.18-18">The publicKey remains OPTIONAL.<a href="#section-5.18-18" class="pilcrow">¶</a></p>
+<p id="section-5.18-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.18-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.18-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -3414,11 +3580,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.18-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.18-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.18-18">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.18-18" class="pilcrow">¶</a></p>
-<p id="section-5.18-19">The publicKey remains OPTIONAL.<a href="#section-5.18-19" class="pilcrow">¶</a></p>
+<p id="section-5.18-21">where id-ecPublicKey and secp256r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.18-21" class="pilcrow">¶</a></p>
+<p id="section-5.18-22">The publicKey remains OPTIONAL.<a href="#section-5.18-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber768-ECDH-brainpoolP256r1">
@@ -3440,55 +3606,62 @@ id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.19-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.19-4" class="pilcrow">¶</a></p>
-<p id="section-5.19-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.19-5" class="pilcrow">¶</a></p>
-<div id="section-5.19-6">
+<p id="section-5.19-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber768-ECDH-brainpoolP256r1 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.19-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.19-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.19-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.19-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.19-7" class="pilcrow">¶</a></p>
+<p id="section-5.19-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.19-8" class="pilcrow">¶</a></p>
+<div id="section-5.19-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber768TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.19-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.19-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.19-7.1">
-            <p id="section-5.19-7.1.1">TODO: id-kyber768TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.19-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.19-10.1">
+            <p id="section-5.19-10.1.1">TODO: id-kyber768TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.19-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.19-8.1">
-            <p id="section-5.19-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.19-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.19-11.1">
+            <p id="section-5.19-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.19-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.19-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.19-9" class="pilcrow">¶</a></p>
-<div id="section-5.19-10">
+<p id="section-5.19-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.19-12" class="pilcrow">¶</a></p>
+<div id="section-5.19-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-ecPublicKey,
             parameters brainpoolP256r1
       },
-     subjectPublicKey     BIT STRING(ECPoint)
+     subjectPublicKey  ECPoint
 }
-</pre><a href="#section-5.19-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.19-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.19-11">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.19-11" class="pilcrow">¶</a></p>
-<p id="section-5.19-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.19-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.19-13">
+<p id="section-5.19-14">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.19-14" class="pilcrow">¶</a></p>
+<p id="section-5.19-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.19-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.19-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber768TBD
   },
   privateKey PqckemPrivateKey
 }
-</pre><a href="#section-5.19-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.19-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.19-14">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.19-14" class="pilcrow">¶</a></p>
-<p id="section-5.19-15">The publicKey remains OPTIONAL.<a href="#section-5.19-15" class="pilcrow">¶</a></p>
-<p id="section-5.19-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.19-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.19-17">
+<p id="section-5.19-17">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.19-17" class="pilcrow">¶</a></p>
+<p id="section-5.19-18">The publicKey remains OPTIONAL.<a href="#section-5.19-18" class="pilcrow">¶</a></p>
+<p id="section-5.19-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.19-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.19-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -3496,11 +3669,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.19-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.19-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.19-18">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.19-18" class="pilcrow">¶</a></p>
-<p id="section-5.19-19">The publicKey remains OPTIONAL.<a href="#section-5.19-19" class="pilcrow">¶</a></p>
+<p id="section-5.19-21">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP256r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.19-21" class="pilcrow">¶</a></p>
+<p id="section-5.19-22">The publicKey remains OPTIONAL.<a href="#section-5.19-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber768-X25519">
@@ -3522,29 +3695,36 @@ id-Kyber767-X25519 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.20-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.20-4" class="pilcrow">¶</a></p>
-<p id="section-5.20-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.20-5" class="pilcrow">¶</a></p>
-<div id="section-5.20-6">
+<p id="section-5.20-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber768-X25519 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.20-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.20-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.20-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.20-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.20-7" class="pilcrow">¶</a></p>
+<p id="section-5.20-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.20-8" class="pilcrow">¶</a></p>
+<div id="section-5.20-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber768TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.20-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.20-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.20-7.1">
-            <p id="section-5.20-7.1.1">TODO: id-kyber768TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.20-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.20-10.1">
+            <p id="section-5.20-10.1.1">TODO: id-kyber768TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.20-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.20-8.1">
-            <p id="section-5.20-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.20-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.20-11.1">
+            <p id="section-5.20-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.20-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.20-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.20-9" class="pilcrow">¶</a></p>
-<div id="section-5.20-10">
+<p id="section-5.20-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.20-12" class="pilcrow">¶</a></p>
+<div id="section-5.20-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -3552,33 +3732,33 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING
 }
-</pre><a href="#section-5.20-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.20-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.20-11">where id-X25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.20-11" class="pilcrow">¶</a></p>
-<p id="section-5.20-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.20-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.20-13">
+<p id="section-5.20-14">where id-X25519 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.20-14" class="pilcrow">¶</a></p>
+<p id="section-5.20-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.20-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.20-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber768TBD
   },
   privateKey PqckemPrivateKey
 }
-</pre><a href="#section-5.20-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.20-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.20-14">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.20-14" class="pilcrow">¶</a></p>
-<p id="section-5.20-15">The publicKey remains OPTIONAL.<a href="#section-5.20-15" class="pilcrow">¶</a></p>
-<p id="section-5.20-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.20-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.20-17">
+<p id="section-5.20-17">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.20-17" class="pilcrow">¶</a></p>
+<p id="section-5.20-18">The publicKey remains OPTIONAL.<a href="#section-5.20-18" class="pilcrow">¶</a></p>
+<p id="section-5.20-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.20-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.20-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-X25519
   },
   privateKey OCTET STRING
 }
-</pre><a href="#section-5.20-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.20-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.20-18">where id-X25519 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.20-18" class="pilcrow">¶</a></p>
-<p id="section-5.20-19">The publicKey remains OPTIONAL.<a href="#section-5.20-19" class="pilcrow">¶</a></p>
+<p id="section-5.20-21">where id-X25519 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.20-21" class="pilcrow">¶</a></p>
+<p id="section-5.20-22">The publicKey remains OPTIONAL.<a href="#section-5.20-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber1024-ECDH-P384">
@@ -3600,67 +3780,74 @@ id-Kyber1024-ECDH-P384 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.21-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.21-4" class="pilcrow">¶</a></p>
-<p id="section-5.21-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.21-5" class="pilcrow">¶</a></p>
-<div id="section-5.21-6">
+<p id="section-5.21-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber1024-ECDH-P384 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.21-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.21-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.21-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.21-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.21-7" class="pilcrow">¶</a></p>
+<p id="section-5.21-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.21-8" class="pilcrow">¶</a></p>
+<div id="section-5.21-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber1024TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.21-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.21-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.21-7.1">
-            <p id="section-5.21-7.1.1">TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.21-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.21-10.1">
+            <p id="section-5.21-10.1.1">TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.21-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.21-8.1">
-            <p id="section-5.21-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.21-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.21-11.1">
+            <p id="section-5.21-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.21-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.21-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.21-9" class="pilcrow">¶</a></p>
-<div id="section-5.21-10">
+<p id="section-5.21-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.21-12" class="pilcrow">¶</a></p>
+<div id="section-5.21-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-ecPublicKey,
             parameters secp384r1
       },
-     subjectPublicKey     BIT STRING(ECPoint)
+     subjectPublicKey  ECPoint
 }
-</pre><a href="#section-5.21-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.21-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.21-11">where id-ecPublicKey, secp384r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.21-11" class="pilcrow">¶</a></p>
-<p id="section-5.21-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.21-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.21-13">
+<p id="section-5.21-14">where id-ecPublicKey, secp384r1, and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.21-14" class="pilcrow">¶</a></p>
+<p id="section-5.21-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.21-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.21-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber1024TBD
   },
-  privateKey PqckemPrivateKey
+  privateKey  PqckemPrivateKey
 }
-</pre><a href="#section-5.21-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.21-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.21-14">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.21-14" class="pilcrow">¶</a></p>
-<p id="section-5.21-15">The publicKey remains OPTIONAL.<a href="#section-5.21-15" class="pilcrow">¶</a></p>
-<p id="section-5.21-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.21-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.21-17">
+<p id="section-5.21-17">where id-kyber768TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.21-17" class="pilcrow">¶</a></p>
+<p id="section-5.21-18">The publicKey remains OPTIONAL.<a href="#section-5.21-18" class="pilcrow">¶</a></p>
+<p id="section-5.21-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.21-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.21-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
     parameters secp384r1
   },
-  privateKey ECPrivateKey
+  privateKey  ECPrivateKey
 }
-</pre><a href="#section-5.21-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.21-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.21-18">where id-ecPublicKey and secp384r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.21-18" class="pilcrow">¶</a></p>
-<p id="section-5.21-19">The publicKey remains OPTIONAL.<a href="#section-5.21-19" class="pilcrow">¶</a></p>
+<p id="section-5.21-21">where id-ecPublicKey and secp384r1 are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.21-21" class="pilcrow">¶</a></p>
+<p id="section-5.21-22">The publicKey remains OPTIONAL.<a href="#section-5.21-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber1024-ECDH-brainpoolP384r1">
@@ -3682,55 +3869,62 @@ id-Kyber1024-ECDH-brainpoolP384r1 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.22-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.22-4" class="pilcrow">¶</a></p>
-<p id="section-5.22-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.22-5" class="pilcrow">¶</a></p>
-<div id="section-5.22-6">
+<p id="section-5.22-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber1024-ECDH-brainpoolP384r1 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.22-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.22-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.22-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.22-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.22-7" class="pilcrow">¶</a></p>
+<p id="section-5.22-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.22-8" class="pilcrow">¶</a></p>
+<div id="section-5.22-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber1024TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey
 }
-</pre><a href="#section-5.22-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.22-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.22-7.1">
-            <p id="section-5.22-7.1.1">TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.22-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.22-10.1">
+            <p id="section-5.22-10.1.1">TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.22-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.22-8.1">
-            <p id="section-5.22-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.22-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.22-11.1">
+            <p id="section-5.22-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.22-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.22-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.22-9" class="pilcrow">¶</a></p>
-<div id="section-5.22-10">
+<p id="section-5.22-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.22-12" class="pilcrow">¶</a></p>
+<div id="section-5.22-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
             algorithm id-ecPublicKey,
             parameters brainpoolP384r1
       },
-     subjectPublicKey     BIT STRING(ECPoint)
+     subjectPublicKey  ECPoint
 }
-</pre><a href="#section-5.22-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.22-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.22-11">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.22-11" class="pilcrow">¶</a></p>
-<p id="section-5.22-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.22-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.22-13">
+<p id="section-5.22-14">where id-ecPublicKey and ECPoint are defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm.algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.22-14" class="pilcrow">¶</a></p>
+<p id="section-5.22-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.22-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.22-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber1024TBD
   },
   privateKey PqckemPrivateKey
 }
-</pre><a href="#section-5.22-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.22-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.22-14">where id-kyber1024TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.22-14" class="pilcrow">¶</a></p>
-<p id="section-5.22-15">The publicKey remains OPTIONAL.<a href="#section-5.22-15" class="pilcrow">¶</a></p>
-<p id="section-5.22-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.22-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.22-17">
+<p id="section-5.22-17">where id-kyber1024TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.22-17" class="pilcrow">¶</a></p>
+<p id="section-5.22-18">The publicKey remains OPTIONAL.<a href="#section-5.22-18" class="pilcrow">¶</a></p>
+<p id="section-5.22-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.22-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.22-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-ecPublicKey,
@@ -3738,11 +3932,11 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
   },
   privateKey ECPrivateKey
 }
-</pre><a href="#section-5.22-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.22-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.22-18">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
-Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.22-18" class="pilcrow">¶</a></p>
-<p id="section-5.22-19">The publicKey remains OPTIONAL.<a href="#section-5.22-19" class="pilcrow">¶</a></p>
+<p id="section-5.22-21">where id-ecPublicKey is defined in <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span>, ECPrivateKey is defined in <span>[<a href="#RFC5915" class="xref">RFC5915</a>]</span>, and <code>brainpoolP384r1</code> is defined in <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>.
+Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>id-ecMQV</code> in accordance with <span>[<a href="#RFC5480" class="xref">RFC5480</a>]</span> section 2.1.<a href="#section-5.22-21" class="pilcrow">¶</a></p>
+<p id="section-5.22-22">The publicKey remains OPTIONAL.<a href="#section-5.22-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-id-Kyber1024-X448">
@@ -3764,29 +3958,36 @@ id-Kyber1024-X448 OBJECT IDENTIFIER ::= {
 </li>
         </ul>
 <p id="section-5.23-4">When used in an AlgorithmIdentifier, parameters SHALL be ABSENT.<a href="#section-5.23-4" class="pilcrow">¶</a></p>
-<p id="section-5.23-5">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.23-5" class="pilcrow">¶</a></p>
-<div id="section-5.23-6">
+<p id="section-5.23-5">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates id-Kyber1024-X448 in the SubjectPublicKeyInfo, then the following MUST be present:<a href="#section-5.23-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.23-6">
+<pre>
+  keyEncipherment
+</pre><a href="#section-5.23-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.23-7">Requirements about the keyUsage extension bits defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span> still apply.<a href="#section-5.23-7" class="pilcrow">¶</a></p>
+<p id="section-5.23-8">The first public key component SubjectPublicKeyInfo (defined in <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>) SHALL contain:<a href="#section-5.23-8" class="pilcrow">¶</a></p>
+<div id="section-5.23-9">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
           algorithm id-kyber1024TBD
       },
-     subjectPublicKey     BIT STRING(Kyber-PublicKey)
+     subjectPublicKey  Kyber-PublicKey)
 }
-</pre><a href="#section-5.23-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.23-9" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.23-7.1">
-            <p id="section-5.23-7.1.1">TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.23-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.23-10.1">
+            <p id="section-5.23-10.1.1">TODO: id-kyber1024TBD and Kyber-PublicKey will eventually be defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.23-10.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.23-8.1">
-            <p id="section-5.23-8.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.23-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="section-5.23-11.1">
+            <p id="section-5.23-11.1.1">TODO: I don't think <code>subjectPublicKey     BIT STRING(TBDDilithiumPublicKey)</code> is correct ASN.1.<a href="#section-5.23-11.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.23-9">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.23-9" class="pilcrow">¶</a></p>
-<div id="section-5.23-10">
+<p id="section-5.23-12">The second public key component SubjectPublicKeyInfo SHALL contain:<a href="#section-5.23-12" class="pilcrow">¶</a></p>
+<div id="section-5.23-13">
 <pre class="lang-ASN.1 sourcecode">
 SEQUENCE  {
      algorithm  AlgorithmIdentifier {
@@ -3794,33 +3995,33 @@ SEQUENCE  {
       },
      subjectPublicKey     BIT STRING
 }
-</pre><a href="#section-5.23-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.23-13" class="pilcrow">¶</a>
 </div>
-<p id="section-5.23-11">where id-X448 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.23-11" class="pilcrow">¶</a></p>
-<p id="section-5.23-12">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.23-12" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.23-13">
+<p id="section-5.23-14">where id-X448 and the public key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.23-14" class="pilcrow">¶</a></p>
+<p id="section-5.23-15">The first private key component OneAsymmetricKey, defined in <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span> SHALL contain<a href="#section-5.23-15" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.23-16">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-kyber1024TBD
   },
   privateKey PqckemPrivateKey
 }
-</pre><a href="#section-5.23-13" class="pilcrow">¶</a>
+</pre><a href="#section-5.23-16" class="pilcrow">¶</a>
 </div>
-<p id="section-5.23-14">where id-kyber1024TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.23-14" class="pilcrow">¶</a></p>
-<p id="section-5.23-15">The publicKey remains OPTIONAL.<a href="#section-5.23-15" class="pilcrow">¶</a></p>
-<p id="section-5.23-16">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.23-16" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.23-17">
+<p id="section-5.23-17">where id-kyber1024TBD and PqckemPrivateKey are defined in <span>[<a href="#I-D.ietf-lamps-kyber-certificates" class="xref">I-D.ietf-lamps-kyber-certificates</a>]</span>.<a href="#section-5.23-17" class="pilcrow">¶</a></p>
+<p id="section-5.23-18">The publicKey remains OPTIONAL.<a href="#section-5.23-18" class="pilcrow">¶</a></p>
+<p id="section-5.23-19">The second private key component OneAsymmetricKey SHALL contain<a href="#section-5.23-19" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.23-20">
 <pre>
 privateKeyAlgorithm AlgorithmIdentifier ::= {
     algorithm id-X448
   },
   privateKey OCTET STRING
 }
-</pre><a href="#section-5.23-17" class="pilcrow">¶</a>
+</pre><a href="#section-5.23-20" class="pilcrow">¶</a>
 </div>
-<p id="section-5.23-18">where id-X448 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.23-18" class="pilcrow">¶</a></p>
-<p id="section-5.23-19">The publicKey remains OPTIONAL.<a href="#section-5.23-19" class="pilcrow">¶</a></p>
+<p id="section-5.23-21">where id-X448 and the private key encoding are defined in <span>[<a href="#RFC8410" class="xref">RFC8410</a>]</span>.<a href="#section-5.23-21" class="pilcrow">¶</a></p>
+<p id="section-5.23-22">The publicKey remains OPTIONAL.<a href="#section-5.23-22" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-generic-composite">
@@ -3842,8 +4043,9 @@ id-composite-key OBJECT IDENTIFIER ::= {
             <p id="section-5.24-4.1.1">EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see <a href="#sec-iana" class="xref">Section 7</a>.<a href="#section-5.24-4.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.24-5">This section does not specify the contents of the component SubjectPublicKeyInfos or OneAsymmetricKeys since the purpose of this generic composite algorithm is to leave this flexible for runtime agents.<a href="#section-5.24-5" class="pilcrow">¶</a></p>
-<p id="section-5.24-6">The motivation for this variant is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this variant will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadruples, etc of algorithms.<a href="#section-5.24-6" class="pilcrow">¶</a></p>
+<p id="section-5.24-5">This section does not specify allowable key usages for a generic composite key, however any assigned key usage MUST apply to all component keys, as described in <a href="#sec-keyusage" class="xref">Section 4.2.1</a>.<a href="#section-5.24-5" class="pilcrow">¶</a></p>
+<p id="section-5.24-6">This section does not specify the contents of the component SubjectPublicKeyInfos or OneAsymmetricKeys since the purpose of this generic composite algorithm is to leave this flexible for runtime agents.<a href="#section-5.24-6" class="pilcrow">¶</a></p>
+<p id="section-5.24-7">The motivation for this variant is primarily for prototyping work prior to the standardization of algorithm identifiers for explicit combinations of algorithms. However, the authors envision that this variant will remain relevant beyond full standardization for example in environments requiring very high levels of crypto agility, for example where clients support a large number of algorithms or where a large number of keys will be used at a time and it is therefore prohibitive to define algorithm identifiers for every combination of pairs, triples, quadruples, etc of algorithms.<a href="#section-5.24-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
