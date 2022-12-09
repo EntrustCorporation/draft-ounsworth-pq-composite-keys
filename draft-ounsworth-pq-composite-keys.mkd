@@ -71,7 +71,6 @@ normative:
   RFC5480:
   RFC5639:
   RFC5652:
-  RFC5912:
   RFC5914:
   RFC5915:
   RFC5958:
@@ -99,7 +98,6 @@ normative:
 # <!-- EDNOTE: full syntax for this defined here: https://github.com/cabo/kramdown-rfc2629 -->
 
 informative:
-  RFC3279:
   RFC4210:
   RFC4211:
   RFC7292:
@@ -109,23 +107,6 @@ informative:
   I-D.draft-becker-guthrie-noncomposite-hybrid-auth-00:
   I-D.draft-guthrie-ipsecme-ikev2-hybrid-auth-00:
   I-D.draft-driscoll-pqt-hybrid-terminology-01:
-  Bindel2017:
-    title: "Transitioning to a quantum-resistant public key infrastructure"
-    target: "https://link.springer.com/chapter/10.1007/978-3-319-59879-6_22"
-    author:
-      -
-        ins: N. Bindel
-        name: Nina Bindel
-      -
-        ins: U. Herath
-        name: Udyani Herath
-      -
-        ins: M. McKague
-        name: Matthew McKague
-      -
-        ins: D. Stebila
-        name: Douglas Stebila
-    date: 2017
   codeSigningBRsv2.8:
     title: "Baseline Requirements for the Issuance and Management of Publicly-Trusted Code Signing Certificates v2.8"
     target: https://cabforum.org/wp-content/uploads/Baseline-Requirements-for-the-Issuance-and-Management-of-Code-Signing.v2.8.pdf
@@ -142,54 +123,6 @@ informative:
         ins: European Council
         name: THE EUROPEAN PARLIAMENT AND THE COUNCIL OF THE EUROPEAN UNION,
     date: 23 July 2014
-  Bleichenbacher1998:
-    title: "Chosen ciphertext attacks against protocols based on the RSA encryption standard PKCS# 1."
-    author:
-      -
-        ins: D. Bleichenbacher
-        name: Daniel Bleichenbacher 
-    date: 1998
-  ROBOT2018:
-    title: "Return Of {Bleichenbacher’s} Oracle Threat (ROBOT)."
-    target: "https://www.usenix.org/conference/usenixsecurity18/presentation/bock"
-    author:
-      - 
-        ins: H. Böck 
-        name: Böck, Hanno
-      - 
-        ins: J. Somorovsky
-        name: Juraj Somorovsky
-      -
-        ins: C. Young
-        name: Craig Young.  
-    date: 2018
-  Mosca2015:
-    title: "Cybersecurity in a Quantum World: will we be ready?"
-    target: "https://csrc.nist.gov/csrc/media/events/workshop-on-cybersecurity-in-a-post-quantum-world/documents/presentations/session8-mosca-michele.pdf"
-    author:
-      -
-        ins: M. Mosca
-        name: Michele Mosca
-    date: "3 April 2015"
-  Beullens2022:
-    title: "Breaking rainbow takes a weekend on a laptop."
-    target: "https://eprint.iacr.org/2022/214"
-    author:
-      -
-        ins: W. Beullens
-        name: Ward Beullens
-    date: 2022
-  Castryck2022:
-    title: "An efficient key recovery attack on SIDH (preliminary version)."
-    target: "https://eprint.iacr.org/2022/975.pdf"
-    author:
-      - 
-        ins: W. Castryck
-        name: Wouter Castryck
-      - 
-        ins: T. Decru
-        name: Thomas Decru
-    date: 2022
 
 
 

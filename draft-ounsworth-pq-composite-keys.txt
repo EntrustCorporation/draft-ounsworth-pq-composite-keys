@@ -179,17 +179,17 @@ Internet-Draft              PQ Composite Keys              December 2022
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  61
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  61
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  64
-   Appendix A.  Samples  . . . . . . . . . . . . . . . . . . . . . .  66
-     A.1.  Generic Composite Public Key Samples  . . . . . . . . . .  66
-     A.2.  Explicit Composite Public Key Samples . . . . . . . . . .  69
-       A.2.1.  id-Dilithium3-EC-P256 . . . . . . . . . . . . . . . .  69
-       A.2.2.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . .  73
-       A.2.3.  id-Falcon512-EC-P256  . . . . . . . . . . . . . . . .  77
-       A.2.4.  id-SPHINCSplusSHA256256frobust-ECDSA-P256 . . . . . .  79
-   Appendix B.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  81
-   Appendix C.  Intellectual Property Considerations . . . . . . . .  83
-   Appendix D.  Contributors and Acknowledgements  . . . . . . . . .  84
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  84
+   Appendix A.  Samples  . . . . . . . . . . . . . . . . . . . . . .  65
+     A.1.  Generic Composite Public Key Samples  . . . . . . . . . .  65
+     A.2.  Explicit Composite Public Key Samples . . . . . . . . . .  68
+       A.2.1.  id-Dilithium3-EC-P256 . . . . . . . . . . . . . . . .  68
+       A.2.2.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . .  72
+       A.2.3.  id-Falcon512-EC-P256  . . . . . . . . . . . . . . . .  76
+       A.2.4.  id-SPHINCSplusSHA256256frobust-ECDSA-P256 . . . . . .  78
+   Appendix B.  ASN.1 Module . . . . . . . . . . . . . . . . . . . .  80
+   Appendix C.  Intellectual Property Considerations . . . . . . . .  82
+   Appendix D.  Contributors and Acknowledgements  . . . . . . . . .  83
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  83
 
 1.  Changes in version -04
 
@@ -3478,11 +3478,6 @@ Internet-Draft              PQ Composite Keys              December 2022
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
               <https://www.rfc-editor.org/info/rfc5652>.
 
-   [RFC5912]  Hoffman, P. and J. Schaad, "New ASN.1 Modules for the
-              Public Key Infrastructure Using X.509 (PKIX)", RFC 5912,
-              DOI 10.17487/RFC5912, June 2010,
-              <https://www.rfc-editor.org/info/rfc5912>.
-
    [RFC5914]  Housley, R., Ashmore, S., and C. Wallace, "Trust Anchor
               Format", RFC 5914, DOI 10.17487/RFC5914, June 2010,
               <https://www.rfc-editor.org/info/rfc5914>.
@@ -3523,6 +3518,11 @@ Internet-Draft              PQ Composite Keys              December 2022
               DOI 10.17487/RFC8410, August 2018,
               <https://www.rfc-editor.org/info/rfc8410>.
 
+   [RFC8411]  Schaad, J. and R. Andrews, "IANA Registration for the
+              Cryptographic Algorithm Object Identifier Range",
+              RFC 8411, DOI 10.17487/RFC8411, August 2018,
+              <https://www.rfc-editor.org/info/rfc8411>.
+
 
 
 Ounsworth, et al.         Expires 11 June 2023                 [Page 63]
@@ -3530,37 +3530,12 @@ Ounsworth, et al.         Expires 11 June 2023                 [Page 63]
 Internet-Draft              PQ Composite Keys              December 2022
 
 
-   [RFC8411]  Schaad, J. and R. Andrews, "IANA Registration for the
-              Cryptographic Algorithm Object Identifier Range",
-              RFC 8411, DOI 10.17487/RFC8411, August 2018,
-              <https://www.rfc-editor.org/info/rfc8411>.
-
    [X.690]    ITU-T, "Information technology - ASN.1 encoding Rules:
               Specification of Basic Encoding Rules (BER), Canonical
               Encoding Rules (CER) and Distinguished Encoding Rules
               (DER)", ISO/IEC 8825-1:2015, November 2015.
 
 9.2.  Informative References
-
-   [Beullens2022]
-              Beullens, W., "Breaking rainbow takes a weekend on a
-              laptop.", 2022, <https://eprint.iacr.org/2022/214>.
-
-   [Bindel2017]
-              Bindel, N., Herath, U., McKague, M., and D. Stebila,
-              "Transitioning to a quantum-resistant public key
-              infrastructure", 2017, <https://link.springer.com/
-              chapter/10.1007/978-3-319-59879-6_22>.
-
-   [Bleichenbacher1998]
-              Bleichenbacher, D., "Chosen ciphertext attacks against
-              protocols based on the RSA encryption standard PKCS# 1.",
-              1998.
-
-   [Castryck2022]
-              Castryck, W. and T. Decru, "An efficient key recovery
-              attack on SIDH (preliminary version).", 2022,
-              <https://eprint.iacr.org/2022/975.pdf>.
 
    [codeSigningBRsv2.8]
               CAB Forum, "Baseline Requirements for the Issuance and
@@ -3577,14 +3552,6 @@ Internet-Draft              PQ Composite Keys              December 2022
               Directive 1999/93/EC", July 2014,
               <https://ec.europa.eu/futurium/en/system/files/ged/
               eidas_regulation.pdf>.
-
-
-
-
-Ounsworth, et al.         Expires 11 June 2023                 [Page 64]
-
-Internet-Draft              PQ Composite Keys              December 2022
-
 
    [I-D.becker-guthrie-noncomposite-hybrid-auth]
               Becker, A., Guthrie, R., and M. J. Jenkins, "Non-Composite
@@ -3608,18 +3575,16 @@ Internet-Draft              PQ Composite Keys              December 2022
               <https://www.ietf.org/archive/id/draft-guthrie-ipsecme-
               ikev2-hybrid-auth-00.txt>.
 
-   [Mosca2015]
-              Mosca, M., "Cybersecurity in a Quantum World: will we be
-              ready?", April 2015,
-              <https://csrc.nist.gov/csrc/media/events/workshop-on-
-              cybersecurity-in-a-post-quantum-
-              world/documents/presentations/session8-mosca-michele.pdf>.
 
-   [RFC3279]  Bassham, L., Polk, W., and R. Housley, "Algorithms and
-              Identifiers for the Internet X.509 Public Key
-              Infrastructure Certificate and Certificate Revocation List
-              (CRL) Profile", RFC 3279, DOI 10.17487/RFC3279, April
-              2002, <https://www.rfc-editor.org/info/rfc3279>.
+
+
+
+
+
+Ounsworth, et al.         Expires 11 June 2023                 [Page 64]
+
+Internet-Draft              PQ Composite Keys              December 2022
+
 
    [RFC4210]  Adams, C., Farrell, S., Kause, T., and T. Mononen,
               "Internet X.509 Public Key Infrastructure Certificate
@@ -3631,16 +3596,6 @@ Internet-Draft              PQ Composite Keys              December 2022
               Certificate Request Message Format (CRMF)", RFC 4211,
               DOI 10.17487/RFC4211, September 2005,
               <https://www.rfc-editor.org/info/rfc4211>.
-
-
-
-
-
-
-Ounsworth, et al.         Expires 11 June 2023                 [Page 65]
-
-Internet-Draft              PQ Composite Keys              December 2022
-
 
    [RFC7292]  Moriarty, K., Ed., Nystrom, M., Parkinson, S., Rusch, A.,
               and M. Scott, "PKCS #12: Personal Information Exchange
@@ -3660,12 +3615,6 @@ Internet-Draft              PQ Composite Keys              December 2022
               Multipurpose Internet Mail Extensions (S/MIME) Version 4.0
               Message Specification", RFC 8551, DOI 10.17487/RFC8551,
               April 2019, <https://www.rfc-editor.org/info/rfc8551>.
-
-   [ROBOT2018]
-              Boeck, H., Somorovsky, J., and C. Young, "Return Of
-              {Bleichenbacher's} Oracle Threat (ROBOT).", 2018,
-              <https://www.usenix.org/conference/usenixsecurity18/
-              presentation/bock>.
 
 Appendix A.  Samples
 
@@ -3688,12 +3637,7 @@ A.1.  Generic Composite Public Key Samples
 
 
 
-
-
-
-
-
-Ounsworth, et al.         Expires 11 June 2023                 [Page 66]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 65]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -3749,7 +3693,7 @@ Internet-Draft              PQ Composite Keys              December 2022
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 67]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 66]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -3805,7 +3749,7 @@ Internet-Draft              PQ Composite Keys              December 2022
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 68]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 67]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -3861,7 +3805,7 @@ A.2.1.  id-Dilithium3-EC-P256
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 69]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 68]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -3917,7 +3861,7 @@ Srzd4w0i+5dCNM9rX
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 70]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 69]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -3973,7 +3917,7 @@ o3s25BQqJAGiRKBLd0UXz5AUbSB9fFaO21aiX2WWISjdA1R4SuQNNQZcVgGuKpQBAcPV7xcFRlZ
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 71]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 70]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4029,7 +3973,7 @@ dJjWC9BBqW76a03u7YqiUr6aKsw2z+AN/ZnuLyZ3YvWLHNdCRmtZlASMZfoa5K+FfkXUog4m0Iz
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 72]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 71]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4085,7 +4029,7 @@ A.2.2.  id-Dilithium3-RSA
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 73]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 72]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4141,7 +4085,7 @@ dN2ayilmvdG06dMwrGKs2Tag5HKbUSMPA3BlKvvqrJhMb3w86xPf2MnvWzVWmi0tpE2zcCgXkX+
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 74]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 73]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4197,7 +4141,7 @@ mE/GtH92lz0fC9GQWgdyTK4H23xP5PlRGlzVLJ5CVA/rucNg6F7AU5bycpC557ugsdO+UOLhc92
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 75]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 74]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4253,7 +4197,7 @@ Aw7hcPqO9LPgoofk7oADU+iGR28qpmfYDT8lg0/FKRqsufHvqRon1H8zlFF09Xpi0u87JnVSG7e
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 76]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 75]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4309,7 +4253,7 @@ A.2.3.  id-Falcon512-EC-P256
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 77]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 76]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4365,7 +4309,7 @@ HymrF59in1pXEPnEWLZ9xLO5A6cg==
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 78]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 77]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4421,7 +4365,7 @@ A.2.4.  id-SPHINCSplusSHA256256frobust-ECDSA-P256
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 79]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 78]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4477,7 +4421,7 @@ Eytrtq3H7e59JYdkceK1h+T8jZFyUP5e0M=
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 80]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 79]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4533,7 +4477,7 @@ Appendix B.  ASN.1 Module
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 81]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 80]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4589,7 +4533,7 @@ Internet-Draft              PQ Composite Keys              December 2022
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 82]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 81]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4645,7 +4589,7 @@ Appendix C.  Intellectual Property Considerations
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 83]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 82]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4701,7 +4645,7 @@ Authors' Addresses
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 84]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 83]
 
 Internet-Draft              PQ Composite Keys              December 2022
 
@@ -4757,4 +4701,4 @@ Internet-Draft              PQ Composite Keys              December 2022
 
 
 
-Ounsworth, et al.         Expires 11 June 2023                 [Page 85]
+Ounsworth, et al.         Expires 11 June 2023                 [Page 84]
