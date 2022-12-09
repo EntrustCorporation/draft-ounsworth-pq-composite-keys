@@ -41,7 +41,7 @@ Abstract
    CompositePrivateKey, which are sequences of the respective structure
    for each component algorithm.  Explicit pairings of algorithms are
    defined which should meet most Internet needs.  The generic composite
-   key type is alo defined which allows arbitrary combinations of key
+   key type is also defined which allows arbitrary combinations of key
    types to be placed in the CompositePublicKey and CompositePrivateKey
    structures without needing the combination to be pre-registered or
    pre-agreed.
