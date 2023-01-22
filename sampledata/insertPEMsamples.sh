@@ -5,6 +5,11 @@
 
 
 FILE=$1
+if [ ! -f $FILE ]; then
+    >&2 echo "$0: Error: file \"$FILE\" does not exist."
+    exit -1
+fi
+
 DIR=$2
 
 REGEX_MATCH="^!!(.*)$"
