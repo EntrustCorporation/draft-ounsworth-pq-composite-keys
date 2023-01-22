@@ -395,7 +395,7 @@ The following object identifier represents the id-Dilithium3-RSA key type:
 ~~~ asn1
 id-Dilithium3-RSA OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium3-RSA(1) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium3-RSA(1) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -485,7 +485,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium3-ECDSA-P256(2) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium3-ECDSA-P256(2) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -580,7 +580,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1)
+  algorithm(80) ExplicitComposite(5) Signature(1)
   id-Dilithium3-ECDSA-brainpoolP256r1(3) }
 ~~~
 
@@ -676,7 +676,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium3-Ed25519(4) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium3-Ed25519(4) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -765,7 +765,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium5-ECDSA-P384(5) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium5-ECDSA-P384(5) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -857,7 +857,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium5-ECDSA-brainpoolP384r1(6) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium5-ECDSA-brainpoolP384r1(6) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -953,7 +953,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature id-Dilithium5-Ed448(7) }
+  algorithm(80) ExplicitComposite(5) Signature id-Dilithium5-Ed448(7) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1043,7 +1043,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Falcon512-ECDSA-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature id-Falcon512-ECDSA-P256(8) }
+  algorithm(80) ExplicitComposite(5) Signature id-Falcon512-ECDSA-P256(8) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1134,7 +1134,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Falcon512-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Falcon512-ECDSA-brainpoolP256r1(9) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Falcon512-ECDSA-brainpoolP256r1(9) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1229,7 +1229,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signatur(1) id-Falcon512-Ed25519(10) }
+  algorithm(80) ExplicitComposite(5) Signatur(1) id-Falcon512-Ed25519(10) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1317,7 +1317,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-SPHINCSplusSHA256-ECDSA-P256(11) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-SPHINCSplusSHA256-ECDSA-P256(11) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1410,7 +1410,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-SPHINCSplusSHA256-ECDSA-P256(12) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-SPHINCSplusSHA256-ECDSA-P256(12) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1502,7 +1502,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-SPHINCSplusSHA256-Ed25519 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-SPHINCSplusSHA256-Ed25519(13) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-SPHINCSplusSHA256-Ed25519(13) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1593,7 +1593,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber512-ECDH-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-P256(1) }
+  algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-P256(1) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1683,7 +1683,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber512-ECDH-brainpoolP256r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-brainpoolP256r1(2) }
+  algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-brainpoolP256r1(2) }
 ~~~
 
 > EDNOTE: this is a temporary OID for the purposes of prototyping. We are requesting IANA to assign a permanent OID, see {{sec-iana}}.
@@ -1774,7 +1774,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber512-X25519 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2) 
+  algorithm(80) ExplicitComposite(5) KEM(2) 
   id-Kyber512-X25519(3) }
 ~~~
 
@@ -1862,7 +1862,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber768-RSA OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber768-RSA(4) }
 ~~~
 
@@ -1952,7 +1952,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber768-ECDH-P256(5) }
 ~~~
 
@@ -2043,7 +2043,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber768-ECDH-P256(6) }
 ~~~
 
@@ -2136,7 +2136,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber767-X25519 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber768-X25519(7) }
 ~~~
 
@@ -2224,7 +2224,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber1024-ECDH-P384 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber1024-ECDH-P384(8) }
 ~~~
 
@@ -2316,7 +2316,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber1024-ECDH-brainpoolP384r1 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber1024-ECDH-brainpoolP384r1(9) }
 ~~~
 
@@ -2411,7 +2411,7 @@ The following object identifier is defined:
 ~~~ asn1
 id-Kyber1024-X448 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber1024-X448(10) }
 ~~~
 

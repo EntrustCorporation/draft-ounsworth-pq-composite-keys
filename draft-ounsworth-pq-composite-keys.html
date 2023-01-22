@@ -1974,7 +1974,7 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
 <pre class="lang-asn1 sourcecode">
 id-Dilithium3-RSA OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium3-RSA(1) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium3-RSA(1) }
 </pre><a href="#section-5.1-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2064,7 +2064,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <pre class="lang-asn1 sourcecode">
 id-Dilithium3-ECDSA-P256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium3-ECDSA-P256(2) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium3-ECDSA-P256(2) }
 </pre><a href="#section-5.2-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2157,7 +2157,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1)
+  algorithm(80) ExplicitComposite(5) Signature(1)
   id-Dilithium3-ECDSA-brainpoolP256r1(3) }
 </pre><a href="#section-5.3-2" class="pilcrow">¶</a>
 </div>
@@ -2251,7 +2251,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium3-Ed25519(4) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium3-Ed25519(4) }
 </pre><a href="#section-5.4-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2340,7 +2340,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <pre class="lang-asn1 sourcecode">
 id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium5-ECDSA-P384(5) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium5-ECDSA-P384(5) }
 </pre><a href="#section-5.5-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2433,7 +2433,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Dilithium5-ECDSA-brainpoolP384r1(6) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Dilithium5-ECDSA-brainpoolP384r1(6) }
 </pre><a href="#section-5.6-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2526,7 +2526,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature id-Dilithium5-Ed448(7) }
+  algorithm(80) ExplicitComposite(5) Signature id-Dilithium5-Ed448(7) }
 </pre><a href="#section-5.7-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2615,7 +2615,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <pre class="lang-asn1 sourcecode">
 id-Falcon512-ECDSA-P256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature id-Falcon512-ECDSA-P256(8) }
+  algorithm(80) ExplicitComposite(5) Signature id-Falcon512-ECDSA-P256(8) }
 </pre><a href="#section-5.8-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2711,7 +2711,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Falcon512-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-Falcon512-ECDSA-brainpoolP256r1(9) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-Falcon512-ECDSA-brainpoolP256r1(9) }
 </pre><a href="#section-5.9-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2807,7 +2807,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signatur(1) id-Falcon512-Ed25519(10) }
+  algorithm(80) ExplicitComposite(5) Signatur(1) id-Falcon512-Ed25519(10) }
 </pre><a href="#section-5.10-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2899,7 +2899,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <pre class="lang-asn1 sourcecode">
 id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-SPHINCSplusSHA256-ECDSA-P256(11) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-SPHINCSplusSHA256-ECDSA-P256(11) }
 </pre><a href="#section-5.11-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -2987,7 +2987,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-SPHINCSplusSHA256-ECDSA-P256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-SPHINCSplusSHA256-ECDSA-P256(12) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-SPHINCSplusSHA256-ECDSA-P256(12) }
 </pre><a href="#section-5.12-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -3075,7 +3075,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-SPHINCSplusSHA256-Ed25519 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Signature(1) id-SPHINCSplusSHA256-Ed25519(13) }
+  algorithm(80) ExplicitComposite(5) Signature(1) id-SPHINCSplusSHA256-Ed25519(13) }
 </pre><a href="#section-5.13-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -3159,7 +3159,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <pre class="lang-asn1 sourcecode">
 id-Kyber512-ECDH-P256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-P256(1) }
+  algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-P256(1) }
 </pre><a href="#section-5.14-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -3248,7 +3248,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Kyber512-ECDH-brainpoolP256r1 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-brainpoolP256r1(2) }
+  algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-brainpoolP256r1(2) }
 </pre><a href="#section-5.15-2" class="pilcrow">¶</a>
 </div>
 <ul class="normal ulEmpty">
@@ -3337,7 +3337,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Kyber512-X25519 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber512-X25519(3) }
 </pre><a href="#section-5.16-2" class="pilcrow">¶</a>
 </div>
@@ -3423,7 +3423,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <pre class="lang-asn1 sourcecode">
 id-Kyber768-RSA OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber768-RSA(4) }
 </pre><a href="#section-5.17-2" class="pilcrow">¶</a>
 </div>
@@ -3511,7 +3511,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <pre class="lang-asn1 sourcecode">
 id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber768-ECDH-P256(5) }
 </pre><a href="#section-5.18-2" class="pilcrow">¶</a>
 </div>
@@ -3601,7 +3601,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Kyber768-ECDH-P256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber768-ECDH-P256(6) }
 </pre><a href="#section-5.19-2" class="pilcrow">¶</a>
 </div>
@@ -3691,7 +3691,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Kyber767-X25519 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber768-X25519(7) }
 </pre><a href="#section-5.20-2" class="pilcrow">¶</a>
 </div>
@@ -3777,7 +3777,7 @@ privateKeyAlgorithm AlgorithmIdentifier ::= {
 <pre class="lang-asn1 sourcecode">
 id-Kyber1024-ECDH-P384 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber1024-ECDH-P384(8) }
 </pre><a href="#section-5.21-2" class="pilcrow">¶</a>
 </div>
@@ -3867,7 +3867,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Kyber1024-ECDH-brainpoolP384r1 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber1024-ECDH-brainpoolP384r1(9) }
 </pre><a href="#section-5.22-2" class="pilcrow">¶</a>
 </div>
@@ -3957,7 +3957,7 @@ Alternatively, the <code>algorithm</code> MAY be <code>id-ecDH</code> or <code>i
 <pre class="lang-asn1 sourcecode">
 id-Kyber1024-X448 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitCompositeKey(5) Algorithm-ExplicitComposite-KEM(2)
+  algorithm(80) ExplicitComposite(5) KEM(2)
   id-Kyber1024-X448(10) }
 </pre><a href="#section-5.23-2" class="pilcrow">¶</a>
 </div>
@@ -4237,7 +4237,7 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <dd class="break"></dd>
 <dt id="RFC5480">[RFC5480]</dt>
         <dd>
-<span class="refAuthor">Turner, S.</span>, <span class="refAuthor">Brown, D.</span>, <span class="refAuthor">Yiu, K.</span>, <span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Polk, T.</span>, and <span class="refAuthor">RFC Publisher</span>, <span class="refTitle">"Elliptic Curve Cryptography Subject Public Key Information"</span>, <span class="seriesInfo">RFC 5480</span>, <span class="seriesInfo">DOI 10.17487/RFC5480</span>, <time datetime="2009-03" class="refDate">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5480">https://www.rfc-editor.org/info/rfc5480</a>&gt;</span>. </dd>
+<span class="refAuthor">Turner, S.</span>, <span class="refAuthor">Brown, D.</span>, <span class="refAuthor">Yiu, K.</span>, <span class="refAuthor">Housley, R.</span>, and <span class="refAuthor">T. Polk</span>, <span class="refTitle">"Elliptic Curve Cryptography Subject Public Key Information"</span>, <span class="seriesInfo">RFC 5480</span>, <span class="seriesInfo">DOI 10.17487/RFC5480</span>, <time datetime="2009-03" class="refDate">March 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5480">https://www.rfc-editor.org/info/rfc5480</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC5639">[RFC5639]</dt>
         <dd>
