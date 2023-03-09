@@ -38,10 +38,10 @@ IMPORTS
 der OBJECT IDENTIFIER ::=
   {joint-iso-itu-t asn1(1) ber-derived(2) distinguished-encoding(1)}
 
--- To be replaced by IANA
+-- TODO: To be replaced by IANA
 id-composite-key OBJECT IDENTIFIER ::= {
     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-    Algorithm(80) Composite(4) CompositeKey(1) }
+    algorithm(80) composite(4) compositekey(1) }
 
 
 
@@ -164,27 +164,28 @@ ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
 
 -- Explicit Composite Signature Keys
 
+-- TODO: To be replaced by IANA
 id-Dilithium3-RSA-PSS OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA-PSS(14) }
+  algorithm(80) explicitcomposite(5) signature(1) dilithium3-rsa-pss(14) }
 
 pk-Dilithium3-RSA-PSS PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-RSA-PSS, pk-Dilithium3TBD, OCTET STRING, pk-rsaSSA-PSS, OCTET STRING}
 
 
-
+-- TODO: To be replaced by IANA
 id-Dilithium3-RSA-PKCS15-SHA256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA(1) }
+  algorithm(80) explicitcomposite(5) signature(1) dilithium3-rsa(1) }
 
 pk-Dilithium3-RSA-PKCS15-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-RSA-PKCS15-SHA256, pk-Dilithium3TBD, OCTET STRING, pk-rsa, RSAPublicKey}
 
 
-
+-- TODO: To be replaced by IANA
 id-Dilithium3-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA(2) }
+  algorithm(80) explicitcomposite(5) signature(1) dilithium3-rsa(2) }
 
-pk-Dilithium3-ECDSA-P256-SHA256 ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-P256-SHA256, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Dilithium3-ECDSA-P256-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-P256-SHA256, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp256r1`
 
@@ -194,13 +195,13 @@ pk-Dilithium3-ECDSA-P256-SHA256 ::= pk-explicitCompositeSignature{id-Dilithium3-
 --  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
 
   
-
+-- TODO: To be replaced by IANA
 id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1)  
-  Dilithium3-ECDSA-brainpoolP256r1(3) }
+  algorithm(80) explicitcomposite(5) signature(1)  
+  dilithium3-ecdsa-brainpoolp256r1(3) }
 
-pk-Dilithium3-ECDSA-brainpoolP256r1 ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-brainpoolP256r1, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Dilithium3-ECDSA-brainpoolP256r1 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-brainpoolP256r1, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolP256r1`
 
@@ -210,19 +211,20 @@ pk-Dilithium3-ECDSA-brainpoolP256r1 ::= pk-explicitCompositeSignature{id-Dilithi
 --  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
 
 
+-- TODO: To be replaced by IANA
 id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-Ed25519(4) }
+  algorithm(80) explicitcomposite(5) signature(1) dilithium3-ed25519(4) }
 
-pk-Dilithium3-Ed25519 ::= pk-explicitCompositeSignature{id-Dilithium3-Ed25519, pk-Dilithium3TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+pk-Dilithium3-Ed25519 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-Ed25519, pk-Dilithium3TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
 
 
-
+-- TODO: To be replaced by IANA
 id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium5-ECDSA-P384(5) }
+  algorithm(80) explicitcomposite(5) signature(1) dilithium5-ecdsa-p384(5) }
 
-pk-Dilithium5-ECDSA-P384 ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-P384, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Dilithium5-ECDSA-P384 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-P384, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp384r1`
 
@@ -233,12 +235,12 @@ pk-Dilithium5-ECDSA-P384 ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-P
 --}
 
 
-
+-- TODO: To be replaced by IANA
 id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium5-ECDSA-brainpoolP384r1(6) }
+  algorithm(80) explicitcomposite(5) signature(1) dilithium5-ecdsa-brainpoolp384r1(6) }
 
-pk-Dilithium5-ECDSA-brainpoolP384r1 ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-brainpoolP384r1, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Dilithium5-ECDSA-brainpoolP384r1 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-brainpoolP384r1, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolP384r1`
 
@@ -250,180 +252,188 @@ pk-Dilithium5-ECDSA-brainpoolP384r1 ::= pk-explicitCompositeSignature{id-Dilithi
 --}
 
 
-
+-- TODO: To be replaced by IANA
 id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature Dilithium5-Ed448(7) }
+  algorithm(80) explicitcomposite(5) signature dilithium5-ed448(7) }
 
-pk-Dilithium5-Ed448 ::= pk-explicitCompositeSignature{id-Dilithium5-Ed448, pk-Dilithium5TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+pk-Dilithium5-Ed448 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium5-Ed448, pk-Dilithium5TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
 
 --TODO: I have a question out to LAMPS about why there is no pk-Ed448. See: https://mailarchive.ietf.org/arch/msg/spasm/bJHcxCA3bXoqKHqXnZ85Vrixu68/
 
 
-
+-- TODO: To be replaced by IANA
 id-Falcon512-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature Falcon512-ECDSA-P256-SHA256(8) }
+  algorithm(80) explicitcomposite(5) signature falcon512-ecdsa-p256-sha256(8) }
 
-pk-Falcon512-ECDSA-P256-SHA256 ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-P256-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Falcon512-ECDSA-P256-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-P256-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp256r1`
 
 
-
+-- TODO: To be replaced by IANA
 id-Falcon512-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Falcon512-ECDSA-brainpoolP256r1-SHA256(9) }
+  algorithm(80) explicitcomposite(5) signature(1) falcon512-ecdsa-brainpoolp256r1-sha256(9) }
 
-pk-Falcon512-ECDSA-brainpoolP256r1-SHA256 ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-brainpoolP256r1-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Falcon512-ECDSA-brainpoolP256r1-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-brainpoolP256r1-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
 
-
+-- TODO: To be replaced by IANA
 id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signatur(1) Falcon512-Ed25519(10) }
+  algorithm(80) explicitcomposite(5) signatur(1) falcon512-ed25519(10) }
 
-pk-Falcon512-Ed25519 ::= pk-explicitCompositeSignature{id-Falcon512-Ed25519, pk-falcon512TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+pk-Falcon512-Ed25519 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Falcon512-Ed25519, pk-falcon512TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
 
 
+
+-- TODO: To be replaced by IANA
 id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256(11) }
+  algorithm(80) explicitcomposite(5) signature(1) sphincsplussha256128ssimple-ecdsa-p256-sha256(11) }
 
-pk-SPHINCSplusSHA256-ECDSA-P256 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256-ECDSA-P256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
+pk-SPHINCSplusSHA256-ECDSA-P256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256-ECDSA-P256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp256r1`
 
 
 
-
+-- TODO: To be replaced by IANA
 id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) 
-  id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256(12) }
+  algorithm(80) explicitcomposite(5) signature(1) 
+  id-sphincsplussha256128ssimple-ecdsa-brainpoolp256r1-sha256(12) }
 
-pk-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
+pk-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
-
+-- TODO: To be replaced by IANA
 id-SPHINCSplusSHA256128sSimple-Ed25519 OBJECT IDENTIFIER ::= { 
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitComposite(5) Signature(1) 
-  SPHINCSplusSHA256128sSimple-Ed25519(13) }
+  algorithm(80) explicitcomposite(5) signature(1) 
+  sphincsplussha256128ssimple-ed25519(13) }
 
-pk-SPHINCSplusSHA256128sSimple-Ed25519 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-Ed25519, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-Ed25519, OCTET STRING}
+pk-SPHINCSplusSHA256128sSimple-Ed25519 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-Ed25519, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-Ed25519, OCTET STRING}
 
 
 
 -- Explicit Composite KEM Keys
 
 
+-- TODO: To be replaced by IANA
 id-Kyber512-ECDH-P256-SHAKE128 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-P256(1) }
+  algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-p256(1) }
 
-pk-Kyber512-ECDH-P256 ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Kyber512-ECDH-P256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp256r1`
 
 
-
+-- TODO: To be replaced by IANA
 id-Kyber512-ECDH-brainpoolP256r1-SHAKE128 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-brainpoolP256r1(2) }
+  algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-brainpoolp256r1(2) }
 
-pk-Kyber512-ECDH-brainpoolP256r1 ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Kyber512-ECDH-brainpoolP256r1 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
+-- TODO: To be replaced by IANA
 id-Kyber512-X25519-SHAKE128 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) KEM(2)
-  id-Kyber512-X25519(3) }
+  algorithm(80) explicitcomposite(5) kem(2)
+  id-kyber512-x25519(3) }
 
-pk-Kyber512-X25519 ::= pk-explicitCompositeKEM{id-Kyber512-X25519-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-X25519, OCTET STRING}
+pk-Kyber512-X25519 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber512-X25519-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-X25519, OCTET STRING}
 
 
-
+-- TODO: To be replaced by IANA
 id-Kyber768-RSA-SHAKE256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) KEM(2)
-  id-Kyber768-RSA(4) }
+  algorithm(80) explicitcomposite(5) kem(2)
+  id-kyber768-rsa(4) }
 
-pk-Kyber768-RSA ::= pk-explicitCompositeKEM{id-Kyber768-RSA-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-rsa, RSAPublicKey}
+pk-Kyber768-RSA PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber768-RSA-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-rsa, RSAPublicKey}
 
 
-
+-- TODO: To be replaced by IANA
 id-Kyber768-ECDH-P256-SHAKE256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) KEM(2)
-  id-Kyber768-ECDH-P256(5) }
+  algorithm(80) explicitcomposite(5) kem(2)
+  id-kyber768-ecdh-p256(5) }
 
-pk-Kyber768-ECDH-P256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Kyber768-ECDH-P256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp256r1`
 
 
 id-Kyber768-ECDH-brainpoolP256r1-SHAKE256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) KEM(2)
-  id-Kyber768-ECDH-P256(6) }
+  algorithm(80) explicitcomposite(5) kem(2)
+  id-kyber768-ecdh-p256(6) }
 
-pk-Kyber768-ECDH-brainpoolP256r1-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Kyber768-ECDH-brainpoolP256r1-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
+-- TODO: To be replaced by IANA
 id-Kyber768-X25519-SHAKE256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) KEM(2)
-  id-Kyber768-X25519(7) }
+  algorithm(80) explicitcomposite(5) kem(2)
+  id-kyber768-x25519(7) }
 
-pk-Kyber768-EC-brainpoolP256r1-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-X25519, OCTET STRING}
+pk-Kyber768-EC-brainpoolP256r1-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-X25519, OCTET STRING}
 
 
 
+-- TODO: To be replaced by IANA
 id-Kyber1024-ECDH-P384-SHAKE256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) KEM(2)
-  id-Kyber1024-ECDH-P384(8) }
+  algorithm(80) explicitcomposite(5) kem(2)
+  id-kyber1024-ecdh-p384(8) }
 
-pk-Kyber1024-ECDH-P384-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Kyber1024-ECDH-P384-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp384r1`
 
 
+-- TODO: To be replaced by IANA
 id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) KEM(2)
-  id-Kyber1024-ECDH-brainpoolP384r1(9) }
+  algorithm(80) explicitcomposite(5) kem(2)
+  id-kyber1024-ecdh-brainpoolp384r1(9) }
 
-pk-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
+pk-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolp384r1`
 
 
-
+-- TODO: To be replaced by IANA
 id-Kyber1024-X448-SHAKE256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) KEM(2)
-  id-Kyber1024-X448(10) }
+  algorithm(80) explicitcomposite(5) kem(2)
+  id-kyber1024-x448(10) }
 
-pk-Kyber1024-ECDH-P384-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber1024-X448-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-X448, OCTET STRING}
+pk-Kyber1024-X448-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber1024-X448-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-X448, OCTET STRING}
 
 
 
 -- Generic Composite
 
+-- TODO: To be replaced by IANA
 id-composite-sig OBJECT IDENTIFIER ::= {
     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-    Algorithm(80) Composite(4) CompositeKey(1) }
+    algorithm(80) composite(4) compositekey(1) }
 
 pk-Composite-sig PUBLIC-KEY ::= {
     id id-composite-sig
@@ -434,9 +444,10 @@ pk-Composite-sig PUBLIC-KEY ::= {
 }
 
 
-
+-- TODO: To be replaced by IANA
 id-composite-kem-SHAKE128 OBJECT IDENTIFIER ::= {
-  TBD }
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) tbd(98) }
 
 pk-composite-kem-SHAKE128 PUBLIC-KEY ::= {
     id id-composite-kem-SHAKE128
@@ -447,10 +458,12 @@ pk-composite-kem-SHAKE128 PUBLIC-KEY ::= {
 }
 
 
+-- TODO: To be replaced by IANA
 id-composite-kem-SHAKE256 OBJECT IDENTIFIER ::= {
-  TBD }
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) tbd(99) }
 
-pk-composite-kem-SHAKE128 PUBLIC-KEY ::= {
+pk-composite-kem-SHAKE256 PUBLIC-KEY ::= {
     id id-composite-kem-SHAKE256
     KeyValue CompositePublicKey
     Params ARE ABSENT

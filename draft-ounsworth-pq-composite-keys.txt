@@ -5,11 +5,11 @@
 LAMPS                                                       M. Ounsworth
 Internet-Draft                                                   J. Gray
 Intended status: Standards Track                                 Entrust
-Expires: 9 September 2023                                        M. Pala
+Expires: 10 September 2023                                       M. Pala
                                                                CableLabs
                                                             J. Klaussner
                                                             D-Trust GmbH
-                                                            8 March 2023
+                                                            9 March 2023
 
 
        Composite Public and Private Keys For Use In Internet PKI
@@ -53,7 +53,7 @@ Abstract
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 1]
+Ounsworth, et al.       Expires 10 September 2023               [Page 1]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -90,7 +90,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 September 2023.
+   This Internet-Draft will expire on 10 September 2023.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Copyright Notice
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 2]
+Ounsworth, et al.       Expires 10 September 2023               [Page 2]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -157,24 +157,24 @@ Table of Contents
        6.2.1.  OR modes  . . . . . . . . . . . . . . . . . . . . . .  60
        6.2.2.  Parallel PKIs . . . . . . . . . . . . . . . . . . . .  60
    7.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . . . .  61
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  70
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  71
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  71
      9.1.  Reuse of keys in a Composite public key . . . . . . . . .  71
      9.2.  Key mismatch in explicit composite  . . . . . . . . . . .  71
-     9.3.  Policy for Deprecated and Acceptable Algorithms . . . . .  71
+     9.3.  Policy for Deprecated and Acceptable Algorithms . . . . .  72
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 3]
+Ounsworth, et al.       Expires 10 September 2023               [Page 3]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
      9.4.  Protection of Private Keys  . . . . . . . . . . . . . . .  72
-     9.5.  Checking for Compromised Key Reuse  . . . . . . . . . . .  72
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  72
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  72
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  75
+     9.5.  Checking for Compromised Key Reuse  . . . . . . . . . . .  73
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  73
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  73
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  76
    Appendix A.  Samples  . . . . . . . . . . . . . . . . . . . . . .  77
      A.1.  Generic Composite Public Key Samples  . . . . . . . . . .  77
      A.2.  Explicit Composite Public Key Samples . . . . . . . . . .  80
@@ -221,7 +221,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 4]
+Ounsworth, et al.       Expires 10 September 2023               [Page 4]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -277,7 +277,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 5]
+Ounsworth, et al.       Expires 10 September 2023               [Page 5]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -333,7 +333,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 6]
+Ounsworth, et al.       Expires 10 September 2023               [Page 6]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -389,7 +389,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 7]
+Ounsworth, et al.       Expires 10 September 2023               [Page 7]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -445,7 +445,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 8]
+Ounsworth, et al.       Expires 10 September 2023               [Page 8]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -501,7 +501,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023                [Page 9]
+Ounsworth, et al.       Expires 10 September 2023               [Page 9]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -557,7 +557,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 10]
+Ounsworth, et al.       Expires 10 September 2023              [Page 10]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -613,7 +613,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 11]
+Ounsworth, et al.       Expires 10 September 2023              [Page 11]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -669,7 +669,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 12]
+Ounsworth, et al.       Expires 10 September 2023              [Page 12]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -725,7 +725,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 13]
+Ounsworth, et al.       Expires 10 September 2023              [Page 13]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -781,7 +781,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 14]
+Ounsworth, et al.       Expires 10 September 2023              [Page 14]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -837,7 +837,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 15]
+Ounsworth, et al.       Expires 10 September 2023              [Page 15]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -893,7 +893,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 16]
+Ounsworth, et al.       Expires 10 September 2023              [Page 16]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -949,7 +949,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 17]
+Ounsworth, et al.       Expires 10 September 2023              [Page 17]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1005,7 +1005,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 18]
+Ounsworth, et al.       Expires 10 September 2023              [Page 18]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1061,7 +1061,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 19]
+Ounsworth, et al.       Expires 10 September 2023              [Page 19]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1117,7 +1117,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 20]
+Ounsworth, et al.       Expires 10 September 2023              [Page 20]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1173,7 +1173,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 21]
+Ounsworth, et al.       Expires 10 September 2023              [Page 21]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1229,7 +1229,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 22]
+Ounsworth, et al.       Expires 10 September 2023              [Page 22]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1285,7 +1285,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 23]
+Ounsworth, et al.       Expires 10 September 2023              [Page 23]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1341,7 +1341,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 24]
+Ounsworth, et al.       Expires 10 September 2023              [Page 24]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1397,7 +1397,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 25]
+Ounsworth, et al.       Expires 10 September 2023              [Page 25]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1453,7 +1453,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 26]
+Ounsworth, et al.       Expires 10 September 2023              [Page 26]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1509,7 +1509,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 27]
+Ounsworth, et al.       Expires 10 September 2023              [Page 27]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1565,7 +1565,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 28]
+Ounsworth, et al.       Expires 10 September 2023              [Page 28]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1621,7 +1621,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 29]
+Ounsworth, et al.       Expires 10 September 2023              [Page 29]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1677,7 +1677,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 30]
+Ounsworth, et al.       Expires 10 September 2023              [Page 30]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1733,7 +1733,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 31]
+Ounsworth, et al.       Expires 10 September 2023              [Page 31]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1789,7 +1789,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 32]
+Ounsworth, et al.       Expires 10 September 2023              [Page 32]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1845,7 +1845,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 33]
+Ounsworth, et al.       Expires 10 September 2023              [Page 33]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1901,7 +1901,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 34]
+Ounsworth, et al.       Expires 10 September 2023              [Page 34]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -1957,7 +1957,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 35]
+Ounsworth, et al.       Expires 10 September 2023              [Page 35]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2013,7 +2013,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 36]
+Ounsworth, et al.       Expires 10 September 2023              [Page 36]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2069,7 +2069,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 37]
+Ounsworth, et al.       Expires 10 September 2023              [Page 37]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2125,7 +2125,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 38]
+Ounsworth, et al.       Expires 10 September 2023              [Page 38]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2181,7 +2181,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 39]
+Ounsworth, et al.       Expires 10 September 2023              [Page 39]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2237,7 +2237,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 40]
+Ounsworth, et al.       Expires 10 September 2023              [Page 40]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2293,7 +2293,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 41]
+Ounsworth, et al.       Expires 10 September 2023              [Page 41]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2349,7 +2349,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 42]
+Ounsworth, et al.       Expires 10 September 2023              [Page 42]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2405,7 +2405,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 43]
+Ounsworth, et al.       Expires 10 September 2023              [Page 43]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2461,7 +2461,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 44]
+Ounsworth, et al.       Expires 10 September 2023              [Page 44]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2517,7 +2517,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 45]
+Ounsworth, et al.       Expires 10 September 2023              [Page 45]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2573,7 +2573,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 46]
+Ounsworth, et al.       Expires 10 September 2023              [Page 46]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2629,7 +2629,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 47]
+Ounsworth, et al.       Expires 10 September 2023              [Page 47]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2685,7 +2685,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 48]
+Ounsworth, et al.       Expires 10 September 2023              [Page 48]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2741,7 +2741,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 49]
+Ounsworth, et al.       Expires 10 September 2023              [Page 49]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2797,7 +2797,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 50]
+Ounsworth, et al.       Expires 10 September 2023              [Page 50]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2853,7 +2853,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 51]
+Ounsworth, et al.       Expires 10 September 2023              [Page 51]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2909,7 +2909,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 52]
+Ounsworth, et al.       Expires 10 September 2023              [Page 52]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -2965,7 +2965,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 53]
+Ounsworth, et al.       Expires 10 September 2023              [Page 53]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3021,7 +3021,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 54]
+Ounsworth, et al.       Expires 10 September 2023              [Page 54]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3077,7 +3077,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 55]
+Ounsworth, et al.       Expires 10 September 2023              [Page 55]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3133,7 +3133,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 56]
+Ounsworth, et al.       Expires 10 September 2023              [Page 56]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3189,7 +3189,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 57]
+Ounsworth, et al.       Expires 10 September 2023              [Page 57]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3245,7 +3245,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 58]
+Ounsworth, et al.       Expires 10 September 2023              [Page 58]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3301,7 +3301,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 59]
+Ounsworth, et al.       Expires 10 September 2023              [Page 59]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3357,7 +3357,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 60]
+Ounsworth, et al.       Expires 10 September 2023              [Page 60]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3405,7 +3405,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
        FROM AsymmetricKeyPackageModuleV1
          { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
            pkcs-9(9) smime(16) modules(0)
-           id-mod-asymmetricKeyPkgV1(50) } ;
+           id-mod-asymmetricKeyPkgV1(50) }
 
 
      pk-Ed25519, pk-X25519, pk-X448
@@ -3413,14 +3413,14 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 61]
+Ounsworth, et al.       Expires 10 September 2023              [Page 61]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
        { iso(1) identified-organization(3) dod(6) internet(1)
          security(5) mechanisms(5) pkix(7) id-mod(0)
-         id-mod-safecurves-pkix(93) }
+         id-mod-safecurves-pkix(93) } ;
 
 
    --
@@ -3430,10 +3430,10 @@ Internet-Draft              PQ Composite Keys                 March 2023
    der OBJECT IDENTIFIER ::=
      {joint-iso-itu-t asn1(1) ber-derived(2) distinguished-encoding(1)}
 
-   -- To be replaced by IANA
+   -- TODO: To be replaced by IANA
    id-composite-key OBJECT IDENTIFIER ::= {
        joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-       Algorithm(80) Composite(4) CompositeKey(1) }
+       algorithm(80) composite(4) compositekey(1) }
 
 
 
@@ -3469,7 +3469,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 62]
+Ounsworth, et al.       Expires 10 September 2023              [Page 62]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3525,7 +3525,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 63]
+Ounsworth, et al.       Expires 10 September 2023              [Page 63]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -3572,33 +3572,34 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
    -- Explicit Composite Signature Keys
 
+   -- TODO: To be replaced by IANA
    id-Dilithium3-RSA-PSS OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA-PSS(14) }
+     algorithm(80) explicitcomposite(5) signature(1) dilithium3-rsa-pss(14) }
 
    pk-Dilithium3-RSA-PSS PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-RSA-PSS, pk-Dilithium3TBD, OCTET STRING, pk-rsaSSA-PSS, OCTET STRING}
 
 
 
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 64]
+Ounsworth, et al.       Expires 10 September 2023              [Page 64]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
+   -- TODO: To be replaced by IANA
    id-Dilithium3-RSA-PKCS15-SHA256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA(1) }
+     algorithm(80) explicitcomposite(5) signature(1) dilithium3-rsa(1) }
 
    pk-Dilithium3-RSA-PKCS15-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-RSA-PKCS15-SHA256, pk-Dilithium3TBD, OCTET STRING, pk-rsa, RSAPublicKey}
 
 
-
+   -- TODO: To be replaced by IANA
    id-Dilithium3-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA(2) }
+     algorithm(80) explicitcomposite(5) signature(1) dilithium3-rsa(2) }
 
-   pk-Dilithium3-ECDSA-P256-SHA256 ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-P256-SHA256, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Dilithium3-ECDSA-P256-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-P256-SHA256, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS secp256r1`
 
@@ -3608,13 +3609,13 @@ Internet-Draft              PQ Composite Keys                 March 2023
    --  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
 
 
-
+   -- TODO: To be replaced by IANA
    id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1)
-     Dilithium3-ECDSA-brainpoolP256r1(3) }
+     algorithm(80) explicitcomposite(5) signature(1)
+     dilithium3-ecdsa-brainpoolp256r1(3) }
 
-   pk-Dilithium3-ECDSA-brainpoolP256r1 ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-brainpoolP256r1, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Dilithium3-ECDSA-brainpoolP256r1 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-brainpoolP256r1, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS brainpoolP256r1`
 
@@ -3624,27 +3625,28 @@ Internet-Draft              PQ Composite Keys                 March 2023
    --  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
 
 
+   -- TODO: To be replaced by IANA
    id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-Ed25519(4) }
+     algorithm(80) explicitcomposite(5) signature(1) dilithium3-ed25519(4) }
 
-   pk-Dilithium3-Ed25519 ::= pk-explicitCompositeSignature{id-Dilithium3-Ed25519, pk-Dilithium3TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+   pk-Dilithium3-Ed25519 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-Ed25519, pk-Dilithium3TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
 
 
-
-   id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
-     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+   -- TODO: To be replaced by IANA
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 65]
+Ounsworth, et al.       Expires 10 September 2023              [Page 65]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
-     algorithm(80) ExplicitComposite(5) Signature(1) Dilithium5-ECDSA-P384(5) }
+   id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) explicitcomposite(5) signature(1) dilithium5-ecdsa-p384(5) }
 
-   pk-Dilithium5-ECDSA-P384 ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-P384, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Dilithium5-ECDSA-P384 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-P384, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS secp384r1`
 
@@ -3655,12 +3657,12 @@ Internet-Draft              PQ Composite Keys                 March 2023
    --}
 
 
-
+   -- TODO: To be replaced by IANA
    id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1) Dilithium5-ECDSA-brainpoolP384r1(6) }
+     algorithm(80) explicitcomposite(5) signature(1) dilithium5-ecdsa-brainpoolp384r1(6) }
 
-   pk-Dilithium5-ECDSA-brainpoolP384r1 ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-brainpoolP384r1, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Dilithium5-ECDSA-brainpoolP384r1 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-brainpoolP384r1, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS brainpoolP384r1`
 
@@ -3672,205 +3674,219 @@ Internet-Draft              PQ Composite Keys                 March 2023
    --}
 
 
-
+   -- TODO: To be replaced by IANA
    id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature Dilithium5-Ed448(7) }
+     algorithm(80) explicitcomposite(5) signature dilithium5-ed448(7) }
 
-   pk-Dilithium5-Ed448 ::= pk-explicitCompositeSignature{id-Dilithium5-Ed448, pk-Dilithium5TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+   pk-Dilithium5-Ed448 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium5-Ed448, pk-Dilithium5TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
 
    --TODO: I have a question out to LAMPS about why there is no pk-Ed448. See: https://mailarchive.ietf.org/arch/msg/spasm/bJHcxCA3bXoqKHqXnZ85Vrixu68/
 
 
-
+   -- TODO: To be replaced by IANA
    id-Falcon512-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature Falcon512-ECDSA-P256-SHA256(8) }
+     algorithm(80) explicitcomposite(5) signature falcon512-ecdsa-p256-sha256(8) }
 
-   pk-Falcon512-ECDSA-P256-SHA256 ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-P256-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
-
-   --TODO: this is missing `PARAMS secp256r1`
+   pk-Falcon512-ECDSA-P256-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-P256-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 66]
+Ounsworth, et al.       Expires 10 September 2023              [Page 66]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
+   --TODO: this is missing `PARAMS secp256r1`
+
+
+   -- TODO: To be replaced by IANA
    id-Falcon512-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1) Falcon512-ECDSA-brainpoolP256r1-SHA256(9) }
+     algorithm(80) explicitcomposite(5) signature(1) falcon512-ecdsa-brainpoolp256r1-sha256(9) }
 
-   pk-Falcon512-ECDSA-brainpoolP256r1-SHA256 ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-brainpoolP256r1-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Falcon512-ECDSA-brainpoolP256r1-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-brainpoolP256r1-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
 
-
+   -- TODO: To be replaced by IANA
    id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signatur(1) Falcon512-Ed25519(10) }
+     algorithm(80) explicitcomposite(5) signatur(1) falcon512-ed25519(10) }
 
-   pk-Falcon512-Ed25519 ::= pk-explicitCompositeSignature{id-Falcon512-Ed25519, pk-falcon512TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+   pk-Falcon512-Ed25519 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Falcon512-Ed25519, pk-falcon512TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
 
 
+
+   -- TODO: To be replaced by IANA
    id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1) SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256(11) }
+     algorithm(80) explicitcomposite(5) signature(1) sphincsplussha256128ssimple-ecdsa-p256-sha256(11) }
 
-   pk-SPHINCSplusSHA256-ECDSA-P256 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256-ECDSA-P256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
+   pk-SPHINCSplusSHA256-ECDSA-P256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256-ECDSA-P256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS secp256r1`
 
 
 
-
+   -- TODO: To be replaced by IANA
    id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1)
-     id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256(12) }
+     algorithm(80) explicitcomposite(5) signature(1)
+     id-sphincsplussha256128ssimple-ecdsa-brainpoolp256r1-sha256(12) }
 
-   pk-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
+   pk-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
-
+   -- TODO: To be replaced by IANA
    id-SPHINCSplusSHA256128sSimple-Ed25519 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) Signature(1)
-     SPHINCSplusSHA256128sSimple-Ed25519(13) }
-
-   pk-SPHINCSplusSHA256128sSimple-Ed25519 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-Ed25519, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-Ed25519, OCTET STRING}
 
 
 
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 67]
+Ounsworth, et al.       Expires 10 September 2023              [Page 67]
 
 Internet-Draft              PQ Composite Keys                 March 2023
+
+
+     algorithm(80) explicitcomposite(5) signature(1)
+     sphincsplussha256128ssimple-ed25519(13) }
+
+   pk-SPHINCSplusSHA256128sSimple-Ed25519 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-Ed25519, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-Ed25519, OCTET STRING}
+
 
 
    -- Explicit Composite KEM Keys
 
 
+   -- TODO: To be replaced by IANA
    id-Kyber512-ECDH-P256-SHAKE128 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-P256(1) }
+     algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-p256(1) }
 
-   pk-Kyber512-ECDH-P256 ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Kyber512-ECDH-P256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS secp256r1`
 
 
-
+   -- TODO: To be replaced by IANA
    id-Kyber512-ECDH-brainpoolP256r1-SHAKE128 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-brainpoolP256r1(2) }
+     algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-brainpoolp256r1(2) }
 
-   pk-Kyber512-ECDH-brainpoolP256r1 ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Kyber512-ECDH-brainpoolP256r1 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
+   -- TODO: To be replaced by IANA
    id-Kyber512-X25519-SHAKE128 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) KEM(2)
-     id-Kyber512-X25519(3) }
+     algorithm(80) explicitcomposite(5) kem(2)
+     id-kyber512-x25519(3) }
 
-   pk-Kyber512-X25519 ::= pk-explicitCompositeKEM{id-Kyber512-X25519-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-X25519, OCTET STRING}
+   pk-Kyber512-X25519 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber512-X25519-SHAKE128, pk-Kyber512TBD, OCTET STRING, pk-X25519, OCTET STRING}
 
 
-
+   -- TODO: To be replaced by IANA
    id-Kyber768-RSA-SHAKE256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) KEM(2)
-     id-Kyber768-RSA(4) }
+     algorithm(80) explicitcomposite(5) kem(2)
+     id-kyber768-rsa(4) }
 
-   pk-Kyber768-RSA ::= pk-explicitCompositeKEM{id-Kyber768-RSA-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-rsa, RSAPublicKey}
-
-
-
-   id-Kyber768-ECDH-P256-SHAKE256 OBJECT IDENTIFIER ::= {
-     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) KEM(2)
-     id-Kyber768-ECDH-P256(5) }
-
-   pk-Kyber768-ECDH-P256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
-
-   --TODO: this is missing `PARAMS secp256r1`
+   pk-Kyber768-RSA PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber768-RSA-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-rsa, RSAPublicKey}
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 68]
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 68]
 
 Internet-Draft              PQ Composite Keys                 March 2023
+
+
+   -- TODO: To be replaced by IANA
+   id-Kyber768-ECDH-P256-SHAKE256 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) explicitcomposite(5) kem(2)
+     id-kyber768-ecdh-p256(5) }
+
+   pk-Kyber768-ECDH-P256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
+
+   --TODO: this is missing `PARAMS secp256r1`
 
 
    id-Kyber768-ECDH-brainpoolP256r1-SHAKE256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) KEM(2)
-     id-Kyber768-ECDH-P256(6) }
+     algorithm(80) explicitcomposite(5) kem(2)
+     id-kyber768-ecdh-p256(6) }
 
-   pk-Kyber768-ECDH-brainpoolP256r1-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Kyber768-ECDH-brainpoolP256r1-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
+   -- TODO: To be replaced by IANA
    id-Kyber768-X25519-SHAKE256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) KEM(2)
-     id-Kyber768-X25519(7) }
+     algorithm(80) explicitcomposite(5) kem(2)
+     id-kyber768-x25519(7) }
 
-   pk-Kyber768-EC-brainpoolP256r1-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-X25519, OCTET STRING}
+   pk-Kyber768-EC-brainpoolP256r1-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, pk-Kyber768TBD, OCTET STRING, pk-X25519, OCTET STRING}
 
 
 
+   -- TODO: To be replaced by IANA
    id-Kyber1024-ECDH-P384-SHAKE256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) KEM(2)
-     id-Kyber1024-ECDH-P384(8) }
+     algorithm(80) explicitcomposite(5) kem(2)
+     id-kyber1024-ecdh-p384(8) }
 
-   pk-Kyber1024-ECDH-P384-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
+   pk-Kyber1024-ECDH-P384-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS secp384r1`
 
 
+   -- TODO: To be replaced by IANA
    id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) KEM(2)
-     id-Kyber1024-ECDH-brainpoolP384r1(9) }
-
-   pk-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
-
-   --TODO: this is missing `PARAMS brainpoolp384r1`
-
-
-
-   id-Kyber1024-X448-SHAKE256 OBJECT IDENTIFIER ::= {
-     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-     algorithm(80) ExplicitComposite(5) KEM(2)
-     id-Kyber1024-X448(10) }
-
-   pk-Kyber1024-ECDH-P384-SHAKE256 ::= pk-explicitCompositeKEM{id-Kyber1024-X448-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-X448, OCTET STRING}
+     algorithm(80) explicitcomposite(5) kem(2)
+     id-kyber1024-ecdh-brainpoolp384r1(9) }
 
 
 
 
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 69]
+Ounsworth, et al.       Expires 10 September 2023              [Page 69]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
+   pk-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
+
+   --TODO: this is missing `PARAMS brainpoolp384r1`
+
+
+   -- TODO: To be replaced by IANA
+   id-Kyber1024-X448-SHAKE256 OBJECT IDENTIFIER ::= {
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) explicitcomposite(5) kem(2)
+     id-kyber1024-x448(10) }
+
+   pk-Kyber1024-X448-SHAKE256 PUBLIC-KEY ::= pk-explicitCompositeKEM{id-Kyber1024-X448-SHAKE256, pk-Kyber1024TBD, OCTET STRING, pk-X448, OCTET STRING}
+
+
+
    -- Generic Composite
 
+   -- TODO: To be replaced by IANA
    id-composite-sig OBJECT IDENTIFIER ::= {
        joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-       Algorithm(80) Composite(4) CompositeKey(1) }
+       algorithm(80) composite(4) compositekey(1) }
 
    pk-Composite-sig PUBLIC-KEY ::= {
        id id-composite-sig
@@ -3881,9 +3897,10 @@ Internet-Draft              PQ Composite Keys                 March 2023
    }
 
 
-
+   -- TODO: To be replaced by IANA
    id-composite-kem-SHAKE128 OBJECT IDENTIFIER ::= {
-     TBD }
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+     algorithm(80) tbd(98) }
 
    pk-composite-kem-SHAKE128 PUBLIC-KEY ::= {
        id id-composite-kem-SHAKE128
@@ -3894,10 +3911,20 @@ Internet-Draft              PQ Composite Keys                 March 2023
    }
 
 
+   -- TODO: To be replaced by IANA
    id-composite-kem-SHAKE256 OBJECT IDENTIFIER ::= {
-     TBD }
+     joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
 
-   pk-composite-kem-SHAKE128 PUBLIC-KEY ::= {
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 70]
+
+Internet-Draft              PQ Composite Keys                 March 2023
+
+
+     algorithm(80) tbd(99) }
+
+   pk-composite-kem-SHAKE256 PUBLIC-KEY ::= {
        id id-composite-kem-SHAKE256
        KeyValue CompositePublicKey
        Params ARE ABSENT
@@ -3913,14 +3940,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
    This document registers the following in the SMI "Security for PKIX
    Algorithms (1.3.6.1.5.5.7.6)" registry:
-
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 70]
-
-Internet-Draft              PQ Composite Keys                 March 2023
-
 
    id-composite-key OBJECT IDENTIFIER ::= {
        iso(1) identified-organization(3) dod(6) internet(1) security(5)
@@ -3951,6 +3970,14 @@ Internet-Draft              PQ Composite Keys                 March 2023
    Implementations SHOULD check that the component AlgorithmIdentifier
    OIDs and parameters match those expected by the definition of the
    explicit algorithm.  Implementations SHOULD first parse a component's
+
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 71]
+
+Internet-Draft              PQ Composite Keys                 March 2023
+
+
    SubjectPublicKeyInfo.algorithm, and ensure that it matches what is
    expected for that position in the explicit key, and then proceed to
    parse the SubjectPublicKeyInfo.subjectPublicKey.  This is to reduce
@@ -3967,16 +3994,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
    clients performing signature verification or encryption operations
    should be updated to fail to validate or refuse to encrypt for these
    algorithms.
-
-
-
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 71]
-
-Internet-Draft              PQ Composite Keys                 March 2023
-
 
    In the composite model this is less obvious since implementers may
    decide that certain cryptographic algorithms have complementary
@@ -4008,6 +4025,15 @@ Internet-Draft              PQ Composite Keys                 March 2023
    encryption process must be at least as 'strong' as the key it is
    protecting.
 
+
+
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 72]
+
+Internet-Draft              PQ Composite Keys                 March 2023
+
+
 9.5.  Checking for Compromised Key Reuse
 
    Certification Authority (CA) implementations need to be careful when
@@ -4026,13 +4052,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
 10.  References
 
 10.1.  Normative References
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 72]
-
-Internet-Draft              PQ Composite Keys                 March 2023
-
 
    [I-D.ietf-lamps-cms-sphincs-plus]
               Housley, R., Fluhrer, S., Kampanakis, P., and B.
@@ -4059,6 +4078,18 @@ Internet-Draft              PQ Composite Keys                 March 2023
               September 2022, <https://datatracker.ietf.org/doc/html/
               draft-ietf-lamps-kyber-certificates-00>.
 
+
+
+
+
+
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 73]
+
+Internet-Draft              PQ Composite Keys                 March 2023
+
+
    [I-D.ounsworth-pq-composite-kem]
               Ounsworth, M. and J. Gray, "Composite KEM For Use In
               Internet PKI", Work in Progress, Internet-Draft, draft-
@@ -4082,13 +4113,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 73]
-
-Internet-Draft              PQ Composite Keys                 March 2023
-
 
    [RFC2986]  Nystrom, M. and B. Kaliski, "PKCS #10: Certification
               Request Syntax Specification Version 1.7", RFC 2986,
@@ -4115,6 +4139,13 @@ Internet-Draft              PQ Composite Keys                 March 2023
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
               <https://www.rfc-editor.org/info/rfc5652>.
 
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 74]
+
+Internet-Draft              PQ Composite Keys                 March 2023
+
+
    [RFC5914]  Housley, R., Ashmore, S., and C. Wallace, "Trust Anchor
               Format", RFC 5914, DOI 10.17487/RFC5914, June 2010,
               <https://www.rfc-editor.org/info/rfc5914>.
@@ -4135,16 +4166,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
    [RFC7468]  Josefsson, S. and S. Leonard, "Textual Encodings of PKIX,
               PKCS, and CMS Structures", RFC 7468, DOI 10.17487/RFC7468,
               April 2015, <https://www.rfc-editor.org/info/rfc7468>.
-
-
-
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 74]
-
-Internet-Draft              PQ Composite Keys                 March 2023
-
 
    [RFC7748]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
               for Security", RFC 7748, DOI 10.17487/RFC7748, January
@@ -4170,6 +4191,17 @@ Internet-Draft              PQ Composite Keys                 March 2023
               RFC 8411, DOI 10.17487/RFC8411, August 2018,
               <https://www.rfc-editor.org/info/rfc8411>.
 
+
+
+
+
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 75]
+
+Internet-Draft              PQ Composite Keys                 March 2023
+
+
    [X.690]    ITU-T, "Information technology - ASN.1 encoding Rules:
               Specification of Basic Encoding Rules (BER), Canonical
               Encoding Rules (CER) and Distinguished Encoding Rules
@@ -4193,15 +4225,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
               <https://ec.europa.eu/futurium/en/system/files/ged/
               eidas_regulation.pdf>.
 
-
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 75]
-
-Internet-Draft              PQ Composite Keys                 March 2023
-
-
    [I-D.becker-guthrie-noncomposite-hybrid-auth]
               Becker, A., Guthrie, R., and M. J. Jenkins, "Non-Composite
               Hybrid Authentication in PKIX and Applications to Internet
@@ -4223,6 +4246,17 @@ Internet-Draft              PQ Composite Keys                 March 2023
               ipsecme-ikev2-hybrid-auth-00, 25 March 2022,
               <https://datatracker.ietf.org/doc/html/draft-guthrie-
               ipsecme-ikev2-hybrid-auth-00>.
+
+
+
+
+
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 76]
+
+Internet-Draft              PQ Composite Keys                 March 2023
+
 
    [RFC4210]  Adams, C., Farrell, S., Kause, T., and T. Mononen,
               "Internet X.509 Public Key Infrastructure Certificate
@@ -4249,15 +4283,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
 
-
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 76]
-
-Internet-Draft              PQ Composite Keys                 March 2023
-
-
    [RFC8551]  Schaad, J., Ramsdell, B., and S. Turner, "Secure/
               Multipurpose Internet Mail Extensions (S/MIME) Version 4.0
               Message Specification", RFC 8551, DOI 10.17487/RFC8551,
@@ -4277,6 +4302,18 @@ A.1.  Generic Composite Public Key Samples
 
    This is an example generic composite public key
 
+
+
+
+
+
+
+
+Ounsworth, et al.       Expires 10 September 2023              [Page 77]
+
+Internet-Draft              PQ Composite Keys                 March 2023
+
+
    -----BEGIN PUBLIC KEY-----
    MIIBmDAMBgpghkgBhvprUAQBA4IBhgAwggGBMFkwEwYHKoZIzj0CAQYIKoZIzj0D
    AQcDQgAExGPhrnuSG/fGyw1FN+l5h4p4AGRQCS0LBXnBO+djhcI6qnF2TvrQEaIY
@@ -4290,29 +4327,6 @@ A.1.  Generic Composite Public Key Samples
    -----END PUBLIC KEY-----
 
    which decodes as:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 77]
-
-Internet-Draft              PQ Composite Keys                 March 2023
-
 
    algorithm: AlgorithmIdentifier{id-composite-key}
 
@@ -4351,21 +4365,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Ounsworth, et al.       Expires 9 September 2023               [Page 78]
+Ounsworth, et al.       Expires 10 September 2023              [Page 78]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4421,7 +4421,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 79]
+Ounsworth, et al.       Expires 10 September 2023              [Page 79]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4477,7 +4477,7 @@ A.2.1.  id-Dilithium3-ECDSA-P256
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 80]
+Ounsworth, et al.       Expires 10 September 2023              [Page 80]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4533,7 +4533,7 @@ Srzd4w0i+5dCNM9rX
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 81]
+Ounsworth, et al.       Expires 10 September 2023              [Page 81]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4589,7 +4589,7 @@ o3s25BQqJAGiRKBLd0UXz5AUbSB9fFaO21aiX2WWISjdA1R4SuQNNQZcVgGuKpQBAcPV7xcFRlZ
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 82]
+Ounsworth, et al.       Expires 10 September 2023              [Page 82]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4645,7 +4645,7 @@ dJjWC9BBqW76a03u7YqiUr6aKsw2z+AN/ZnuLyZ3YvWLHNdCRmtZlASMZfoa5K+FfkXUog4m0Iz
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 83]
+Ounsworth, et al.       Expires 10 September 2023              [Page 83]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4701,7 +4701,7 @@ A.2.2.  id-Dilithium3-RSA
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 84]
+Ounsworth, et al.       Expires 10 September 2023              [Page 84]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4757,7 +4757,7 @@ dN2ayilmvdG06dMwrGKs2Tag5HKbUSMPA3BlKvvqrJhMb3w86xPf2MnvWzVWmi0tpE2zcCgXkX+
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 85]
+Ounsworth, et al.       Expires 10 September 2023              [Page 85]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4813,7 +4813,7 @@ mE/GtH92lz0fC9GQWgdyTK4H23xP5PlRGlzVLJ5CVA/rucNg6F7AU5bycpC557ugsdO+UOLhc92
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 86]
+Ounsworth, et al.       Expires 10 September 2023              [Page 86]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4869,7 +4869,7 @@ Aw7hcPqO9LPgoofk7oADU+iGR28qpmfYDT8lg0/FKRqsufHvqRon1H8zlFF09Xpi0u87JnVSG7e
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 87]
+Ounsworth, et al.       Expires 10 September 2023              [Page 87]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4925,7 +4925,7 @@ A.2.3.  id-Falcon512-ECDSA-P256
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 88]
+Ounsworth, et al.       Expires 10 September 2023              [Page 88]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -4981,7 +4981,7 @@ HymrF59in1pXEPnEWLZ9xLO5A6cg==
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 89]
+Ounsworth, et al.       Expires 10 September 2023              [Page 89]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -5037,7 +5037,7 @@ A.2.4.  id-SPHINCSplusSHA256256frobust-ECDSA-P256
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 90]
+Ounsworth, et al.       Expires 10 September 2023              [Page 90]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -5093,7 +5093,7 @@ Eytrtq3H7e59JYdkceK1h+T8jZFyUP5e0M=
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 91]
+Ounsworth, et al.       Expires 10 September 2023              [Page 91]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -5149,7 +5149,7 @@ Authors' Addresses
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 92]
+Ounsworth, et al.       Expires 10 September 2023              [Page 92]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
@@ -5205,4 +5205,4 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
 
-Ounsworth, et al.       Expires 9 September 2023               [Page 93]
+Ounsworth, et al.       Expires 10 September 2023              [Page 93]
