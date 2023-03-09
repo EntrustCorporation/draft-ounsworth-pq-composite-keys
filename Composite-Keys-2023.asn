@@ -143,22 +143,22 @@ ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
 --pk-ECDSA-P256 PUBLIC-KEY ::= {
 --  IDENTIFIER id-ecPublicKey
 --  KEY ECPoint
---  PARAMS secp256r1 }
+--  PARAMS NamedCurve{secp256r1} }
 --
 --pk-ECDSA-brainpoolP256r1 PUBLIC-KEY ::= {
 --  IDENTIFIER id-ecPublicKey
 --  KEY ECPoint
---  PARAMS brainpoolP256r1 }
+--  PARAMS NamedCurve{brainpoolP256r1} }
 --
 --pk-ECDSA-P384 PUBLIC-KEY ::= {
 --  IDENTIFIER id-ecPublicKey
 --  KEY ECPoint
---  PARAMS secp384r1 }
+--  PARAMS NamedCurve{secp384r1} }
 --
 --pk-ECDSA-brainpoolP384r1 PUBLIC-KEY ::= {
 --  IDENTIFIER id-ecPublicKey
 --  KEY ECPoint
---  PARAMS brainpoolP384r1 }
+--  PARAMS NamedCurve{brainpoolP384r1} }
 
 
 
