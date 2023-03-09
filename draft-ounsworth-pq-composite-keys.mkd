@@ -359,8 +359,7 @@ Therefore &lt;CompSig&gt;.1 is equal to 2.16.840.1.114027.80.5.1.1
 | id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256  | TODO              | &lt;CompSig&gt;.11| SPHINCSplusSHA256128sSimple | id-ecPublicKey, ECPoint |
 | id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 | TODO              | &lt;CompSig&gt;.12 | SPHINCSplusSHA256128sSimple | id-ecPublicKey, ECPoint |
 | id-SPHINCSplusSHA256128sSimple-Ed25519               | TODO              |  &lt;CompSig&gt;.13 | SPHINCSplusSHA256128sSimple | id-Ed25519 |
-| id-alg-composite                   | {{sec-generic-composite}}                 | 1)  identified-organization(3) dod(6) internet(1) private(4)
-    enterprise(1) OpenCA(18227) Algorithms(2) id-alg-composite(1)  | Defined at runtime | Defined at runtime |
+| id-composite-sig                   | {{sec-generic-composite}}                 | (1)  identified-organization(3) dod(6) internet(1) private(4) enterprise(1) OpenCA(18227) Algorithms(2) id-alg-composite(1)  | Defined at runtime | Defined at runtime |
 
 
 
@@ -390,16 +389,16 @@ Therefore &lt;CompKEM&gt;.1 is equal to 2.16.840.1.114027.80.5.2.1
 
 KEM key type                       | Section                                   | OID                        | First Key OID and Type     | Second Key OID and Type    |
 ---------                          | -----------                               | ----------                 | ----------        | ----------        |
-id-Kyber512-ECDH-P256-shake128              | {{sec-id-Kyber512-ECDH-P256}}             | &lt;CompSig&gt;.1          | id-kyber512TBD, Kyber-PublicKey   | id-ecPublicKey, ECPoint               |
-id-Kyber512-ECDH-brainpoolP256r1-shake128   | {{sec-id-Kyber512-ECDH-brainpoolP256r1}}  | &lt;CompSig&gt;.2          | id-kyber512TBD, Kyber-PublicKey   | id-ecPublicKey, ECPoint               |
-id-Kyber512-X25519-shake128                 | {{sec-id-Kyber512-X25519}}                | &lt;CompSig&gt;.3          | id-kyber512TBD, Kyber-PublicKey   | id-X25519 |
-id-Kyber768-RSA-shake256                    | {{sec-id-Kyber768-RSA}}                   | &lt;CompSig&gt;.4          | id-kyber768TBD, Kyber-PublicKey   | rsaEncryption, RSAPublicKey |
-id-Kyber768-ECDH-P256-shake256              | {{sec-id-Kyber768-ECDH-P256}}             | &lt;CompSig&gt;.5          | id-kyber768TBD, Kyber-PublicKey   | id-ecPublicKey, ECPoint |
-id-Kyber768-EC-brainpoolP256r1-shake256     | {{sec-id-Kyber768-EC-brainpoolP256r1}}    | &lt;CompSig&gt;.6          | id-kyber768TBD, Kyber-PublicKey   | id-ecPublicKey, ECPoint |
-id-Kyber768-X25519-shake256                 | {{sec-id-Kyber768-X25519}}                | &lt;CompSig&gt;.7          | id-kyber768TBD, Kyber-PublicKey   | id-X25519 |
-id-Kyber1024-ECDH-P384-shake256             | {{sec-id-Kyber1024-ECDH-P384}}            | &lt;CompSig&gt;.8          | id-kyber1024TBD, Kyber-PublicKey  | id-ecPublicKey, ECPoint |
-id-Kyber1024-ECDH-brainpoolP384r1-shake256  | {{sec-id-Kyber1024-ECDH-brainpoolP384r1}} | &lt;CompSig&gt;.9          | id-kyber1024TBD, Kyber-PublicKey  | id-ecPublicKey, ECPoint |
-id-Kyber1024-X448-shake256                  | {{sec-id-Kyber1024-X448}}                 | &lt;CompSig&gt;.10         | id-kyber1024TBD, Kyber-PublicKey  | id-X448 |
+id-Kyber512-ECDH-P256-shake128              | {{sec-id-Kyber512-ECDH-P256}}             | &lt;CompKEM&gt;.1          | id-kyber512TBD, Kyber-PublicKey   | id-ecPublicKey, ECPoint               |
+id-Kyber512-ECDH-brainpoolP256r1-shake128   | {{sec-id-Kyber512-ECDH-brainpoolP256r1}}  | &lt;CompKEM&gt;.2          | id-kyber512TBD, Kyber-PublicKey   | id-ecPublicKey, ECPoint               |
+id-Kyber512-X25519-shake128                 | {{sec-id-Kyber512-X25519}}                | &lt;CompKEM&gt;.3          | id-kyber512TBD, Kyber-PublicKey   | id-X25519 |
+id-Kyber768-RSA-shake256                    | {{sec-id-Kyber768-RSA}}                   | &lt;CompKEM&gt;.4          | id-kyber768TBD, Kyber-PublicKey   | rsaEncryption, RSAPublicKey |
+id-Kyber768-ECDH-P256-shake256              | {{sec-id-Kyber768-ECDH-P256}}             | &lt;CompKEM&gt;.5          | id-kyber768TBD, Kyber-PublicKey   | id-ecPublicKey, ECPoint |
+id-Kyber768-ECDH-brainpoolP256r1-shake256     | {{sec-id-Kyber768-EC-brainpoolP256r1}}    | &lt;CompKEM&gt;.6          | id-kyber768TBD, Kyber-PublicKey   | id-ecPublicKey, ECPoint |
+id-Kyber768-X25519-shake256                 | {{sec-id-Kyber768-X25519}}                | &lt;CompKEM&gt;.7          | id-kyber768TBD, Kyber-PublicKey   | id-X25519 |
+id-Kyber1024-ECDH-P384-shake256             | {{sec-id-Kyber1024-ECDH-P384}}            | &lt;CompKEM&gt;.8          | id-kyber1024TBD, Kyber-PublicKey  | id-ecPublicKey, ECPoint |
+id-Kyber1024-ECDH-brainpoolP384r1-shake256  | {{sec-id-Kyber1024-ECDH-brainpoolP384r1}} | &lt;CompKEM&gt;.9          | id-kyber1024TBD, Kyber-PublicKey  | id-ecPublicKey, ECPoint |
+id-Kyber1024-X448-shake256                  | {{sec-id-Kyber1024-X448}}                 | &lt;CompKEM&gt;.10         | id-kyber1024TBD, Kyber-PublicKey  | id-X448 |
 id-composite-kem-shake128                   | {{sec-generic-composite}}                 | 2.16.840.1.114027.80.4.1   | Defined at rutnime | Defined at runtime |
 id-composite-kem-shake256                   | {{sec-generic-composite}}                 | 2.16.840.1.114027.80.4.1  NEEDS NEW OID  | Defined at rutnime | Defined at runtime |
 {: #tab-kem-agls title="Composite KEM key types"}
@@ -2604,6 +2603,485 @@ For negotiated protocols, the client could choose which public key(s) or certifi
 For non-negotiated protocols, the details for obtaining backwards compatibility will vary by protocol, but for example in CMS [RFC5652], the inclusion of multiple SignerInfo or RecipientInfo objects is often already treated as an OR relationship, so including one for each of the end entity's parallel PKI public keys would, in many cases, have the desired effect of allowing the receiver to choose one they are compatible with and ignore the others, thus achieving full backwards compatibility.
 
 
+# ASN.1 Module
+
+~~~ ASN.1
+
+<CODE STARTS>
+
+Composite-Keys-2023
+
+DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+EXPORTS ALL;
+
+IMPORTS
+  PUBLIC-KEY, SIGNATURE-ALGORITHM, ParamOptions, AlgorithmIdentifier{}
+    FROM AlgorithmInformation-2009  -- RFC 5912 [X509ASN1]
+      { iso(1) identified-organization(3) dod(6) internet(1)
+        security(5) mechanisms(5) pkix(7) id-mod(0)
+        id-mod-algorithmInformation-02(58) }
+
+  SubjectPublicKeyInfo
+    FROM PKIX1Explicit-2009
+      { iso(1) identified-organization(3) dod(6) internet(1)
+        security(5) mechanisms(5) pkix(7) id-mod(0)
+        id-mod-pkix1-explicit-02(51) }
+
+  OneAsymmetricKey
+    FROM AsymmetricKeyPackageModuleV1
+      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+        pkcs-9(9) smime(16) modules(0)
+        id-mod-asymmetricKeyPkgV1(50) } ;
+
+
+  pk-Ed25519, pk-X25519, pk-X448
+    FROM Safecurves-pkix-18
+    { iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) id-mod(0)
+      id-mod-safecurves-pkix(93) }
+
+
+--
+-- Object Identifiers
+--
+ 
+der OBJECT IDENTIFIER ::=
+  {joint-iso-itu-t asn1(1) ber-derived(2) distinguished-encoding(1)}
+
+-- To be replaced by IANA
+id-composite-key OBJECT IDENTIFIER ::= {
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+    Algorithm(80) Composite(4) CompositeKey(1) }
+
+
+
+--  COMPOSITE-KEY-ALGORITHM
+--
+--  Describes the basic properties of a composite key algorithm
+--
+--  &id - contains the OID identifying the composite algorithm
+--  &Params - if present, contains the type for the algorithm
+--               parameters; if absent, implies no parameters
+--  &paramPresence - parameter presence requirement
+--
+-- }
+
+COMPOSITE-KEY-ALGORITHM ::= CLASS {
+    &id             OBJECT IDENTIFIER UNIQUE,
+    &Params         OPTIONAL,
+    &paramPresence  ParamOptions DEFAULT absent
+} WITH SYNTAX {
+    IDENTIFIER &id
+    [PARAMS [TYPE &Params] ARE &paramPresence ]
+}
+
+
+CompositeAlgorithmIdentifier ::= AlgorithmIdentifier{COMPOSITE-KEY-ALGORITHM, {CompositeAlgorithmSet}}
+
+CompositeAlgorithmSet COMPOSITE-KEY-ALGORITHM ::= {
+  CompositeAlgorithms, ...
+}
+
+--
+-- Public Key
+--
+
+pk-Composite PUBLIC-KEY ::= {
+    IDENTIFIER id-composite-key
+    KEY CompositePublicKey
+    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional
+    PRIVATE-KEY CompositePrivateKey
+}
+
+CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
+
+CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
+
+CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
+
+CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
+
+
+-- Composite public key information objects
+
+pk-explicitCompositeSignature{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
+  FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType}
+  PUBLIC-KEY ::= {
+    IDENTIFIER id
+    KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
+      secondPublicKey, SecondPublicKeyType}
+    PARAMS ARE absent
+    CERT-KEY-USAGE { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+}
+
+pk-explicitCompositeKEM{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
+  FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType}
+  PUBLIC-KEY ::= {
+    IDENTIFIER id
+    KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
+      secondPublicKey, SecondPublicKeyType}
+    PARAMS ARE absent
+    CERT-KEY-USAGE { keyEncipherment }
+}
+
+-- The following ASN.1 object class then automatically generates the
+-- public key structure from the types defined in pk-explicitComposite.
+
+-- ExplicitCompositePublicKey - The data structure for a composite
+-- public key sec-composite-pub-keys and SecondPublicKeyType are needed
+-- because PUBLIC-KEY contains a set of public key types, not a single
+-- type.
+-- TODO The parameters should be optional only if they are marked
+-- optional in the PUBLIC-KEY
+
+
+ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
+  PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} ::= SEQUENCE {
+    firstPublicKey SEQUENCE {
+        params firstPublicKey.&Params OPTIONAL,
+        publicKey FirstPublicKeyType
+    },
+    secondPublicKey SEQUENCE {
+        params secondPublicKey.&Params OPTIONAL,
+        publicKey SecondPublicKeyType
+    }
+}
+
+
+
+<!--
+pk-ECDSA-P256 PUBLIC-KEY ::= {
+  IDENTIFIER id-ecPublicKey
+  KEY ECPoint
+  PARAMS secp256r1 }
+
+pk-ECDSA-brainpoolP256r1 PUBLIC-KEY ::= {
+  IDENTIFIER id-ecPublicKey
+  KEY ECPoint
+  PARAMS brainpoolP256r1 }
+
+pk-ECDSA-P384 PUBLIC-KEY ::= {
+  IDENTIFIER id-ecPublicKey
+  KEY ECPoint
+  PARAMS secp384r1 }
+
+pk-ECDSA-brainpoolP384r1 PUBLIC-KEY ::= {
+  IDENTIFIER id-ecPublicKey
+  KEY ECPoint
+  PARAMS brainpoolP384r1 }
+-->
+
+
+-- Explicit Composite Signature Keys
+
+id-Dilithium3-RSA-PSS OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA-PSS(14) }
+
+pk-dilithium3-RSA-PSS PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-RSA-PSS, pk-Dilithium3TBD, OCTET STRING, pk-rsaSSA-PSS, OCTET STRING}
+
+
+
+id-Dilithium3-RSA-PKCS15-SHA256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA(1) }
+
+pk-dilithium3-rsa-pkcs15-sha256 PUBLIC-KEY ::= pk-explicitCompositeSignature{id-Dilithium3-RSA-PKCS15-SHA256, pk-Dilithium3TBD, OCTET STRING, pk-rsa, RSAPublicKey}
+
+
+
+id-Dilithium3-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA(2) }
+
+pk-Dilithium3-ECDSA-P256-SHA256 ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-P256-SHA256, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS secp256r1`
+
+<!-- pk-Dilithium3-ECDSA-P256-SHA256 PUBLIC-KEY ::= {
+  IDENTIFIER id-Dilithium3-ECDSA-P256-SHA256
+  KEY ExplicitCompositePublicKey {pk-Dilithium3TBD, OCTET STRING, pk-ECDSA-P256, ECPoint}
+  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
+  -->
+  
+
+id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1)  
+  Dilithium3-ECDSA-brainpoolP256r1(3) }
+
+pk-Dilithium3-ECDSA-brainpoolP256r1 ::= pk-explicitCompositeSignature{id-Dilithium3-ECDSA-brainpoolP256r1, pk-Dilithium3TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS brainpoolP256r1`
+
+<!--
+pk-Dilithium3-ECDSA-brainpoolP256r1 PUBLIC-KEY ::= {
+  IDENTIFIER id-Dilithium3-ECDSA-brainpoolP256r1
+  KEY ExplicitCompositePublicKey {pk-Dilithium3TBD, OCTET STRING, pk-ECDSA-brainpoolP256r1, ECPoint}
+  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
+  -->
+
+
+id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-Ed25519(4) }
+
+pk-Dilithium3-Ed25519 ::= pk-explicitCompositeSignature{id-Dilithium3-Ed25519, pk-Dilithium3TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+
+
+
+id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium5-ECDSA-P384(5) }
+
+pk-Dilithium5-ECDSA-P384 ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-P384, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS secp384r1`
+
+<!--
+pk-Dilithium5-ECDSA-P384 PUBLIC-KEY ::= {
+    IDENTIFIER id-Dilithium5-ECDSA-P384
+    KEY ExplicitCompositePublicKey {pk-Dilithium5TBD, OCTET STRING, pk-ECDSA-P384, ECPoint}
+    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional 
+}
+-->
+
+
+
+id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium5-ECDSA-brainpoolP384r1(6) }
+
+pk-Dilithium5-ECDSA-brainpoolP384r1 ::= pk-explicitCompositeSignature{id-Dilithium5-ECDSA-brainpoolP384r1, pk-Dilithium5TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS brainpoolP384r1`
+
+<!--
+pk-Dilithium5-ECDSA-brainpoolP384r1 PUBLIC-KEY ::= {
+    IDENTIFIER id-Dilithium5-ECDSA-brainpoolP384r1
+    KEY ExplicitCompositePublicKey {pk-Dilithium5TBD, OCTET STRING, pk-ECDSA-brainpoolP384r1, OCTET STRING}
+    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional 
+}
+-->
+
+
+
+id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature Dilithium5-Ed448(7) }
+
+pk-Dilithium5-Ed448 ::= pk-explicitCompositeSignature{id-Dilithium5-Ed448, pk-Dilithium5TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+
+TODO: I have a question out to LAMPS about why there is no pk-Ed448. See: https://mailarchive.ietf.org/arch/msg/spasm/bJHcxCA3bXoqKHqXnZ85Vrixu68/
+
+
+
+id-Falcon512-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature Falcon512-ECDSA-P256-SHA256(8) }
+
+pk-Falcon512-ECDSA-P256-SHA256 ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-P256-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS secp256r1`
+
+
+
+id-Falcon512-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) Falcon512-ECDSA-brainpoolP256r1-SHA256(9) }
+
+pk-Falcon512-ECDSA-brainpoolP256r1-SHA256 ::= pk-explicitCompositeSignature{id-Falcon512-ECDSA-brainpoolP256r1-SHA256, pk-falcon512TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS brainpoolp256r1`
+
+
+
+
+id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signatur(1) Falcon512-Ed25519(10) }
+
+pk-Falcon512-Ed25519 ::= pk-explicitCompositeSignature{id-Falcon512-Ed25519, pk-falcon512TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
+
+
+id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256(11) }
+
+pk-SPHINCSplusSHA256-ECDSA-P256 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256-ECDSA-P256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS secp256r1`
+
+
+
+
+id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) Signature(1) 
+  id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256(12) }
+
+pk-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS brainpoolp256r1`
+
+
+
+id-SPHINCSplusSHA256128sSimple-Ed25519 OBJECT IDENTIFIER ::= { 
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
+  algorithm(80) ExplicitComposite(5) Signature(1) 
+  SPHINCSplusSHA256128sSimple-Ed25519(13) }
+
+pk-SPHINCSplusSHA256128sSimple-Ed25519 ::= pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-Ed25519, pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-Ed25519, OCTET STRING}
+
+
+
+-- Explicit Composite KEM Keys
+
+
+id-Kyber512-ECDH-P256-shake128 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-P256(1) }
+
+pk-Kyber512-ECDH-P256 ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-shake128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS secp256r1`
+
+
+
+id-Kyber512-ECDH-brainpoolP256r1-shake128 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) ExplicitComposite-KEM(2) id-Kyber512-ECDH-brainpoolP256r1(2) }
+
+pk-Kyber512-ECDH-brainpoolP256r1 ::= pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-shake128, pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS brainpoolp256r1`
+
+
+id-Kyber512-X25519-shake128 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) KEM(2)
+  id-Kyber512-X25519(3) }
+
+pk-Kyber512-X25519 ::= pk-explicitCompositeKEM{id-Kyber512-X25519-shake128, pk-Kyber512TBD, OCTET STRING, pk-X25519, OCTET STRING}
+
+
+
+id-Kyber768-RSA-shake256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) KEM(2)
+  id-Kyber768-RSA(4) }
+
+pk-Kyber768-RSA ::= pk-explicitCompositeKEM{id-Kyber768-RSA-shake256, pk-Kyber768TBD, OCTET STRING, pk-rsa, RSAPublicKey}
+
+
+
+id-Kyber768-ECDH-P256-shake256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) KEM(2)
+  id-Kyber768-ECDH-P256(5) }
+
+pk-Kyber768-ECDH-P256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-shake256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS secp256r1`
+
+
+id-Kyber768-ECDH-brainpoolP256r1-shake256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) KEM(2)
+  id-Kyber768-ECDH-P256(6) }
+
+pk-Kyber768-ECDH-brainpoolP256r1-shake256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-shake256, pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS brainpoolp256r1`
+
+
+id-Kyber768-X25519-shake256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) KEM(2)
+  id-Kyber768-X25519(7) }
+
+pk-Kyber768-EC-brainpoolP256r1-shake256 ::= pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-shake256, pk-Kyber768TBD, OCTET STRING, pk-X25519, OCTET STRING}
+
+
+
+id-Kyber1024-ECDH-P384-shake256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) KEM(2)
+  id-Kyber1024-ECDH-P384(8) }
+
+pk-Kyber1024-ECDH-P384-shake256 ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-shake256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS secp384r1`
+
+
+id-Kyber1024-ECDH-brainpoolP384r1-shake256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) KEM(2)
+  id-Kyber1024-ECDH-brainpoolP384r1(9) }
+
+pk-Kyber1024-ECDH-brainpoolP384r1-shake256 ::= pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-shake256, pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
+
+TODO: this is missing `PARAMS brainpoolp384r1`
+
+
+
+id-Kyber1024-X448-shake256 OBJECT IDENTIFIER ::= {
+  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+  algorithm(80) ExplicitComposite(5) KEM(2)
+  id-Kyber1024-X448(10) }
+
+pk-Kyber1024-ECDH-P384-shake256 ::= pk-explicitCompositeKEM{id-Kyber1024-X448-shake256, pk-Kyber1024TBD, OCTET STRING, pk-X448, OCTET STRING}
+
+
+
+-- Generic Composite
+
+id-composite-sig OBJECT IDENTIFIER ::= {
+    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
+    Algorithm(80) Composite(4) CompositeKey(1) }
+
+pk-Composite-sig PUBLIC-KEY ::= {
+    id id-composite-sig
+    KeyValue CompositePublicKey
+    Params ARE ABSENT
+    CERT-KEY-USAGE { digitalSignature, nonRepudiation, keyCertSign, cRLSign }
+    PrivateKey CompositePrivateKey
+}
+
+
+
+id-composite-kem-shake128 OBJECT IDENTIFIER ::= {
+  TBD }
+
+pk-composite-kem-shake128 PUBLIC-KEY ::= {
+    id id-composite-kem-shake128
+    KeyValue CompositePublicKey
+    Params ARE ABSENT
+    CERT-KEY-USAGE { keyEncipherment }
+    PrivateKey CompositePrivateKey
+}
+
+
+id-composite-kem-shake256 OBJECT IDENTIFIER ::= {
+  TBD }
+
+pk-composite-kem-shake128 PUBLIC-KEY ::= {
+    id id-composite-kem-shake256
+    KeyValue CompositePublicKey
+    Params ARE ABSENT
+    CERT-KEY-USAGE { keyEncipherment }
+    PrivateKey CompositePrivateKey
+}
+
+END
+
+<CODE ENDS>
+
+~~~
+
+
+
 <!-- End of In Practice section -->
 
 # IANA Considerations {#sec-iana}
@@ -2869,345 +3347,6 @@ KKsZbXlaZBph1ixcUhlNiZ1qp4LnA90Nm/rArZw==
 ~~~
 
 
-
-# ASN.1 Module
-
-~~~ ASN.1
-
-<CODE STARTS>
-
-Composite-Keys-2023
-
-DEFINITIONS IMPLICIT TAGS ::= BEGIN
-
-EXPORTS ALL;
-
-IMPORTS
-  PUBLIC-KEY, SIGNATURE-ALGORITHM, ParamOptions, AlgorithmIdentifier{}
-    FROM AlgorithmInformation-2009  -- RFC 5912 [X509ASN1]
-      { iso(1) identified-organization(3) dod(6) internet(1)
-        security(5) mechanisms(5) pkix(7) id-mod(0)
-        id-mod-algorithmInformation-02(58) }
-
-  SubjectPublicKeyInfo
-    FROM PKIX1Explicit-2009
-      { iso(1) identified-organization(3) dod(6) internet(1)
-        security(5) mechanisms(5) pkix(7) id-mod(0)
-        id-mod-pkix1-explicit-02(51) }
-
-  OneAsymmetricKey
-    FROM AsymmetricKeyPackageModuleV1
-      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-        pkcs-9(9) smime(16) modules(0)
-        id-mod-asymmetricKeyPkgV1(50) } ;
-
---
--- Object Identifiers
---
- 
-der OBJECT IDENTIFIER ::=
-  {joint-iso-itu-t asn1(1) ber-derived(2) distinguished-encoding(1)}
-
--- To be replaced by IANA
-id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-    Algorithm(80) Composite(4) CompositeKey(1) }
-
-
-
---  COMPOSITE-KEY-ALGORITHM
---
---  Describes the basic properties of a composite key algorithm
---
---  &id - contains the OID identifying the composite algorithm
---  &Params - if present, contains the type for the algorithm
---               parameters; if absent, implies no parameters
---  &paramPresence - parameter presence requirement
---
--- }
-
-COMPOSITE-KEY-ALGORITHM ::= CLASS {
-    &id             OBJECT IDENTIFIER UNIQUE,
-    &Params         OPTIONAL,
-    &paramPresence  ParamOptions DEFAULT absent
-} WITH SYNTAX {
-    IDENTIFIER &id
-    [PARAMS [TYPE &Params] ARE &paramPresence ]
-}
-
-
-CompositeAlgorithmIdentifier ::= AlgorithmIdentifier{COMPOSITE-KEY-ALGORITHM, {CompositeAlgorithmSet}}
-
-CompositeAlgorithmSet COMPOSITE-KEY-ALGORITHM ::= {
-  CompositeAlgorithms, ...
-}
-
---
--- Public Key
---
-
-pk-Composite PUBLIC-KEY ::= {
-    IDENTIFIER id-composite-key
-    KEY CompositePublicKey
-    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional
-    PRIVATE-KEY CompositePrivateKey
-}
-
-CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
-
-CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
-
-CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
-
-CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
-
-
--- pk-explicitComposite - Composite public key information object
-
-pk-explicitComposite{OBJECT IDENTIFIER:id, PUBLIC-KEY:firstPublicKey,
-  FirstPublicKeyType, PUBLIC-KEY:secondPublicKey, SecondPublicKeyType}
-  PUBLIC-KEY ::= {
-    IDENTIFIER id
-    KEY ExplicitCompositePublicKey{firstPublicKey, FirstPublicKeyType,
-      secondPublicKey, SecondPublicKeyType}
-    PARAMS ARE absent
-}
-
--- The following ASN.1 object class then automatically generates the
--- public key structure from the types defined in pk-explicitComposite.
-
--- ExplicitCompositePublicKey - The data structure for a composite
--- public key sec-composite-pub-keys and SecondPublicKeyType are needed
--- because PUBLIC-KEY contains a set of public key types, not a single
--- type.
--- TODO The parameters should be optional only if they are marked
--- optional in the PUBLIC-KEY
-
-
-ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
-  PUBLIC-KEY:secondPublicKey, SecondPublicKeyType} ::= SEQUENCE {
-    firstPublicKey SEQUENCE {
-        params firstPublicKey.&Params OPTIONAL,
-        publicKey FirstPublicKeyType
-    },
-    secondPublicKey SEQUENCE {
-        params secondPublicKey.&Params OPTIONAL,
-        publicKey SecondPublicKeyType
-    }
-}
-
-
-
-TODO: check if these already exist defined somewhere.
-
-
-pk-ECDSA-P256 PUBLIC-KEY ::= {
-  IDENTIFIER id-ecPublicKey
-  KEY ECPoint
-  PARAMS secp256r1 }
-
-pk-ECDSA-brainpoolP256r1 PUBLIC-KEY ::= {
-  IDENTIFIER id-ecPublicKey
-  KEY ECPoint
-  PARAMS brainpoolP256r1 }
-
-pk-ECDSA-P384 PUBLIC-KEY ::= {
-  IDENTIFIER id-ecPublicKey
-  KEY ECPoint
-  PARAMS secp256r1 }
-
-pk-ECDSA-brainpoolP384r1 PUBLIC-KEY ::= {
-  IDENTIFIER id-ecPublicKey
-  KEY ECPoint
-  PARAMS brainpoolP256r1 }
-
-
-
-TODO: Update everything with the 1-line version:
-
-pk-dilithium3-RSA-PSS PUBLIC-KEY ::= pk-explicitComposite{id-Dilithium3-RSA-PSS, pk-Dilithium3TBD, OCTET STRING, pk-rsaSSA-PSS, OCTET STRING}
-
-
-id-Dilithium3-RSA-PSS OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA-PSS(14) }
-
-pk-Dilithium3-RSA-PSS PUBLIC-KEY ::= {
-  IDENTIFIER id-Dilithium3-RSA-PSS
-  KEY ExplicitCompositePublicKey {pk-Dilithium3TBD, OCTET STRING, id-RSASSA-PSS, OCTET STRING}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-
-TODO: why are we propogating the CompositeAlgorithmIdentifiers? Wouldn't we, at this level, know if they are needed or not?
-
-
-id-Dilithium3-RSA-PKCS15-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA(1) }
-
-pk-dilithium3-rsa-pkcs15-sha256 PUBLIC-KEY ::= {
-  IDENTIFIER id-Dilithium3-RSA-PKCS15-SHA256
-  KEY ExplicitCompositePublicKey {pk-Dilithium3TBD, OCTET STRING, pk-rsa, OCTET STRING}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-
-
-
-id-Dilithium3-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-RSA(2) }
-
-pk-Dilithium3-ECDSA-P256-SHA256 PUBLIC-KEY ::= {
-  IDENTIFIER id-Dilithium3-ECDSA-P256-SHA256
-  KEY ExplicitCompositePublicKey {pk-Dilithium3TBD, OCTET STRING, pk-ECDSA-P256, ECPoint}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-  
-
-
-
-id-Dilithium3-ECDSA-brainpoolP256r1 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1)  
-  Dilithium3-ECDSA-brainpoolP256r1(3) }
-
-pk-Dilithium3-ECDSA-brainpoolP256r1 PUBLIC-KEY ::= {
-  IDENTIFIER id-Dilithium3-ECDSA-brainpoolP256r1
-  KEY ExplicitCompositePublicKey {pk-Dilithium3TBD, OCTET STRING, pk-ECDSA-brainpoolP256r1, ECPoint}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-
-
-id-Dilithium3-Ed25519 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium3-Ed25519(4) }
-
-pk-Dilithium3-Ed25519 PUBLIC-KEY ::= {
-    IDENTIFIER id-Dilithium3-Ed25519
-    KEY ExplicitCompositePublicKey {pk-Dilithium3TBD, OCTET STRING, id-Ed25519, BIT STRING}
-    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional 
-}
-
-TODO: `id-Ed25519` is an OID, not a public key type.
-
-
-id-Dilithium5-ECDSA-P384 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium5-ECDSA-P384(5) }
-
-pk-Dilithium5-ECDSA-P384 PUBLIC-KEY ::= {
-    IDENTIFIER id-Dilithium5-ECDSA-P384
-    KEY ExplicitCompositePublicKey {pk-Dilithium5TBD, OCTET STRING, pk-ECDSA-P384, BIT STRING}
-    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional 
-}
-
-
-
-
-id-Dilithium5-ECDSA-brainpoolP384r1 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Dilithium5-ECDSA-brainpoolP384r1(6) }
-
-pk-Dilithium5-ECDSA-brainpoolP384r1 PUBLIC-KEY ::= {
-    IDENTIFIER id-Dilithium5-ECDSA-brainpoolP384r1
-    KEY ExplicitCompositePublicKey {pk-Dilithium5TBD, OCTET STRING, pk-ECDSA-brainpoolP384r1, BIT STRING}
-    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional 
-}
-
-
-
-id-Dilithium5-Ed448 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature Dilithium5-Ed448(7) }
-
-
-pk-Dilithium5-Ed448 PUBLIC-KEY ::= {
-    IDENTIFIER id-Dilithium5-Ed448
-    KEY ExplicitCompositePublicKey {pk-Dilithium5TBD, OCTET STRING, id-Ed448, BIT STRING}
-    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional 
-}
-
-
-
-
-id-Falcon512-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature Falcon512-ECDSA-P256-SHA256(8) }
-
-pk-Falcon512-ECDSA-P256-SHA256 PUBLIC-KEY ::= {
-  IDENTIFIER id-Falcon512-ECDSA-P256-SHA256
-  KEY ExplicitCompositePublicKey {pk-falcon512TBD, OCTET STRING, pk-ECDSA-P256, ECPoint}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-
-
-
-id-Falcon512-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) Falcon512-ECDSA-brainpoolP256r1-SHA256(9) }
-
-pk-Falcon512-ECDSA-brainpoolP256r1 PUBLIC-KEY ::= {
-  IDENTIFIER id-Falcon512-ECDSA-brainpoolP256r1-SHA256
-  KEY ExplicitCompositePublicKey {pk-falcon512TBD, OCTET STRING, pk-ECDSA-brainpoolP256r1, ECPoint}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-
-
-
-id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signatur(1) Falcon512-Ed25519(10) }
-
-pk-Falcon512-Ed25519 PUBLIC-KEY ::= {
-  IDENTIFIER id-Falcon512-Ed25519
-  KEY ExplicitCompositePublicKey {pk-falcon512TBD, OCTET STRING, id-Ed25519, BIT STRING}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-
-
-id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256(11) }
-
-pk-SPHINCSplusSHA256-ECDSA-P256 PUBLIC-KEY ::= {
-  IDENTIFIER id-SPHINCSplusSHA256-ECDSA-P256
-  KEY ExplicitCompositePublicKey {pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ECDSA-P256, ECPoint}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-
-
-id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) ExplicitComposite(5) Signature(1) 
-  id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256(12) }
-
-pk-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 PUBLIC-KEY ::= {
-  IDENTIFIER id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256
-  KEY ExplicitCompositePublicKey {pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ECDSA-brainpoolP256r1, ECPoint}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-
-
-id-SPHINCSplusSHA256-Ed25519 OBJECT IDENTIFIER ::= { 
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) ExplicitComposite(5) Signature(1) 
-  SPHINCSplusSHA256-Ed25519(13) }
-
-pk-SPHINCSplusSHA256-Ed25519 PUBLIC-KEY ::= {
-  IDENTIFIER id-SPHINCSplusSHA256-Ed25519
-  KEY ExplicitCompositePublicKey {pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, id-Ed25519, BIT STRING}
-  PARAMS TYPE CompositeAlgorithmIdentifier ARE optional }
-
-TODO: add all the OIDs
-
-END
-
-<CODE ENDS>
-
-~~~
-
-## ASN.1 Module References
-
-TODO: jam all the THISOBJECT comes from THISRFC stuff here, if that's even helpful / necessary?
 
 # Intellectual Property Considerations
 
