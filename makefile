@@ -14,7 +14,7 @@ $(docName).txt: $(docName).mkd
 xml: $(docName).xml
 
 $(docName).xml: $(docName).mkd
-	sampledata/insertPEMsamples.sh $(docName).mkd "sampledata/current" > $(docName)_tmp.mkd
+	./insertFileIncludes.sh $(docName).mkd "." > $(docName)_tmp.mkd
 	kramdown-rfc2629 $(docName)_tmp.mkd > $(docName).xml
 	rm $(docName)_tmp.mkd
 
