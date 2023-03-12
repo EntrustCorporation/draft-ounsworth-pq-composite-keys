@@ -1375,4 +1375,179 @@ ext-CRLNumber EXTENSION ::= {SYNTAX
   -- TeletexString.  For UTF8String or UniversalString, at least four
   -- times the upper bound should be allowed.
 
+END
+
+KEMAlgorithmInformation-2023
+    { iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) id-mod(0)
+          id-mod-kemAlgorithmInformation-2023(99) }
+
+  DEFINITIONS EXPLICIT TAGS ::=
+  BEGIN
+  -- EXPORTS ALL;
+  IMPORTS
+    ParamOptions, PUBLIC-KEY, SMIME-CAPS
+    FROM AlgorithmInformation-2009
+      { iso(1) identified-organization(3) dod(6) internet(1)
+        security(5) mechanisms(5) pkix(7) id-mod(0)
+        id-mod-algorithmInformation-02(58) } ;
+
+  --  KEM-ALGORITHM
+  --
+  --  Describes the basic properties of a KEM algorithm
+  --
+  -- Suggested prefixes for KEM algorithm objects is: kema-
+  --
+  --  &id - contains the OID identifying the KEM algorithm
+  --  &Value - if present, contains a type definition for the kemct;
+  --               if absent, implies that no ASN.1 encoding is
+  --               performed on the kemct value
+  --  &Params - if present, contains the type for the algorithm
+  --               parameters; if absent, implies no parameters
+  --  &paramPresence - parameter presence requirement
+  --  &PublicKeySet - specifies which public keys are used with
+  --               this algorithm
+  --  &Ukm - if absent, type for user keying material
+  --  &ukmPresence - specifies the requirements to define the UKM
+  --               field
+  --  &smimeCaps - contains the object describing how the S/MIME
+  --               capabilities are presented.
+  --
+  -- Example:
+  -- kema-kem-rsa KEM-ALGORITHM ::= {
+  --    IDENTIFIER id-kem-rsa
+  --    PARAMS TYPE RsaKemParameters ARE optional
+  --    PUBLIC-KEYS { pk-rsa | pk-rsa-kem }
+  --    UKM ARE optional
+  --    SMIME-CAPS { TYPE GenericHybridParameters
+  --        IDENTIFIED BY id-rsa-kem }
+  -- }
+
+  KEM-ALGORITHM ::= CLASS {
+    &id             OBJECT IDENTIFIER UNIQUE,
+    &Value          OPTIONAL,
+    &Params         OPTIONAL,
+    &paramPresence  ParamOptions DEFAULT absent,
+    &PublicKeySet   PUBLIC-KEY OPTIONAL,
+    &Ukm            OPTIONAL,
+    &ukmPresence    ParamOptions DEFAULT absent,
+    &smimeCaps      SMIME-CAPS OPTIONAL
+  } WITH SYNTAX {
+    IDENTIFIER &id
+    [VALUE &Value]
+    [PARAMS [TYPE &Params] ARE &paramPresence]
+    [PUBLIC-KEYS &PublicKeySet]
+    [UKM [TYPE &Ukm] ARE &ukmPresence]
+    [SMIME-CAPS &smimeCaps]
+  }
+
+
   END
+
+
+   CMS-RSA-KEM
+      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+        pkcs-9(9) smime(16) modules(0) cms-rsa-kem(21) }
+
+   DEFINITIONS ::=
+
+   BEGIN
+
+   -- EXPORTS ALL
+
+   -- IMPORTS None
+
+   -- Useful types and definitions
+
+   OID ::= OBJECT IDENTIFIER  -- alias
+
+   -- Unless otherwise stated, if an object identifier has associated
+   -- parameters (i.e., the PARMS element is specified), the
+   -- parameters field shall be included in algorithm identifier
+   -- values.  The parameters field shall be omitted if and only if
+   -- the object identifier does not have associated parameters
+   -- (i.e., the PARMS element is omitted), unless otherwise stated.
+
+   ALGORITHM ::= CLASS {
+      &id    OBJECT IDENTIFIER  UNIQUE,
+      &Type  OPTIONAL
+   }
+   WITH SYNTAX { OID &id [PARMS &Type] }
+
+   AlgorithmIdentifier { ALGORITHM:IOSet } ::= SEQUENCE {
+      algorithm   ALGORITHM.&id( {IOSet} ),
+      parameters  ALGORITHM.&Type( {IOSet}{@algorithm} ) OPTIONAL
+   }
+
+   NullParms ::= NULL
+
+   -- ISO/IEC 18033-2 arc
+
+   is18033-2 OID ::= { iso(1) standard(0) is18033(18033) part2(2) }
+
+   -- NIST algorithm arc
+
+   nistAlgorithm OID ::= {
+      joint-iso-itu-t(2) country(16) us(840) organization(1)
+      gov(101) csor(3) nistAlgorithm(4)
+   }
+
+   -- PKCS #1 arc
+
+   pkcs-1 OID ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1) pkcs-1(1)
+   }
+
+   -- RSA-KEM Key Transport Algorithm
+
+   id-rsa-kem OID ::= {
+      iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+      pkcs-9(9) smime(16) alg(3) 14
+   }
+
+   GenericHybridParameters ::= SEQUENCE {
+      kem  KeyEncapsulationMechanism,
+      dem  DataEncapsulationMechanism
+   }
+
+   KeyEncapsulationMechanism ::= AlgorithmIdentifier {{KEMAlgorithms}}
+
+   KEMAlgorithms ALGORITHM ::= { kem-rsa, ... }
+
+   kem-rsa ALGORITHM ::= { OID id-kem-rsa PARMS RsaKemParameters }
+
+   id-kem-rsa OID ::= {
+      is18033-2 key-encapsulation-mechanism(2) rsa(4)
+   }
+
+   RsaKemParameters ::= SEQUENCE {
+      keyDerivationFunction  KeyDerivationFunction,
+      keyLength              KeyLength
+   }
+
+   KeyDerivationFunction ::= AlgorithmIdentifier {{KDFAlgorithms}}
+
+   KDFAlgorithms ALGORITHM ::= {
+      kdf2 | kdf3,
+      ...  -- implementations may define other methods
+   }
+
+   KeyLength ::= INTEGER (1..MAX)
+
+   DataEncapsulationMechanism ::= AlgorithmIdentifier {{DEMAlgorithms}}
+
+   DEMAlgorithms ALGORITHM ::= {
+      X9-SymmetricKeyWrappingSchemes |
+      Camellia-KeyWrappingSchemes,
+      ...  -- implementations may define other methods
+   }
+
+   X9-SymmetricKeyWrappingSchemes ALGORITHM ::= {
+      aes128-Wrap | aes192-Wrap | aes256-Wrap | tdes-Wrap,
+      ...  -- allows for future expansion
+   }
+
+   X9-SymmetricKeyWrappingScheme ::=
+               AlgorithmIdentifier {{ X9-SymmetricKeyWrappingSchemes }}
+
+END
