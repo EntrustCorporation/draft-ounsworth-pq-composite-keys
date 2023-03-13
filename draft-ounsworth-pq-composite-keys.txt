@@ -2839,7 +2839,7 @@ Authors' Addresses
    Email: mike.ounsworth@entrust.com
 
 
-   John GRay
+   John Gray
    Entrust Limited
    2500 Solandt Road -- Suite 100
    Ottawa, Ontario  K2K 3G5

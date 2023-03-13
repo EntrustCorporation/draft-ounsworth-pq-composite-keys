@@ -38,7 +38,7 @@ author:
 
     -
       ins: J. Gray
-      name: John GRay
+      name: John Gray
       org: Entrust Limited
       abbrev: Entrust
       street: 2500 Solandt Road – Suite 100
