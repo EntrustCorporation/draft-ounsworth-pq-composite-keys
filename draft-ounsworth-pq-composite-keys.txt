@@ -212,11 +212,11 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
       -  id-SPHINCSplusSHA256-Ed25519
 
-      -  id-Kyber512-ECDH-brainpoolP256r1-SHAKE128
+      -  id-Kyber512-ECDH-brainpoolP256r1-KMAC128
 
-      -  id-Kyber768-RSA-SHAKE256
+      -  id-Kyber768-RSA-KMAC256
 
-      -  id-Kyber768-ECDH-P256-SHAKE256
+      -  id-Kyber768-ECDH-P256-KMAC256
 
 
 
@@ -226,15 +226,15 @@ Ounsworth, et al.       Expires 13 September 2023               [Page 4]
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
-      -  id-Kyber768-ECDH-brainpoolP256r1-SHAKE256
+      -  id-Kyber768-ECDH-brainpoolP256r1-KMAC256
 
-      -  id-Kyber768-X25519-SHAKE256
+      -  id-Kyber768-X25519-KMAC256
 
-      -  id-Kyber1024-ECDH-P384-SHAKE256
+      -  id-Kyber1024-ECDH-P384-KMAC256
 
-      -  id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256
+      -  id-Kyber1024-ECDH-brainpoolP384r1-KMAC256
 
-      -  id-Kyber1024-X448-SHAKE256
+      -  id-Kyber1024-X448-KMAC256
 
    *  Changed "examples" to "samples" when referring to Appendix A.
 
@@ -786,45 +786,45 @@ Ounsworth, et al.       Expires 13 September 2023              [Page 14]
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
-   +========================+========================+=========+===============++
-   |Composite KEM Key Type  |OID                     |First Key|Second Key Type||
-   |                        |                        |Type     |               ||
-   +========================+========================+=========+===============++
-   |id-Kyber512-ECDH-       |<CompKEM>.1             |Kyber512 |EC-P256        ||
-   |P256-SHAKE128           |                        |         |               ||
-   +------------------------+------------------------+---------+---------------++
-   |id-Kyber512-ECDH-       |<CompKEM>.2             |Kyber512 |EC-            ||
-   |brainpoolP256r1-SHAKE128|                        |         |brainpoolP256r1||
-   +------------------------+------------------------+---------+---------------++
-   |id-                     |<CompKEM>.3             |Kyber512 |X25519         ||
-   |Kyber512-X25519-SHAKE128|                        |         |               ||
-   +------------------------+------------------------+---------+---------------++
-   |id-Kyber768-RSA-SHAKE256|<CompKEM>.4             |Kyber768 |RSA            ||
-   +------------------------+------------------------+---------+---------------++
-   |id-Kyber768-ECDH-       |<CompKEM>.5             |Kyber768 |EC-P256        ||
-   |P256-SHAKE256           |                        |         |               ||
-   +------------------------+------------------------+---------+---------------++
-   |id-Kyber768-ECDH-       |<CompKEM>.6             |Kyber768 |EC-            ||
-   |brainpoolP256r1-SHAKE256|                        |         |brainpoolP256r1||
-   +------------------------+------------------------+---------+---------------++
-   |id-                     |<CompKEM>.7             |Kyber768 |X25519         ||
-   |Kyber768-X25519-SHAKE256|                        |         |               ||
-   +------------------------+------------------------+---------+---------------++
-   |id-Kyber1024-ECDH-      |<CompKEM>.8             |Kyber1024|EC-P384        ||
-   |P384-SHAKE256           |                        |         |               ||
-   +------------------------+------------------------+---------+---------------++
-   |id-Kyber1024-ECDH-      |<CompKEM>.9             |Kyber1024|EC-            ||
-   |brainpoolP384r1-SHAKE256|                        |         |brainpoolP384r1||
-   +------------------------+------------------------+---------+---------------++
-   |id-                     |<CompKEM>.10            |Kyber1024|X448           ||
-   |Kyber1024-X448-SHAKE256 |                        |         |               ||
-   +------------------------+------------------------+---------+---------------++
-   |id-composite-kem-       |2.16.840.1.114027.80.4.1|Any      |Any            ||
-   |SHAKE128                |                        |         |               ||
-   +------------------------+------------------------+---------+---------------++
-   |id-composite-kem-       |2.16.840.1.114027.80.4.1|Any      |Any            ||
-   |SHAKE256                |NEEDS NEW OID           |         |               ||
-   +------------------------+------------------------+---------+---------------++
+   +=======================+========================+=========+===============++
+   |Composite KEM Key Type |OID                     |First Key|Second Key Type||
+   |                       |                        |Type     |               ||
+   +=======================+========================+=========+===============++
+   |id-Kyber512-ECDH-      |<CompKEM>.1             |Kyber512 |EC-P256        ||
+   |P256-KMAC128           |                        |         |               ||
+   +-----------------------+------------------------+---------+---------------++
+   |id-Kyber512-ECDH-      |<CompKEM>.2             |Kyber512 |EC-            ||
+   |brainpoolP256r1-KMAC128|                        |         |brainpoolP256r1||
+   +-----------------------+------------------------+---------+---------------++
+   |id-                    |<CompKEM>.3             |Kyber512 |X25519         ||
+   |Kyber512-X25519-KMAC128|                        |         |               ||
+   +-----------------------+------------------------+---------+---------------++
+   |id-Kyber768-RSA-KMAC256|<CompKEM>.4             |Kyber768 |RSA            ||
+   +-----------------------+------------------------+---------+---------------++
+   |id-Kyber768-ECDH-      |<CompKEM>.5             |Kyber768 |EC-P256        ||
+   |P256-KMAC256           |                        |         |               ||
+   +-----------------------+------------------------+---------+---------------++
+   |id-Kyber768-ECDH-      |<CompKEM>.6             |Kyber768 |EC-            ||
+   |brainpoolP256r1-KMAC256|                        |         |brainpoolP256r1||
+   +-----------------------+------------------------+---------+---------------++
+   |id-                    |<CompKEM>.7             |Kyber768 |X25519         ||
+   |Kyber768-X25519-KMAC256|                        |         |               ||
+   +-----------------------+------------------------+---------+---------------++
+   |id-Kyber1024-ECDH-     |<CompKEM>.8             |Kyber1024|EC-P384        ||
+   |P384-KMAC256           |                        |         |               ||
+   +-----------------------+------------------------+---------+---------------++
+   |id-Kyber1024-ECDH-     |<CompKEM>.9             |Kyber1024|EC-            ||
+   |brainpoolP384r1-KMAC256|                        |         |brainpoolP384r1||
+   +-----------------------+------------------------+---------+---------------++
+   |id-                    |<CompKEM>.10            |Kyber1024|X448           ||
+   |Kyber1024-X448-KMAC256 |                        |         |               ||
+   +-----------------------+------------------------+---------+---------------++
+   |id-composite-kem-      |2.16.840.1.114027.80.4.1|Any      |Any            ||
+   |KMAC128                |                        |         |               ||
+   +-----------------------+------------------------+---------+---------------++
+   |id-composite-kem-      |2.16.840.1.114027.80.4.1|Any      |Any            ||
+   |KMAC256                |NEEDS NEW OID           |         |               ||
+   +-----------------------+------------------------+---------+---------------++
 
                       Table 2: Composite KEM key types
 
@@ -847,17 +847,21 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
    *  _EC_: [RFC5480]
 
-      -  _EC-P256_: AlgorithmIdentifier.parameters MUST be secp256r1 as
-         defined in [RFC5480].
+      -  _EC-P256_: AlgorithmIdentifier.parameters within the component
+         SKPI belonging to the EC key MUST be secp256r1 as defined in
+         [RFC5480].
 
-      -  _EC-brainpoolP256r1_: AlgorithmIdentifier.parameters MUST be
-         brainpoolP256r1 as defined in [RFC5639].
+      -  _EC-brainpoolP256r1_: AlgorithmIdentifier.parameters within the
+         component SKPI belonging to the EC key MUST be brainpoolP256r1
+         as defined in [RFC5639].
 
-      -  _EC-P384_: AlgorithmIdentifier.parameters MUST be secp384r1 as
-         defined in [RFC5480].
+      -  _EC-P384_: AlgorithmIdentifier.parameters within the component
+         SKPI belonging to the EC key MUST be secp384r1 as defined in
+         [RFC5480].
 
-      -  _EC-brainpoolP384r1_: AlgorithmIdentifier.parameters MUST be
-         brainpoolP384r1 as defined in [RFC5639].
+      -  _EC-brainpoolP384r1_: AlgorithmIdentifier.parameters within the
+         component SKPI belonging to the EC key MUST be brainpoolP384r1
+         as defined in [RFC5639].
 
    *  _Kyber_: [I-D.ietf-lamps-kyber-certificates]
 
@@ -886,10 +890,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
       EDNOTE 10: Possible topics to address:
 
-   *  The size of these certs and cert chains.
-
-   *  In particular, implications for (large) composite keys /
-      signatures / certs on the handshake stages of TLS and IKEv2.
 
 
 
@@ -897,6 +897,11 @@ Ounsworth, et al.       Expires 13 September 2023              [Page 16]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
+
+   *  The size of these certs and cert chains.
+
+   *  In particular, implications for (large) composite keys /
+      signatures / certs on the handshake stages of TLS and IKEv2.
 
    *  If a cert in the chain is a composite cert then does the whole
       chain need to be of composite Certs?
@@ -941,11 +946,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
    signing [codeSigningBRsv2.8], as well as myriad other standardized
    and proprietary protocols and applications that leverage CMS
    [RFC5652] signed or encrypted structures.
-
-
-
-
-
 
 
 
@@ -1444,12 +1444,12 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber512-ECDH-P256-SHAKE128 OBJECT IDENTIFIER ::= {
+   id-Kyber512-ECDH-P256-KMAC128 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-p256(1) }
 
-   pk-Kyber512-ECDH-P256-SHAKE128 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-SHAKE128,
+   pk-Kyber512-ECDH-P256-KMAC128 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-KMAC128,
 
 
 
@@ -1464,47 +1464,47 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber512-ECDH-brainpoolP256r1-SHAKE128 OBJECT IDENTIFIER ::= {
+   id-Kyber512-ECDH-brainpoolP256r1-KMAC128 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-brainpoolp256r1(2) }
 
-   pk-Kyber512-ECDH-brainpoolP256r1-SHAKE128 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-SHAKE128,
+   pk-Kyber512-ECDH-brainpoolP256r1-KMAC128 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-KMAC128,
      pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber512-X25519-SHAKE128 OBJECT IDENTIFIER ::= {
+   id-Kyber512-X25519-KMAC128 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) kem(2)
      id-kyber512-x25519(3) }
 
-   pk-Kyber512-X25519-SHAKE128 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber512-X25519-SHAKE128,
+   pk-Kyber512-X25519-KMAC128 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber512-X25519-KMAC128,
      pk-Kyber512TBD, OCTET STRING, pk-X25519, OCTET STRING}
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber768-RSA-SHAKE256 OBJECT IDENTIFIER ::= {
+   id-Kyber768-RSA-KMAC256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) kem(2)
      id-kyber768-rsa(4) }
 
-   pk-Kyber768-RSA-SHAKE256 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber768-RSA-SHAKE256,
+   pk-Kyber768-RSA-KMAC256 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber768-RSA-KMAC256,
      pk-Kyber768TBD, OCTET STRING, pk-rsa, RSAPublicKey}
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber768-ECDH-P256-SHAKE256 OBJECT IDENTIFIER ::= {
+   id-Kyber768-ECDH-P256-KMAC256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) kem(2)
      id-kyber768-ecdh-p256(5) }
 
-   pk-Kyber768-ECDH-P256-SHAKE256 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-SHAKE256,
+   pk-Kyber768-ECDH-P256-KMAC256 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-KMAC256,
      pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
 
 
@@ -1517,51 +1517,51 @@ Internet-Draft              PQ Composite Keys                 March 2023
    --TODO: this is missing `PARAMS secp256r1`
 
 
-   id-Kyber768-ECDH-brainpoolP256r1-SHAKE256 OBJECT IDENTIFIER ::= {
+   id-Kyber768-ECDH-brainpoolP256r1-KMAC256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) kem(2)
      id-kyber768-ecdh-p256(6) }
 
-   pk-Kyber768-ECDH-brainpoolP256r1-SHAKE256 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256,
+   pk-Kyber768-ECDH-brainpoolP256r1-KMAC256 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-KMAC256,
      pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber768-X25519-SHAKE256 OBJECT IDENTIFIER ::= {
+   id-Kyber768-X25519-KMAC256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) kem(2)
      id-kyber768-x25519(7) }
 
-   pk-Kyber768-X25519-SHAKE256 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber768-X25519-SHAKE256,
+   pk-Kyber768-X25519-KMAC256 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber768-X25519-KMAC256,
      pk-Kyber768TBD, OCTET STRING, pk-X25519, OCTET STRING}
 
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber1024-ECDH-P384-SHAKE256 OBJECT IDENTIFIER ::= {
+   id-Kyber1024-ECDH-P384-KMAC256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) kem(2)
      id-kyber1024-ecdh-p384(8) }
 
-   pk-Kyber1024-ECDH-P384-SHAKE256 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-SHAKE256,
+   pk-Kyber1024-ECDH-P384-KMAC256 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-KMAC256,
      pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
 
    --TODO: this is missing `PARAMS secp384r1`
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 OBJECT IDENTIFIER ::= {
+   id-Kyber1024-ECDH-brainpoolP384r1-KMAC256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) kem(2)
      id-kyber1024-ecdh-brainpoolp384r1(9) }
 
-   pk-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256,
+   pk-Kyber1024-ECDH-brainpoolP384r1-KMAC256 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-KMAC256,
 
 
 
@@ -1576,13 +1576,13 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 
    -- TODO: To be replaced by IANA
-   id-Kyber1024-X448-SHAKE256 OBJECT IDENTIFIER ::= {
+   id-Kyber1024-X448-KMAC256 OBJECT IDENTIFIER ::= {
      joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
      algorithm(80) explicitcomposite(5) kem(2)
      id-kyber1024-x448(10) }
 
-   pk-Kyber1024-X448-SHAKE256 PUBLIC-KEY ::=
-     pk-explicitCompositeKEM{id-Kyber1024-X448-SHAKE256,
+   pk-Kyber1024-X448-KMAC256 PUBLIC-KEY ::=
+     pk-explicitCompositeKEM{id-Kyber1024-X448-KMAC256,
      pk-Kyber1024TBD, OCTET STRING, pk-X448, OCTET STRING}
 
 
@@ -1710,6 +1710,14 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 10.1.  Normative References
 
+   [I-D.housley-lamps-rfc5990bis]
+              Housley, R. and S. Turner, "Use of the RSA-KEM Algorithm
+              in the Cryptographic Message Syntax (CMS)", Work in
+              Progress, Internet-Draft, draft-housley-lamps-rfc5990bis-
+              00, 14 February 2023,
+              <https://datatracker.ietf.org/doc/html/draft-housley-
+              lamps-rfc5990bis-00>.
+
    [I-D.ietf-lamps-cms-sphincs-plus]
               Housley, R., Fluhrer, S., Kampanakis, P., and B.
               Westerbaan, "Use of the SPHINCS+ Signature Algorithm in
@@ -1722,14 +1730,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
               Massimo, J., Kampanakis, P., Turner, S., and B.
               Westerbaan, "Internet X.509 Public Key Infrastructure:
               Algorithm Identifiers for Dilithium", Work in Progress,
-              Internet-Draft, draft-ietf-lamps-dilithium-certificates-
-              00, 29 September 2022,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
-              dilithium-certificates-00>.
-
-   [I-D.ietf-lamps-kyber-certificates]
-              Turner, S., Kampanakis, P., Massimo, J., and B.
-              Westerbaan, "Internet X.509 Public Key Infrastructure -
 
 
 
@@ -1738,6 +1738,14 @@ Ounsworth, et al.       Expires 13 September 2023              [Page 31]
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
+              Internet-Draft, draft-ietf-lamps-dilithium-certificates-
+              00, 29 September 2022,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-lamps-
+              dilithium-certificates-00>.
+
+   [I-D.ietf-lamps-kyber-certificates]
+              Turner, S., Kampanakis, P., Massimo, J., and B.
+              Westerbaan, "Internet X.509 Public Key Infrastructure -
               Algorithm Identifiers for Kyber", Work in Progress,
               Internet-Draft, draft-ietf-lamps-kyber-certificates-00, 26
               September 2022, <https://datatracker.ietf.org/doc/html/
@@ -1778,14 +1786,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
 
-   [RFC5480]  Turner, S., Brown, D., Yiu, K., Housley, R., and T. Polk,
-              "Elliptic Curve Cryptography Subject Public Key
-              Information", RFC 5480, DOI 10.17487/RFC5480, March 2009,
-              <https://www.rfc-editor.org/info/rfc5480>.
-
-
-
-
 
 
 
@@ -1793,6 +1793,11 @@ Ounsworth, et al.       Expires 13 September 2023              [Page 32]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
+
+   [RFC5480]  Turner, S., Brown, D., Yiu, K., Housley, R., and T. Polk,
+              "Elliptic Curve Cryptography Subject Public Key
+              Information", RFC 5480, DOI 10.17487/RFC5480, March 2009,
+              <https://www.rfc-editor.org/info/rfc5480>.
 
    [RFC5639]  Lochter, M. and J. Merkle, "Elliptic Curve Cryptography
               (ECC) Brainpool Standard Curves and Curve Generation",
@@ -1837,11 +1842,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-   [RFC8410]  Josefsson, S. and J. Schaad, "Algorithm Identifiers for
-              Ed25519, Ed448, X25519, and X448 for Use in the Internet
-              X.509 Public Key Infrastructure", RFC 8410,
-              DOI 10.17487/RFC8410, August 2018,
-              <https://www.rfc-editor.org/info/rfc8410>.
 
 
 
@@ -1849,6 +1849,12 @@ Ounsworth, et al.       Expires 13 September 2023              [Page 33]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
+
+   [RFC8410]  Josefsson, S. and J. Schaad, "Algorithm Identifiers for
+              Ed25519, Ed448, X25519, and X448 for Use in the Internet
+              X.509 Public Key Infrastructure", RFC 8410,
+              DOI 10.17487/RFC8410, August 2018,
+              <https://www.rfc-editor.org/info/rfc8410>.
 
    [RFC8411]  Schaad, J. and R. Andrews, "IANA Registration for the
               Cryptographic Algorithm Object Identifier Range",
@@ -1892,12 +1898,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
               driscoll-pqt-hybrid-terminology-01, 20 October 2022,
               <https://datatracker.ietf.org/doc/html/draft-driscoll-pqt-
               hybrid-terminology-01>.
-
-
-
-
-
-
 
 
 

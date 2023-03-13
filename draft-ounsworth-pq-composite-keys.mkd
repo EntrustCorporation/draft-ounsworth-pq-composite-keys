@@ -86,6 +86,7 @@ normative:
   I-D.draft-ietf-lamps-dilithium-certificates-00:
   I-D.draft-ietf-lamps-cms-sphincs-plus-01:
   I-D.draft-ietf-lamps-kyber-certificates-00:
+  I-D.draft-housley-lamps-rfc5990bis-00:
   X.690:
       title: "Information technology - ASN.1 encoding Rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)"
       date: November 2015
@@ -160,14 +161,14 @@ This document is intended to be coupled with corresponding documents that define
   - id-Falcon512-ECDSA-brainpoolP256r1
   - id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1
   - id-SPHINCSplusSHA256-Ed25519
-  - id-Kyber512-ECDH-brainpoolP256r1-SHAKE128
-  - id-Kyber768-RSA-SHAKE256
-  - id-Kyber768-ECDH-P256-SHAKE256
-  - id-Kyber768-ECDH-brainpoolP256r1-SHAKE256
-  - id-Kyber768-X25519-SHAKE256
-  - id-Kyber1024-ECDH-P384-SHAKE256
-  - id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256
-  - id-Kyber1024-X448-SHAKE256
+  - id-Kyber512-ECDH-brainpoolP256r1-KMAC128
+  - id-Kyber768-RSA-KMAC256
+  - id-Kyber768-ECDH-P256-KMAC256
+  - id-Kyber768-ECDH-brainpoolP256r1-KMAC256
+  - id-Kyber768-X25519-KMAC256
+  - id-Kyber1024-ECDH-P384-KMAC256
+  - id-Kyber1024-ECDH-brainpoolP384r1-KMAC256
+  - id-Kyber1024-X448-KMAC256
 - Changed "examples" to "samples" when referring to {{appdx-samples}}.
 
 # Terminology {#sec-terminology}
@@ -418,18 +419,18 @@ Note that a single OID is used for both the key type and the KEM algorithm; ie t
 
 Composite KEM Key Type                      | OID                        | First Key Type    | Second Key Type      |
 ---------                                   | ----------                 | ----------        | ----------           |
-id-Kyber512-ECDH-P256-SHAKE128              | &lt;CompKEM&gt;.1          | Kyber512          | EC-P256              |
-id-Kyber512-ECDH-brainpoolP256r1-SHAKE128   | &lt;CompKEM&gt;.2          | Kyber512          | EC-brainpoolP256r1   |               |
-id-Kyber512-X25519-SHAKE128                 | &lt;CompKEM&gt;.3          | Kyber512          | X25519 |
-id-Kyber768-RSA-SHAKE256                    | &lt;CompKEM&gt;.4          | Kyber768          | RSA   |
-id-Kyber768-ECDH-P256-SHAKE256              | &lt;CompKEM&gt;.5          | Kyber768          | EC-P256 |
-id-Kyber768-ECDH-brainpoolP256r1-SHAKE256   | &lt;CompKEM&gt;.6          | Kyber768          | EC-brainpoolP256r1 |
-id-Kyber768-X25519-SHAKE256                 | &lt;CompKEM&gt;.7          | Kyber768          | X25519 |
-id-Kyber1024-ECDH-P384-SHAKE256             | &lt;CompKEM&gt;.8          | Kyber1024         | EC-P384 |
-id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256  | &lt;CompKEM&gt;.9          | Kyber1024         | EC-brainpoolP384r1 |
-id-Kyber1024-X448-SHAKE256                  | &lt;CompKEM&gt;.10         | Kyber1024         | X448 |
-id-composite-kem-SHAKE128                   | 2.16.840.1.114027.80.4.1   | Any               | Any |
-id-composite-kem-SHAKE256                   | 2.16.840.1.114027.80.4.1  NEEDS NEW OID  | Any | Any |
+id-Kyber512-ECDH-P256-KMAC128              | &lt;CompKEM&gt;.1          | Kyber512          | EC-P256              |
+id-Kyber512-ECDH-brainpoolP256r1-KMAC128   | &lt;CompKEM&gt;.2          | Kyber512          | EC-brainpoolP256r1   |               |
+id-Kyber512-X25519-KMAC128                 | &lt;CompKEM&gt;.3          | Kyber512          | X25519 |
+id-Kyber768-RSA-KMAC256                    | &lt;CompKEM&gt;.4          | Kyber768          | RSA   |
+id-Kyber768-ECDH-P256-KMAC256              | &lt;CompKEM&gt;.5          | Kyber768          | EC-P256 |
+id-Kyber768-ECDH-brainpoolP256r1-KMAC256   | &lt;CompKEM&gt;.6          | Kyber768          | EC-brainpoolP256r1 |
+id-Kyber768-X25519-KMAC256                 | &lt;CompKEM&gt;.7          | Kyber768          | X25519 |
+id-Kyber1024-ECDH-P384-KMAC256             | &lt;CompKEM&gt;.8          | Kyber1024         | EC-P384 |
+id-Kyber1024-ECDH-brainpoolP384r1-KMAC256  | &lt;CompKEM&gt;.9          | Kyber1024         | EC-brainpoolP384r1 |
+id-Kyber1024-X448-KMAC256                  | &lt;CompKEM&gt;.10         | Kyber1024         | X448 |
+id-composite-kem-KMAC128                   | 2.16.840.1.114027.80.4.1   | Any               | Any |
+id-composite-kem-KMAC256                   | 2.16.840.1.114027.80.4.1  NEEDS NEW OID  | Any | Any |
 {: #tab-kem-agls title="Composite KEM key types"}
 
 
@@ -438,10 +439,10 @@ The table above contains everything needed to implement the listed explicit comp
 Full specifications for the referenced algorithms can be found as follows:
 
 * _EC_: [RFC5480]
-  * _EC-P256_: AlgorithmIdentifier.parameters MUST be `secp256r1` as defined in [RFC5480].
-  * _EC-brainpoolP256r1_: AlgorithmIdentifier.parameters MUST be `brainpoolP256r1` as defined in [RFC5639].
-  * _EC-P384_: AlgorithmIdentifier.parameters MUST be `secp384r1` as defined in [RFC5480].
-  * _EC-brainpoolP384r1_: AlgorithmIdentifier.parameters MUST be `brainpoolP384r1` as defined in [RFC5639].
+  * _EC-P256_: AlgorithmIdentifier.parameters within the component SKPI belonging to the EC key MUST be `secp256r1` as defined in [RFC5480].
+  * _EC-brainpoolP256r1_: AlgorithmIdentifier.parameters within the component SKPI belonging to the EC key MUST be `brainpoolP256r1` as defined in [RFC5639].
+  * _EC-P384_: AlgorithmIdentifier.parameters within the component SKPI belonging to the EC key MUST be `secp384r1` as defined in [RFC5480].
+  * _EC-brainpoolP384r1_: AlgorithmIdentifier.parameters within the component SKPI belonging to the EC key MUST be `brainpoolP384r1` as defined in [RFC5639].
 * _Kyber_: {{I-D.ietf-lamps-kyber-certificates}}
 * _RSA_: [8017]
 * _X25519 / X448_: [RFC8410]

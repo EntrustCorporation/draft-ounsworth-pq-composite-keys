@@ -358,122 +358,122 @@ pk-SPHINCSplusSHA256128sSimple-Ed25519 PUBLIC-KEY ::=
 
 
 -- TODO: To be replaced by IANA
-id-Kyber512-ECDH-P256-SHAKE128 OBJECT IDENTIFIER ::= {
+id-Kyber512-ECDH-P256-KMAC128 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-p256(1) }
 
-pk-Kyber512-ECDH-P256-SHAKE128 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-SHAKE128, 
+pk-Kyber512-ECDH-P256-KMAC128 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber512-ECDH-P256-KMAC128, 
   pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp256r1`
 
 
 -- TODO: To be replaced by IANA
-id-Kyber512-ECDH-brainpoolP256r1-SHAKE128 OBJECT IDENTIFIER ::= {
+id-Kyber512-ECDH-brainpoolP256r1-KMAC128 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-brainpoolp256r1(2) }
 
-pk-Kyber512-ECDH-brainpoolP256r1-SHAKE128 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-SHAKE128, 
+pk-Kyber512-ECDH-brainpoolP256r1-KMAC128 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber512-ECDH-brainpoolP256r1-KMAC128, 
   pk-Kyber512TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
 -- TODO: To be replaced by IANA
-id-Kyber512-X25519-SHAKE128 OBJECT IDENTIFIER ::= {
+id-Kyber512-X25519-KMAC128 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) kem(2)
   id-kyber512-x25519(3) }
 
-pk-Kyber512-X25519-SHAKE128 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber512-X25519-SHAKE128, 
+pk-Kyber512-X25519-KMAC128 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber512-X25519-KMAC128, 
   pk-Kyber512TBD, OCTET STRING, pk-X25519, OCTET STRING}
 
 
 -- TODO: To be replaced by IANA
-id-Kyber768-RSA-SHAKE256 OBJECT IDENTIFIER ::= {
+id-Kyber768-RSA-KMAC256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) kem(2)
   id-kyber768-rsa(4) }
 
-pk-Kyber768-RSA-SHAKE256 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber768-RSA-SHAKE256, 
+pk-Kyber768-RSA-KMAC256 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber768-RSA-KMAC256, 
   pk-Kyber768TBD, OCTET STRING, pk-rsa, RSAPublicKey}
 
 
 -- TODO: To be replaced by IANA
-id-Kyber768-ECDH-P256-SHAKE256 OBJECT IDENTIFIER ::= {
+id-Kyber768-ECDH-P256-KMAC256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) kem(2)
   id-kyber768-ecdh-p256(5) }
 
-pk-Kyber768-ECDH-P256-SHAKE256 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-SHAKE256, 
+pk-Kyber768-ECDH-P256-KMAC256 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber768-ECDH-P256-KMAC256, 
   pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp256r1`
 
 
-id-Kyber768-ECDH-brainpoolP256r1-SHAKE256 OBJECT IDENTIFIER ::= {
+id-Kyber768-ECDH-brainpoolP256r1-KMAC256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) kem(2)
   id-kyber768-ecdh-p256(6) }
 
-pk-Kyber768-ECDH-brainpoolP256r1-SHAKE256 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-SHAKE256, 
+pk-Kyber768-ECDH-brainpoolP256r1-KMAC256 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber768-ECDH-brainpoolP256r1-KMAC256, 
   pk-Kyber768TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolp256r1`
 
 
 -- TODO: To be replaced by IANA
-id-Kyber768-X25519-SHAKE256 OBJECT IDENTIFIER ::= {
+id-Kyber768-X25519-KMAC256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) kem(2)
   id-kyber768-x25519(7) }
 
-pk-Kyber768-X25519-SHAKE256 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber768-X25519-SHAKE256, 
+pk-Kyber768-X25519-KMAC256 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber768-X25519-KMAC256, 
   pk-Kyber768TBD, OCTET STRING, pk-X25519, OCTET STRING}
 
 
 
 -- TODO: To be replaced by IANA
-id-Kyber1024-ECDH-P384-SHAKE256 OBJECT IDENTIFIER ::= {
+id-Kyber1024-ECDH-P384-KMAC256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) kem(2)
   id-kyber1024-ecdh-p384(8) }
 
-pk-Kyber1024-ECDH-P384-SHAKE256 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-SHAKE256, 
+pk-Kyber1024-ECDH-P384-KMAC256 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber1024-ECDH-P384-KMAC256, 
   pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS secp384r1`
 
 
 -- TODO: To be replaced by IANA
-id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 OBJECT IDENTIFIER ::= {
+id-Kyber1024-ECDH-brainpoolP384r1-KMAC256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) kem(2)
   id-kyber1024-ecdh-brainpoolp384r1(9) }
 
-pk-Kyber1024-ECDH-brainpoolP384r1-SHAKE256 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-SHAKE256, 
+pk-Kyber1024-ECDH-brainpoolP384r1-KMAC256 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber1024-ECDH-brainpoolP384r1-KMAC256, 
   pk-Kyber1024TBD, OCTET STRING, pk-ec, ECPoint}
 
 --TODO: this is missing `PARAMS brainpoolp384r1`
 
 
 -- TODO: To be replaced by IANA
-id-Kyber1024-X448-SHAKE256 OBJECT IDENTIFIER ::= {
+id-Kyber1024-X448-KMAC256 OBJECT IDENTIFIER ::= {
   joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
   algorithm(80) explicitcomposite(5) kem(2)
   id-kyber1024-x448(10) }
 
-pk-Kyber1024-X448-SHAKE256 PUBLIC-KEY ::= 
-  pk-explicitCompositeKEM{id-Kyber1024-X448-SHAKE256, 
+pk-Kyber1024-X448-KMAC256 PUBLIC-KEY ::= 
+  pk-explicitCompositeKEM{id-Kyber1024-X448-KMAC256, 
   pk-Kyber1024TBD, OCTET STRING, pk-X448, OCTET STRING}
 
 
