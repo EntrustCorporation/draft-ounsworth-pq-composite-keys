@@ -116,7 +116,7 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
 Table of Contents
 
-   1.  Changes in version -04  . . . . . . . . . . . . . . . . . . .   3
+   1.  Changes in version -04  . . . . . . . . . . . . . . . . . . .   4
    2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   5
      2.1.  Algorithm Selection Criteria  . . . . . . . . . . . . . .   6
      2.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   7
@@ -126,7 +126,8 @@ Table of Contents
        3.2.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   9
        3.2.2.  Component Matching  . . . . . . . . . . . . . . . . .   9
      3.3.  CompositePrivateKey . . . . . . . . . . . . . . . . . . .  10
-     3.4.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .  10
+     3.4.  As a PrivateKeyInfo or OneAsymmetricKey . . . . . . . . .  10
+     3.5.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .  10
    4.  Algorithm Identifiers . . . . . . . . . . . . . . . . . . . .  11
      4.1.  Signature public key types  . . . . . . . . . . . . . . .  11
      4.2.  KEM public key types  . . . . . . . . . . . . . . . . . .  14
@@ -160,7 +161,6 @@ Table of Contents
      E.1.  Making contributions  . . . . . . . . . . . . . . . . . .  51
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  51
 
-1.  Changes in version -04
 
 
 
@@ -169,6 +169,8 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 3]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
+
+1.  Changes in version -04
 
    *  General restructuring of the document.
 
@@ -216,8 +218,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
 
       -  id-Kyber512-ECDH-brainpoolP256r1-KMAC128
 
-      -  id-Kyber768-RSA-KMAC256
-
 
 
 
@@ -225,6 +225,8 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 4]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
+
+      -  id-Kyber768-RSA-KMAC256
 
       -  id-Kyber768-ECDH-P256-KMAC256
 
@@ -269,11 +271,9 @@ Internet-Draft              PQ Composite Keys                 March 2023
       mechanisms that allow for staged migrations from fully traditional
       to fully post-quantum-aware cryptography.
 
-
-
-
-
-
+   This document provides the composite mechanism, which is a specific
+   instantiation of the PQ/T hybrid paradigm to address algorithm
+   strength uncertainty concerns by providing formats for encoding
 
 
 
@@ -282,9 +282,6 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 5]
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
-   This document provides the composite mechanism, which is a specific
-   instantiation of the PQ/T hybrid paradigm to address algorithm
-   strength uncertainty concerns by providing formats for encoding
    multiple public key and private key values into existing public key
    and private key fields.  Backwards compatibility is not directly
    addressed via the composite mechanisms defined in the document, but
@@ -330,6 +327,9 @@ Internet-Draft              PQ Composite Keys                 March 2023
    The authors wish to note that although all the composite structures
    defined in this and the companion composite signatures
    [I-D.ounsworth-pq-composite-sigs] and composite KEM
+   [I-D.ounsworth-pq-composite-kem] specifications are defined in such a
+   way as to easily allow 3 or more component algorithms, it was decided
+   to only specify explicit pairs.  The generic composite specified in
 
 
 
@@ -338,9 +338,6 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 6]
 Internet-Draft              PQ Composite Keys                 March 2023
 
 
-   [I-D.ounsworth-pq-composite-kem] specifications are defined in such a
-   way as to easily allow 3 or more component algorithms, it was decided
-   to only specify explicit pairs.  The generic composite specified in
    this document allows for an arbitrary number of components.  This
    also does not preclude future specification of explicit combinations
    with three or more components.
@@ -386,6 +383,9 @@ Internet-Draft              PQ Composite Keys                 March 2023
    regarded as a single key that performs a single cryptographic
    operation such key generation, signing, verifying, encapsulating, or
    decapsulating -- using its encapsulated sequence of component keys as
+   if it was a single key.  This generally means that the complexity of
+   combining algorithms can and should be ignored by application and
+   protocol layers and deferred to the cryptographic library layer.
 
 
 
@@ -393,10 +393,6 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 7]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
-
-   if it was a single key.  This generally means that the complexity of
-   combining algorithms can and should be ignored by application and
-   protocol layers and deferred to the cryptographic library layer.
 
 3.1.  pk-Composite
 
@@ -442,6 +438,10 @@ Internet-Draft              PQ Composite Keys                 March 2023
    key type and parameters for the public key contained within it.  See
    Section 4 for specific algorithms defined in this document.
 
+   When the CompositePublicKey must be provided in octet string or bit
+   string format, the data structure is encoded as specified in
+   Section 3.5.
+
 
 
 
@@ -449,10 +449,6 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 8]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
-
-   When the CompositePublicKey must be provided in octet string or bit
-   string format, the data structure is encoded as specified in
-   Section 3.4.
 
 3.2.1.  Key Usage
 
@@ -498,6 +494,10 @@ Internet-Draft              PQ Composite Keys                 March 2023
    SubjectPublicKeyInfo.algorithm, and ensure that it matches what is
    expected for that position in the explicit key, and then proceed to
    parse the SubjectPublicKeyInfo.subjectPublicKey.  This is to reduce
+   the attack surface associated with parsing the public key data of an
+   unexpected key type, or worse; to parse and use a key which does not
+   match the explicit algorithm definition.  Similar checks SHOULD be
+   done when handling the corresponding private key.
 
 
 
@@ -505,11 +505,6 @@ Ounsworth, et al.       Expires 14 September 2023               [Page 9]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
-
-   the attack surface associated with parsing the public key data of an
-   unexpected key type, or worse; to parse and use a key which does not
-   match the explicit algorithm definition.  Similar checks SHOULD be
-   done when handling the corresponding private key.
 
 3.3.  CompositePrivateKey
 
@@ -540,7 +535,18 @@ Internet-Draft              PQ Composite Keys                 March 2023
    keys, and the order of the component keys is the same as the order
    defined in Section 3.2 for the components of CompositePublicKey.
 
-3.4.  Encoding Rules
+3.4.  As a PrivateKeyInfo or OneAsymmetricKey
+
+   A CompositePrivateKey can be stored in a OneAsymmetricKey structure
+   (version 1 of which is also known as PrivateKeyInfo) [RFC5958].  When
+   this is done, the privateKeyAlgorithm field SHALL be set to the
+   corresponding composite algorithm identifier defined according to
+   Section 4, the privateKey field SHALL contain the
+   CompositePrivateKey, and the publicKey field MUST NOT be present.
+   Associated public key material MAY be present in the
+   CompositePrivateKey.
+
+3.5.  Encoding Rules
 
    Many protocol specifications will require that the composite public
    key and composite private key data structures be represented by an
@@ -549,18 +555,14 @@ Internet-Draft              PQ Composite Keys                 March 2023
    When an octet string is required, the DER encoding of the composite
    data structure SHALL be used directly.
 
-   CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
-
-
-
-
-
 
 
 Ounsworth, et al.       Expires 14 September 2023              [Page 10]
 
 Internet-Draft              PQ Composite Keys                 March 2023
 
+
+   CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
 
    When a bit string is required, the octets of the DER encoded
    composite data structure SHALL be used as the bits of the bit string,
@@ -604,8 +606,6 @@ Internet-Draft              PQ Composite Keys                 March 2023
    key types and signature algorithms, hence why these key type names
    contain more information than they strictly need to define a key
    type.
-
-
 
 
 

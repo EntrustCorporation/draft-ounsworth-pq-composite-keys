@@ -1332,7 +1332,10 @@ li > p:last-of-type {
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-compositeprivatekey-2" class="xref">CompositePrivateKey</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-encoding-rules-2" class="xref">Encoding Rules</a></p>
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-as-a-privatekeyinfo-or-oneas" class="xref">As a PrivateKeyInfo or OneAsymmetricKey</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-encoding-rules-2" class="xref">Encoding Rules</a></p>
 </li>
             </ul>
 </li>
@@ -1633,7 +1636,7 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 <p id="section-3.2-3">A composite key MUST contain at least two component public keys. When the composite key is used in conjunction with an explicit composite algorithm identifier defined under section <a href="#sec-alg-ids" class="xref">Section 4</a>, the order of the component keys is determined by that algorithm identifier's definition.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.2-4">A CompositePublicKey MUST NOT contain a component public key which itself describes a composite key; i.e. recursive CompositePublicKeys are not allowed. The purpose is a general reduction in complexity by not needing to consider nested key types.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.2-5">Each element of a CompositePublicKey is a SubjectPublicKeyInfo object encoding a component public key. Each component SubjectPublicKeyInfo SHALL contain an AlgorithmIdentifier OID which identifies the public key type and parameters for the public key contained within it. See <a href="#sec-alg-ids" class="xref">Section 4</a> for specific algorithms defined in this document.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
-<p id="section-3.2-6">When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in <a href="#sec-encoding-rules" class="xref">Section 3.4</a>.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2-6">When the CompositePublicKey must be provided in octet string or bit string format, the data structure is encoded as specified in <a href="#sec-encoding-rules" class="xref">Section 3.5</a>.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
 <div id="sec-keyusage">
 <section id="section-3.2.1">
           <h4 id="name-key-usage-2">
@@ -1674,23 +1677,31 @@ CompositePrivateKey ::= SEQUENCE SIZE (2..MAX) OF OneAsymmetricKey
 <p id="section-3.3-7">A CompositePrivateKey MUST contain at least two component private keys, and the order of the component keys is the same as the order defined in <a href="#sec-composite-pub-keys" class="xref">Section 3.2</a> for the components of CompositePublicKey.<a href="#section-3.3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-encoding-rules">
+<div id="sec-as-one-asymmetric-key">
 <section id="section-3.4">
-        <h3 id="name-encoding-rules-2">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-encoding-rules-2" class="section-name selfRef">Encoding Rules</a>
+        <h3 id="name-as-a-privatekeyinfo-or-oneas">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-as-a-privatekeyinfo-or-oneas" class="section-name selfRef">As a PrivateKeyInfo or OneAsymmetricKey</a>
         </h3>
-<p id="section-3.4-1">Many protocol specifications will require that the composite public key and composite private key data structures be represented by an octet string or bit string.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">When an octet string is required, the DER encoding of the composite data structure SHALL be used directly.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
-<div id="section-3.4-3">
+<p id="section-3.4-1">A CompositePrivateKey can be stored in a OneAsymmetricKey structure (version 1 of which is also known as PrivateKeyInfo) <span>[<a href="#RFC5958" class="xref">RFC5958</a>]</span>. When this is done, the privateKeyAlgorithm field SHALL be set to the corresponding composite algorithm identifier defined according to <a href="#sec-alg-ids" class="xref">Section 4</a>, the privateKey field SHALL contain the CompositePrivateKey, and the publicKey field MUST NOT be present. Associated public key material MAY be present in the CompositePrivateKey.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-encoding-rules">
+<section id="section-3.5">
+        <h3 id="name-encoding-rules-2">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-encoding-rules-2" class="section-name selfRef">Encoding Rules</a>
+        </h3>
+<p id="section-3.5-1">Many protocol specifications will require that the composite public key and composite private key data structures be represented by an octet string or bit string.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-2">When an octet string is required, the DER encoding of the composite data structure SHALL be used directly.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
+<div id="section-3.5-3">
 <pre class="lang-ASN.1 sourcecode">
 CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
-</pre><a href="#section-3.4-3" class="pilcrow">¶</a>
+</pre><a href="#section-3.5-3" class="pilcrow">¶</a>
 </div>
-<p id="section-3.4-4">When a bit string is required, the octets of the DER encoded composite data structure SHALL be used as the bits of the bit string, with the most significant bit of the first octet becoming the first bit, and so on, ending with the least significant bit of the last octet becoming the last bit of the bit string.<a href="#section-3.4-4" class="pilcrow">¶</a></p>
-<div id="section-3.4-5">
+<p id="section-3.5-4">When a bit string is required, the octets of the DER encoded composite data structure SHALL be used as the bits of the bit string, with the most significant bit of the first octet becoming the first bit, and so on, ending with the least significant bit of the last octet becoming the last bit of the bit string.<a href="#section-3.5-4" class="pilcrow">¶</a></p>
+<div id="section-3.5-5">
 <pre class="lang-ASN.1 sourcecode">
 CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY der)
-</pre><a href="#section-3.4-5" class="pilcrow">¶</a>
+</pre><a href="#section-3.5-5" class="pilcrow">¶</a>
 </div>
 </section>
 </div>

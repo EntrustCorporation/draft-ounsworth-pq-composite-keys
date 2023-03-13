@@ -315,6 +315,9 @@ The parameters field MUST be absent.
 A CompositePrivateKey MUST contain at least two component private keys, and the order of the component keys is the same as the order defined in {{sec-composite-pub-keys}} for the components of CompositePublicKey.
 
 
+## As a PrivateKeyInfo or OneAsymmetricKey {#sec-as-one-asymmetric-key}
+
+A CompositePrivateKey can be stored in a OneAsymmetricKey structure (version 1 of which is also known as PrivateKeyInfo) [RFC5958]. When this is done, the privateKeyAlgorithm field SHALL be set to the corresponding composite algorithm identifier defined according to {{sec-alg-ids}}, the privateKey field SHALL contain the CompositePrivateKey, and the publicKey field MUST NOT be present. Associated public key material MAY be present in the CompositePrivateKey.
 
 
 ## Encoding Rules {#sec-encoding-rules}
