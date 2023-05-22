@@ -6,17 +6,17 @@ default: all
 
 txt: $(docName).txt
 
-$(docName).txt: $(docName).mkd
-	kdrfc $(docName).mkd
+$(docName).txt: $(docName).md
+	kdrfc $(docName).md
 
 
 
 xml: $(docName).xml
 
-$(docName).xml: $(docName).mkd
-	./insertFileIncludes.sh $(docName).mkd "." > $(docName)_tmp.mkd
-	kramdown-rfc2629 $(docName)_tmp.mkd > $(docName).xml
-	rm $(docName)_tmp.mkd
+$(docName).xml: $(docName).md
+	./insertFileIncludes.sh $(docName).md "." > $(docName)_tmp.md
+	kramdown-rfc2629 $(docName)_tmp.md > $(docName).xml
+	rm $(docName)_tmp.md
 
 
 
