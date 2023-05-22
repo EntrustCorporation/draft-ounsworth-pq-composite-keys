@@ -12,7 +12,7 @@
 <meta content='
        The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, may fall to quantum cryptalanysis, while the incoming post-quantum algorithms face uncertainty about both the underlying mathematics as well as hardware and software implementations that have not had sufficient maturing time to rule out classical cryptanalytic attacks and implementation bugs. 
        Cautious implementers may wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected using either a Post-Quantum / Traditional Hybrid, Post-Quantum / Post-Quantum Hybrid, or combinations thereof. This document, and its companions, defines a specific instantiation of hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level. 
-       This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. Explicit pairings of algorithms are defined which should meet most Internet needs. The generic composite key type is also defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed. 
+       This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. Explicit pairings of algorithms are defined which should meet most Internet needs. 
        This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as   and  . 
        
 
@@ -21,7 +21,7 @@
     ' name="description">
 <meta content="xml2rfc 3.12.2" name="generator">
 <meta content="Internet-Draft" name="keyword">
-<meta content="draft-ounsworth-pq-composite-keys-04" name="ietf.draft">
+<meta content="draft-ounsworth-pq-composite-keys-05" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.12.2
     Python 3.10.6
@@ -1182,11 +1182,11 @@ li > p:last-of-type {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">PQ Composite Keys</td>
-<td class="right">March 2023</td>
+<td class="right">May 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 14 September 2023</td>
+<td class="center">Expires 23 November 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1196,15 +1196,15 @@ li > p:last-of-type {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">LAMPS</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ounsworth-pq-composite-keys-04</dd>
+<dd class="internet-draft">draft-ounsworth-pq-composite-keys-05</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-03-13" class="published">13 March 2023</time>
+<time datetime="2023-05-22" class="published">22 May 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-09-14">14 September 2023</time></dd>
+<dd class="expires"><time datetime="2023-11-23">23 November 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1231,7 +1231,7 @@ li > p:last-of-type {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, may fall to quantum cryptalanysis, while the incoming post-quantum algorithms face uncertainty about both the underlying mathematics as well as hardware and software implementations that have not had sufficient maturing time to rule out classical cryptanalytic attacks and implementation bugs.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">Cautious implementers may wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected using either a Post-Quantum / Traditional Hybrid, Post-Quantum / Post-Quantum Hybrid, or combinations thereof. This document, and its companions, defines a specific instantiation of hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. Explicit pairings of algorithms are defined which should meet most Internet needs. The generic composite key type is also defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. Explicit pairings of algorithms are defined which should meet most Internet needs.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 <p id="section-abstract-4">This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as <span>[<a href="#I-D.ounsworth-pq-composite-sigs" class="xref">I-D.ounsworth-pq-composite-sigs</a>]</span> and <span>[<a href="#I-D.ounsworth-pq-composite-kem" class="xref">I-D.ounsworth-pq-composite-kem</a>]</span>.<a href="#section-abstract-4" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1268,7 +1268,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 September 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1298,7 +1298,7 @@ li > p:last-of-type {
         </h2>
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
-            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-changes-in-version-04-2" class="xref">Changes in version -04</a></p>
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-changes-in-version-05-2" class="xref">Changes in version -05</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="xref">2</a>.  <a href="#name-introduction-2" class="xref">Introduction</a></p>
@@ -1399,22 +1399,19 @@ li > p:last-of-type {
             <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="xref">Appendix B</a>.  <a href="#name-samples-2" class="xref">Samples</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#appendix-B.1" class="xref">B.1</a>.  <a href="#name-generic-composite-public-key" class="xref">Generic Composite Public Key Samples</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#appendix-B.2" class="xref">B.2</a>.  <a href="#name-explicit-composite-public-ke" class="xref">Explicit Composite Public Key Samples</a></p>
+                <p id="section-toc.1-1.10.2.1.1"><a href="#appendix-B.1" class="xref">B.1</a>.  <a href="#name-explicit-composite-public-ke" class="xref">Explicit Composite Public Key Samples</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.1">
-                    <p id="section-toc.1-1.10.2.2.2.1.1"><a href="#appendix-B.2.1" class="xref">B.2.1</a>.  <a href="#name-id-dilithium3-ecdsa-p256-2" class="xref">id-Dilithium3-ECDSA-P256</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.1">
+                    <p id="section-toc.1-1.10.2.1.2.1.1"><a href="#appendix-B.1.1" class="xref">B.1.1</a>.  <a href="#name-id-dilithium3-ecdsa-p256-2" class="xref">id-Dilithium3-ECDSA-P256</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.2">
-                    <p id="section-toc.1-1.10.2.2.2.2.1"><a href="#appendix-B.2.2" class="xref">B.2.2</a>.  <a href="#name-id-dilithium3-rsa-2" class="xref">id-Dilithium3-RSA</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.2">
+                    <p id="section-toc.1-1.10.2.1.2.2.1"><a href="#appendix-B.1.2" class="xref">B.1.2</a>.  <a href="#name-id-dilithium3-rsa-2" class="xref">id-Dilithium3-RSA</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.3">
-                    <p id="section-toc.1-1.10.2.2.2.3.1"><a href="#appendix-B.2.3" class="xref">B.2.3</a>.  <a href="#name-id-falcon512-ecdsa-p256-2" class="xref">id-Falcon512-ECDSA-P256</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.3">
+                    <p id="section-toc.1-1.10.2.1.2.3.1"><a href="#appendix-B.1.3" class="xref">B.1.3</a>.  <a href="#name-id-falcon512-ecdsa-p256-2" class="xref">id-Falcon512-ECDSA-P256</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2.2.4">
-                    <p id="section-toc.1-1.10.2.2.2.4.1"><a href="#appendix-B.2.4" class="xref">B.2.4</a>.  <a href="#name-id-sphincsplussha256256frobu" class="xref">id-SPHINCSplusSHA256256frobust-ECDSA-P256</a></p>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.4">
+                    <p id="section-toc.1-1.10.2.1.2.4.1"><a href="#appendix-B.1.4" class="xref">B.1.4</a>.  <a href="#name-id-sphincsplussha256256frobu" class="xref">id-SPHINCSplusSHA256256frobust-ECDSA-P256</a></p>
 </li>
                 </ul>
 </li>
@@ -1457,71 +1454,17 @@ li > p:last-of-type {
 </nav>
 </section>
 </div>
-<div id="changes-in-version-04">
+<div id="changes-in-version-05">
 <section id="section-1">
-      <h2 id="name-changes-in-version-04-2">
-<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-changes-in-version-04-2" class="section-name selfRef">Changes in version -04</a>
+      <h2 id="name-changes-in-version-05-2">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-changes-in-version-05-2" class="section-name selfRef">Changes in version -05</a>
       </h2>
 <ul class="normal">
-<li class="normal" id="section-1-1.1">General restructuring of the document.<a href="#section-1-1.1" class="pilcrow">¶</a>
+<li class="normal" id="section-1-1.1">Removed SPHINCS+ hybrids.<a href="#section-1-1.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-1-1.2">Aligned composite pairings with OpenPGP () and JOSE/COSE WGs, particularly draft-wussler-openpgp-pqc-00.<a href="#section-1-1.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-1.2">Removed all references to generic composite.<a href="#section-1-1.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-1-1.3">We have dropped the MAY / RECOMMENDED column as well as per-algorithm usage guidance because in the end we think it does not belong at the X.509 level because we believe these recommendations belong at the application profile level; for example what is RECOMMENDED for X.509-based client authentication may be very different from what is RECOMMENDED for X.509-based code-signing.<a href="#section-1-1.3" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-1-1.4">Renamed "id-SPHINCSsha256256frobust-ECDSA-P256" to "id-SPHINCSplusSHA256-ECDSA-P256" because the public key format does not depend on the signature algorithm parameters.<a href="#section-1-1.4" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-1-1.5">
-          <p id="section-1-1.5.1">The following algorithms were removed:<a href="#section-1-1.5.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-1.5.2.1">pk-example-ECandRSA<a href="#section-1-1.5.2.1" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.5.2.2">id-Dilithium5-Falcon1024-ECDSA-P521<a href="#section-1-1.5.2.2" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.5.2.3">id-Dilithium5-Falcon1024-RSA<a href="#section-1-1.5.2.3" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.5.2.4">id-Kyber512-RSA<a href="#section-1-1.5.2.4" class="pilcrow">¶</a>
-</li>
-          </ul>
-</li>
-        <li class="normal" id="section-1-1.6">
-          <p id="section-1-1.6.1">The following algorithms were added:<a href="#section-1-1.6.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-1-1.6.2.1">id-Dilithium3-EDSA-brainpoolP256r1<a href="#section-1-1.6.2.1" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.2">id-Dilithium3-Ed25519<a href="#section-1-1.6.2.2" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.3">id-Dilithium5-ECDSA-P384<a href="#section-1-1.6.2.3" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.4">id-Dilithium5-ECDSA-brainpoolP384r1<a href="#section-1-1.6.2.4" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.5">id-Dilithium5-Ed448<a href="#section-1-1.6.2.5" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.6">id-Falcon512-ECDSA-brainpoolP256r1<a href="#section-1-1.6.2.6" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.7">id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1<a href="#section-1-1.6.2.7" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.8">id-SPHINCSplusSHA256-Ed25519<a href="#section-1-1.6.2.8" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.9">id-Kyber512-ECDH-brainpoolP256r1-KMAC128<a href="#section-1-1.6.2.9" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.10">id-Kyber768-RSA-KMAC256<a href="#section-1-1.6.2.10" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.11">id-Kyber768-ECDH-P256-KMAC256<a href="#section-1-1.6.2.11" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.12">id-Kyber768-ECDH-brainpoolP256r1-KMAC256<a href="#section-1-1.6.2.12" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.13">id-Kyber768-X25519-KMAC256<a href="#section-1-1.6.2.13" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.14">id-Kyber1024-ECDH-P384-KMAC256<a href="#section-1-1.6.2.14" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.15">id-Kyber1024-ECDH-brainpoolP384r1-KMAC256<a href="#section-1-1.6.2.15" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-1-1.6.2.16">id-Kyber1024-X448-KMAC256<a href="#section-1-1.6.2.16" class="pilcrow">¶</a>
-</li>
-          </ul>
-</li>
-        <li class="normal" id="section-1-1.7">Changed "examples" to "samples" when referring to <a href="#appdx-samples" class="xref">Appendix B</a>.<a href="#section-1-1.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-1.3">Added selection criteria note about requesting new explicit combinations.<a href="#section-1-1.3" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>
@@ -1542,7 +1485,7 @@ li > p:last-of-type {
 <p id="section-2-4">This document provides the composite mechanism, which is a specific instantiation of the PQ/T hybrid paradigm to address algorithm strength uncertainty concerns by providing formats for encoding multiple public key and private key values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechanisms defined in the document, but some notes on how it can be obtained can be found in <a href="#sec-backwards-compat" class="xref">Appendix C.2</a>.<a href="#section-2-4" class="pilcrow">¶</a></p>
 <p id="section-2-5">This document only specifies key formats; usage of these keys are covered in the corresponding composite signatures <span>[<a href="#I-D.ounsworth-pq-composite-sigs" class="xref">I-D.ounsworth-pq-composite-sigs</a>]</span> and composite KEM <span>[<a href="#I-D.ounsworth-pq-composite-kem" class="xref">I-D.ounsworth-pq-composite-kem</a>]</span> specifications.<a href="#section-2-5" class="pilcrow">¶</a></p>
 <p id="section-2-6">This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.<a href="#section-2-6" class="pilcrow">¶</a></p>
-<div id="algorithm-selection-criteria">
+<div id="sec-selection-criteria">
 <section id="section-2.1">
         <h3 id="name-algorithm-selection-criteria">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-algorithm-selection-criteria" class="section-name selfRef">Algorithm Selection Criteria</a>
@@ -1553,14 +1496,11 @@ li > p:last-of-type {
 </li>
           <li id="section-2.1-2.2">Elliptic curve algorithms are provided with combinations on each of the NIST <span>[<a href="#RFC6090" class="xref">RFC6090</a>]</span>, Brainpool <span>[<a href="#RFC5639" class="xref">RFC5639</a>]</span>, and Edwards <span>[<a href="#RFC7748" class="xref">RFC7748</a>]</span> curves. NIST PQC Levels 1 - 3 algorithms are matched with 256-bit curves, while NIST levels 4 - 5 are matched with 384-bit elliptic curves. This provides a balance between matching classical security levels of post-quantum and traditional algorithms, and also selecting elliptic curves which already have wide adoption.<a href="#section-2.1-2.2" class="pilcrow">¶</a>
 </li>
-          <li id="section-2.1-2.3">NIST level 1 candidates (Falcon512 and Kyber512) are provided, matched with 256-bit elliptic curves, intended for constrained use cases.<a href="#section-2.1-2.3" class="pilcrow">¶</a>
-</li>
-          <li id="section-2.1-2.4">A single SPHINCS+ combination is provided for use cases that wish to put hash-based signatures into hybrid combination.<a href="#section-2.1-2.4" class="pilcrow">¶</a>
-</li>
-          <li id="section-2.1-2.5">A generic composite algorithm is provided for implementers who wish to use combinations not listed here, without the overhead of defining new OIDs. Caution should be exercised to avoid issues with compatibility and complex cryptographic policy mechanisms.<a href="#section-2.1-2.5" class="pilcrow">¶</a>
+          <li id="section-2.1-2.3">NIST level 1 candidates (Falcon512 and Kyber512) are provided, matched with 256-bit elliptic curves, intended for constrained use cases.
+The authors wish to note that although all the composite structures defined in this and the companion documents <span>[<a href="#I-D.ounsworth-pq-composite-sigs" class="xref">I-D.ounsworth-pq-composite-sigs</a>]</span> and <span>[<a href="#I-D.ounsworth-pq-composite-kem" class="xref">I-D.ounsworth-pq-composite-kem</a>]</span> specifications are defined in such a way as to easily allow 3 or more component algorithms, it was decided to only specify explicit pairs. This also does not preclude future specification of explicit combinations with three or more components.<a href="#section-2.1-2.3" class="pilcrow">¶</a>
 </li>
         </ol>
-<p id="section-2.1-3">The authors wish to note that although all the composite structures defined in this and the companion composite signatures <span>[<a href="#I-D.ounsworth-pq-composite-sigs" class="xref">I-D.ounsworth-pq-composite-sigs</a>]</span> and composite KEM <span>[<a href="#I-D.ounsworth-pq-composite-kem" class="xref">I-D.ounsworth-pq-composite-kem</a>]</span> specifications are defined in such a way as to easily allow 3 or more component algorithms, it was decided to only specify explicit pairs. The generic composite specified in this document allows for an arbitrary number of components. This also does not preclude future specification of explicit combinations with three or more components.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1-3">To maximize interoperability, use of the specific algorithm combinations specified in this document is encouraged.  If other combinations are needed, a separate specification should be submitted to the IETF LAMPS working group.  To ease implementation, these specifications are encouraged to follow the construction pattern of the algorithms specified in this document.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-terminology">
@@ -1652,7 +1592,7 @@ CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-component-matching-2" class="section-name selfRef">Component Matching</a>
           </h4>
 <p id="section-3.2.2-1">Many cryptographic libraries will require treating each component key independently and thus expect a full SubjectPublicKeyInfo for each component at some layer of the software stack. This left two design choices: either we carry full SPKI for each component within the CompositePublicKey, or we compress it by only carrying the raw key bytes and force implementations to carry OID and parameter mapping tables to be able to reconstruct component SPKIs.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-2">The authors decided to carry the full SPKIs in order to lessen the implementation complexity at the expense of a small amount of redundant data to transmit. This also leads to the same wire format between explicitly specified combinations and generic composites where the component OIDs cannot be infered and thus must be carried.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-2">The authors decided to carry the full SPKIs in order to lessen the implementation complexity at the expense of a small amount of redundant data to transmit.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-3">This design choice has a non-obvious security risk in that the <code>algorithm</code> carried within each component SPKI is redundant information which MUST match -- and can be inferred from -- the specification of the explicit algorithm.<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-4">Security consideration: Implementations SHOULD check that the component AlgorithmIdentifier OIDs and parameters match those expected by the definition of the explicit algorithm. Implementations SHOULD first parse a component's <code>SubjectPublicKeyInfo.algorithm</code>, and ensure that it matches what is expected for that position in the explicit key, and then proceed to parse the <code>SubjectPublicKeyInfo.subjectPublicKey</code>. This is to reduce the attack surface associated with parsing the public key data of an unexpected key type, or worse; to parse and use a key which does not match the explicit algorithm definition. Similar checks SHOULD be done when handling the corresponding private key.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
 </section>
@@ -1719,7 +1659,7 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
         <h3 id="name-signature-public-key-types-2">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-signature-public-key-types-2" class="section-name selfRef">Signature public key types</a>
         </h3>
-<p id="section-4.1-1">This table summarizes the list of explicit composite Signature algorithms by the key and signature OID and the two component algorithms which make up the explicit composite algorithm.  These are denoted by First Signature Alg, and Second Signature Alg.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">This table summarizes the list of explicit composite Signature algorithms by the key and signature OID and the two component algorithms which make up the explicit composite algorithm, as obtained by applying the selection criteria in section <a href="#sec-selection-criteria" class="xref">Section 2.1</a>.  These are denoted by First Signature Alg, and Second Signature Alg.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">The OID referenced are TBD and MUST be used only for prototyping and replaced with the final IANA-assigned OIDS. The following prefix is used for each: replace &lt;CompSig&gt; with the String "2.16.840.1.114027.80.5.1"<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <p id="section-4.1-3">Therefore &lt;CompSig&gt;.1 is equal to 2.16.840.1.114027.80.5.1.1<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1-4">Note that a single OID is used for both the key type and the signature algorithm; ie there is a one-to-one correspondance between key types and signature algorithms, hence why these key type names contain more information than they strictly need to define a key type.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
@@ -1799,30 +1739,6 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
               <td class="text-left" rowspan="1" colspan="1">&lt;CompSig&gt;.10</td>
               <td class="text-left" rowspan="1" colspan="1">Falcon512</td>
               <td class="text-left" rowspan="1" colspan="1">Ed25519</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256</td>
-              <td class="text-left" rowspan="1" colspan="1">&lt;CompSig&gt;.11</td>
-              <td class="text-left" rowspan="1" colspan="1">SPHINCSplusSHA256128sSimple</td>
-              <td class="text-left" rowspan="1" colspan="1">EC-P256</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256</td>
-              <td class="text-left" rowspan="1" colspan="1">&lt;CompSig&gt;.12</td>
-              <td class="text-left" rowspan="1" colspan="1">SPHINCSplusSHA256128sSimple</td>
-              <td class="text-left" rowspan="1" colspan="1">EC-brainpoolP256r1</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">id-SPHINCSplusSHA256128sSimple-Ed25519</td>
-              <td class="text-left" rowspan="1" colspan="1">&lt;CompSig&gt;.13</td>
-              <td class="text-left" rowspan="1" colspan="1">SPHINCSplusSHA256128sSimple</td>
-              <td class="text-left" rowspan="1" colspan="1">Ed25519</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">id-composite-sig</td>
-              <td class="text-left" rowspan="1" colspan="1">(1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) OpenCA(18227) Algorithms(2) id-alg-composite(1)</td>
-              <td class="text-left" rowspan="1" colspan="1">Any</td>
-              <td class="text-left" rowspan="1" colspan="1">Any</td>
             </tr>
           </tbody>
         </table>
@@ -2093,12 +2009,6 @@ IMPORTS
 der OBJECT IDENTIFIER ::=
   {joint-iso-itu-t asn1(1) ber-derived(2) distinguished-encoding(1)}
 
--- TODO: To be replaced by IANA
-id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-    algorithm(80) composite(4) compositekey(1) }
-
-
 
 --  COMPOSITE-KEY-ALGORITHM
 --
@@ -2123,21 +2033,6 @@ COMPOSITE-KEY-ALGORITHM ::= CLASS {
 --
 -- Public Key
 --
-
--- Generic Composite
-
--- TODO: To be replaced by IANA
-id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-    algorithm(80) composite(4) compositekey(1) }
-
-
-pk-Composite PUBLIC-KEY ::= {
-    IDENTIFIER id-composite-key
-    KEY CompositePublicKey
-    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional
-    PRIVATE-KEY CompositePrivateKey
-}
 
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
@@ -2348,45 +2243,6 @@ id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
 pk-Falcon512-Ed25519 PUBLIC-KEY ::=
   pk-explicitCompositeSignature{id-Falcon512-Ed25519,
   pk-falcon512TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
-
-
-
--- TODO: To be replaced by IANA
-id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) explicitcomposite(5) signature(1) sphincsplussha256128ssimple-ecdsa-p256-sha256(11) }
-
-pk-SPHINCSplusSHA256-ECDSA-P256 PUBLIC-KEY ::=
-  pk-explicitCompositeSignature{id-SPHINCSplusSHA256-ECDSA-P256,
-  pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
-
---TODO: this is missing `PARAMS secp256r1`
-
-
-
--- TODO: To be replaced by IANA
-id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) explicitcomposite(5) signature(1)
-  id-sphincsplussha256128ssimple-ecdsa-brainpoolp256r1-sha256(12) }
-
-pk-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 PUBLIC-KEY ::=
-  pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256,
-  pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
-
---TODO: this is missing `PARAMS brainpoolp256r1`
-
-
--- TODO: To be replaced by IANA
-id-SPHINCSplusSHA256128sSimple-Ed25519 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) explicitcomposite(5) signature(1)
-  sphincsplussha256128ssimple-ed25519(13) }
-
-pk-SPHINCSplusSHA256128sSimple-Ed25519 PUBLIC-KEY ::=
-  pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-Ed25519,
-  pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-Ed25519, OCTET STRING}
-
 
 
 -- Explicit Composite KEM Keys
@@ -2774,131 +2630,25 @@ id-composite-key OBJECT IDENTIFIER ::= {
           <p id="appendix-B-3.1.1">TODO: move these to https://github.com/lamps-wg before publication<a href="#appendix-B-3.1.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<div id="appdx-genComposite-samples">
-<section id="appendix-B.1">
-        <h3 id="name-generic-composite-public-key">
-<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-generic-composite-public-key" class="section-name selfRef">Generic Composite Public Key Samples</a>
-        </h3>
-<p id="appendix-B.1-1">This is an example generic composite public key<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-2">
-<pre>
------BEGIN PUBLIC KEY-----
-MIIBmDAMBgpghkgBhvprUAQBA4IBhgAwggGBMFkwEwYHKoZIzj0CAQYIKoZIzj0D
-AQcDQgAExGPhrnuSG/fGyw1FN+l5h4p4AGRQCS0LBXnBO+djhcI6qnF2TvrQEaIY
-GGpQT5wHS+7y5iJJ+dE5qjxcv8loRDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
-AQoCggEBANsVQK1fcLQObL4ZYtczWbObECAFSsng0OLpRTPr9VGV3SsS/VoMRZqX
-F+sszz6I2UcFTaMF9CwNRbWLuIBczzuhbHSjn65OuoN+Om2wsPo+okw46RTekB4a
-d9QQvYRVzPlILUQ8NvZ4W0BKLviXTXWIggjtp/Y1pKRHKz8n35J6OmFWz4TKGNth
-n87D28kmdwQYH5NLsDePHbfdw3AyLrPvQLlQw/hRPz/9Txf7yi9Djg9HtJ88ES6+
-ZbfE1ZHxLYLSDt25tSL8A2pMuGMD3P81nYWO+gJ0vYV2WcRpXHRkjmliGqiCg4eB
-mC4//tm0J4r9Ll8b/pp6xyOMI7jppVUCAwEAAQ==
------END PUBLIC KEY-----
-</pre><a href="#appendix-B.1-2" class="pilcrow">¶</a>
-</div>
-<p id="appendix-B.1-3">which decodes as:<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-4">
-<pre>
-algorithm: AlgorithmIdentifier{id-composite-key}
-
-subjectPublicKey: CompositePublicKey {
-  SubjectPublicKeyInfo {
-    algorithm: AlgorithmIdentifier {
-      algorithm: ecPublicKey
-      parameters: prime256v1
-      }
-    subjectPublicKey: &lt;ec key octet string&gt;
-    },
-    SubjectPublicKeyInfo {
-    algorithm: AlgorithmIdentifier {
-      algorithm: rsaEncryption
-      parameters: NULL
-      }
-    subjectPublicKey: &lt;rsa key octet string&gt;
-    }
-  }
-</pre><a href="#appendix-B.1-4" class="pilcrow">¶</a>
-</div>
-<p id="appendix-B.1-5">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.1-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-6">
-<pre>
------BEGIN PRIVATE KEY-----
-MIIFHgIBADAMBgpghkgBhvprUAQBBIIFCTCCBQUwQQIBADATBgcqhkjOPQIBBggq
-hkjOPQMBBwQnMCUCAQEEICN0ihCcgg5n8ALtk9tkQZqg/WLEm5NefMi/kdN06Z9u
-MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDbFUCtX3C0Dmy+
-GWLXM1mzmxAgBUrJ4NDi6UUz6/VRld0rEv1aDEWalxfrLM8+iNlHBU2jBfQsDUW1
-i7iAXM87oWx0o5+uTrqDfjptsLD6PqJMOOkU3pAeGnfUEL2EVcz5SC1EPDb2eFtA
-Si74l011iIII7af2NaSkRys/J9+SejphVs+EyhjbYZ/Ow9vJJncEGB+TS7A3jx23
-3cNwMi6z70C5UMP4UT8//U8X+8ovQ44PR7SfPBEuvmW3xNWR8S2C0g7dubUi/ANq
-TLhjA9z/NZ2FjvoCdL2FdlnEaVx0ZI5pYhqogoOHgZguP/7ZtCeK/S5fG/6aescj
-jCO46aVVAgMBAAECggEAFtT6LpdZuYofTxh6Mo9Jc+xfG9cxWiSx4FQLQEQBBwWl
-TQ3nlXDd+CRy+7Fpz8yXSE2HL8w5DDY945OyIL6LYl2KXgWHaLUPvxByqmfVqd7J
-L0RnFiOzxU9g2Zr9BUOj3v7kqM3VtI4KhIK2rnWmPu+BDckmzgP9Kpm4KhbPuAYP
-iqUZSkxpSUsd5ALLsk9b0xjR7UEYkEpV2/vORwieEhOmPLzuXh+Px0yavkazT/vU
-+h/rDSoLQn7v4fVsQgNdOaaOG/gHemGuuiLPJJlX5ZZ6mmsIaEjz+MNk0aJDH2po
-KbAr4B709dTsnYgv7YtkEfSyOeMEdhMiswI1c9FpwQKBgQD6kdHmHCoeWNNvlqxU
-v57e7ZDAXDA6WcfrypcsF0l72rI3J8oOPmFaNaCmwIH/Icz+Zy7fr2IYxVjyDjCa
-zi8qTnj2ZNds71hUYOcq60u0TcSVrtocA4HW7NoWJqK5thNlNaa1M358cYBopGoN
-ocS9yf10q2MBZtpF0fc5PbFf+QKBgQDf1L4cezoebbNTaN4KoapycHXxKozP2GwI
-r15YRYjt0ZpHstdUPABQuwlL9CuL+5Q17VRiM81cUVNfFsBzKIXYb/PBC5UD+DmR
-qGlT6v6uUWY6jifUgEjfyPxO0oJ3M6cChHR/TvpkT5SyaEwHpIH7IeXbMFcS5m4G
-mSNBECO/PQKBgCD0CoHT1Go3Tl9PloxywwcYgT/7H9CcvCEzfJws19o1EdkVH4qu
-A4mkoeMsUCxompgeo9iBLUqKsb7rxNKnKSbMOTZWXsqR07ENKXnIhiVJUQBKhZ7H
-i0zjy268WAxKeNSHsMwF4K2nE7cvYE84pjI7nVy5qYSmrTAfg/8AMRKpAoGBAN/G
-wN6WsE9Vm5BLapo0cMUC/FdFFAyEMdYpBei4dCJXiKgf+7miVypfI/dEwPitZ8rW
-YKPhaHHgeLq7c2JuZAo0Ov2IR831MBEYz1zvtvmuNcda8iU4sCLTvLRNL9Re1pzk
-sdfJrPn2uhH3xfNqG+1oQXZ3CMbDi8Ka/a0Bpst9AoGBAPR4p6WN0aoZlosyT6NI
-4mqzNvLE4KBasmfoMmTJih7qCP3X4pqdgiI0SjsQQG/+utHLoJARwzhWHOZf1JKk
-D8lSJH02cp/Znrjn5wPpfYKLphJBiKSPwyIjuFwcR1ck84ONeYq421NDqf7lXbvx
-oMqjTPagXUpzHvwluDjtSi8+
------END PRIVATE KEY-----
-</pre><a href="#appendix-B.1-6" class="pilcrow">¶</a>
-</div>
-<p id="appendix-B.1-7">which decodes as:<a href="#appendix-B.1-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1-8">
-<pre>
-algorithm: AlgorithmIdentifier{id-composite-key}
-
-SEQUENCE {
-  OneAsymmetricKey {
-      version: 0,
-      privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
-        algorithm: ecPublicKey
-        parameters: prime256v1
-      }
-      privateKey: &lt;ec key octet string&gt;
-    },
-  OneAsymmetricKey {
-      version: 0,
-      privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
-        algorithm: rsaEncryption
-        parameters: NULL
-      }
-      privateKey: &lt;rsa key octet string&gt;
-    }
-  }
-</pre><a href="#appendix-B.1-8" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
 <div id="appdx-expComposite-samples">
-<section id="appendix-B.2">
+<section id="appendix-B.1">
         <h3 id="name-explicit-composite-public-ke">
-<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-explicit-composite-public-ke" class="section-name selfRef">Explicit Composite Public Key Samples</a>
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-explicit-composite-public-ke" class="section-name selfRef">Explicit Composite Public Key Samples</a>
         </h3>
 <div id="id-dilithium3-ecdsa-p256">
-<section id="appendix-B.2.1">
+<section id="appendix-B.1.1">
           <h4 id="name-id-dilithium3-ecdsa-p256-2">
-<a href="#appendix-B.2.1" class="section-number selfRef">B.2.1. </a><a href="#name-id-dilithium3-ecdsa-p256-2" class="section-name selfRef">id-Dilithium3-ECDSA-P256</a>
+<a href="#appendix-B.1.1" class="section-number selfRef">B.1.1. </a><a href="#name-id-dilithium3-ecdsa-p256-2" class="section-name selfRef">id-Dilithium3-ECDSA-P256</a>
           </h4>
-<p id="appendix-B.2.1-1">This example uses the following OID as defined in Open Quantum Safe, which correspond to NIST Round3 candidates:<a href="#appendix-B.2.1-1" class="pilcrow">¶</a></p>
-<p id="appendix-B.2.1-2">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.2.1-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.1-3">
+<p id="appendix-B.1.1-1">This example uses the following OID as defined in Open Quantum Safe, which correspond to NIST Round3 candidates:<a href="#appendix-B.1.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1.1-2">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.1.1-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.1-3">
 <pre>
 id-dilithium3_aes 1.3.6.1.4.1.2.267.11.6.5
-</pre><a href="#appendix-B.2.1-3" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.1-3" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.1-4">A Dilithium3-ECDSA-P256 public key:<a href="#appendix-B.2.1-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.1-5">
+<p id="appendix-B.1.1-4">A Dilithium3-ECDSA-P256 public key:<a href="#appendix-B.1.1-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.1-5">
 <pre>
 -----BEGIN PUBLIC KEY-----
 MIIIKjAMBgpghkgBhvprUAUBA4IIGAAwgggTMIIHtDANBgsrBgEEAQKCCwsGBQOCB6EA2wEINOg
@@ -2940,10 +2690,10 @@ dM9Vq8+WtyBRwSjG/TkjEMY6Ex+hIASoM2D4Hs5MJ0AHNswWTATBgcqhkjOPQIBBggqhkjOPQMB
 BwNCAATLQgUt46GGb96T815H65I05ELw9siX91ZlN+vVNW9RLQm519BPfX+1Vk+HAviXMVk0W7X
 Srzd4w0i+5dCNM9rX
 -----END PUBLIC KEY-----
-</pre><a href="#appendix-B.2.1-5" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.1-5" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.1-6">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.2.1-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.1-7">
+<p id="appendix-B.1.1-6">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.1.1-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.1-7">
 <pre>
 -----BEGIN PRIVATE KEY-----
 MIIXugIBADAMBgpghkgBhvprUAUBBIIXpTCCF6EwghdaAgEAMA0GCysGAQQBAoILCwYFBIIXRAS
@@ -3056,24 +2806,24 @@ NhlNwNwbgpc8NSQaL5+dM9Vq8+WtyBRwSjG/TkjEMY6Ex+hIASoM2D4Hs5MJ0AHNswQQIBADATB
 gcqhkjOPQIBBggqhkjOPQMBBwQnMCUCAQEEIBqglVGEbVW2JdupT30vKPECOx29/9JjP8kbw9GW
 9wve
 -----END PRIVATE KEY-----
-</pre><a href="#appendix-B.2.1-7" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.1-7" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="id-dilithium3-rsa">
-<section id="appendix-B.2.2">
+<section id="appendix-B.1.2">
           <h4 id="name-id-dilithium3-rsa-2">
-<a href="#appendix-B.2.2" class="section-number selfRef">B.2.2. </a><a href="#name-id-dilithium3-rsa-2" class="section-name selfRef">id-Dilithium3-RSA</a>
+<a href="#appendix-B.1.2" class="section-number selfRef">B.1.2. </a><a href="#name-id-dilithium3-rsa-2" class="section-name selfRef">id-Dilithium3-RSA</a>
           </h4>
-<p id="appendix-B.2.2-1">This example uses the following OID as defined in Open Quantum Safe, which correspond to NIST Round3 candidates:<a href="#appendix-B.2.2-1" class="pilcrow">¶</a></p>
-<p id="appendix-B.2.2-2">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.2.2-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.2-3">
+<p id="appendix-B.1.2-1">This example uses the following OID as defined in Open Quantum Safe, which correspond to NIST Round3 candidates:<a href="#appendix-B.1.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1.2-2">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.1.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.2-3">
 <pre>
 id-dilithium3_aes 1.3.6.1.4.1.2.267.11.6.5
-</pre><a href="#appendix-B.2.2-3" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.2-3" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.2-4">A Dilithium3-RSA public key:<a href="#appendix-B.2.2-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.2-5">
+<p id="appendix-B.1.2-4">A Dilithium3-RSA public key:<a href="#appendix-B.1.2-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.2-5">
 <pre>
 -----BEGIN PUBLIC KEY-----
 MIII9TAMBgpghkgBhvprUAUCA4II4wAwggjeMIIHtDANBgsrBgEEAQKCCwsGBQOCB6EAD7KvTpq
@@ -3118,10 +2868,10 @@ ly+bnIN1MrcwLe0q/TPuKS1EBp8LS/lQzW/PrHTnDHwoGinBZq58B/ErgmPh27QlkhamdXG4KxD
 dN2ayilmvdG06dMwrGKs2Tag5HKbUSMPA3BlKvvqrJhMb3w86xPf2MnvWzVWmi0tpE2zcCgXkX+
 4VtiikBW1QoFuFjiBWNJKWMXe2UKXYbdYFBPzaJiGCdiYXXJu1N16pSxAgMBAAE=
 -----END PUBLIC KEY-----
-</pre><a href="#appendix-B.2.2-5" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.2-5" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.2-6">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.2.2-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.2-7">
+<p id="appendix-B.1.2-6">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.1.2-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.2-7">
 <pre>
 -----BEGIN PRIVATE KEY-----
 MIIcOAIBADAMBgpghkgBhvprUAUCBIIcIzCCHB8wghdaAgEAMA0GCysGAQQBAoILCwYFBIIXRAS
@@ -3254,24 +3004,24 @@ DdyJze4X48QwKBgQC5Q8YDafkPhO0/riXfHE4L5NnPLWX6t3TINt+eYYnF47Hph1o+TQTCSF9SK
 BSZLFwpH1i/y1P/+z2rOuqrAuSkK462Uz6u7mslFVXb82baLM1Kf0h48Y+YuEJRlRVnNCpRHR3d
 xo0q1Hy6tHThjXl2WXxTQEKyA7olA+T2uI6x1Q==
 -----END PRIVATE KEY-----
-</pre><a href="#appendix-B.2.2-7" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.2-7" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="id-falcon512-ecdsa-p256">
-<section id="appendix-B.2.3">
+<section id="appendix-B.1.3">
           <h4 id="name-id-falcon512-ecdsa-p256-2">
-<a href="#appendix-B.2.3" class="section-number selfRef">B.2.3. </a><a href="#name-id-falcon512-ecdsa-p256-2" class="section-name selfRef">id-Falcon512-ECDSA-P256</a>
+<a href="#appendix-B.1.3" class="section-number selfRef">B.1.3. </a><a href="#name-id-falcon512-ecdsa-p256-2" class="section-name selfRef">id-Falcon512-ECDSA-P256</a>
           </h4>
-<p id="appendix-B.2.3-1">This example uses the following OID as definid in Open Quantum Safe, which correspond to NIST Round3 candidates:<a href="#appendix-B.2.3-1" class="pilcrow">¶</a></p>
-<p id="appendix-B.2.3-2">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.2.3-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.3-3">
+<p id="appendix-B.1.3-1">This example uses the following OID as definid in Open Quantum Safe, which correspond to NIST Round3 candidates:<a href="#appendix-B.1.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1.3-2">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.1.3-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.3-3">
 <pre>
 id-falcon512 1.3.9999.3.1
-</pre><a href="#appendix-B.2.3-3" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.3-3" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.3-4">A Falcon512-ECDSA-P256 public key:<a href="#appendix-B.2.3-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.3-5">
+<p id="appendix-B.1.3-4">A Falcon512-ECDSA-P256 public key:<a href="#appendix-B.1.3-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.3-5">
 <pre>
 -----BEGIN PUBLIC KEY-----
 MIIEBTAMBgpghkgBhvprUAUDA4ID8wAwggPuMIIDjzAHBgUrzg8DAQOCA4IACZdJCeFxldpfuli
@@ -3294,10 +3044,10 @@ FLAQt8WaxSAuEScapj1+xpCpUlUhm8Ca2AbvfEi9pit9Rj8y9t7TIpDmMFkwEwYHKoZIzj0CAQY
 IKoZIzj0DAQcDQgAEFFnVIrPg3W3QEt95Z4WQn1cmoZV9tpo20FG9umA2B7CSaf7q9FwgVY7qvD
 HymrF59in1pXEPnEWLZ9xLO5A6cg==
 -----END PUBLIC KEY-----
-</pre><a href="#appendix-B.2.3-5" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.3-5" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.3-6">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.2.3-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.3-7">
+<p id="appendix-B.1.3-6">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.1.3-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.3-7">
 <pre>
 -----BEGIN PRIVATE KEY-----
 MIII9gIBADAMBgpghkgBhvprUAUDBIII4TCCCN0wggiWAgEAMAcGBSvODwMBBIIIhgSCCIJZ+EB
@@ -3342,29 +3092,29 @@ rm6Ix9KKr8dVvTOEHSAkuuqk8BdoyCJhkcGpCp5B4HmnBNgznG6Iohtb0ob6AEg4KKZUaZNR3lT
 ZrFIC4RJxqmPX7GkKlSVSGbwJrYBu98SL2mK31GPzL23tMikOYwQQIBADATBgcqhkjOPQIBBggq
 hkjOPQMBBwQnMCUCAQEEICXQxbtuhGjYSkyLz+K0V0tRyxgEBlQcElOVwHZSA4QL
 -----END PRIVATE KEY-----
-</pre><a href="#appendix-B.2.3-7" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.3-7" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="id-sphincsplussha256256frobust-ecdsa-p256">
-<section id="appendix-B.2.4">
+<section id="appendix-B.1.4">
           <h4 id="name-id-sphincsplussha256256frobu">
-<a href="#appendix-B.2.4" class="section-number selfRef">B.2.4. </a><a href="#name-id-sphincsplussha256256frobu" class="section-name selfRef">id-SPHINCSplusSHA256256frobust-ECDSA-P256</a>
+<a href="#appendix-B.1.4" class="section-number selfRef">B.1.4. </a><a href="#name-id-sphincsplussha256256frobu" class="section-name selfRef">id-SPHINCSplusSHA256256frobust-ECDSA-P256</a>
           </h4>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="appendix-B.2.4-1.1">
-              <p id="appendix-B.2.4-1.1.1">TODO: we switched to using a pub key identifier without the signing mode, ie just id-SPHINCSplusSHA256-ECDSA-P256<a href="#appendix-B.2.4-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal ulEmpty" id="appendix-B.1.4-1.1">
+              <p id="appendix-B.1.4-1.1.1">TODO: we switched to using a pub key identifier without the signing mode, ie just id-SPHINCSplusSHA256-ECDSA-P256<a href="#appendix-B.1.4-1.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="appendix-B.2.4-2">This example uses the following OID as definid in Open Quantum Safe:<a href="#appendix-B.2.4-2" class="pilcrow">¶</a></p>
-<p id="appendix-B.2.4-3">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.2.4-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.4-4">
+<p id="appendix-B.1.4-2">This example uses the following OID as definid in Open Quantum Safe:<a href="#appendix-B.1.4-2" class="pilcrow">¶</a></p>
+<p id="appendix-B.1.4-3">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.1.4-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.4-4">
 <pre>
 id-SPHINCSplusSHA256256frobust 1.3.9999.6.6.1
-</pre><a href="#appendix-B.2.4-4" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.4-4" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.4-5">A SPHINCSplusSHA256256frobust-ECDSA-P256 public key:<a href="#appendix-B.2.4-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.4-6">
+<p id="appendix-B.1.4-5">A SPHINCSplusSHA256256frobust-ECDSA-P256 public key:<a href="#appendix-B.1.4-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.4-6">
 <pre>
 -----BEGIN PUBLIC KEY-----
 MIG/MAwGCmCGSAGG+mtQBQcDga4AMIGqME0wCAYGK84PBgYBA0EA6HRU4f2vmr2LV5vZVlaniti
@@ -3372,10 +3122,10 @@ Ly8ZCfheVqolJGrY5GxpNwvIt8fK6swNtftSgmrC+fCDE48/fbzX7a2U3F1/S3TBZMBMGByqGSM
 49AgEGCCqGSM49AwEHA0IABFjKamMP3nn7Ua8Y8XEJtqnp7ya+Ino3UoxjMhhVKHx0fQxAz7lB7
 Eytrtq3H7e59JYdkceK1h+T8jZFyUP5e0M=
 -----END PUBLIC KEY-----
-</pre><a href="#appendix-B.2.4-6" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.4-6" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.4-7">which decodes as:<a href="#appendix-B.2.4-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.4-8">
+<p id="appendix-B.1.4-7">which decodes as:<a href="#appendix-B.1.4-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.4-8">
 <pre>
 algorithm: AlgorithmIdentifier{id-Dilithium3-ECDSA-P256}
 
@@ -3395,10 +3145,10 @@ subjectPublicKey: CompositePublicKey {
     }
   }
 
-</pre><a href="#appendix-B.2.4-8" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.4-8" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2.4-9">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.2.4-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.2.4-10">
+<p id="appendix-B.1.4-9">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.1.4-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1.4-10">
 <pre>
 -----BEGIN PRIVATE KEY-----
 MIIBMgIBADAMBgpghkgBhvprUAUHBIIBHTCCARkwgdMCAQAwCAYGK84PBgYBBIHDBIHA0PwPCww
@@ -3408,7 +3158,7 @@ SO6Oh0VOH9r5q9i1eb2VZWp4rYi8vGQn4XlaqJSRq2ORsaTcLyLfHyurMDbX7UoJqwvnwgxOPP3
 sL58IMTjz99vNftrZTcXX9LdMEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCAwCM4
 KKsZbXlaZBph1ixcUhlNiZ1qp4LnA90Nm/rArZw==
 -----END PRIVATE KEY-----
-</pre><a href="#appendix-B.2.4-10" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1.4-10" class="pilcrow">¶</a>
 </div>
 </section>
 </div>

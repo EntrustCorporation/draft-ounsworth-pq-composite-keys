@@ -51,12 +51,6 @@ IMPORTS
 der OBJECT IDENTIFIER ::=
   {joint-iso-itu-t asn1(1) ber-derived(2) distinguished-encoding(1)}
 
--- TODO: To be replaced by IANA
-id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-    algorithm(80) composite(4) compositekey(1) }
-
-
 
 --  COMPOSITE-KEY-ALGORITHM
 --
@@ -81,21 +75,6 @@ COMPOSITE-KEY-ALGORITHM ::= CLASS {
 --
 -- Public Key
 --
-
--- Generic Composite
-
--- TODO: To be replaced by IANA
-id-composite-key OBJECT IDENTIFIER ::= {
-    joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-    algorithm(80) composite(4) compositekey(1) }
-
-
-pk-Composite PUBLIC-KEY ::= {
-    IDENTIFIER id-composite-key
-    KEY CompositePublicKey
-    PARAMS TYPE CompositeAlgorithmIdentifier ARE optional
-    PRIVATE-KEY CompositePrivateKey
-}
 
 CompositePublicKey ::= SEQUENCE SIZE (2..MAX) OF SubjectPublicKeyInfo
 
@@ -306,45 +285,6 @@ id-Falcon512-Ed25519 OBJECT IDENTIFIER ::= {
 pk-Falcon512-Ed25519 PUBLIC-KEY ::= 
   pk-explicitCompositeSignature{id-Falcon512-Ed25519, 
   pk-falcon512TBD, OCTET STRING, pk-Ed25519, OCTET STRING}
-
-
-
--- TODO: To be replaced by IANA
-id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) explicitcomposite(5) signature(1) sphincsplussha256128ssimple-ecdsa-p256-sha256(11) }
-
-pk-SPHINCSplusSHA256-ECDSA-P256 PUBLIC-KEY ::= 
-  pk-explicitCompositeSignature{id-SPHINCSplusSHA256-ECDSA-P256, 
-  pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
-
---TODO: this is missing `PARAMS secp256r1`
-
-
-
--- TODO: To be replaced by IANA
-id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 OBJECT IDENTIFIER ::= {
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027)
-  algorithm(80) explicitcomposite(5) signature(1) 
-  id-sphincsplussha256128ssimple-ecdsa-brainpoolp256r1-sha256(12) }
-
-pk-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 PUBLIC-KEY ::= 
-  pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256, 
-  pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-ec, ECPoint}
-
---TODO: this is missing `PARAMS brainpoolp256r1`
-
-
--- TODO: To be replaced by IANA
-id-SPHINCSplusSHA256128sSimple-Ed25519 OBJECT IDENTIFIER ::= { 
-  joint-iso-itu-t(2) country(16) us(840) organization(1) entrust(114027) 
-  algorithm(80) explicitcomposite(5) signature(1) 
-  sphincsplussha256128ssimple-ed25519(13) }
-
-pk-SPHINCSplusSHA256128sSimple-Ed25519 PUBLIC-KEY ::= 
-  pk-explicitCompositeSignature{id-SPHINCSplusSHA256128sSimple-Ed25519, 
-  pk-sphincs-plus-256, SPHINCS-Plus-PublicKey, pk-Ed25519, OCTET STRING}
-
 
 
 -- Explicit Composite KEM Keys

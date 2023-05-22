@@ -2,7 +2,7 @@
 title: Composite Public and Private Keys For Use In Internet PKI
 abbrev: PQ Composite Keys
 # <!-- EDNOTE: Edits the draft name -->
-docname: draft-ounsworth-pq-composite-keys-04
+docname: draft-ounsworth-pq-composite-keys-05
 
 # <!-- stand_alone: true -->
 ipr: trust200902
@@ -132,7 +132,7 @@ The migration to post-quantum cryptography is unique in the history of modern di
 
 Cautious implementers may wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected using either a Post-Quantum / Traditional Hybrid, Post-Quantum / Post-Quantum Hybrid, or combinations thereof. This document, and its companions, defines a specific instantiation of hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level.
 
-This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. Explicit pairings of algorithms are defined which should meet most Internet needs. The generic composite key type is also defined which allows arbitrary combinations of key types to be placed in the CompositePublicKey and CompositePrivateKey structures without needing the combination to be pre-registered or pre-agreed.
+This document defines the structures CompositePublicKey and CompositePrivateKey, which are sequences of the respective structure for each component algorithm. Explicit pairings of algorithms are defined which should meet most Internet needs.
 
 This document is intended to be coupled with corresponding documents that define the structure and semantics of composite signatures and encryption, such as {{I-D.ounsworth-pq-composite-sigs}} and {{I-D.ounsworth-pq-composite-kem}}.
 
@@ -140,35 +140,11 @@ This document is intended to be coupled with corresponding documents that define
 
 --- middle
 
-# Changes in version -04
+# Changes in version -05
 
-- General restructuring of the document.
-- Aligned composite pairings with OpenPGP () and JOSE/COSE WGs, particularly draft-wussler-openpgp-pqc-00.
-- We have dropped the MAY / RECOMMENDED column as well as per-algorithm usage guidance because in the end we think it does not belong at the X.509 level because we believe these recommendations belong at the application profile level; for example what is RECOMMENDED for X.509-based client authentication may be very different from what is RECOMMENDED for X.509-based code-signing.
-- Renamed "id-SPHINCSsha256256frobust-ECDSA-P256" to "id-SPHINCSplusSHA256-ECDSA-P256" because the public key format does not depend on the signature algorithm parameters.
-- The following algorithms were removed:
-  - pk-example-ECandRSA
-  - id-Dilithium5-Falcon1024-ECDSA-P521
-  - id-Dilithium5-Falcon1024-RSA
-  - id-Kyber512-RSA
-- The following algorithms were added:
-  - id-Dilithium3-EDSA-brainpoolP256r1
-  - id-Dilithium3-Ed25519
-  - id-Dilithium5-ECDSA-P384
-  - id-Dilithium5-ECDSA-brainpoolP384r1
-  - id-Dilithium5-Ed448
-  - id-Falcon512-ECDSA-brainpoolP256r1
-  - id-SPHINCSplusSHA256-ECDSA-brainpoolP256r1
-  - id-SPHINCSplusSHA256-Ed25519
-  - id-Kyber512-ECDH-brainpoolP256r1-KMAC128
-  - id-Kyber768-RSA-KMAC256
-  - id-Kyber768-ECDH-P256-KMAC256
-  - id-Kyber768-ECDH-brainpoolP256r1-KMAC256
-  - id-Kyber768-X25519-KMAC256
-  - id-Kyber1024-ECDH-P384-KMAC256
-  - id-Kyber1024-ECDH-brainpoolP384r1-KMAC256
-  - id-Kyber1024-X448-KMAC256
-- Changed "examples" to "samples" when referring to {{appdx-samples}}.
+* Removed SPHINCS+ hybrids.
+* Removed all references to generic composite.
+* Added selection criteria note about requesting new explicit combinations.
 
 
 # Introduction {#sec-intro}
@@ -187,17 +163,16 @@ This document only specifies key formats; usage of these keys are covered in the
 This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.
 
 
-## Algorithm Selection Criteria
+## Algorithm Selection Criteria {#sec-selection-criteria}
 
 The composite algorithm combinations defined in this document were chosen according to the following guidelines:
 
 1. A single RSA combination is provided (but RSA modulus size not mandated), matched with NIST PQC Level 3 algorithms.
 1. Elliptic curve algorithms are provided with combinations on each of the NIST [RFC6090], Brainpool [RFC5639], and Edwards [RFC7748] curves. NIST PQC Levels 1 - 3 algorithms are matched with 256-bit curves, while NIST levels 4 - 5 are matched with 384-bit elliptic curves. This provides a balance between matching classical security levels of post-quantum and traditional algorithms, and also selecting elliptic curves which already have wide adoption.
 1. NIST level 1 candidates (Falcon512 and Kyber512) are provided, matched with 256-bit elliptic curves, intended for constrained use cases.
-1. A single SPHINCS+ combination is provided for use cases that wish to put hash-based signatures into hybrid combination.
-1. A generic composite algorithm is provided for implementers who wish to use combinations not listed here, without the overhead of defining new OIDs. Caution should be exercised to avoid issues with compatibility and complex cryptographic policy mechanisms.
+The authors wish to note that although all the composite structures defined in this and the companion documents {{I-D.ounsworth-pq-composite-sigs}} and {{I-D.ounsworth-pq-composite-kem}} specifications are defined in such a way as to easily allow 3 or more component algorithms, it was decided to only specify explicit pairs. This also does not preclude future specification of explicit combinations with three or more components.
 
-The authors wish to note that although all the composite structures defined in this and the companion composite signatures {{I-D.ounsworth-pq-composite-sigs}} and composite KEM {{I-D.ounsworth-pq-composite-kem}} specifications are defined in such a way as to easily allow 3 or more component algorithms, it was decided to only specify explicit pairs. The generic composite specified in this document allows for an arbitrary number of components. This also does not preclude future specification of explicit combinations with three or more components.
+To maximize interoperability, use of the specific algorithm combinations specified in this document is encouraged.  If other combinations are needed, a separate specification should be submitted to the IETF LAMPS working group.  To ease implementation, these specifications are encouraged to follow the construction pattern of the algorithms specified in this document.  
 
 
 ## Terminology {#sec-terminology}
@@ -286,7 +261,7 @@ Specifications of explicit composite key types must specify allowable key usages
 
 Many cryptographic libraries will require treating each component key independently and thus expect a full SubjectPublicKeyInfo for each component at some layer of the software stack. This left two design choices: either we carry full SPKI for each component within the CompositePublicKey, or we compress it by only carrying the raw key bytes and force implementations to carry OID and parameter mapping tables to be able to reconstruct component SPKIs. 
 
-The authors decided to carry the full SPKIs in order to lessen the implementation complexity at the expense of a small amount of redundant data to transmit. This also leads to the same wire format between explicitly specified combinations and generic composites where the component OIDs cannot be infered and thus must be carried.
+The authors decided to carry the full SPKIs in order to lessen the implementation complexity at the expense of a small amount of redundant data to transmit.
 
 This design choice has a non-obvious security risk in that the `algorithm` carried within each component SPKI is redundant information which MUST match -- and can be inferred from -- the specification of the explicit algorithm. 
 
@@ -348,7 +323,7 @@ This section is not intended to be exhaustive and other authors may define OIDs 
 
 ## Signature public key types
 
-This table summarizes the list of explicit composite Signature algorithms by the key and signature OID and the two component algorithms which make up the explicit composite algorithm.  These are denoted by First Signature Alg, and Second Signature Alg.  
+This table summarizes the list of explicit composite Signature algorithms by the key and signature OID and the two component algorithms which make up the explicit composite algorithm, as obtained by applying the selection criteria in section {{sec-selection-criteria}}.  These are denoted by First Signature Alg, and Second Signature Alg.  
 
 The OID referenced are TBD and MUST be used only for prototyping and replaced with the final IANA-assigned OIDS. The following prefix is used for each: replace &lt;CompSig&gt; with the String "2.16.840.1.114027.80.5.1"
 
@@ -369,10 +344,7 @@ Note that a single OID is used for both the key type and the signature algorithm
 | id-Falcon512-ECDSA-P256-SHA256             | &lt;CompSig&gt;.8  | Falcon512       | EC-P256 | 
 | id-Falcon512-ECDSA-brainpoolP256r1-SHA256  | &lt;CompSig&gt;.9  | Falcon512       | EC-brainpoolP256r1 | 
 | id-Falcon512-Ed25519                       | &lt;CompSig&gt;.10 | Falcon512       | Ed25519  |
-| id-SPHINCSplusSHA256128sSimple-ECDSA-P256-SHA256            | &lt;CompSig&gt;.11 | SPHINCSplusSHA256128sSimple | EC-P256 |
-| id-SPHINCSplusSHA256128sSimple-ECDSA-brainpoolP256r1-SHA256 | &lt;CompSig&gt;.12 | SPHINCSplusSHA256128sSimple | EC-brainpoolP256r1 |
-| id-SPHINCSplusSHA256128sSimple-Ed25519                      | &lt;CompSig&gt;.13 | SPHINCSplusSHA256128sSimple | Ed25519 |
-| id-composite-sig               | (1) identified-organization(3) dod(6) internet(1) private(4) enterprise(1) OpenCA(18227) Algorithms(2) id-alg-composite(1)  | Any | Any |
+
 
 The table above contains everything needed to implement the listed explicit composite algorithms. See the ASN.1 module in section {{sec-asn1-module}} for the explicit definitions of the above Composite signature algorithms.   
 
@@ -544,68 +516,6 @@ https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-keys/tree/mas
 
 > TODO: move these to https://github.com/lamps-wg before publication
 
-## Generic Composite Public Key Samples {#appdx-genComposite-samples}
-
-This is an example generic composite public key
-
-~~~
-!!sampledata/current/ecp256rsapub.pem
-~~~
-
-which decodes as:
-
-~~~
-algorithm: AlgorithmIdentifier{id-composite-key}
-
-subjectPublicKey: CompositePublicKey {
-  SubjectPublicKeyInfo {
-    algorithm: AlgorithmIdentifier {
-      algorithm: ecPublicKey
-      parameters: prime256v1
-      }
-    subjectPublicKey: <ec key octet string>
-    },
-    SubjectPublicKeyInfo {
-    algorithm: AlgorithmIdentifier {
-      algorithm: rsaEncryption
-      parameters: NULL
-      }
-    subjectPublicKey: <rsa key octet string>
-    }
-  }
-~~~
-
-
-The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey \|\| publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.
-
-~~~
-!!sampledata/current/ecp256rsapriv.pem
-~~~
-
-which decodes as:
-
-~~~
-algorithm: AlgorithmIdentifier{id-composite-key}
-
-SEQUENCE {
-  OneAsymmetricKey {
-      version: 0,
-      privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
-        algorithm: ecPublicKey 
-        parameters: prime256v1
-      }
-      privateKey: <ec key octet string>
-    },
-  OneAsymmetricKey {
-      version: 0,
-      privateKeyAlgorithm: PrivateKeyAlgorithmIdentifier{
-        algorithm: rsaEncryption 
-        parameters: NULL
-      }
-      privateKey: <rsa key octet string>
-    }
-  }
-~~~
 
 ## Explicit Composite Public Key Samples {#appdx-expComposite-samples}
 
