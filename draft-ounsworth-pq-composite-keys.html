@@ -1410,9 +1410,6 @@ li > p:last-of-type {
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.3">
                     <p id="section-toc.1-1.10.2.1.2.3.1"><a href="#appendix-B.1.3" class="xref">B.1.3</a>.  <a href="#name-id-falcon512-ecdsa-p256-2" class="xref">id-Falcon512-ECDSA-P256</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1.2.4">
-                    <p id="section-toc.1-1.10.2.1.2.4.1"><a href="#appendix-B.1.4" class="xref">B.1.4</a>.  <a href="#name-id-sphincsplussha256256frobu" class="xref">id-SPHINCSplusSHA256256frobust-ECDSA-P256</a></p>
-</li>
                 </ul>
 </li>
             </ul>
@@ -1548,7 +1545,7 @@ appear in all capitals, as shown here.<a href="#section-2.2-1" class="pilcrow">�
         <h3 id="name-pk-composite-2">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-pk-composite-2" class="section-name selfRef">pk-Composite</a>
         </h3>
-<p id="section-3.1-1">The following ASN.1 Information Object Class applies to all composite key types, with suitable replacements for the ASN.1 identifier <code>pk-Composite</code> and the OID <code>id-composite-key</code> as appropriate. See the ASN.1 Module in <a href="#sec-asn1-module" class="xref">Section 5</a> for parmeterized as well as signature and KEM versions.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">The following ASN.1 Information Object Class is a template to be used in defining all composite key types, with suitable replacements for the ASN.1 identifier <code>pk-Composite</code> and the OID <code>id-composite-key</code> as appropriate. See the ASN.1 Module in <a href="#sec-asn1-module" class="xref">Section 5</a> for parmeterized as well as signature and KEM versions.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <div id="section-3.1-2">
 <pre class="lang-ASN.1 sourcecode">
 pk-Composite PUBLIC-KEY ::= {
@@ -1777,9 +1774,6 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
           <li class="normal" id="section-4.1-8.6">
             <em>RSASSA-PSS</em>: <span>[<a href="#RFC8017" class="xref">RFC8017</a>]</span><a href="#section-4.1-8.6" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.1-8.7">
-            <em>SPHICNCSplus</em>: <span>[<a href="#I-D.ietf-lamps-cms-sphincs-plus" class="xref">I-D.ietf-lamps-cms-sphincs-plus</a>]</span><a href="#section-4.1-8.7" class="pilcrow">¶</a>
-</li>
         </ul>
 <p id="section-4.1-9">The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of <span>[<a href="#RFC5280" class="xref">RFC5280</a>]</span>. If the keyUsage extension is present in a certificate that indicates signature public key types above in the SubjectPublicKeyInfo, then the at least one of following MUST be present:<a href="#section-4.1-9" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1-10">
@@ -1886,20 +1880,6 @@ CompositePublicKeyBs ::= BIT STRING (CONTAINING CompositePublicKey ENCODED BY de
               <td class="text-left" rowspan="1" colspan="1">&lt;CompKEM&gt;.10</td>
               <td class="text-left" rowspan="1" colspan="1">Kyber1024</td>
               <td class="text-left" rowspan="1" colspan="1">X448</td>
-              <td class="text-left" rowspan="1" colspan="1"> </td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">id-composite-kem-KMAC128</td>
-              <td class="text-left" rowspan="1" colspan="1">2.16.840.1.114027.80.4.1</td>
-              <td class="text-left" rowspan="1" colspan="1">Any</td>
-              <td class="text-left" rowspan="1" colspan="1">Any</td>
-              <td class="text-left" rowspan="1" colspan="1"> </td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">id-composite-kem-KMAC256</td>
-              <td class="text-left" rowspan="1" colspan="1">2.16.840.1.114027.80.4.1  NEEDS NEW OID</td>
-              <td class="text-left" rowspan="1" colspan="1">Any</td>
-              <td class="text-left" rowspan="1" colspan="1">Any</td>
               <td class="text-left" rowspan="1" colspan="1"> </td>
             </tr>
           </tbody>
@@ -2382,13 +2362,7 @@ END
       </h2>
 <p id="section-6-1">All sorts of OIDs in the ASN.1 module. Too many to list here (sorry).<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">This document registers the following in the SMI "Security for PKIX Algorithms (1.3.6.1.5.5.7.6)" registry:<a href="#section-6-2" class="pilcrow">¶</a></p>
-<div id="section-6-3">
-<pre class="lang-ASN.1 sourcecode">
-id-composite-key OBJECT IDENTIFIER ::= {
-    iso(1) identified-organization(3) dod(6) internet(1) security(5)
-    mechanisms(5) pkix(7) algorithms(6) id-composite-key(??) }
-</pre><a href="#section-6-3" class="pilcrow">¶</a>
-</div>
+<p id="section-6-3">TODO<a href="#section-6-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -2456,10 +2430,6 @@ id-composite-key OBJECT IDENTIFIER ::= {
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="I-D.ietf-lamps-cms-sphincs-plus">[I-D.ietf-lamps-cms-sphincs-plus]</dt>
-        <dd>
-<span class="refAuthor">Housley, R.</span>, <span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Use of the SPHINCS+ Signature Algorithm in the Cryptographic Message Syntax (CMS)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-cms-sphincs-plus-01</span>, <time datetime="2022-11-21" class="refDate">21 November 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-cms-sphincs-plus-01">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-cms-sphincs-plus-01</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="I-D.ietf-lamps-dilithium-certificates">[I-D.ietf-lamps-dilithium-certificates]</dt>
         <dd>
 <span class="refAuthor">Massimo, J.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Turner, S.</span>, and <span class="refAuthor">B. Westerbaan</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure: Algorithm Identifiers for Dilithium"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-lamps-dilithium-certificates-00</span>, <time datetime="2022-09-29" class="refDate">29 September 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-lamps-dilithium-certificates-00">https://datatracker.ietf.org/doc/html/draft-ietf-lamps-dilithium-certificates-00</a>&gt;</span>. </dd>
@@ -3093,72 +3063,6 @@ ZrFIC4RJxqmPX7GkKlSVSGbwJrYBu98SL2mK31GPzL23tMikOYwQQIBADATBgcqhkjOPQIBBggq
 hkjOPQMBBwQnMCUCAQEEICXQxbtuhGjYSkyLz+K0V0tRyxgEBlQcElOVwHZSA4QL
 -----END PRIVATE KEY-----
 </pre><a href="#appendix-B.1.3-7" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="id-sphincsplussha256256frobust-ecdsa-p256">
-<section id="appendix-B.1.4">
-          <h4 id="name-id-sphincsplussha256256frobu">
-<a href="#appendix-B.1.4" class="section-number selfRef">B.1.4. </a><a href="#name-id-sphincsplussha256256frobu" class="section-name selfRef">id-SPHINCSplusSHA256256frobust-ECDSA-P256</a>
-          </h4>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="appendix-B.1.4-1.1">
-              <p id="appendix-B.1.4-1.1.1">TODO: we switched to using a pub key identifier without the signing mode, ie just id-SPHINCSplusSHA256-ECDSA-P256<a href="#appendix-B.1.4-1.1.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="appendix-B.1.4-2">This example uses the following OID as definid in Open Quantum Safe:<a href="#appendix-B.1.4-2" class="pilcrow">¶</a></p>
-<p id="appendix-B.1.4-3">https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md<a href="#appendix-B.1.4-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1.4-4">
-<pre>
-id-SPHINCSplusSHA256256frobust 1.3.9999.6.6.1
-</pre><a href="#appendix-B.1.4-4" class="pilcrow">¶</a>
-</div>
-<p id="appendix-B.1.4-5">A SPHINCSplusSHA256256frobust-ECDSA-P256 public key:<a href="#appendix-B.1.4-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1.4-6">
-<pre>
------BEGIN PUBLIC KEY-----
-MIG/MAwGCmCGSAGG+mtQBQcDga4AMIGqME0wCAYGK84PBgYBA0EA6HRU4f2vmr2LV5vZVlaniti
-Ly8ZCfheVqolJGrY5GxpNwvIt8fK6swNtftSgmrC+fCDE48/fbzX7a2U3F1/S3TBZMBMGByqGSM
-49AgEGCCqGSM49AwEHA0IABFjKamMP3nn7Ua8Y8XEJtqnp7ya+Ino3UoxjMhhVKHx0fQxAz7lB7
-Eytrtq3H7e59JYdkceK1h+T8jZFyUP5e0M=
------END PUBLIC KEY-----
-</pre><a href="#appendix-B.1.4-6" class="pilcrow">¶</a>
-</div>
-<p id="appendix-B.1.4-7">which decodes as:<a href="#appendix-B.1.4-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1.4-8">
-<pre>
-algorithm: AlgorithmIdentifier{id-Dilithium3-ECDSA-P256}
-
-subjectPublicKey: CompositePublicKey {
-  SubjectPublicKeyInfo {
-    algorithm: AlgorithmIdentifier {
-      algorithm: id-SPHINCSplusSHA256256frobust
-      }
-    subjectPublicKey: &lt;sphincs key octet string&gt;
-    },
-    SubjectPublicKeyInfo {
-    algorithm: AlgorithmIdentifier {
-      algorithm: ecPublicKey
-      parameters: prime256v1
-      }
-    subjectPublicKey: &lt;ec octet string&gt;
-    }
-  }
-
-</pre><a href="#appendix-B.1.4-8" class="pilcrow">¶</a>
-</div>
-<p id="appendix-B.1.4-9">The corresponding explicit private key is as follows. Note that the PQ key comes from OpenQuantumSafe-openssl and is in the {privatekey || publickey} concatenated format. This may cause interoperability issues with some clients, and also makes the private keys appear larger than they would be if generated by a non-openssl client.<a href="#appendix-B.1.4-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-B.1.4-10">
-<pre>
------BEGIN PRIVATE KEY-----
-MIIBMgIBADAMBgpghkgBhvprUAUHBIIBHTCCARkwgdMCAQAwCAYGK84PBgYBBIHDBIHA0PwPCww
-Ulg3VLrZC7cGLqF0jRZrREj/l4kKF4JsLTjRR2P4RLqEm0qBa7ukb4ytHE6HDfM0h6dJ19F02hO
-SO6Oh0VOH9r5q9i1eb2VZWp4rYi8vGQn4XlaqJSRq2ORsaTcLyLfHyurMDbX7UoJqwvnwgxOPP3
-281+2tlNxdf0t3odFTh/a+avYtXm9lWVqeK2IvLxkJ+F5WqiUkatjkbGk3C8i3x8rqzA21+1KCa
-sL58IMTjz99vNftrZTcXX9LdMEECAQAwEwYHKoZIzj0CAQYIKoZIzj0DAQcEJzAlAgEBBCAwCM4
-KKsZbXlaZBph1ixcUhlNiZ1qp4LnA90Nm/rArZw==
------END PRIVATE KEY-----
-</pre><a href="#appendix-B.1.4-10" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
