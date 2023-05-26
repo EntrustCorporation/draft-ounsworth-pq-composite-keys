@@ -1186,7 +1186,7 @@ li > p:last-of-type {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 25 November 2023</td>
+<td class="center">Expires 27 November 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1199,12 +1199,12 @@ li > p:last-of-type {
 <dd class="internet-draft">draft-ounsworth-pq-composite-keys-05</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-05-24" class="published">24 May 2023</time>
+<time datetime="2023-05-26" class="published">26 May 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-11-25">25 November 2023</time></dd>
+<dd class="expires"><time datetime="2023-11-27">27 November 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1268,7 +1268,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 27 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1429,6 +1429,9 @@ li > p:last-of-type {
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2.2.2">
                     <p id="section-toc.1-1.11.2.2.2.2.1"><a href="#appendix-C.2.2" class="xref">C.2.2</a>.  <a href="#name-parallel-pkis-2" class="xref">Parallel PKIs</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2.2.3">
+                    <p id="section-toc.1-1.11.2.2.2.3.1"><a href="#appendix-C.2.3" class="xref">C.2.3</a>.  <a href="#name-catalyst-certificates-2" class="xref">CATALYST certificates</a></p>
+</li>
                 </ul>
 </li>
             </ul>
@@ -1479,7 +1482,7 @@ li > p:last-of-type {
         <li class="normal" id="section-2-3.2">Migration: During the transition period, systems will require mechanisms that allow for staged migrations from fully traditional to fully post-quantum-aware cryptography.<a href="#section-2-3.2" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-2-4">This document provides the composite mechanism, which is a specific instantiation of the PQ/T hybrid paradigm to address algorithm strength uncertainty concerns by providing formats for encoding multiple public key and private key values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechanisms defined in the document, but some notes on how it can be obtained can be found in <a href="#sec-backwards-compat" class="xref">Appendix C.2</a>.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-4">This document provides the composite mechanism, which is a specific instantiation of the PQ/T hybrid paradigm to address algorithm strength uncertainty concerns by providing formats for encoding multiple public key and private key values into existing public key and private key fields. Backwards compatibility is not directly addressed via the composite mechanisms defined in the document, but some notes on how it can be obtained can be found in <a href="#sec-backwards-compat" class="xref">Appendix C.2</a>. Other hybrid public key, signature, and KEM mechanisms exist, notably <span>[<a href="#I-D.guthrie-ipsecme-ikev2-hybrid-auth" class="xref">I-D.guthrie-ipsecme-ikev2-hybrid-auth</a>]</span> and <span>[<a href="#I-D.truskovsky-lamps-pq-hybrid-x509" class="xref">I-D.truskovsky-lamps-pq-hybrid-x509</a>]</span> / <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span>, which have their security and ease of migration properties discussed in more detail in <a href="#sec-backwards-compat" class="xref">Appendix C.2</a>.<a href="#section-2-4" class="pilcrow">¶</a></p>
 <p id="section-2-5">This document only specifies key formats; usage of these keys are covered in the corresponding composite signatures <span>[<a href="#I-D.ounsworth-pq-composite-sigs" class="xref">I-D.ounsworth-pq-composite-sigs</a>]</span> and composite KEM <span>[<a href="#I-D.ounsworth-pq-composite-kem" class="xref">I-D.ounsworth-pq-composite-kem</a>]</span> specifications.<a href="#section-2-5" class="pilcrow">¶</a></p>
 <p id="section-2-6">This document is intended for general applicability anywhere that keys are used within PKIX or CMS structures.<a href="#section-2-6" class="pilcrow">¶</a></p>
 <div id="sec-selection-criteria">
@@ -2545,6 +2548,14 @@ END
         <dd>
 <span class="refAuthor">Guthrie, R.</span>, <span class="refTitle">"Hybrid Non-Composite Authentication in IKEv2"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-guthrie-ipsecme-ikev2-hybrid-auth-00</span>, <time datetime="2022-03-25" class="refDate">25 March 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-guthrie-ipsecme-ikev2-hybrid-auth-00">https://datatracker.ietf.org/doc/html/draft-guthrie-ipsecme-ikev2-hybrid-auth-00</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.truskovsky-lamps-pq-hybrid-x509">[I-D.truskovsky-lamps-pq-hybrid-x509]</dt>
+        <dd>
+<span class="refAuthor">Truskovsky, A.</span>, <span class="refAuthor">Van Geest, D.</span>, <span class="refAuthor">Fluhrer, S.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Ounsworth, M.</span>, and <span class="refAuthor">S. Mister</span>, <span class="refTitle">"Multiple Public-Key Algorithm X.509 Certificates"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-truskovsky-lamps-pq-hybrid-x509-01</span>, <time datetime="2018-08-29" class="refDate">29 August 2018</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-truskovsky-lamps-pq-hybrid-x509-01">https://datatracker.ietf.org/doc/html/draft-truskovsky-lamps-pq-hybrid-x509-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="itu-t-x509-2019">[itu-t-x509-2019]</dt>
+        <dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"ITU-T X.509 The Directory: Public-key and attribute certificate frameworks"</span>, <time datetime="2019-01" class="refDate">January 2019</time>, <span>&lt;<a href="https://www.itu.int/ITU-T/recommendations/rec.aspx?rec=X.509">https://www.itu.int/ITU-T/recommendations/rec.aspx?rec=X.509</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4210">[RFC4210]</dt>
         <dd>
 <span class="refAuthor">Adams, C.</span>, <span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Kause, T.</span>, and <span class="refAuthor">T. Mononen</span>, <span class="refTitle">"Internet X.509 Public Key Infrastructure Certificate Management Protocol (CMP)"</span>, <span class="seriesInfo">RFC 4210</span>, <span class="seriesInfo">DOI 10.17487/RFC4210</span>, <time datetime="2005-09" class="refDate">September 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4210">https://www.rfc-editor.org/info/rfc4210</a>&gt;</span>. </dd>
@@ -3124,6 +3135,15 @@ hkjOPQMBBwQnMCUCAQEEICXQxbtuhGjYSkyLz+K0V0tRyxgEBlQcElOVwHZSA4QL
 <p id="appendix-C.2.2-2">Equipped with a set of parallel public keys in this way, a client would have the flexibility to choose which public key(s) or certificate(s) to use in a given cryptographic operation.<a href="#appendix-C.2.2-2" class="pilcrow">¶</a></p>
 <p id="appendix-C.2.2-3">For negotiated protocols, the client could choose which public key(s) or certificate(s) to use based on the negotiated algorithms, or could combine two of the public keys for example in a non-composite hybrid method such as <span>[<a href="#I-D.becker-guthrie-noncomposite-hybrid-auth" class="xref">I-D.becker-guthrie-noncomposite-hybrid-auth</a>]</span> or <span>[<a href="#I-D.guthrie-ipsecme-ikev2-hybrid-auth" class="xref">I-D.guthrie-ipsecme-ikev2-hybrid-auth</a>]</span>. Note that it is possible to use the signature algorithm defined in <span>[<a href="#I-D.ounsworth-pq-composite-sigs" class="xref">I-D.ounsworth-pq-composite-sigs</a>]</span> as a way to carry the multiple signature values generated by a non-composite public mechanism in protocols where it is easier to support the composite signature algorithms than to implement such a mechanism in the protocol itself. There is also nothing precluding a composite public key from being one of the components used within a non-composite authentication operation; this may lead to greater convenience in setting up parallel PKI hierarchies that need to service a range of clients implementing different styles of post-quantum migration strategies.<a href="#appendix-C.2.2-3" class="pilcrow">¶</a></p>
 <p id="appendix-C.2.2-4">For non-negotiated protocols, the details for obtaining backwards compatibility will vary by protocol, but for example in CMS <span>[<a href="#RFC5652" class="xref">RFC5652</a>]</span>, the inclusion of multiple SignerInfo or RecipientInfo objects is often already treated as an OR relationship, so including one for each of the end entity's parallel PKI public keys would, in many cases, have the desired effect of allowing the receiver to choose one they are compatible with and ignore the others, thus achieving full backwards compatibility.<a href="#appendix-C.2.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="catalyst-certificates">
+<section id="appendix-C.2.3">
+          <h4 id="name-catalyst-certificates-2">
+<a href="#appendix-C.2.3" class="section-number selfRef">C.2.3. </a><a href="#name-catalyst-certificates-2" class="section-name selfRef">CATALYST certificates</a>
+          </h4>
+<p id="appendix-C.2.3-1">CATALYST certificates, defined in <span>[<a href="#I-D.truskovsky-lamps-pq-hybrid-x509" class="xref">I-D.truskovsky-lamps-pq-hybrid-x509</a>]</span> and <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> provides an alternative mechanism for placing multiple public keys and signatures into a certificate via the X.509v3 extensions <code>subjectAltPublicKeyInfo</code>, <code>altSignatureAlgorithm</code>, and <code>altSignatureValue</code>. <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> specifies that only one of the keys is to be used at a time, so it is not in fact a hybrid mechinism in that it is not providing dual algorithm security, it is merely a migration mechanism. One could imagine using a CATALYST certificate in a mode other than that described in <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> where both keys produce a signature and place them, for example, togeher in a <code>CompositeSignatureValue</code>.<a href="#appendix-C.2.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.2.3-2">CALATYST certificates appear to have a backwards compatibility advantage in that these non-critical extensions will be ignored by legacy clients, thus making the certificate verification seamlessly backwards compatible. However, at the protocol level, the certificate holder still needs to know which algorithm the peer wants it to use to sign the protocol-level message. CATALYST certificates also have the disadvantage of needing to transmit the large post-quantum keys and signatures even if the client will not use them. Thus while CATALYST certificates may be advantageous in some applications that multiple algorithms but can only handle a single certificate, it is general not clear that they offer any strong advantage over a multi-cert hybrid in terms of ease of migration, or over composite in terms of security.<a href="#appendix-C.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
