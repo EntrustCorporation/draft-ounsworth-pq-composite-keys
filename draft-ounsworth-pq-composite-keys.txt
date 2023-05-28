@@ -5,11 +5,11 @@
 LAMPS                                                       M. Ounsworth
 Internet-Draft                                                   J. Gray
 Intended status: Standards Track                                 Entrust
-Expires: 27 November 2023                                        M. Pala
+Expires: 28 November 2023                                        M. Pala
                                                                CableLabs
                                                             J. Klaussner
                                                             D-Trust GmbH
-                                                             26 May 2023
+                                                             27 May 2023
 
 
        Composite Public and Private Keys For Use In Internet PKI
@@ -53,7 +53,7 @@ About This Document
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 1]
+Ounsworth, et al.       Expires 28 November 2023                [Page 1]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -86,7 +86,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 November 2023.
+   This Internet-Draft will expire on 28 November 2023.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 2]
+Ounsworth, et al.       Expires 28 November 2023                [Page 2]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -153,7 +153,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
        C.2.3.  CATALYST certificates . . . . . . . . . . . . . . . .  43
    Appendix D.  Intellectual Property Considerations . . . . . . . .  44
    Appendix E.  Contributors and Acknowledgements  . . . . . . . . .  44
-     E.1.  Making contributions  . . . . . . . . . . . . . . . . . .  44
+     E.1.  Making contributions  . . . . . . . . . . . . . . . . . .  45
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  45
 
 1.  Changes in version -05
@@ -165,7 +165,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 3]
+Ounsworth, et al.       Expires 28 November 2023                [Page 3]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -221,7 +221,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 4]
+Ounsworth, et al.       Expires 28 November 2023                [Page 4]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -277,7 +277,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 5]
+Ounsworth, et al.       Expires 28 November 2023                [Page 5]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -333,7 +333,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 6]
+Ounsworth, et al.       Expires 28 November 2023                [Page 6]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -389,7 +389,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 7]
+Ounsworth, et al.       Expires 28 November 2023                [Page 7]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -445,7 +445,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 8]
+Ounsworth, et al.       Expires 28 November 2023                [Page 8]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -501,7 +501,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023                [Page 9]
+Ounsworth, et al.       Expires 28 November 2023                [Page 9]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -557,7 +557,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 10]
+Ounsworth, et al.       Expires 28 November 2023               [Page 10]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -613,7 +613,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 11]
+Ounsworth, et al.       Expires 28 November 2023               [Page 11]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -669,7 +669,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 12]
+Ounsworth, et al.       Expires 28 November 2023               [Page 12]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -725,7 +725,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 13]
+Ounsworth, et al.       Expires 28 November 2023               [Page 13]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -781,7 +781,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 14]
+Ounsworth, et al.       Expires 28 November 2023               [Page 14]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -837,7 +837,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 15]
+Ounsworth, et al.       Expires 28 November 2023               [Page 15]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -893,7 +893,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 16]
+Ounsworth, et al.       Expires 28 November 2023               [Page 16]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -949,7 +949,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 17]
+Ounsworth, et al.       Expires 28 November 2023               [Page 17]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1005,7 +1005,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 18]
+Ounsworth, et al.       Expires 28 November 2023               [Page 18]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1061,7 +1061,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 19]
+Ounsworth, et al.       Expires 28 November 2023               [Page 19]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1117,7 +1117,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 20]
+Ounsworth, et al.       Expires 28 November 2023               [Page 20]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1173,7 +1173,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 21]
+Ounsworth, et al.       Expires 28 November 2023               [Page 21]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1229,7 +1229,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 22]
+Ounsworth, et al.       Expires 28 November 2023               [Page 22]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1285,7 +1285,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 23]
+Ounsworth, et al.       Expires 28 November 2023               [Page 23]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1341,7 +1341,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 24]
+Ounsworth, et al.       Expires 28 November 2023               [Page 24]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1397,7 +1397,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 25]
+Ounsworth, et al.       Expires 28 November 2023               [Page 25]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1453,7 +1453,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 26]
+Ounsworth, et al.       Expires 28 November 2023               [Page 26]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1509,7 +1509,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 27]
+Ounsworth, et al.       Expires 28 November 2023               [Page 27]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1565,7 +1565,7 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 28]
+Ounsworth, et al.       Expires 28 November 2023               [Page 28]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1621,7 +1621,7 @@ Appendix A.  Work in Progress
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 29]
+Ounsworth, et al.       Expires 28 November 2023               [Page 29]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1677,7 +1677,7 @@ B.1.1.  id-Dilithium3-ECDSA-P256
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 30]
+Ounsworth, et al.       Expires 28 November 2023               [Page 30]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1733,7 +1733,7 @@ Srzd4w0i+5dCNM9rX
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 31]
+Ounsworth, et al.       Expires 28 November 2023               [Page 31]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1789,7 +1789,7 @@ o3s25BQqJAGiRKBLd0UXz5AUbSB9fFaO21aiX2WWISjdA1R4SuQNNQZcVgGuKpQBAcPV7xcFRlZ
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 32]
+Ounsworth, et al.       Expires 28 November 2023               [Page 32]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1845,7 +1845,7 @@ dJjWC9BBqW76a03u7YqiUr6aKsw2z+AN/ZnuLyZ3YvWLHNdCRmtZlASMZfoa5K+FfkXUog4m0Iz
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 33]
+Ounsworth, et al.       Expires 28 November 2023               [Page 33]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1901,7 +1901,7 @@ B.1.2.  id-Dilithium3-RSA
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 34]
+Ounsworth, et al.       Expires 28 November 2023               [Page 34]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -1957,7 +1957,7 @@ dN2ayilmvdG06dMwrGKs2Tag5HKbUSMPA3BlKvvqrJhMb3w86xPf2MnvWzVWmi0tpE2zcCgXkX+
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 35]
+Ounsworth, et al.       Expires 28 November 2023               [Page 35]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -2013,7 +2013,7 @@ mE/GtH92lz0fC9GQWgdyTK4H23xP5PlRGlzVLJ5CVA/rucNg6F7AU5bycpC557ugsdO+UOLhc92
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 36]
+Ounsworth, et al.       Expires 28 November 2023               [Page 36]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -2069,7 +2069,7 @@ Aw7hcPqO9LPgoofk7oADU+iGR28qpmfYDT8lg0/FKRqsufHvqRon1H8zlFF09Xpi0u87JnVSG7e
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 37]
+Ounsworth, et al.       Expires 28 November 2023               [Page 37]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -2125,7 +2125,7 @@ B.1.3.  id-Falcon512-ECDSA-P256
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 38]
+Ounsworth, et al.       Expires 28 November 2023               [Page 38]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -2181,7 +2181,7 @@ HymrF59in1pXEPnEWLZ9xLO5A6cg==
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 39]
+Ounsworth, et al.       Expires 28 November 2023               [Page 39]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -2237,7 +2237,7 @@ Appendix C.  Implementation Considerations
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 40]
+Ounsworth, et al.       Expires 28 November 2023               [Page 40]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -2293,7 +2293,7 @@ C.2.  Backwards Compatibility
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 41]
+Ounsworth, et al.       Expires 28 November 2023               [Page 41]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -2349,7 +2349,7 @@ C.2.2.  Parallel PKIs
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 42]
+Ounsworth, et al.       Expires 28 November 2023               [Page 42]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
@@ -2392,33 +2392,34 @@ C.2.3.  CATALYST certificates
    subjectAltPublicKeyInfo, altSignatureAlgorithm, and
    altSignatureValue. [itu-t-x509-2019] specifies that only one of the
    keys is to be used at a time, so it is not in fact a hybrid mechinism
-   in that it is not providing dual algorithm security, it is merely a
-   migration mechanism.  One could imagine using a CATALYST certificate
-   in a mode other than that described in [itu-t-x509-2019] where both
-   keys produce a signature and place them, for example, togeher in a
+   in that it is not providing dual algorithm security; instead it is
+   merely a migration mechanism.  One could imagine obtaining dual
+   algorithm security by using a CATALYST certificate in a mode other
+   than that described in [itu-t-x509-2019] where both keys produce a
+   signature and place them, for example, togeher in a
    CompositeSignatureValue.
 
    CALATYST certificates appear to have a backwards compatibility
    advantage in that these non-critical extensions will be ignored by
    legacy clients, thus making the certificate verification seamlessly
-   backwards compatible.  However, at the protocol level, the
 
 
 
-Ounsworth, et al.       Expires 27 November 2023               [Page 43]
+Ounsworth, et al.       Expires 28 November 2023               [Page 43]
 
 Internet-Draft              PQ Composite Keys                   May 2023
 
 
+   verifiable by legacy clients.  However, at the protocol level, the
    certificate holder still needs to know which algorithm the peer wants
-   it to use to sign the protocol-level message.  CATALYST certificates
-   also have the disadvantage of needing to transmit the large post-
-   quantum keys and signatures even if the client will not use them.
-   Thus while CATALYST certificates may be advantageous in some
-   applications that multiple algorithms but can only handle a single
-   certificate, it is general not clear that they offer any strong
-   advantage over a multi-cert hybrid in terms of ease of migration, or
-   over composite in terms of security.
+   it to use in the protocol-level message.  CATALYST certificates also
+   have the disadvantage of needing to transmit the large post-quantum
+   keys, signatures or key exchange data even if the client will not use
+   them.  Thus while CATALYST certificates may be advantageous in some
+   applications that use multiple algorithms but can only handle a
+   single certificate, it is in general not clear that they offer any
+   strong advantage over a multi-cert hybrid in terms of ease of
+   migration, or over composite in terms of security.
 
 Appendix D.  Intellectual Property Considerations
 
@@ -2454,17 +2455,21 @@ Appendix E.  Contributors and Acknowledgements
    "Copying always makes things easier and less error prone" -
    [RFC8411].
 
+
+
+
+
+
+
+Ounsworth, et al.       Expires 28 November 2023               [Page 44]
+
+Internet-Draft              PQ Composite Keys                   May 2023
+
+
 E.1.  Making contributions
 
    Additional contributions to this draft are welcome.  Please see the
    working copy of this draft at, as well as open issues at:
-
-
-
-Ounsworth, et al.       Expires 27 November 2023               [Page 44]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
    https://github.com/EntrustCorporation/draft-ounsworth-pq-composite-
    keys
@@ -2512,9 +2517,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-Ounsworth, et al.       Expires 27 November 2023               [Page 45]
+Ounsworth, et al.       Expires 28 November 2023               [Page 45]

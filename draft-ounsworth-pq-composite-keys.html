@@ -1186,7 +1186,7 @@ li > p:last-of-type {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 27 November 2023</td>
+<td class="center">Expires 28 November 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1199,12 +1199,12 @@ li > p:last-of-type {
 <dd class="internet-draft">draft-ounsworth-pq-composite-keys-05</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-05-26" class="published">26 May 2023</time>
+<time datetime="2023-05-27" class="published">27 May 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-11-27">27 November 2023</time></dd>
+<dd class="expires"><time datetime="2023-11-28">28 November 2023</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1268,7 +1268,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -3142,8 +3142,8 @@ hkjOPQMBBwQnMCUCAQEEICXQxbtuhGjYSkyLz+K0V0tRyxgEBlQcElOVwHZSA4QL
           <h4 id="name-catalyst-certificates-2">
 <a href="#appendix-C.2.3" class="section-number selfRef">C.2.3. </a><a href="#name-catalyst-certificates-2" class="section-name selfRef">CATALYST certificates</a>
           </h4>
-<p id="appendix-C.2.3-1">CATALYST certificates, defined in <span>[<a href="#I-D.truskovsky-lamps-pq-hybrid-x509" class="xref">I-D.truskovsky-lamps-pq-hybrid-x509</a>]</span> and <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> provides an alternative mechanism for placing multiple public keys and signatures into a certificate via the X.509v3 extensions <code>subjectAltPublicKeyInfo</code>, <code>altSignatureAlgorithm</code>, and <code>altSignatureValue</code>. <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> specifies that only one of the keys is to be used at a time, so it is not in fact a hybrid mechinism in that it is not providing dual algorithm security, it is merely a migration mechanism. One could imagine using a CATALYST certificate in a mode other than that described in <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> where both keys produce a signature and place them, for example, togeher in a <code>CompositeSignatureValue</code>.<a href="#appendix-C.2.3-1" class="pilcrow">¶</a></p>
-<p id="appendix-C.2.3-2">CALATYST certificates appear to have a backwards compatibility advantage in that these non-critical extensions will be ignored by legacy clients, thus making the certificate verification seamlessly backwards compatible. However, at the protocol level, the certificate holder still needs to know which algorithm the peer wants it to use to sign the protocol-level message. CATALYST certificates also have the disadvantage of needing to transmit the large post-quantum keys and signatures even if the client will not use them. Thus while CATALYST certificates may be advantageous in some applications that multiple algorithms but can only handle a single certificate, it is general not clear that they offer any strong advantage over a multi-cert hybrid in terms of ease of migration, or over composite in terms of security.<a href="#appendix-C.2.3-2" class="pilcrow">¶</a></p>
+<p id="appendix-C.2.3-1">CATALYST certificates, defined in <span>[<a href="#I-D.truskovsky-lamps-pq-hybrid-x509" class="xref">I-D.truskovsky-lamps-pq-hybrid-x509</a>]</span> and <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> provides an alternative mechanism for placing multiple public keys and signatures into a certificate via the X.509v3 extensions <code>subjectAltPublicKeyInfo</code>, <code>altSignatureAlgorithm</code>, and <code>altSignatureValue</code>. <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> specifies that only one of the keys is to be used at a time, so it is not in fact a hybrid mechinism in that it is not providing dual algorithm security; instead it is merely a migration mechanism. One could imagine obtaining dual algorithm security by using a CATALYST certificate in a mode other than that described in <span>[<a href="#itu-t-x509-2019" class="xref">itu-t-x509-2019</a>]</span> where both keys produce a signature and place them, for example, togeher in a <code>CompositeSignatureValue</code>.<a href="#appendix-C.2.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-C.2.3-2">CALATYST certificates appear to have a backwards compatibility advantage in that these non-critical extensions will be ignored by legacy clients, thus making the certificate verification seamlessly verifiable by legacy clients. However, at the protocol level, the certificate holder still needs to know which algorithm the peer wants it to use in the protocol-level message. CATALYST certificates also have the disadvantage of needing to transmit the large post-quantum keys, signatures or key exchange data even if the client will not use them. Thus while CATALYST certificates may be advantageous in some applications that use multiple algorithms but can only handle a single certificate, it is in general not clear that they offer any strong advantage over a multi-cert hybrid in terms of ease of migration, or over composite in terms of security.<a href="#appendix-C.2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
