@@ -221,11 +221,11 @@ In order to represent public keys and private keys that are composed of multiple
 >      incorporates multiple component cryptographic elements of the same
 >      type in a multi-algorithm scheme.
 
-Composite keys as defined here follow this definition and should be regarded as a single key that performs a single cryptographic operation such key generation, signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This generally means that the complexity of combining algorithms can and should be ignored by application and protocol layers and deferred to the cryptographic library layer.
+Composite keys as defined here follow this definition and should be regarded as a single key that performs a single cryptographic operation such as key generation, signing, verifying, encapsulating, or decapsulating -- using its encapsulated sequence of component keys as if it was a single key. This generally means that the complexity of combining algorithms can and should be ignored by application and protocol layers and deferred to the cryptographic library layer.
 
 ## pk-Composite
 
-The following ASN.1 Information Object Class is a template to be used in defining all composite key types, with suitable replacements for the ASN.1 identifier `pk-Composite` and the OID `id-composite-key` as appropriate. See the ASN.1 Module in {{sec-asn1-module}} for parmeterized as well as signature and KEM versions.
+The following ASN.1 Information Object Class is a template to be used in defining all composite key types, with suitable replacements for the ASN.1 identifier `pk-Composite` and the OID `id-composite-key` as appropriate. See the ASN.1 Module in {{sec-asn1-module}} for parameterized as well as signature and KEM versions.
 
 ~~~ ASN.1
 pk-Composite PUBLIC-KEY ::= {
@@ -260,7 +260,7 @@ When the CompositePublicKey must be provided in octet string or bit string forma
 
 ### Key Usage {#sec-keyusage}
 
-Protocols such as X.509 [RFC5280] that specify a key usage along with the public key. For composite keys, a single key usage is specified for the entire public key and it MUST apply to all component keys. For example if a composite key is marked with a key usage of digitalSignature, then all component keys MUST be capable of producing digital signatures and handled with policies appropriate for digital signature keys. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.
+Protocols such as X.509 [RFC5280] specify a key usage along with the public key. For composite keys, a single key usage is specified for the entire public key and it MUST apply to all component keys. For example if a composite key is marked with a key usage of digitalSignature, then all component keys MUST be capable of producing digital signatures and handled with policies appropriate for digital signature keys. The composite mechanism MUST NOT be used to implement mixed-usage keys, for example, where a digitalSignature and a keyEncipherment key are combined together into a single composite key.
 
 Specifications of explicit composite key types must specify allowable key usages for that type based on the types of the components.
 
@@ -337,7 +337,7 @@ The OID referenced are TBD and MUST be used only for prototyping and replaced wi
 
 Therefore &lt;CompSig&gt;.1 is equal to 2.16.840.1.114027.80.5.1.1
 
-Note that a single OID is used for both the key type and the signature algorithm; ie there is a one-to-one correspondance between key types and signature algorithms, hence why these key type names contain more information than they strictly need to define a key type.
+Note that a single OID is used for both the key type and the signature algorithm; ie there is a one-to-one correspondence between key types and signature algorithms, hence why these key type names contain more information than they strictly need to define a key type.
 
 | Composite Signature Key Type               | OID                | First Key Type  |  Second Key Type |
 | -----------                                | -----------------  | -----------     |  -----------      | 
@@ -369,7 +369,7 @@ Full specifications for the referenced algorithms can be found as follows:
 * _RSAES-PKCS-v1_5_: [RFC8017]
 * _RSASSA-PSS_: [RFC8017]
 
-The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates signature public key types above in the SubjectPublicKeyInfo, then the at least one of following MUST be present:
+The intended application for the key is indicated in the keyUsage certificate extension; see Section 4.2.1.3 of [RFC5280]. If the keyUsage extension is present in a certificate that indicates signature public key types above in the SubjectPublicKeyInfo, then at least one of following MUST be present:
 
 ~~~
   digitalSignature; or
@@ -390,7 +390,7 @@ The OID referenced are TBD and MUST be used only for prototyping and replaced wi
 
 Therefore &lt;CompKEM&gt;.1 is equal to 2.16.840.1.114027.80.5.2.1.
 
-Note that a single OID is used for both the key type and the KEM algorithm; ie there is a one-to-one correspondance between key types and KEM algorithms, hence why these key type names contain more information than they strictly need to define a key type.
+Note that a single OID is used for both the key type and the KEM algorithm; ie there is a one-to-one correspondence between key types and KEM algorithms, hence why these key type names contain more information than they strictly need to define a key type.
 
 Composite KEM Key Type                      | OID                        | First Key Type    | Second Key Type      |
 ---------                                   | ----------                 | ----------        | ----------           |
@@ -573,7 +573,7 @@ The corresponding explicit private key is as follows. Note that the PQ key comes
 ### id-Falcon512-ECDSA-P256
 
 
-This example uses the following OID as definid in Open Quantum Safe, which correspond to NIST Round3 candidates:
+This example uses the following OID as defined in Open Quantum Safe, which correspond to NIST Round3 candidates:
 
 https://github.com/open-quantum-safe/oqs-provider/blob/main/ALGORITHMS.md
 
@@ -644,7 +644,7 @@ For non-negotiated protocols, the details for obtaining backwards compatibility 
 
 ### CATALYST certificates
 
-CATALYST certificates, defined in {{I-D.truskovsky-lamps-pq-hybrid-x509}} and {{itu-t-x509-2019}} provides an alternative mechanism for placing multiple public keys and signatures into a certificate via the X.509v3 extensions `subjectAltPublicKeyInfo`, `altSignatureAlgorithm`, and `altSignatureValue`. {{itu-t-x509-2019}} specifies that only one of the keys is to be used at a time, so it is not in fact a hybrid mechinism in that it is not providing dual algorithm security; instead it is merely a migration mechanism. One could imagine obtaining dual algorithm security by using a CATALYST certificate in a mode other than that described in {{itu-t-x509-2019}} where both keys produce a signature and place them, for example, togeher in a `CompositeSignatureValue`.
+CATALYST certificates, defined in {{I-D.truskovsky-lamps-pq-hybrid-x509}} and {{itu-t-x509-2019}} provides an alternative mechanism for placing multiple public keys and signatures into a certificate via the X.509v3 extensions `subjectAltPublicKeyInfo`, `altSignatureAlgorithm`, and `altSignatureValue`. {{itu-t-x509-2019}} specifies that only one of the keys is to be used at a time, so it is not in fact a hybrid mechinism in that it is not providing dual algorithm security; instead it is merely a migration mechanism. One could imagine obtaining dual algorithm security by using a CATALYST certificate in a mode other than that described in {{itu-t-x509-2019}} where both keys produce a signature and place them, for example, together in a `CompositeSignatureValue`.
 
 CALATYST certificates appear to have a backwards compatibility advantage in that these non-critical extensions will be ignored by legacy clients, thus making the certificate verification seamlessly verifiable by legacy clients. However, at the protocol level, the certificate holder still needs to know which algorithm the peer wants it to use in the protocol-level message. CATALYST certificates also have the disadvantage of needing to transmit the large post-quantum keys, signatures or key exchange data even if the client will not use them. Thus while CATALYST certificates may be advantageous in some applications that use multiple algorithms but can only handle a single certificate, it is in general not clear that they offer any strong advantage over a multi-cert hybrid in terms of ease of migration, or over composite in terms of security.
 
