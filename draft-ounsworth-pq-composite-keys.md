@@ -136,6 +136,12 @@ informative:
 
 --- abstract
 
+TOMBSTONE NOTICE
+
+This draft has been deprecated and will be allowed to expire. The LAMPS working group requested that this public key content be folded into {{I-D.ounsworth-pq-composite-sigs}} and {{I-D.ounsworth-pq-composite-kem}} so that those drafts are self-contained and may progress through the standards process independently.
+
+ORIGINAL ABSTRACT
+
 The migration to post-quantum cryptography is unique in the history of modern digital cryptography in that neither the old outgoing nor the new incoming algorithms are fully trusted to protect data for the required data lifetimes. The outgoing algorithms, such as RSA and elliptic curve, may fall to quantum cryptalanysis, while the incoming post-quantum algorithms face uncertainty about both the underlying mathematics as well as hardware and software implementations that have not had sufficient maturing time to rule out classical cryptanalytic attacks and implementation bugs.
 
 Cautious implementers may wish to layer cryptographic algorithms such that an attacker would need to break all of them in order to compromise the data being protected using either a Post-Quantum / Traditional Hybrid, Post-Quantum / Post-Quantum Hybrid, or combinations thereof. This document, and its companions, defines a specific instantiation of hybrid paradigm called "composite" where multiple cryptographic algorithms are combined to form a single key, signature, or key encapsulation mechanism (KEM) such that they can be treated as a single atomic object at the protocol level.

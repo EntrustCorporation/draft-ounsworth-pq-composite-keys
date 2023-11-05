@@ -5,17 +5,28 @@
 LAMPS                                                       M. Ounsworth
 Internet-Draft                                                   J. Gray
 Intended status: Standards Track                                 Entrust
-Expires: 28 November 2023                                        M. Pala
+Expires: 8 May 2024                                              M. Pala
                                                                CableLabs
                                                             J. Klaussner
                                                             D-Trust GmbH
-                                                             27 May 2023
+                                                         5 November 2023
 
 
        Composite Public and Private Keys For Use In Internet PKI
                   draft-ounsworth-pq-composite-keys-05
 
 Abstract
+
+   TOMBSTONE NOTICE
+
+   This draft has been deprecated and will be allowed to expire.  The
+   LAMPS working group requested that this public key content be folded
+   into [I-D.ounsworth-pq-composite-sigs] and
+   [I-D.ounsworth-pq-composite-kem] so that those drafts are self-
+   contained and may progress through the standards process
+   independently.
+
+   ORIGINAL ABSTRACT
 
    The migration to post-quantum cryptography is unique in the history
    of modern digital cryptography in that neither the old outgoing nor
@@ -37,6 +48,16 @@ Abstract
    signature, or key encapsulation mechanism (KEM) such that they can be
    treated as a single atomic object at the protocol level.
 
+
+
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 1]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
+
    This document defines the structures CompositePublicKey and
    CompositePrivateKey, which are sequences of the respective structure
    for each component algorithm.  Explicit pairings of algorithms are
@@ -50,13 +71,6 @@ Abstract
 About This Document
 
    This note is to be removed before publishing as an RFC.
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 1]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
    Status information for this document may be found at
    https://datatracker.ietf.org/doc/draft-ounsworth-pq-composite-keys/.
@@ -86,12 +100,19 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 November 2023.
+   This Internet-Draft will expire on 8 May 2024.
 
 Copyright Notice
 
    Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 2]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents (https://trustee.ietf.org/
@@ -104,16 +125,8 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Changes in version -05  . . . . . . . . . . . . . . . . . . .   3
+   1.  Changes in version -05  . . . . . . . . . . . . . . . . . . .   4
    2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   4
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 2]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
-
      2.1.  Algorithm Selection Criteria  . . . . . . . . . . . . . .   5
      2.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   6
    3.  Composite Key Structures  . . . . . . . . . . . . . . . . . .   6
@@ -122,53 +135,53 @@ Internet-Draft              PQ Composite Keys                   May 2023
        3.2.1.  Key Usage . . . . . . . . . . . . . . . . . . . . . .   8
        3.2.2.  Component Matching  . . . . . . . . . . . . . . . . .   8
      3.3.  CompositePrivateKey . . . . . . . . . . . . . . . . . . .   9
-     3.4.  As a PrivateKeyInfo or OneAsymmetricKey . . . . . . . . .   9
-     3.5.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .   9
+     3.4.  As a PrivateKeyInfo or OneAsymmetricKey . . . . . . . . .  10
+     3.5.  Encoding Rules  . . . . . . . . . . . . . . . . . . . . .  10
    4.  Algorithm Identifiers . . . . . . . . . . . . . . . . . . . .  10
-     4.1.  Signature public key types  . . . . . . . . . . . . . . .  10
-     4.2.  KEM public key types  . . . . . . . . . . . . . . . . . .  12
-   5.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . . . .  14
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  23
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  23
-     7.1.  Reuse of keys in a Composite public key . . . . . . . . .  23
-     7.2.  Key mismatch in explicit composite  . . . . . . . . . . .  24
-     7.3.  Policy for Deprecated and Acceptable Algorithms . . . . .  24
-     7.4.  Protection of Private Keys  . . . . . . . . . . . . . . .  24
-     7.5.  Checking for Compromised Key Reuse  . . . . . . . . . . .  25
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  25
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  28
-   Appendix A.  Work in Progress . . . . . . . . . . . . . . . . . .  29
-     A.1.  Combiner modes (KofN) . . . . . . . . . . . . . . . . . .  30
-   Appendix B.  Samples  . . . . . . . . . . . . . . . . . . . . . .  30
-     B.1.  Explicit Composite Public Key Samples . . . . . . . . . .  30
-       B.1.1.  id-Dilithium3-ECDSA-P256  . . . . . . . . . . . . . .  30
-       B.1.2.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . .  34
-       B.1.3.  id-Falcon512-ECDSA-P256 . . . . . . . . . . . . . . .  38
-   Appendix C.  Implementation Considerations  . . . . . . . . . . .  40
-     C.1.  Textual encoding of Composite Private Keys  . . . . . . .  41
-     C.2.  Backwards Compatibility . . . . . . . . . . . . . . . . .  41
-       C.2.1.  OR modes  . . . . . . . . . . . . . . . . . . . . . .  42
-       C.2.2.  Parallel PKIs . . . . . . . . . . . . . . . . . . . .  42
-       C.2.3.  CATALYST certificates . . . . . . . . . . . . . . . .  43
-   Appendix D.  Intellectual Property Considerations . . . . . . . .  44
-   Appendix E.  Contributors and Acknowledgements  . . . . . . . . .  44
-     E.1.  Making contributions  . . . . . . . . . . . . . . . . . .  45
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  45
+     4.1.  Signature public key types  . . . . . . . . . . . . . . .  11
+     4.2.  KEM public key types  . . . . . . . . . . . . . . . . . .  13
+   5.  ASN.1 Module  . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  24
+     7.1.  Reuse of keys in a Composite public key . . . . . . . . .  24
+     7.2.  Key mismatch in explicit composite  . . . . . . . . . . .  25
+     7.3.  Policy for Deprecated and Acceptable Algorithms . . . . .  25
+     7.4.  Protection of Private Keys  . . . . . . . . . . . . . . .  25
+     7.5.  Checking for Compromised Key Reuse  . . . . . . . . . . .  26
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  26
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  26
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  29
+   Appendix A.  Work in Progress . . . . . . . . . . . . . . . . . .  30
+     A.1.  Combiner modes (KofN) . . . . . . . . . . . . . . . . . .  31
+   Appendix B.  Samples  . . . . . . . . . . . . . . . . . . . . . .  31
+     B.1.  Explicit Composite Public Key Samples . . . . . . . . . .  31
+       B.1.1.  id-Dilithium3-ECDSA-P256  . . . . . . . . . . . . . .  31
+       B.1.2.  id-Dilithium3-RSA . . . . . . . . . . . . . . . . . .  35
+       B.1.3.  id-Falcon512-ECDSA-P256 . . . . . . . . . . . . . . .  39
+   Appendix C.  Implementation Considerations  . . . . . . . . . . .  41
+     C.1.  Textual encoding of Composite Private Keys  . . . . . . .  42
+     C.2.  Backwards Compatibility . . . . . . . . . . . . . . . . .  42
+       C.2.1.  OR modes  . . . . . . . . . . . . . . . . . . . . . .  43
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 3]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
+
+       C.2.2.  Parallel PKIs . . . . . . . . . . . . . . . . . . . .  43
+       C.2.3.  CATALYST certificates . . . . . . . . . . . . . . . .  44
+   Appendix D.  Intellectual Property Considerations . . . . . . . .  45
+   Appendix E.  Contributors and Acknowledgements  . . . . . . . . .  45
+     E.1.  Making contributions  . . . . . . . . . . . . . . . . . .  46
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  46
 
 1.  Changes in version -05
 
    *  Removed SPHINCS+ hybrids.
 
    *  Removed all references to generic composite.
-
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 3]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
    *  Added selection criteria note about requesting new explicit
       combinations.
@@ -205,6 +218,14 @@ Internet-Draft              PQ Composite Keys                   May 2023
    This document provides the composite mechanism, which is a specific
    instantiation of the PQ/T hybrid paradigm to address algorithm
    strength uncertainty concerns by providing formats for encoding
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 4]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
+
    multiple public key and private key values into existing public key
    and private key fields.  Backwards compatibility is not directly
    addressed via the composite mechanisms defined in the document, but
@@ -214,17 +235,6 @@ Internet-Draft              PQ Composite Keys                   May 2023
    [I-D.truskovsky-lamps-pq-hybrid-x509] / [itu-t-x509-2019], which have
    their security and ease of migration properties discussed in more
    detail in Appendix C.2.
-
-
-
-
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 4]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
    This document only specifies key formats; usage of these keys are
    covered in the corresponding composite signatures
@@ -262,25 +272,22 @@ Internet-Draft              PQ Composite Keys                   May 2023
        preclude future specification of explicit combinations with three
        or more components.
 
+
+
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 5]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
+
    To maximize interoperability, use of the specific algorithm
    combinations specified in this document is encouraged.  If other
    combinations are needed, a separate specification should be submitted
    to the IETF LAMPS working group.  To ease implementation, these
    specifications are encouraged to follow the construction pattern of
    the algorithms specified in this document.
-
-
-
-
-
-
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 5]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
 2.2.  Terminology
 
@@ -323,20 +330,17 @@ Internet-Draft              PQ Composite Keys                   May 2023
    regarded as a single key that performs a single cryptographic
    operation such key generation, signing, verifying, encapsulating, or
    decapsulating -- using its encapsulated sequence of component keys as
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 6]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
+
    if it was a single key.  This generally means that the complexity of
    combining algorithms can and should be ignored by application and
    protocol layers and deferred to the cryptographic library layer.
-
-
-
-
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 6]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
 3.1.  pk-Composite
 
@@ -382,17 +386,17 @@ Internet-Draft              PQ Composite Keys                   May 2023
    key type and parameters for the public key contained within it.  See
    Section 4 for specific algorithms defined in this document.
 
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 7]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
+
    When the CompositePublicKey must be provided in octet string or bit
    string format, the data structure is encoded as specified in
    Section 3.5.
-
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 7]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
 3.2.1.  Key Usage
 
@@ -429,6 +433,23 @@ Internet-Draft              PQ Composite Keys                   May 2023
    which MUST match -- and can be inferred from -- the specification of
    the explicit algorithm.
 
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 8]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
+
    Security consideration: Implementations SHOULD check that the
    component AlgorithmIdentifier OIDs and parameters match those
    expected by the definition of the explicit algorithm.
@@ -440,15 +461,6 @@ Internet-Draft              PQ Composite Keys                   May 2023
    unexpected key type, or worse; to parse and use a key which does not
    match the explicit algorithm definition.  Similar checks SHOULD be
    done when handling the corresponding private key.
-
-
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 8]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
 3.3.  CompositePrivateKey
 
@@ -479,6 +491,21 @@ Internet-Draft              PQ Composite Keys                   May 2023
    keys, and the order of the component keys is the same as the order
    defined in Section 3.2 for the components of CompositePublicKey.
 
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                   [Page 9]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
+
 3.4.  As a PrivateKeyInfo or OneAsymmetricKey
 
    A CompositePrivateKey can be stored in a OneAsymmetricKey structure
@@ -498,13 +525,6 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
    When an octet string is required, the DER encoding of the composite
    data structure SHALL be used directly.
-
-
-
-Ounsworth, et al.       Expires 28 November 2023                [Page 9]
-
-Internet-Draft              PQ Composite Keys                   May 2023
-
 
    CompositePublicKeyOs ::= OCTET STRING (CONTAINING CompositePublicKey ENCODED BY der)
 
@@ -530,6 +550,17 @@ Internet-Draft              PQ Composite Keys                   May 2023
    define OIDs for new combinations so long as they are compatible with
    the structures and processes defined in this and the companion
    signature and encryption documents.
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                  [Page 10]
+
+Internet-Draft              PQ Composite Keys              November 2023
+
 
 4.1.  Signature public key types
 
@@ -557,9 +588,34 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ounsworth, et al.          Expires 8 May 2024                  [Page 11]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    +========================+=============+==========+=================+
@@ -613,9 +669,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 11]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 12]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
       -  _EC-P256_: AlgorithmIdentifier.parameters MUST be secp256r1 as
@@ -669,9 +725,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 12]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 13]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    Note that a single OID is used for both the key type and the KEM
@@ -725,9 +781,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 13]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 14]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    *  _EC_: [RFC5480]
@@ -781,9 +837,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 14]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 15]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
               {iso(1) identified-organization(3) dod(6) internet(1) security(5)
@@ -837,9 +893,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 15]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 16]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    --  COMPOSITE-KEY-ALGORITHM
@@ -893,9 +949,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 16]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 17]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    ExplicitCompositePublicKey{PUBLIC-KEY:firstPublicKey, FirstPublicKeyType,
@@ -949,9 +1005,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 17]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 18]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    --  KEY ECPoint
@@ -1005,9 +1061,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 18]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 19]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
      dilithium3-ecdsa-brainpoolp256r1(3) }
@@ -1061,9 +1117,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 19]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 20]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    pk-Dilithium5-Ed448 PUBLIC-KEY ::=
@@ -1117,9 +1173,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 20]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 21]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
      algorithm(80) explicitcomposite(5) explicitcomposite-kem(2) id-kyber512-ecdh-p256(1) }
@@ -1173,9 +1229,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 21]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 22]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    pk-Kyber768-ECDH-P256-KMAC256 PUBLIC-KEY ::=
@@ -1229,9 +1285,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 22]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 23]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
      id-kyber1024-ecdh-brainpoolp384r1(9) }
@@ -1285,9 +1341,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 23]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 24]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    key by allowing messages signed in a multi-key AND mode to be
@@ -1341,9 +1397,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 24]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 25]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    Protection of the private keys is vital to public key cryptography.
@@ -1397,9 +1453,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 25]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 26]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
               ounsworth-pq-composite-kem-00, 11 July 2022,
@@ -1453,9 +1509,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 26]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 27]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    [RFC5914]  Housley, R., Ashmore, S., and C. Wallace, "Trust Anchor
@@ -1509,9 +1565,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 27]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 28]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    [X.690]    ITU-T, "Information technology - ASN.1 encoding Rules:
@@ -1565,9 +1621,9 @@ Internet-Draft              PQ Composite Keys                   May 2023
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 28]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 29]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
               Algorithm X.509 Certificates", Work in Progress, Internet-
@@ -1621,9 +1677,9 @@ Appendix A.  Work in Progress
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 29]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 30]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 A.1.  Combiner modes (KofN)
@@ -1677,9 +1733,9 @@ B.1.1.  id-Dilithium3-ECDSA-P256
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 30]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 31]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 -----BEGIN PUBLIC KEY-----
@@ -1733,9 +1789,9 @@ Srzd4w0i+5dCNM9rX
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 31]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 32]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 -----BEGIN PRIVATE KEY-----
@@ -1789,9 +1845,9 @@ o3s25BQqJAGiRKBLd0UXz5AUbSB9fFaO21aiX2WWISjdA1R4SuQNNQZcVgGuKpQBAcPV7xcFRlZ
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 32]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 33]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 eyCOw3/AA+WInx8mHjtDcOIowbEG1HQzV4CTsAelNp7I8CtXsXL539wiUpO8A2Fbh2wqTbe1W/K
@@ -1845,9 +1901,9 @@ dJjWC9BBqW76a03u7YqiUr6aKsw2z+AN/ZnuLyZ3YvWLHNdCRmtZlASMZfoa5K+FfkXUog4m0Iz
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 33]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 34]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 xHzy2dMOpDXsi489oiX+8D3L51Le/K9FR4xjLo8TMAjnoS2KMrKfmiseIqIMJfcECcKyM8UJrEC
@@ -1901,9 +1957,9 @@ B.1.2.  id-Dilithium3-RSA
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 34]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 35]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 -----BEGIN PUBLIC KEY-----
@@ -1957,9 +2013,9 @@ dN2ayilmvdG06dMwrGKs2Tag5HKbUSMPA3BlKvvqrJhMb3w86xPf2MnvWzVWmi0tpE2zcCgXkX+
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 35]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 36]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    The corresponding explicit private key is as follows.  Note that the
@@ -2013,9 +2069,9 @@ mE/GtH92lz0fC9GQWgdyTK4H23xP5PlRGlzVLJ5CVA/rucNg6F7AU5bycpC557ugsdO+UOLhc92
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 36]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 37]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 XTl5RKvO4uxrqZw4OOzKXR+aZFaY7AvpPSIXYQRxk4dHAW5ra8MpI0b8aAJGf4fE4ad2w6rgpRf
@@ -2069,9 +2125,9 @@ Aw7hcPqO9LPgoofk7oADU+iGR28qpmfYDT8lg0/FKRqsufHvqRon1H8zlFF09Xpi0u87JnVSG7e
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 37]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 38]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 1oqNBjrfLR3/5iR4qP0avcFaFAUpM+CGVX8lCL3UYEDa1wK29YxnkU/9JY5NIERb/FZagWO5yXv
@@ -2125,9 +2181,9 @@ B.1.3.  id-Falcon512-ECDSA-P256
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 38]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 39]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    https://github.com/open-quantum-safe/oqs-provider/blob/main/
@@ -2181,9 +2237,9 @@ HymrF59in1pXEPnEWLZ9xLO5A6cg==
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 39]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 40]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 -----BEGIN PRIVATE KEY-----
@@ -2237,9 +2293,9 @@ Appendix C.  Implementation Considerations
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 40]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 41]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
       EDNOTE 10: Possible topics to address:
@@ -2293,9 +2349,9 @@ C.2.  Backwards Compatibility
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 41]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 42]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    These migration and interoperability concerns need to be thought
@@ -2349,9 +2405,9 @@ C.2.2.  Parallel PKIs
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 42]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 43]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    Equipped with a set of parallel public keys in this way, a client
@@ -2405,9 +2461,9 @@ C.2.3.  CATALYST certificates
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 43]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 44]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
    verifiable by legacy clients.  However, at the protocol level, the
@@ -2461,9 +2517,9 @@ Appendix E.  Contributors and Acknowledgements
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 44]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 45]
 
-Internet-Draft              PQ Composite Keys                   May 2023
+Internet-Draft              PQ Composite Keys              November 2023
 
 
 E.1.  Making contributions
@@ -2517,4 +2573,4 @@ Authors' Addresses
 
 
 
-Ounsworth, et al.       Expires 28 November 2023               [Page 45]
+Ounsworth, et al.          Expires 8 May 2024                  [Page 46]
